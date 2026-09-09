@@ -17,6 +17,8 @@ Write your learning outcomes by completing this prompt:
 
 Consider choosing a verb that aligns with one of the levels of [Bloom’s Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy).
 
+[![Bloom’s Taxonomy](https://mitsloanedtech.mit.edu/wp-content/uploads/2024/03/AIHub_BloomsTaxonomy-800x450.png)](https://mitsloanedtech.mit.edu/ai/teach/4-steps-to-design-an-ai-resilient-learning-experience/)
+
 ## Learning Outcomes
 
 - TODO
