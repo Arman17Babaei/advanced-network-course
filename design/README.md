@@ -2,14 +2,7 @@
 
 We follow the MIT Sloan Teaching & Learning Technologies framework [4 Steps to Design an AI-Resilient Learning Experience](https://mitsloanedtech.mit.edu/ai/teach/4-steps-to-design-an-ai-resilient-learning-experience/).
 
-The framework adapts backward design for a setting where students have access to generative AI. It uses four steps, considering AI capabilities throughout:
-
-1. **Learners** — understand students' backgrounds, goals, and likely interactions with generative AI.
-2. **Learning Outcomes** — define what students should know, understand, or be able to do given AI's capabilities.
-3. **Assessments** — decide how students will demonstrate those outcomes given AI's capabilities.
-4. **Activities** — plan activities and resources that help students build the required knowledge and skills given AI's capabilities.
-
-The process is iterative: decisions in later steps may require revisiting earlier ones.
+[![4 Steps to AI-Resilient Learning Experience Design](https://mitsloanedtech.mit.edu/wp-content/uploads/2024/03/AIHub_AI-ResilientLXInfographic-1-704x500.png)](https://mitsloanedtech.mit.edu/ai/teach/4-steps-to-design-an-ai-resilient-learning-experience/)
 
 ## Design decisions
 
