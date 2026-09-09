@@ -15,9 +15,9 @@ The process is iterative: decisions in later steps may require revisiting earlie
 
 Course-specific decisions for each step are maintained separately:
 
-| Step | Decisions |
-| --- | --- |
-| 1. Learners | [01_LEARNERS.md](01_LEARNERS.md) |
-| 2. Learning Outcomes | [02_LEARNING_OUTCOMES.md](02_LEARNING_OUTCOMES.md) |
-| 3. Assessments | [03_ASSESSMENTS.md](03_ASSESSMENTS.md) |
-| 4. Activities | [04_ACTIVITIES.md](04_ACTIVITIES.md) |
+| Done | Step | Decisions |
+| --- | --- | --- |
+| - [ ] | 1. Learners | [01_LEARNERS.md](01_LEARNERS.md) |
+| - [ ] | 2. Learning Outcomes | [02_LEARNING_OUTCOMES.md](02_LEARNING_OUTCOMES.md) |
+| - [ ] | 3. Assessments | [03_ASSESSMENTS.md](03_ASSESSMENTS.md) |
+| - [ ] | 4. Activities | [04_ACTIVITIES.md](04_ACTIVITIES.md) |
