@@ -15,7 +15,7 @@ Write your learning outcomes by completing this prompt:
 
 > **By the time students finish the learning experience, they should be able to [ACTIVE VERB]...**
 
-Consider choosing a verb that aligns with one of the levels of [Bloom’s Taxonomy](https://cft.vanderbilt.edu/guides-sub-pages/blooms-taxonomy/).
+Consider choosing a verb that aligns with one of the levels of [Bloom’s Taxonomy](https://en.wikipedia.org/wiki/Bloom%27s_taxonomy).
 
 ## Learning Outcomes
 
