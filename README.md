@@ -1,5 +1,10 @@
 # Advanced Network Course
 
+## Contents
+
+- [Core Principles](#core-principles)
+- [Agent Infrastructure](tools/infrastructure/AGENT_INFRASTRUCTURE.md) — requirements, tool comparison, selected 9Router-based architecture, and current limitations.
+
 ## Core Principles
 * Students should learn to reason about network design decisions and be able to assess and design networks for scalability, reliability, and performance.
 
