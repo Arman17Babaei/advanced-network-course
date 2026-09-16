@@ -50,8 +50,6 @@ The pillars are intentionally not a list of technologies. Topics such as streami
 - research literacy from **Understand** to **Analyze**;
 - effective use of course-provided AI coding agents as an explicit **Apply**-level outcome.
 
-Professional dispositions are not course learning-outcome pillars. They are retained in [3. Assessments](03_ASSESSMENTS.md) as qualities to consider when designing rubrics and evidence of professional practice.
-
 ## Design references
 
 - Bloom, B. S. et al. (1956), *Taxonomy of Educational Objectives: Handbook I, Cognitive Domain*.
