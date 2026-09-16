@@ -21,6 +21,15 @@ Consider choosing a verb that aligns with one of the levels of [Bloom’s Taxono
 
 ## Learning Outcomes
 
+### Professional Dispositions
+- Meticulous: Students must be particular about the specifics of understanding and creating networking protocols.
+- Collaborative: Students must work together to develop multiple components that interact together and to respond to failures and threats.
+- Proactive: Students must be able to predict failures, threats, and how to deal with them while avoiding reactive modes of operation only.
+- Professional: Students must comply with the needs of the community and their expectations from a networked environment, and the demands of regulatory bodies.
+- Responsive: Students must act swiftly to changes in requirements in network configurations and changing user requirements.
+- Adaptive: Students need to reconfigure systems under varying modes of operation.
+
+
 - TODO
 - TODO
 - TODO
