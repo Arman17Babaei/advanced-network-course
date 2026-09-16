@@ -48,8 +48,6 @@ The final presentation sessions should expose students to the design spaces of t
 
 ## Professional dispositions — retain for rubric design
 
-These were previously listed as learning outcomes. They are better treated as qualities of professional practice to observe and assess where relevant, rather than as cognitive learning-outcome pillars:
-
 - **Meticulous:** Students are particular about the specifics of understanding and creating networking protocols and systems.
 - **Collaborative:** Students work together to develop interacting components and respond to failures and threats.
 - **Proactive:** Students anticipate failures, threats, and mitigations rather than operating only reactively.
