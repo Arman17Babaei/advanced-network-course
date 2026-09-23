@@ -3,6 +3,9 @@
 ## Contents
 
 - [Core Principles](#core-principles)
+- [Course Materials](materials/) — detailed assessment and activity statements, methodologies, rubrics, and supporting resources.
+  - [Assessment Materials](materials/assessments/)
+  - [Activity Materials](materials/activities/)
 - [Agent Infrastructure](tools/infrastructure/AGENT_INFRASTRUCTURE.md) — requirements, tool comparison, selected architecture, and current limitations.
 
 ## Core Principles
