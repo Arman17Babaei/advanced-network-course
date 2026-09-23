@@ -3,6 +3,7 @@
 ## Contents
 
 - [Core Principles](#core-principles)
+- [Course Timeline](TIMELINE.md) — Fall 2026 session-by-session schedule, assessment space, and out-of-class activity windows.
 - [Course Materials](materials/) — detailed assessment and activity statements, methodologies, rubrics, and supporting resources.
   - [Assessment Materials](materials/assessments/)
   - [Activity Materials](materials/activities/)
