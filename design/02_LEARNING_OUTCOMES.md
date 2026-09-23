@@ -23,22 +23,26 @@ The target depth below uses the revised Bloom taxonomy: **Remember → Understan
 
 | Pillar | Target Bloom depth | By the end of the course, students should be able to... |
 | --- | --- | --- |
+| **Modern networking concepts and technologies** | **Remember** | Recognize and recall major contemporary networking concepts, technologies, and system patterns covered in the course, including the problems and operating contexts with which they are commonly associated. |
 | **Networking foundations** | **Understand** | Explain the principles and mechanisms underlying the common networking foundation of the course, including Internet architecture, inter-domain routing, congestion/resource control, and network performance and measurement fundamentals. |
 | **Networking research** | **Analyze** | Analyze networking research by decomposing a work into its problem, assumptions, architecture, mechanisms, evaluation, and conclusions, and relating these parts to one another and to alternative designs. |
 | **Network architecture and design** | **Create** | Design a coherent networked system for a given workload and set of constraints, integrating relevant concerns such as performance, scalability, reliability, sustainability/resource efficiency, and deployability across the domains of that system. |
 | **Experimental systems engineering** | **Create** | Design and carry out experiments that characterize a networked system, test assumptions, compare alternatives, expose behavior under scale and failure, and generate evidence that supports or challenges design decisions. |
 | **AI-assisted engineering** | **Apply** | Use course-provided AI coding agents effectively for specification, implementation, experimentation, debugging, verification, and review while remaining responsible for understanding and validating the resulting system and conclusions. |
+| **Technical reporting and presentation** | **Apply** | Apply effective technical reporting and presentation practices to communicate a networked system’s problem, context, architecture, design decisions, experimental methodology, results, limitations, and conclusions to a technically knowledgeable audience. |
 
-The pillars are intentionally not a list of technologies. Topics such as streaming, HPC/AI fabrics, RDMA, programmable networks, content delivery, and sustainable systems are domains in which students exercise these outcomes.
+The course distinguishes **breadth of awareness** from **depth of capability**. Contemporary concepts and technologies are covered broadly so that students develop a map of the modern networking landscape; selected technologies and systems then provide contexts in which the higher-order outcomes are exercised. Topics such as streaming, HPC/AI fabrics, RDMA, programmable networks, content delivery, and sustainable systems are examples of such contexts rather than a fixed technology checklist.
 
 ## Depth changes from the previous semester
 
 | Previous emphasis | Approx. previous depth | Fall 2026 direction |
 | --- | --- | --- |
+| Modern networking concepts and technologies | Implicit / uneven | Make breadth explicit as **Modern networking concepts and technologies — Remember** so students retain a working map of the contemporary field. |
 | Networking concepts and mechanisms | **Understand** | Retain as **Networking foundations — Understand**. |
 | Networking research literature | **Understand** | Promote to **Networking research — Analyze**. |
 | Practical networking / implementation and tools | **Apply** | Implementation remains necessary, but it is no longer the highest-level project outcome. Promote the project work into **Network architecture and design — Create** and **Experimental systems engineering — Create**. |
-| AI-assisted engineering | Not an explicit outcome | Add as **Apply**: AI is an engineering tool students must use competently, not an object they are expected to design. |
+| AI-assisted engineering | Not an explicit outcome | Add as **Apply**: AI is an engineering tool students must use competently, not an object they are expected to design or separately master beyond the course’s engineering needs. |
+| Technical reporting and presentation | Implicit | Add as **Apply**: students should be able to report and present substantial systems work clearly to a technical audience. |
 
 ## Retire / Promote Given AI Capabilities
 
@@ -48,7 +52,9 @@ The pillars are intentionally not a list of technologies. Topics such as streami
 - network architecture and design to **Create**;
 - experimental systems engineering to **Create**;
 - research literacy from **Understand** to **Analyze**;
-- effective use of course-provided AI coding agents as an explicit **Apply**-level outcome.
+- effective use of course-provided AI coding agents as an explicit **Apply**-level outcome;
+- technical reporting and presentation as an explicit **Apply**-level outcome;
+- broad awareness of contemporary networking concepts and technologies as an explicit **Remember**-level outcome.
 
 ## Design references
 
