@@ -13,6 +13,10 @@ Create one subdirectory or Markdown file per concrete assessment. Each assessmen
 - **Reproducibility / verification** — scripts, test cases, expected evidence, or other mechanisms needed to verify results.
 - **Supporting resources** — question pools, starter files, datasets, presentation guidance, or other assessment-specific material.
 
+Supporting planning material:
+
+- [Project Idea Pool](PROJECT_IDEA_POOL.md) — application-oriented project areas, recent-paper activity, and references for developing concrete project briefs.
+
 Current assessment types to detail include:
 
 - quizzes;
