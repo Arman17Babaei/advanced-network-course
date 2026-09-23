@@ -14,15 +14,19 @@ Now it’s time to think about how pre-work, independent work, project work, and
 
 ## Activity Plan
 
+The activities below are ordered roughly by when they begin in the semester. They remain separate activities even when they support the same learning outcome or assessment.
+
 | Aligned Learning Outcome(s) | Prework | Activities | AI Use |
 | --- | --- | --- | --- |
-| **Modern networking concepts and technologies — Remember** | Read/watch short introductions to contemporary systems, technologies, and recurring patterns used in the course. | Lectures, project presentations, comparisons among technologies, and recurring references to where particular concepts are used and what problem they address. | **Allow** |
-| **Networking foundations — Understand** | Readings, lecture preparation, and worked examples as appropriate. | **Non-submitted practice assignments** that demonstrate the expected depth of reasoning, plus lectures, worked examples, discussion, and problem solving. These assignments are practice rather than deliverables; quizzes and exams provide the evidence of learning. | **Allow** for practice work; assessment rules are separate |
-| **Networking research — Analyze** | Each project team studies one or more papers selected to be useful for its likely project design space. | Students use AI to help interrogate a shared paper: identify problem, assumptions, architecture, mechanisms, evaluation, conclusions, and relationships to alternatives. The activity should ideally produce useful ideas, mechanisms, or experimental approaches for the later project. Individual learning is authenticated later through no-AI quizzes or in-class assessment. | **Allow / Encourage** |
-| **Network architecture and design — Create** | Study relevant systems, project constraints, and project-specific literature. | Team project design, architecture exploration, alternative generation, implementation, integration, and iterative redesign. Bi-weekly meetings create assessment evidence, but the ordinary design work between meetings is a learning activity. | **Require** for substantial project work |
-| **Experimental systems engineering — Create** | Review experimental methods, measurement techniques, relevant baselines, workloads, and prior evaluations. | Form hypotheses, build experimental harnesses, generate workloads, instrument the system, run experiments, investigate unexpected behavior, compare alternatives, and revise the architecture in response to evidence. | **Require** for substantial project work |
-| **AI-assisted engineering — Apply** | Become familiar with the course-provided agent environment and project workflow. | Use coding agents for specification, decomposition, implementation, experimentation, debugging, verification, review, and iteration throughout the project. Students remain responsible for understanding and validating the resulting system and conclusions. | **Require** |
-| **Technical reporting and presentation — Apply** | Review examples and guidance for technical systems presentations and reporting. | Prepare the final project presentation, including architecture diagrams, experiment summaries, narrative structure, limitations, and conclusions; rehearse communicating the complete engineering story to a technically knowledgeable audience. | **Allow** |
+| **Networking foundations — Understand** | Readings or other preparation for the networking foundation being covered. | **Foundation instruction and discussion.** Classic in-class teaching and discussion of foundational topics such as BGP, congestion control, Internet architecture, routing, performance, and measurement. | **Not central** |
+| **Networking foundations — Understand** | Review the relevant foundation material. | **Non-submitted foundation practice.** Practice problems that show the depth and style of reasoning expected in the foundation quizzes, midterm, and final. The work is not submitted; later individual assessment provides the evidence of learning. | **Allow** |
+| **Networking research — Analyze**; **Networking foundations — Understand** and/or **Network architecture and design — Create** | **Guided paper analysis #1.** Students analyze a selected paper before class using a guidance sheet describing what to look for. The paper should connect either to networking foundations already covered or to network design. | **Paper discussion and analysis in class.** Students discuss the paper and work through the actual analysis together with the instructor, establishing how a networking paper should be interrogated. | **Allow** for pre-class analysis; in-class discussion is live |
+| **Modern networking concepts and technologies — Remember**; **Network architecture and design — Create** | Review short background material for the available project areas where useful. | **Project landscape and prerequisite sessions.** Discuss all available projects, their motivating problems, relevant technologies, and the basic requirements students need in order to begin. All students are exposed to all project material before project selection so that the activity supports both informed decision making and broad technology coverage. | **Not central** |
+| **AI-assisted engineering — Apply** | None beyond access to the course-provided agent environment. | **TA-led agentic programming onboarding.** A TA demonstrates a representative agentic workflow, including specification, implementation, debugging, verification, and iteration in the shared environment. A small follow-along or optional practice exercise may be suggested, but no submitted exercise is required. | **Demonstrated / encouraged** |
+| **Networking research — Analyze**; relevant project outcomes | **Guided paper analysis #2.** Students independently analyze another paper using the same guidance framework. The paper may be unified for the class or selected per project, and should ideally provide concepts, mechanisms, architecture, methodology, or evidence useful for later project work. | Follow-up discussion as needed. Individual research-analysis learning is later checked through the no-AI quiz. | **Allow** |
+| **Experimental systems engineering — Create** | Review relevant measurement or experimental examples when assigned. | **Experimental reasoning discussions.** In-class discussion of what data is revealing, how to formulate useful experimental questions, how to choose measurements, baselines, workloads and failure cases, how to recognize confounders, and how to interpret experimental evidence. Includes worked practices and examples. | **Not central** |
+| **Network architecture and design — Create** | Review project domains, constraints, and relevant examples as projects are released. | **Architecture and design-principle discussions.** Beginning around project release, discuss common project domains and design aspects, what matters in each, what the terms mean, how concerns interact across an end-to-end system, and common practices for reasoning about architectural decisions. | **Not central** |
+| **Technical reporting and presentation — Apply**; **Modern networking concepts and technologies — Remember**; **Network architecture and design — Create** | Presenting teams prepare their final project presentations; the audience should be ready to engage with unfamiliar systems and technologies. | **Project presentations and discussion.** Teams present their projects and the class discusses the technologies, architecture, assumptions, trade-offs, experiments, discoveries, and alternatives. For the audience, the presentations expand technology coverage and provide concrete design cases that may later be analyzed in the final exam. | **Allow** in preparation; presentation and discussion are live |
 
 ## Practice assignments
 
@@ -34,11 +38,13 @@ The course should avoid interpreting completion of practice work as evidence of 
 
 ## AI-assisted paper study
 
-At least part of the research-literacy activity should connect directly to the semester project.
+Paper analysis is used twice in the activity sequence.
 
-A project team may be assigned a shared paper, or a small set of papers, whose mechanisms, architecture, methodology, or design trade-offs are likely to become useful later. Students may use AI extensively while studying the work.
+The first analysis is explicitly scaffolded: students use a guidance sheet before class, then the class discusses and performs the analysis together. The paper should connect either to foundations already covered or to network design.
 
-The learning activity should help students answer questions such as:
+The second analysis is more independent and may use either a paper shared by the whole class or a paper selected for each project. It should ideally contribute concepts, mechanisms, architecture ideas, methodology, or evidence that can become useful later in project work.
+
+The guidance should direct students to questions such as:
 
 - What problem is the paper solving?
 - What assumptions make the proposed design reasonable?
@@ -47,9 +53,9 @@ The learning activity should help students answer questions such as:
 - What alternatives were possible?
 - What does the evaluation actually establish?
 - What evidence would fail to support the authors’ conclusion?
-- Which ideas might transfer to the team’s project?
+- Which ideas might transfer to the project?
 
-Individual understanding is assessed separately without AI.
+Students may use AI while preparing both analyses. Individual research-analysis learning is assessed separately without AI.
 
 ## Project presentations as a learning activity for the audience
 
