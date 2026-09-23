@@ -23,7 +23,7 @@ The activities below are ordered roughly by when they begin in the semester. The
 | **Networking research — Analyze**; **Networking foundations — Understand** and/or **Network architecture and design — Create** | **Guided paper analysis #1.** Students analyze a selected paper before class using a guidance sheet describing what to look for. The paper should connect either to networking foundations already covered or to network design. | **Paper discussion and analysis in class.** Students discuss the paper and work through the actual analysis together with the instructor, establishing how a networking paper should be interrogated. | **Allow** for pre-class analysis; in-class discussion is live |
 | **Modern networking concepts and technologies — Remember**; **Network architecture and design — Create** | Review short background material for the available project areas where useful. | **Project landscape and prerequisite sessions.** Discuss all available projects, their motivating problems, relevant technologies, and the basic requirements students need in order to begin. All students are exposed to all project material before project selection so that the activity supports both informed decision making and broad technology coverage. | **Not central** |
 | **AI-assisted engineering — Apply** | None beyond access to the course-provided agent environment. | **TA-led agentic programming onboarding.** A TA demonstrates a representative agentic workflow, including specification, implementation, debugging, verification, and iteration in the shared environment. A small follow-along or optional practice exercise may be suggested, but no submitted exercise is required. | **Demonstrated / encouraged** |
-| **Networking research — Analyze**; relevant project outcomes | **Guided paper analysis #2.** Students independently analyze another paper using the same guidance framework. The paper may be unified for the class or selected per project, and should ideally provide concepts, mechanisms, architecture, methodology, or evidence useful for later project work. | Follow-up discussion as needed. Individual research-analysis learning is later checked through the no-AI quiz. | **Allow** |
+| **Networking research — Analyze**; relevant project outcomes | **Independent paper analysis #2.** Students are given the paper name/reference and independently analyze it using the same guidance framework established in paper analysis #1. The paper may be unified for the class or selected per project, and should ideally provide concepts, mechanisms, architecture, methodology, or evidence useful for later project work. | There is **no in-class discussion of paper #2 before assessment**. The activity is the independent analysis itself; individual research-analysis learning is then checked directly through the no-AI research-analysis quiz. | **Allow** |
 | **Experimental systems engineering — Create** | Review relevant measurement or experimental examples when assigned. | **Experimental reasoning discussions.** In-class discussion of what data is revealing, how to formulate useful experimental questions, how to choose measurements, baselines, workloads and failure cases, how to recognize confounders, and how to interpret experimental evidence. Includes worked practices and examples. | **Not central** |
 | **Network architecture and design — Create** | Review project domains, constraints, and relevant examples as projects are released. | **Architecture and design-principle discussions.** Beginning around project release, discuss common project domains and design aspects, what matters in each, what the terms mean, how concerns interact across an end-to-end system, and common practices for reasoning about architectural decisions. | **Not central** |
 | **Technical reporting and presentation — Apply**; **Modern networking concepts and technologies — Remember**; **Network architecture and design — Create** | Presenting teams prepare their final project presentations; the audience should be ready to engage with unfamiliar systems and technologies. | **Project presentations and discussion.** Teams present their projects and the class discusses the technologies, architecture, assumptions, trade-offs, experiments, discoveries, and alternatives. For the audience, the presentations expand technology coverage and provide concrete design cases that may later be analyzed in the final exam. | **Allow** in preparation; presentation and discussion are live |
@@ -38,11 +38,11 @@ The course should avoid interpreting completion of practice work as evidence of 
 
 ## AI-assisted paper study
 
-Paper analysis is used twice in the activity sequence.
+Paper analysis is used twice in the activity sequence, but the two instances have different roles.
 
 The first analysis is explicitly scaffolded: students use a guidance sheet before class, then the class discusses and performs the analysis together. The paper should connect either to foundations already covered or to network design.
 
-The second analysis is more independent and may use either a paper shared by the whole class or a paper selected for each project. It should ideally contribute concepts, mechanisms, architecture ideas, methodology, or evidence that can become useful later in project work.
+For the second analysis, students are given only the paper name/reference and use the same guidance framework independently. There is no instructor-led analysis or in-class discussion before assessment. The paper may be shared by the whole class or selected per project, and should ideally contribute concepts, mechanisms, architecture ideas, methodology, or evidence useful for later project work.
 
 The guidance should direct students to questions such as:
 
@@ -55,7 +55,7 @@ The guidance should direct students to questions such as:
 - What evidence would fail to support the authors’ conclusion?
 - Which ideas might transfer to the project?
 
-Students may use AI while preparing both analyses. Individual research-analysis learning is assessed separately without AI.
+Students may use AI while preparing both analyses. The second analysis is followed directly by the individual no-AI research-analysis quiz, with no intervening in-class paper discussion.
 
 ## Project presentations as a learning activity for the audience
 
