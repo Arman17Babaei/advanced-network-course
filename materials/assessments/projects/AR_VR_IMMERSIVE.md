@@ -1,4 +1,4 @@
-# Project Candidate: Network-Aware Immersive Scene Delivery
+# Project Candidate: Adaptive Immersive Scene Delivery
 
 **Status:** Draft project candidate  
 **Duration:** 7 weeks  
@@ -12,9 +12,9 @@ Build and experimentally evaluate a small end-to-end system for **interactive de
 
 The project should start from an **existing 3D Gaussian Splatting (3DGS) scene, renderer/viewer, and preprocessing pipeline** rather than asking students to train a new representation or build a renderer from scratch. Recent systems such as **EdgeGaussian**, **L3GS**, and **Vega** show that immersive 3D delivery naturally couples scene representation, viewport-dependent usefulness, rendering placement, and network scheduling.
 
-The course project narrows that design space to one networking question:
+The course project narrows that design space to one system question:
 
-> **Can application-relevant information from a programmable network help an immersive scene-delivery system deliver the most useful content sooner under changing network conditions?**
+> **How should an immersive scene-delivery system use networking and compute resources to deliver the most useful content with low latency and high experiential quality under changing conditions?**
 
 A minimal target architecture is:
 
@@ -22,10 +22,10 @@ A minimal target architecture is:
 pre-generated immersive scene
         |
         v
-content/chunk server ---- delivery controller
-        |                       ^
-        v                       |
-   P4/BMv2 network ---- network measurements
+content / origin / edge service
+        |
+        v
+configurable network path
         |
         v
 XR-like client/viewer
@@ -34,14 +34,22 @@ XR-like client/viewer
 
 The scene should be divided into a manageable number of **spatial chunks and/or quality layers**. At a given time, some data is immediately useful for the current viewport, some is likely to become useful soon, and some is background or enhancement data.
 
-The network should include a controllable bottleneck and cross traffic. A small P4 program should expose application-relevant network state—such as traffic-class counters, link utilization, congestion, or queue information—to the controller. The controller then decides which scene content should be sent next and/or at what priority.
+The network should expose controllable variation such as changing capacity, cross traffic, delay, and loss. Beyond that common experimental substrate, the team is expected to decide **where the important architectural intervention belongs**.
 
-The project should compare at least:
+Possible solution mechanisms include, but are not limited to:
 
-- an **end-host-only baseline** that adapts using information available without programmable-network assistance; and
-- a **P4-assisted policy** that incorporates network state from the programmable data plane.
+- application-level or viewport-aware **adaptive bitrate / quality selection**;
+- content chunking, prioritization, prediction, or prefetching;
+- **congestion-control** or transport choices;
+- network **topology, path selection, multipath, or routing**;
+- **edge/cloud offloading** and rendering/compute placement;
+- origin/edge **caching or CDN-style placement**;
+- server-side scheduling across clients or content classes;
+- application/network telemetry and cross-layer control;
+- **programmable networks or P4**, when in-network measurement, classification, scheduling, steering, or other data-plane behavior is useful;
+- combinations of mechanisms across these layers.
 
-The objective is **not** to prove that P4 is always better. A good project should identify when network visibility helps, how much it helps, what it costs, and when the extra information is unnecessary or actively harmful.
+The project should compare a defensible **baseline architecture** with one or more alternatives chosen by the team. The contribution is not the use of any particular technology. The team must show why its chosen mechanism addresses an observed bottleneck or failure mode, what trade-offs it introduces, and under which operating conditions it helps.
 
 ## Scope boundaries
 
@@ -53,13 +61,14 @@ The following are **not required** for the core project:
 - physical AR/VR headset deployment;
 - dynamic/4D scene reconstruction;
 - multi-user shared-world synchronization;
-- in-network rendering or ML inference;
-- large in-network caches;
-- production-scale programmable hardware.
+- production-scale infrastructure or large real-world CDN deployments;
+- custom hardware implementation.
+
+In-network processing, programmable data planes, sophisticated transport changes, multi-edge placement, and similar mechanisms are **optional design choices**, not requirements. They should be attempted only when they answer a concrete research question and fit the seven-week scope.
 
 These may become stretch directions only after the baseline system, instrumentation, and main experiments work end-to-end.
 
-The intended environment is a supplied or known-working viewer/scene plus a software P4 environment such as **BMv2 + Mininet + P4Runtime**. The project should spend its limited time on architecture, adaptation, and experimental reasoning rather than environment construction.
+The intended environment is a supplied or known-working viewer/scene plus a controllable network testbed or emulator. Depending on the chosen design, teams may use tools such as **Mininet, Linux traffic control/network namespaces, ns-3, QUIC/TCP implementations, caching proxies, or BMv2/P4Runtime**. The project should spend its limited time on architecture, adaptation, and experimental reasoning rather than rebuilding mature infrastructure.
 
 ## Responsibility matrix
 
@@ -67,12 +76,12 @@ Each student owns one **implementation domain (column)** and one **cross-cutting
 
 The matrix is **not a checklist of sixteen features**. Some intersections are central, some only need characterization, and some may prove irrelevant. The team should explicitly justify where effort is concentrated.
 
-| Design concern ↓ / Implementation domain → | **Content pipeline** | **XR client/runtime** | **Programmable network** | **Delivery controller/server** |
+| Design concern ↓ / Implementation domain → | **Content & representation** | **Client/rendering & offload** | **Transport & network** | **Serving, placement & control** |
 | --- | --- | --- | --- | --- |
-| **Latency & experiential quality** | **Strong:** which chunks/layers become useful first? | **Strong:** viewport response, visible quality, incomplete views | Relevant: how quickly useful congestion state becomes visible | **Strong:** what should be transmitted next? |
-| **Scalability & capacity** | Light: larger scenes / more chunks | Light: higher viewpoint-change rate or limited multi-client test | Relevant: bottleneck sharing and cross traffic | Relevant: scheduling as demand grows |
-| **Reliability & adaptation** | Light: behavior when chunks are late/missing | Relevant: graceful rendering with incomplete content | **Strong:** loss, delay, congestion, measurement freshness | **Strong:** recovery and reprioritization |
-| **Resource efficiency** | **Strong:** bytes versus useful visual improvement | Light: client memory/render cost | Light: telemetry/control overhead | Relevant: stale/speculative bytes and wasted transmission |
+| **Latency & experiential quality** | **Strong:** which chunks/layers are most useful and when? | **Strong:** viewport response, rendering latency, local vs. remote work | **Strong:** transport delay, congestion response, path behavior | **Strong:** scheduling, placement, prefetching, and adaptation decisions |
+| **Scalability & capacity** | Light: larger scenes / more chunks | Relevant: client/edge compute capacity | Relevant: bottleneck sharing, topology, routing, concurrent traffic | **Strong:** more clients, edge/origin capacity, cache/service placement |
+| **Reliability & adaptation** | Light: behavior when content is late/missing | Relevant: graceful degradation or compute fallback | **Strong:** loss, delay variation, route/path changes, congestion | **Strong:** recovery, reassignment, reprioritization, control stability |
+| **Resource efficiency** | **Strong:** bytes versus useful visual improvement | Relevant: GPU/CPU/memory/energy | Relevant: bandwidth, redundant transfer, control/telemetry overhead | **Strong:** wasted/stale transfer, cache efficiency, compute/network cost |
 
 **Strong** means the project is expected to contain an explicit design decision and experimental evidence at that intersection.  
 **Relevant** means the interaction should be understood and defended, but may not require its own mechanism.  
@@ -82,59 +91,59 @@ Teams may revise these weights after initial experiments, but they should be abl
 
 ## Core research questions
 
-### RQ1 — Does programmable-network visibility improve immersive delivery?
+### RQ1 — What limits immersive QoE, and under which operating conditions?
 
-**Can a P4-assisted delivery policy reduce the time required to obtain useful/high-quality viewport content under changing network conditions compared with an end-host-only baseline?**
+**Which network, compute, and content-delivery constraints dominate user-visible quality and latency across different workloads and network conditions?**
 
-The experiment should examine conditions such as stable bandwidth, sudden capacity reduction, bursty competing traffic, and increased loss/delay.
+The team should first characterize the baseline rather than immediately committing to a mechanism. Potential bottlenecks include:
 
-Possible dependent variables include:
+- insufficient or variable bottleneck capacity;
+- congestion and queueing delay;
+- transport recovery behavior;
+- sending content that becomes irrelevant before use;
+- poor placement of content or compute;
+- rendering/compute bottlenecks at the client or edge;
+- route/path changes or contention among clients.
 
-- time to a usable viewport;
-- visible quality over time;
-- time spent with incomplete or degraded content;
-- stale or unused bytes delivered;
-- total bytes transmitted.
+This characterization should motivate the architecture the team chooses to build.
 
-### RQ2 — Which network information is actually useful?
+### RQ2 — Which architectural mechanism, or combination of mechanisms, best addresses the observed bottleneck?
 
-**Which programmable-network signals provide enough additional information to change a good application-level decision?**
+**How should the system change content adaptation, transport/network behavior, routing/topology, compute placement, caching, scheduling, or other components to improve immersive delivery?**
 
-Candidates might include:
+Possible answers may involve one mechanism or a coordinated combination—for example ABR plus congestion control, edge offload plus caching, multipath plus content prioritization, or programmable-network telemetry plus application adaptation.
 
-- per-class byte/packet counters;
-- link utilization;
-- queue occupancy or congestion indication;
-- observed cross-traffic load;
-- short-window rate estimates.
+The project should compare against a reasonable baseline and explain why the chosen intervention belongs at the selected layer(s).
 
-The team should avoid adding telemetry merely because it is available. The question is whether a particular signal enables a decision that the end-host-only system cannot make as well or as quickly.
+### RQ3 — How should decisions across layers be coordinated?
 
-### RQ3 — How should content utility and network state interact?
+**When multiple parts of the system can adapt, what information should cross layer or component boundaries, and how should conflicting decisions be avoided?**
 
-**How should the sender combine application knowledge about content importance with current network conditions when deciding what to transmit next?**
+Examples include:
 
-For example, the controller may distinguish among:
+- viewport/content utility informing server scheduling;
+- congestion-control behavior constraining application-level quality selection;
+- network/path state influencing content or compute placement;
+- edge load influencing offload decisions;
+- cache availability influencing routing or content selection;
+- programmable-network measurements informing a higher-level controller.
 
-- immediately visible/base content;
-- likely-next-view content;
-- enhancement layers;
-- speculative/background content.
+The team does not need to implement every mechanism. The objective is to identify the information coupling that materially changes good decisions.
 
-The project should compare at least one reasonable baseline scheduling policy with the team's network-aware design.
+### RQ4 — Where does the proposed design stop helping?
 
-### RQ4 — What does network assistance cost, and when does it stop helping?
+**How robust is the design across workloads, impairment types, scale, and resource constraints, and what costs or failure modes does it introduce?**
 
-**Under what workloads does programmable-network assistance provide little benefit or introduce unnecessary overhead, instability, or incorrect adaptation?**
+Relevant costs or limitations may include:
 
-Relevant costs include:
-
-- telemetry traffic;
-- controller/P4Runtime update rate;
-- stale measurements;
-- reaction oscillation;
-- extra implementation complexity;
-- unnecessary content reprioritization.
+- extra bandwidth or redundant traffic;
+- compute, memory, or energy overhead;
+- control or telemetry traffic;
+- stale measurements or prediction errors;
+- oscillation between adaptation layers;
+- path stretch or routing instability;
+- cache/storage overhead;
+- implementation and operational complexity.
 
 A negative result in some regimes is valuable if the team can explain it experimentally.
 
@@ -142,10 +151,12 @@ A negative result in some regimes is valuable if the team can explain it experim
 
 The final experiment plan may evolve, but the core system should support at least these scenarios:
 
-1. **Stable ample bandwidth** — establishes whether the network-aware mechanism adds unnecessary overhead when there is no bottleneck.
+1. **Stable ample bandwidth** — establishes the no-stress baseline and reveals unnecessary mechanism overhead.
 2. **Sudden bandwidth reduction** — tests response speed and adaptation.
-3. **Bursty competing traffic** — tests whether direct bottleneck visibility improves content scheduling.
-4. **Loss and/or additional delay** — tests robustness and distinguishes capacity problems from other network impairment.
+3. **Bursty competing traffic** — tests behavior under shared bottlenecks and queueing.
+4. **Loss and/or additional delay** — tests robustness and distinguishes different impairment classes.
+
+Teams should add scenarios specific to their design when needed—for example path changes for routing/multipath, client growth for CDN/edge placement, or compute saturation for offloading.
 
 A small scale/capacity experiment—larger scene, more chunks, or a small number of simultaneous clients—may be included, but should not displace the main end-to-end experiments.
 
@@ -154,15 +165,16 @@ A small scale/capacity experiment—larger scene, more chunks, or a small number
 By the middle of the project, the team should have a complete baseline path:
 
 ```text
-scene -> server -> emulated programmable network -> client/viewer -> measurements
+scene -> serving/edge system -> configurable network -> client/viewer -> measurements
 ```
 
 The remaining project time should be used primarily for **design iteration and experiments**, not for expanding the feature set.
 
 A successful final project is therefore not the largest XR implementation. It is a system where the team can defend:
 
-- why the selected network information is useful;
-- how that information changes content-delivery decisions;
+- what the dominant bottleneck or design opportunity is;
+- why the selected mechanism belongs at the chosen layer(s);
+- how its decisions interact with the rest of the system;
 - what user-visible or resource-level effect follows;
 - how the mechanism behaves under stress and failure;
 - which parts of the architecture matter most and which matrix intersections do not;
@@ -180,7 +192,11 @@ The scope is intentionally derived from recent immersive-systems work while remo
   https://www.sigmobile.org/mobicom/2025/accepted.html
 - **ProxLink: A Lightweight Decentralized Synchronization Framework for Multi-User XR** — ACM MobiCom 2026. Shows that multi-user synchronization is itself a substantial systems problem; it is therefore deliberately excluded from the required seven-week core.  
   https://www.sigmobile.org/mobicom/2026/accepted.html
-- **P4: Programming Protocol-Independent Packet Processors** — ACM SIGCOMM CCR, 2014. Foundational motivation for exposing application-relevant behavior through a programmable data plane.  
+Additional mechanisms should be grounded in the literature appropriate to the architecture the team selects. For example, teams choosing programmable networking may draw on:
+
+- **P4: Programming Protocol-Independent Packet Processors** — ACM SIGCOMM CCR, 2014. Foundational work on programmable data planes; relevant when the chosen design benefits from in-network measurement, classification, steering, or other switch behavior.  
   https://doi.org/10.1145/2656877.2656890
-- **P4 Tutorials** — P4.org/p4lang maintained tutorials for BMv2, Mininet, P4Runtime, counters, and programmable-switch exercises; intended as the implementation starting point rather than asking teams to construct the P4 environment themselves.  
+- **P4 Tutorials** — maintained BMv2/Mininet/P4Runtime examples that can reduce implementation overhead when P4 is selected as a mechanism.  
   https://github.com/p4lang/tutorials
+
+Teams choosing congestion control, ABR, CDN/edge placement, routing, multipath, or offloading should similarly identify and defend appropriate contemporary baselines rather than treating a technology choice as self-justifying.
