@@ -16,6 +16,7 @@ Create one subdirectory or Markdown file per concrete assessment. Each assessmen
 Supporting planning material:
 
 - [Project Idea Pool](PROJECT_IDEA_POOL.md) — application-oriented project areas, recent-paper activity, and references for developing concrete project briefs.
+- [AR/VR & Immersive Scene Delivery Project](projects/AR_VR_IMMERSIVE.md) — draft seven-week project description, responsibility matrix, and research questions.
 
 Current assessment types to detail include:
 
