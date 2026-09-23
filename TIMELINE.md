@@ -25,14 +25,14 @@ The first **8 regular sessions are foundation-focused**. Quizzes are scheduled i
 | 7 | 25 Mehr | Sat, 17 Oct 2026 | **Foundation session 7** |  | Foundation practice | Guided paper analysis #1 can be assigned after class |
 | 8 | 27 Mehr | Mon, 19 Oct 2026 | **Foundation session 8 + foundation synthesis** | **Foundation quiz 2 — half session** | Guided paper analysis #1 preparation | Completes the initial eight-session foundation block |
 | 9 | 2 Aban | Sat, 24 Oct 2026 | **Guided paper discussion and in-class analysis #1** |  |  | Paper tied to foundations already covered or network design; establish the analysis method |
-| 10 | 4 Aban | Mon, 26 Oct 2026 | **Project landscape and prerequisite session 1** |  | Project exploration | Introduce project problems, motivation, and major technologies |
-| 11 | 9 Aban | Sat, 31 Oct 2026 | **Project landscape and prerequisite session 2** |  | Project exploration | Continue project descriptions and teach basic prerequisite concepts needed to understand the choices |
-| 12 | 11 Aban | Mon, 2 Nov 2026 | **Project landscape and prerequisite session 3** |  | Project exploration / preference formation | Ensure all students receive meaningful exposure to every project area |
-| 13 | 16 Aban | Sat, 7 Nov 2026 | **Project landscape session 4: comparison, questions, selection, and release** + introduction to design aspects/domains |  | **TA agentic-programming onboarding window** | Longer project-description phase ends with informed selection; TA onboarding may run outside class |
-| 14 | 18 Aban | Mon, 9 Nov 2026 | **Architecture and design-principle discussion** |  | Project work; **paper #2 announced for independent analysis**; **bi-weekly project discussion window 1** | Students receive only the paper name / reference and analyze it independently using the guidance framework |
-| 15 | 23 Aban | Sat, 14 Nov 2026 | **Experimental reasoning discussion and examples — half session** | **Research-analysis quiz on paper #2 — half session** | Project work | No in-class discussion of paper #2 before the quiz |
-| 16 | 25 Aban | Mon, 16 Nov 2026 | **Architecture and design-principle discussion** |  | Project work | Assessment-free buffer before the midterm |
-| 17 | 30 Aban | Sat, 21 Nov 2026 | **Midterm exam** | **Full class session** | Project work | Held after project selection and initial design/research/experimental exposure so the material has time to settle |
+| 10 | 4 Aban | Mon, 26 Oct 2026 | **Project landscape and prerequisite session 1** |  | Project exploration; **paper #2 announced for independent analysis** | Paper #2 is announced one session after paper #1; students receive only the paper name/reference |
+| 11 | 9 Aban | Sat, 31 Oct 2026 | **Project landscape and prerequisite session 2** |  | Project exploration; independent paper #2 analysis | Continue project descriptions and teach basic prerequisite concepts needed to understand the choices |
+| 12 | 11 Aban | Mon, 2 Nov 2026 | **Project landscape and prerequisite session 3** |  | Project exploration / preference formation; independent paper #2 analysis | Ensure all students receive meaningful exposure to every project area |
+| 13 | 16 Aban | Sat, 7 Nov 2026 | **Project comparison, questions, selection, and release — half session** | **Research-analysis quiz on paper #2 — half session** | **TA agentic-programming onboarding window** | Project comparison/selection and the quiz share the session; there is no in-class discussion of paper #2 before the quiz |
+| 14 | 18 Aban | Mon, 9 Nov 2026 | **Project basics and prerequisite deepening** |  | Project work begins + **bi-weekly project discussion window 1** | Extra full session for deeper technical basics, requirements, tools, and concepts students need to start the projects effectively |
+| 15 | 23 Aban | Sat, 14 Nov 2026 | **Architecture and design-principle discussion** |  | Project work | Introduce common domains, design aspects, and what matters in architectural decisions |
+| 16 | 25 Aban | Mon, 16 Nov 2026 | **Experimental reasoning discussion and examples** |  | Project work | Revealing data, experimental questions, measurements, workloads, baselines, failure cases, confounders |
+| 17 | 30 Aban | Sat, 21 Nov 2026 | **Midterm exam** | **Full class session** | Project work | Held after project selection and additional project/design/experimental exposure so the material has time to settle |
 | 18 | 2 Azar | Mon, 23 Nov 2026 | **Architecture/design-principle discussion** |  | Project work | Resume project-facing design instruction after the midterm |
 | 19 | 7 Azar | Sat, 28 Nov 2026 | **Experimental reasoning discussion and examples** |  | Project work + **bi-weekly project discussion window 2** | Connect measurements and experiments to design decisions |
 | 20 | 9 Azar | Mon, 30 Nov 2026 | **Architecture and design-principle discussion** |  | Project work |  |
@@ -61,7 +61,7 @@ The current in-class assessment plan is:
 | --- | --- | --- |
 | **Foundation quiz 1** | Session 4 — 13 Mehr / 5 Oct | Approximately **half a session** |
 | **Foundation quiz 2** | Session 8 — 27 Mehr / 19 Oct | Approximately **half a session** |
-| **Research-analysis quiz (paper #2)** | Session 15 — 23 Aban / 14 Nov | Approximately **half a session** |
+| **Research-analysis quiz (paper #2)** | Session 13 — 16 Aban / 7 Nov | Approximately **half a session** |
 | **Midterm exam** | Session 17 — 30 Aban / 21 Nov | **Full session** |
 | **Final exam** | 26 Dey / 16 Jan | Separate final-exam date |
 
@@ -73,7 +73,7 @@ The regular timeline deliberately keeps room outside class for:
 
 - non-submitted foundation practice;
 - guided paper analysis #1 before the in-class discussion;
-- independent AI-assisted analysis of paper #2 before the research-analysis quiz;
+- independent AI-assisted analysis of paper #2 between its announcement in session 10 and the research-analysis quiz in session 13;
 - the TA-led agentic-programming onboarding session;
 - bi-weekly project discussion meetings;
 - optional TA support or design/experimental clinics;
@@ -86,10 +86,11 @@ The project discussion windows shown in the table are provisional anchors rather
 
 - The first **8 sessions** establish the common networking foundation, with practice happening outside class and two half-session quizzes providing early individual feedback and evidence.
 - The first paper analysis follows the initial foundation block so students can apply the covered concepts while learning the research-analysis method.
-- The project landscape receives **four sessions** immediately after the first paper discussion: three substantial project/prerequisite sessions followed by a comparison, question, selection, and release session. All students should understand the broad problem, relevant technologies, and minimum starting requirements of every available project before choosing.
+- **Paper #2 is announced one session after the paper #1 discussion**, giving students sessions 10–12 to analyze it independently before the no-AI quiz in session 13.
+- The project landscape receives **three full sessions** before selection. The fourth project slot is split: half of session 13 is used for project comparison, questions, selection, and release, while the other half is the research-analysis quiz.
+- The freed **session 14** is used for deeper project basics and prerequisites so students begin implementation with stronger common coverage of the relevant technologies, requirements, tools, and concepts.
 - The second paper is handled differently from the first: students receive the paper reference, analyze it independently using the established guidance framework, and are then assessed through the no-AI research-analysis quiz. There is **no in-class paper #2 discussion before the quiz**.
-- The research-analysis quiz is placed in **session 15**, leaving session 16 as an assessment-free buffer before the midterm in session 17.
-- The midterm remains inside regular class time and is intentionally delayed until **after project selection** and initial architecture, research, and experimental exposure.
+- The midterm remains inside regular class time and occurs four sessions after project selection, after additional project-basics, architecture, and experimental-reasoning exposure.
 - The TA-led agentic-programming onboarding happens near project release and does not need to consume a regular lecture slot.
-- Architecture/design and experimental reasoning begin immediately after project release and recur while students are actively making project decisions.
+- Architecture/design and experimental reasoning recur while students are actively making project decisions.
 - Project presentations are both assessments for the presenting teams and learning activities for everyone else; enough time should be reserved for discussion, not only delivery.
