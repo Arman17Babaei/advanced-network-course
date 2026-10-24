@@ -80,7 +80,7 @@ def oa_list(endpoint, params, max_pages=None):
     # Each query here is scoped to one venue/year or journal/year and remains
     # safely below the 10,000-result basic-paging ceiling.
     page = 1
-    per_page = 100
+    per_page = 200
     while True:
         p = dict(params)
         p["per-page"] = per_page
