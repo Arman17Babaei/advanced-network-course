@@ -20,7 +20,7 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,20 +30,17 @@ jobs:
           python-version: "3.12"
       - name: Install metadata dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Build corpus
+      - name: Build and validate corpus
         run: python tools/research/build_paper_corpus.py
       - name: Commit generated snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/recent_networking_papers.csv
-          git add materials/assessments/data/recent_networking_papers.jsonl
-          git add materials/assessments/data/PAPER_CORPUS_SUMMARY.md
-          git add materials/assessments/data/PAPER_CORPUS_COVERAGE.csv
+          git add -A materials/assessments/data
           if git diff --cached --quiet; then
             echo "No generated changes"
           else
-            git commit -m "Refresh generated paper corpus"
+            git commit -m "Refresh validated paper corpus"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
