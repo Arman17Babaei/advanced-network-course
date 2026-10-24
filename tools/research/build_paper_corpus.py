@@ -452,10 +452,11 @@ def main():
         if year == 2027 and not TX_CFG.get("include_2027", True):
             continue
         year_rows = []
-        # Query one journal at a time so anonymous basic pagination never
-        # approaches the 10,000-result per-query ceiling.
-        for sid in tx_ids:
-            year_rows.extend(collect_works([sid], year, venue_override=None, kind="journal", core=False))
+        # Small source batches keep anonymous basic pagination well below
+        # the 10,000-result per-query ceiling while avoiding hundreds of
+        # unnecessary round trips.
+        for i in range(0, len(tx_ids), 5):
+            year_rows.extend(collect_works(tx_ids[i:i+5], year, venue_override=None, kind="journal", core=False))
         tx_rows.extend(year_rows)
         print(f"COUNT IEEE Transactions {year}: {len(year_rows)}", flush=True)
 
