@@ -10,38 +10,33 @@ The previous version inferred project areas mainly from SIGCOMM, NSDI, and MobiC
 
 The intended window is **2023–2027**. As of **24 October 2026**, essentially all usable accepted-paper evidence is from 2023–2026. Most 2027 venues have not yet published accepted-paper lists. In particular, NINeS 2027 notifications are scheduled for 27 November 2026, so no 2027 NINeS papers are counted yet.
 
-### Venue interpretation
+### Corpus and venue scope
 
-The requested venue names are interpreted as follows:
+The machine-readable evidence base is checked into:
 
-- **SIGCOMM**
-- **CoNEXT** (interpreting “KONEX” as CoNEXT)
-- **NSDI**
-- **ICNP** (interpreting “ICMP” as ICNP)
-- **INFOCOM**
-- **SIGMETRICS / POMACS**
-- **IMC** — Internet Measurement Conference
-- **ACM Multimedia (ACM MM)**
-- **NINeS** — New Ideas in Networked Systems
-- **MobiCom**
-- **ACM MMSys**
-- **IPDPS**
-- **ICDCS**
-- **OSDI**
-- **USENIX Security**
-- networking-relevant papers from **IEEE Transactions** journals, especially IEEE/ACM Transactions on Networking, IEEE Transactions on Mobile Computing, IEEE Transactions on Parallel and Distributed Systems, IEEE Transactions on Multimedia, IEEE Transactions on Network and Service Management, and related transactions when a paper clearly concerns networked systems.
+- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — flat table for analysis;
+- [`data/recent_networking_papers.jsonl`](data/recent_networking_papers.jsonl) — one JSON object per paper;
+- [`data/PAPER_CORPUS_SUMMARY.md`](data/PAPER_CORPUS_SUMMARY.md) — generated coverage and category/keyword statistics;
+- [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable venue/year query results.
 
-“IEEE Transactions .*” is too broad to treat as a literal exhaustive corpus: IEEE publishes many Transactions journals that are unrelated to networking. This pool therefore includes Transactions papers only when they are clearly relevant to the course.
+The corpus covers **SIGCOMM, CoNEXT, NSDI, ICNP, INFOCOM, SIGMETRICS/POMACS, IMC, ACM Multimedia, NINeS, MobiCom, MMSys, IPDPS, ICDCS, OSDI, USENIX Security**, and networking-relevant IEEE Transactions families.
 
-### Keyword extraction
+The IEEE Transactions portion is intentionally scoped to Transactions journals relevant to networking and networked/distributed/mobile/cloud/multimedia systems. Treating every IEEE Transactions journal as part of the denominator would mix unrelated fields into the project-discovery corpus.
 
-Keywords below are **normalized topical labels**, not claims that every paper used the exact phrase as an author keyword. They are derived from paper titles, abstracts, author keywords / IEEE index terms when surfaced by the publisher, and venue session labels. Examples:
+Every machine-readable row records the paper title, authors, venue, year, DOI/publication URL where available, keyword labels, keyword provenance, topic labels, normalized project categories, and the source metadata identifiers used to reproduce the row.
 
-- “LLM training”, “distributed training”, “collective communication”, and “MoE communication” are normalized into **distributed AI training / collectives**.
-- “LEO”, “direct-to-cell”, “NTN”, and “satellite edge” are normalized into **satellite / non-terrestrial networking**.
-- “RTC”, “video conferencing”, “real-time video”, and “low-latency streaming” are normalized into **real-time media**.
+### Keyword extraction and provenance
 
-The goal is not bibliometric precision. The goal is to expose **stable, repeated research clusters** that can support ambitious network-design projects.
+The corpus distinguishes **source metadata** from **derived research labels**:
+
+- bibliographic metadata comes primarily from DBLP, with official venue pages used for recent proceedings not yet indexed there;
+- DOI-bearing papers are enriched with OpenAlex paper keywords and topics;
+- OpenAlex keywords are model-generated aboutness labels from paper metadata, **not author-supplied keywords**;
+- when enrichment is unavailable, the builder uses a deterministic title-derived keyword fallback;
+- `keyword_provenance` records which path produced the keywords for each paper;
+- normalized project categories are generated separately from a version-controlled vocabulary in `tools/research/paper_corpus_config.json`.
+
+The readable paper tables below are representative anchors. The **full corpus, not just these examples**, is the evidence base used to assess research density and update the project pool.
 
 ## Research-cluster summary
 
