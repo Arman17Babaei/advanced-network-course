@@ -21,7 +21,7 @@ YEARS = CFG["years"]
 VENUES = CFG["venues"]
 CATEGORIES = CFG["categories"]
 S = requests.Session()
-S.headers.update({"User-Agent": "advanced-network-course-paper-corpus/1.0"})
+S.headers.update({"User-Agent": "advanced-network-course-paper-corpus/1.0"})\n# Keep source queries deliberately serial to be respectful of public metadata APIs.
 STOP = {
     "the","and","for","with","from","into","using","via","towards","toward","based",
     "system","systems","framework","method","approach","efficient","effective","new",
