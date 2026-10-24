@@ -6,443 +6,164 @@
     2026,
     2027
   ],
-  "venues": [
+  "conferences": [
     {
       "name": "SIGCOMM",
-      "kind": "conference",
-      "terms": [
+      "search": [
         "SIGCOMM"
       ],
-      "match": [
-        "sigcomm"
-      ],
-      "core": true,
-      "streams": [
-        "conf/sigcomm"
-      ]
+      "source_regex": "(?i)SIGCOMM",
+      "hard_min": 45,
+      "core": true
     },
     {
       "name": "CoNEXT",
-      "kind": "conference",
-      "terms": [
-        "CoNEXT"
+      "search": [
+        "CoNEXT",
+        "emerging Networking EXperiments and Technologies"
       ],
-      "match": [
-        "conext"
-      ],
-      "core": true,
-      "streams": [
-        "conf/conext"
-      ]
+      "source_regex": "(?i)(CoNEXT|emerging Networking EXperiments)",
+      "hard_min": 25,
+      "core": true
     },
     {
       "name": "NSDI",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "Networked Systems Design and Implementation",
         "NSDI"
       ],
-      "match": [
-        "nsdi"
-      ],
-      "core": true,
-      "streams": [
-        "conf/nsdi"
-      ]
+      "source_regex": "(?i)(Networked Systems Design and Implementation|NSDI)",
+      "hard_min": 45,
+      "core": true
     },
     {
       "name": "ICNP",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "IEEE International Conference on Network Protocols",
         "ICNP"
       ],
-      "match": [
-        "icnp"
-      ],
-      "core": true,
-      "streams": [
-        "conf/icnp"
-      ]
+      "source_regex": "(?i)(International Conference on Network Protocols|ICNP)",
+      "hard_min": 25,
+      "core": true
     },
     {
       "name": "INFOCOM",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "IEEE INFOCOM",
         "INFOCOM"
       ],
-      "match": [
-        "infocom"
-      ],
-      "core": true,
-      "streams": [
-        "conf/infocom"
-      ]
+      "source_regex": "(?i)INFOCOM",
+      "hard_min": 140,
+      "core": true
     },
     {
       "name": "SIGMETRICS",
-      "kind": "conference",
-      "terms": [
-        "SIGMETRICS"
+      "search": [
+        "SIGMETRICS",
+        "Proceedings of the ACM on Measurement and Analysis of Computing Systems"
       ],
-      "match": [
-        "sigmetrics",
-        "proc. acm meas. anal. comput. syst",
-        "proc acm meas anal comput syst"
-      ],
+      "source_regex": "(?i)(SIGMETRICS|Measurement and Analysis of Computing Systems)",
+      "hard_min": 20,
       "core": true,
-      "streams": [
-        "conf/sigmetrics",
-        "journals/pomacs"
-      ]
+      "max_sources": 2
     },
     {
       "name": "IMC",
-      "kind": "conference",
-      "terms": [
-        "IMC"
+      "search": [
+        "Internet Measurement Conference"
       ],
-      "match": [
-        "imc",
-        "internet meas"
-      ],
-      "core": true,
-      "streams": [
-        "conf/imc"
-      ]
+      "source_regex": "(?i)Internet Measurement Conference",
+      "hard_min": 25,
+      "core": true
     },
     {
       "name": "ACM Multimedia",
-      "kind": "conference",
-      "terms": [
-        "Multimedia"
+      "search": [
+        "ACM International Conference on Multimedia",
+        "ACM Multimedia"
       ],
-      "match": [
-        "acm multimedia",
-        "multimedia conference"
-      ],
-      "core": false,
-      "streams": [
-        "conf/mm"
-      ]
+      "source_regex": "(?i)(ACM.*Multimedia|Multimedia Conference)",
+      "hard_min": 250,
+      "core": false
     },
     {
       "name": "NINeS",
-      "kind": "conference",
-      "terms": [
-        "NINeS"
-      ],
-      "match": [
-        "nines",
-        "networked systems"
-      ],
+      "search": [],
+      "source_regex": "(?i)NINeS",
+      "hard_min": 20,
       "core": true,
       "years": [
         2026,
         2027
-      ]
+      ],
+      "official_2026": "https://2026.nines-conference.org/accepted"
     },
     {
       "name": "MobiCom",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "Mobile Computing and Networking",
         "MobiCom"
       ],
-      "match": [
-        "mobicom"
-      ],
-      "core": true,
-      "streams": [
-        "conf/mobicom"
-      ]
+      "source_regex": "(?i)(Mobile Computing and Networking|MobiCom)",
+      "hard_min": 35,
+      "core": true
     },
     {
       "name": "MMSys",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "Multimedia Systems Conference",
         "MMSys"
       ],
-      "match": [
-        "mmsys"
-      ],
-      "core": true,
-      "streams": [
-        "conf/mmsys"
-      ]
+      "source_regex": "(?i)(Multimedia Systems Conference|MMSys)",
+      "hard_min": 15,
+      "core": true
     },
     {
       "name": "IPDPS",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "Parallel and Distributed Processing Symposium",
         "IPDPS"
       ],
-      "match": [
-        "ipdps"
-      ],
-      "core": false,
-      "streams": [
-        "conf/ipps"
-      ]
+      "source_regex": "(?i)(Parallel and Distributed Processing Symposium|IPDPS)",
+      "hard_min": 70,
+      "core": false
     },
     {
       "name": "ICDCS",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "International Conference on Distributed Computing Systems",
         "ICDCS"
       ],
-      "match": [
-        "icdcs"
-      ],
-      "core": false,
-      "streams": [
-        "conf/icdcs"
-      ]
+      "source_regex": "(?i)(International Conference on Distributed Computing Systems|ICDCS)",
+      "hard_min": 55,
+      "core": false
     },
     {
       "name": "OSDI",
-      "kind": "conference",
-      "terms": [
+      "search": [
+        "Operating Systems Design and Implementation",
         "OSDI"
       ],
-      "match": [
-        "osdi"
-      ],
-      "core": false,
-      "streams": [
-        "conf/osdi"
-      ]
+      "source_regex": "(?i)(Operating Systems Design and Implementation|OSDI)",
+      "hard_min": 35,
+      "core": false
     },
     {
       "name": "USENIX Security",
-      "kind": "conference",
-      "terms": [
-        "USENIX",
-        "Security"
+      "search": [
+        "USENIX Security Symposium"
       ],
-      "match": [
-        "usenix security",
-        "security symposium"
-      ],
-      "core": false,
-      "streams": [
-        "conf/uss"
-      ]
-    },
-    {
-      "name": "IEEE/ACM Transactions on Networking",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "ACM",
-        "Trans",
-        "Netw"
-      ],
-      "match": [
-        "ieee/acm trans. netw",
-        "ieee/acm transactions on networking"
-      ],
-      "core": true,
-      "streams": [
-        "journals/ton"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Mobile Computing",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Mob",
-        "Comput"
-      ],
-      "match": [
-        "ieee trans. mob. comput",
-        "transactions on mobile computing"
-      ],
-      "core": true,
-      "streams": [
-        "journals/tmc"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Network and Service Management",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Netw",
-        "Serv",
-        "Manag"
-      ],
-      "match": [
-        "ieee trans. netw. serv. manag",
-        "transactions on network and service management"
-      ],
-      "core": true,
-      "streams": [
-        "journals/tnsm"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Parallel and Distributed Systems",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Parallel",
-        "Distributed"
-      ],
-      "match": [
-        "ieee trans. parallel distributed syst",
-        "transactions on parallel and distributed systems"
-      ],
-      "core": false,
-      "streams": [
-        "journals/tpds"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Multimedia",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Multim"
-      ],
-      "match": [
-        "ieee trans. multim",
-        "transactions on multimedia"
-      ],
-      "core": false,
-      "streams": [
-        "journals/tmm"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Cloud Computing",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Cloud",
-        "Comput"
-      ],
-      "match": [
-        "ieee trans. cloud comput",
-        "transactions on cloud computing"
-      ],
-      "core": false,
-      "streams": [
-        "journals/tcc"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Services Computing",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Serv",
-        "Comput"
-      ],
-      "match": [
-        "ieee trans. serv. comput",
-        "transactions on services computing"
-      ],
-      "core": false,
-      "streams": [
-        "journals/tsc"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Dependable and Secure Computing",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Dependable",
-        "Secure"
-      ],
-      "match": [
-        "ieee trans. dependable secur. comput",
-        "transactions on dependable and secure computing"
-      ],
-      "core": false,
-      "streams": [
-        "journals/tdsc"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Wireless Communications",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Wirel",
-        "Commun"
-      ],
-      "match": [
-        "ieee trans. wirel. commun",
-        "transactions on wireless communications"
-      ],
-      "core": true,
-      "streams": [
-        "journals/twc"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Communications",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Commun"
-      ],
-      "match": [
-        "ieee trans. commun",
-        "transactions on communications"
-      ],
-      "core": true,
-      "streams": [
-        "journals/tcom"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Vehicular Technology",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Veh",
-        "Technol"
-      ],
-      "match": [
-        "ieee trans. veh. technol",
-        "transactions on vehicular technology"
-      ],
-      "core": true,
-      "streams": [
-        "journals/tvt"
-      ]
-    },
-    {
-      "name": "IEEE Transactions on Green Communications and Networking",
-      "kind": "journal",
-      "terms": [
-        "IEEE",
-        "Trans",
-        "Green",
-        "Commun",
-        "Netw"
-      ],
-      "match": [
-        "ieee trans. green commun. netw",
-        "transactions on green communications and networking"
-      ],
-      "core": true,
-      "streams": [
-        "journals/tgcn"
-      ]
+      "source_regex": "(?i)USENIX Security Symposium",
+      "hard_min": 120,
+      "core": false
     }
   ],
+  "ieee_transactions": {
+    "source_search": "IEEE Transactions",
+    "include_regex": "(?i)^IEEE(?:/ACM)? Transactions (?:on|of) ",
+    "source_type": "journal",
+    "include_2027": true
+  },
   "categories": {
     "AI cluster networks and distributed training": [
       "distributed training",
@@ -457,7 +178,9 @@
       "coflow",
       "nccl",
       "expert parallel",
-      "in-network aggregation"
+      "in-network aggregation",
+      "distributed deep learning",
+      "parameter server"
     ],
     "Distributed and disaggregated AI inference": [
       "llm inference",
@@ -468,12 +191,15 @@
       "prefill",
       "expert serving",
       "split inference",
-      "edge inference"
+      "edge inference",
+      "large language model serving",
+      "mixture of experts serving"
     ],
     "Datacenter transport and programmable networking": [
       "datacenter",
       "data center",
       "rdma",
+      "roce",
       "congestion control",
       "ecn",
       "pfc",
@@ -483,7 +209,9 @@
       "programmable switch",
       "programmable data plane",
       "p4",
-      "microburst"
+      "microburst",
+      "packet scheduling",
+      "network fabric"
     ],
     "Network telemetry, diagnosis, reliability, and automated operations": [
       "telemetry",
@@ -495,7 +223,9 @@
       "network management",
       "digital twin",
       "failure diagnosis",
-      "fault repair"
+      "fault repair",
+      "network monitoring",
+      "intent-based networking"
     ],
     "LEO satellite and non-terrestrial networks": [
       "satellite",
@@ -508,7 +238,8 @@
       "inter-satellite",
       "ground station",
       "starlink",
-      "satellite edge"
+      "satellite edge",
+      "space-air-ground"
     ],
     "5G/6G RAN and mobile network control": [
       "5g",
@@ -521,7 +252,8 @@
       "fronthaul",
       "cellular network",
       "base station",
-      "mmwave"
+      "mmwave",
+      "mobile network"
     ],
     "Real-time communication and interactive media": [
       "real-time video",
@@ -534,7 +266,8 @@
       "adaptive bitrate",
       "video qoe",
       "fec",
-      "interactive video"
+      "interactive video",
+      "video streaming"
     ],
     "XR, immersive telepresence, and volumetric media": [
       "virtual reality",
@@ -559,7 +292,9 @@
       "semantic communication",
       "split computing",
       "edge-assisted",
-      "on-device"
+      "on-device",
+      "edge inference",
+      "mobile computing"
     ],
     "Networked robotics, UAVs, vehicles, and autonomous control": [
       "uav",
@@ -571,7 +306,8 @@
       "autonomous control",
       "platooning",
       "search and rescue",
-      "cyber-physical"
+      "cyber-physical",
+      "robot"
     ],
     "Internet measurement, routing, naming, and CDN infrastructure": [
       "internet measurement",
@@ -586,7 +322,9 @@
       "routing",
       "internet scanning",
       "anycast",
-      "peering"
+      "peering",
+      "internet path",
+      "route"
     ],
     "Network security, privacy, and censorship": [
       "ddos",
@@ -599,7 +337,9 @@
       "traffic analysis",
       "privacy",
       "spoofing",
-      "source address validation"
+      "source address validation",
+      "intrusion detection",
+      "network attack"
     ],
     "Cloud, serverless, and disaggregated networked systems": [
       "serverless",
@@ -611,7 +351,9 @@
       "resource disaggregation",
       "service mesh",
       "slo",
-      "cloud computing"
+      "cloud computing",
+      "rpc",
+      "distributed storage"
     ],
     "Deterministic and industrial networking": [
       "time-sensitive networking",
