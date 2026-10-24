@@ -1,370 +1,504 @@
 # Project Idea Pool
 
-This page is a **project-area idea pool** for the Fall 2026 Advanced Networks course. It is not yet the final set of released project briefs.
+This page is a **research-grounded project-area pool** for the Fall 2026 Advanced Networks course. It is not a final set of released project briefs.
 
-The goal is to identify **application-oriented networked systems domains** where:
-- the application imposes recognizable networking constraints;
-- students can make and defend end-to-end architecture decisions;
-- there is enough recent research activity to ground the project in contemporary systems work;
-- practical tools, simulators, emulators, traces, or open implementations are likely to make a substantial semester project feasible.
+The previous version inferred project areas mainly from SIGCOMM, NSDI, and MobiCom 2025–2026. This revision broadens the evidence base to the requested venue families and uses a **paper/keyword-first taxonomy**: recurring research topics are identified from recent papers, normalized into clusters, and only then translated into candidate project areas.
 
-The research scan below treats “post-2024” as **2025 and 2026 work available by 23 September 2026**. The primary corpus screened was the main-track paper lists of SIGCOMM 2025/2026, NSDI 2025/2026, and MobiCom 2025/2026.
+## Scope and methodology
 
-A paper is counted for an application only when the **application itself is central to the problem/system**, not merely an evaluation workload. Counts are conservative lower bounds; one paper may appear in more than one application area.
+### Time window
 
-The paper lists below are **representative references, not complete bibliographies** for every paper counted. Every reference is given with its full title and, where available, a direct paper/publication link.
+The intended window is **2023–2027**. As of **24 October 2026**, essentially all usable accepted-paper evidence is from 2023–2026. Most 2027 venues have not yet published accepted-paper lists. In particular, NINeS 2027 notifications are scheduled for 27 November 2026, so no 2027 NINeS papers are counted yet.
 
-## Summary
+### Venue interpretation
 
-### Corpus screened
+The requested venue names are interpreted as follows:
 
-| Venue | Papers screened |
-| --- | ---: |
-| SIGCOMM 2025 | 88 |
-| SIGCOMM 2026 | 110 |
-| NSDI 2025 | 83 |
-| NSDI 2026 | 150 |
-| MobiCom 2025 | 77 |
-| MobiCom 2026 | 87 |
-| **Total** | **595** |
+- **SIGCOMM**
+- **CoNEXT** (interpreting “KONEX” as CoNEXT)
+- **NSDI**
+- **ICNP** (interpreting “ICMP” as ICNP)
+- **INFOCOM**
+- **SIGMETRICS / POMACS**
+- **IMC** — Internet Measurement Conference
+- **ACM Multimedia (ACM MM)**
+- **NINeS** — New Ideas in Networked Systems
+- **MobiCom**
+- **ACM MMSys**
+- **IPDPS**
+- **ICDCS**
+- **OSDI**
+- **USENIX Security**
+- networking-relevant papers from **IEEE Transactions** journals, especially IEEE/ACM Transactions on Networking, IEEE Transactions on Mobile Computing, IEEE Transactions on Parallel and Distributed Systems, IEEE Transactions on Multimedia, IEEE Transactions on Network and Service Management, and related transactions when a paper clearly concerns networked systems.
 
-### Application-area signal
+“IEEE Transactions .*” is too broad to treat as a literal exhaustive corpus: IEEE publishes many Transactions journals that are unrelated to networking. This pool therefore includes Transactions papers only when they are clearly relevant to the course.
 
-| Application area | Recent main-track papers found | Initial project-design signal |
-| --- | ---: | --- |
-| **Large-scale AI training** | **≥35** | Extremely active research area; strong architecture depth, but realistic experimentation may require abstraction/simulation because production-scale GPU clusters are unavailable. |
-| **Distributed AI inference** | **≥18** | Strong systems/network interaction around placement, KV movement, disaggregation, MoE communication, latency, and heterogeneous resources. |
-| **Large-scale video streaming** | **≥15** | Excellent project family: strong QoE metrics, public tools/traces, CDN/ABR/caching choices, and meaningful network/application interaction. |
-| **AR/VR and immersive applications** | **≥11** | Strong fit for application-driven design: latency, rendering placement, bandwidth, localization, and mobility interact naturally. |
-| **Massive IoT / smart environments** | **≥11** | Broad tool ecosystem and many deployment constraints, but final briefs should avoid generic “IoT” and anchor projects in a concrete application. |
-| **Video conferencing / RTC** | **≥9** | Excellent fit: latency, rate control, SFU architecture, heterogeneous clients, loss recovery, and QoE are directly observable. |
-| **Networked robotics / drones** | **≥7** | Strong project candidate where communication directly affects sensing/control; simulation and robotics frameworks make experimentation plausible. |
-| **Vehicular / autonomous transportation** | **≥5** | Particularly attractive application domain because mobility, deadlines, sensing, computation placement, and safety constraints are explicit. |
-| **Edge video analytics** | **≥5** | Useful intersection of network and compute design: what to send, compress, infer locally, schedule, or discard under bandwidth constraints. |
-| **Cloud gaming** | **≥4** | Compact but high-quality research cluster; unusually clean latency/QoE constraints and practical client/server experimentation opportunities. |
-| **Satellite remote sensing** | **≥4** | Interesting constrained-systems project family: predictable mobility, intermittent contacts, large data objects, storage, scheduling, and downlink constraints. |
-| **Direct-to-device satellite communication** | **≥4** | Young but rapidly developing; strong mobility/handover/capacity constraints, though realistic infrastructure access is limited. |
-| **Smart grid / energy infrastructure** | **≥4** | Some recent systems work, but much of it is monitoring/inspection rather than grid-control networking; needs careful scoping. |
-| **Live interactive broadcasting** | **≥4** | Good combination of large fan-out and latency sensitivity; overlaps substantially with RTC/video infrastructure. |
-| **Industrial automation** | **≥2** | Conceptually strong, but relatively sparse in the screened flagship networking corpus. |
-| **Emergency / disaster response** | **≥1** | Strong constraints and social relevance, but current flagship-paper density is low; likely needs workshop/specialized-venue references. |
-| **Collaborative AR / shared virtual worlds** | **≥1** | Promising as a specialized XR project, especially around synchronization and consistency/latency trade-offs. |
-| **Teleoperation** | **0 main-track hits** | Still active in robotics/networking workshops and specialized venues; not absent as a research problem, but weak in this flagship corpus. |
-| **Multiplayer online games** | **0 main-track hits** | Cloud gaming is active, but networked multiplayer state synchronization itself is sparse in the screened main tracks. |
-| **Content delivery in poor-connectivity regions** | **0 main-track hits** | Valuable problem, but this scan did not find a recent flagship cluster; would need deliberately curated specialized/canonical references. |
+### Keyword extraction
 
-## 1. Large-scale AI training
+Keywords below are **normalized topical labels**, not claims that every paper used the exact phrase as an author keyword. They are derived from paper titles, abstracts, author keywords / IEEE index terms when surfaced by the publisher, and venue session labels. Examples:
 
-**Application constraints.** Distributed training creates structured, repeated communication patterns such as all-reduce, all-to-all, parameter/activation movement, and pipeline transfers. Performance depends on topology, job placement, congestion, collective scheduling, failures, and load imbalance.
+- “LLM training”, “distributed training”, “collective communication”, and “MoE communication” are normalized into **distributed AI training / collectives**.
+- “LEO”, “direct-to-cell”, “NTN”, and “satellite edge” are normalized into **satellite / non-terrestrial networking**.
+- “RTC”, “video conferencing”, “real-time video”, and “low-latency streaming” are normalized into **real-time media**.
 
-**Why it could become a course project.** The network is directly in the critical path and architecture decisions have measurable job-completion consequences. The main concern is experimental realism: student projects would probably need emulation/simulation or small-cluster scale-down rather than pretending to reproduce hyperscale environments.
+The goal is not bibliometric precision. The goal is to expose **stable, repeated research clusters** that can support ambitious network-design projects.
 
-**Representative recent references**
-- **ByteScale: Communication-Efficient Scaling of LLM Training with a 2048K Context Length on 16384 GPUs** — ACM SIGCOMM 2025.  
-  https://ir.pku.edu.cn/handle/20.500.11897/771313
-- **MixNet: A Runtime Reconfigurable Optical-Electrical Fabric for Distributed Mixture-of-Experts Training** — ACM SIGCOMM 2025.  
-  https://mixnet-project.github.io/
-- **Coflow Scheduling for LLM Training** — ACM SIGCOMM 2025 short paper; presents Hermod, a coflow scheduler for LLM training.  
-  https://xcwanandy.github.io/papers/2025/hermod-sigcomm25short.pdf
-- **Astral: A Datacenter Infrastructure for Large Language Model Training at Scale** — ACM SIGCOMM 2025.  
+## Research-cluster summary
+
+| Cluster | Normalized keywords | Evidence signal across requested venues | Project-pool recommendation |
+| --- | --- | --- | --- |
+| **AI cluster networks and distributed training** | collectives, all-reduce, all-to-all, RDMA, MoE, coflow, placement, topology, optical fabric | Very strong in SIGCOMM, NSDI, OSDI, ICNP, ICDCS, IPDPS, TPDS | **Top-tier** |
+| **Distributed / disaggregated AI inference** | KV cache, expert parallelism, request routing, serving, disaggregation, edge inference | Very strong in SIGCOMM, NSDI, MobiCom, ICDCS, TPDS | **Top-tier** |
+| **Datacenter transport and programmable networking** | congestion control, ECN, PFC, RDMA, load balancing, P4, programmable switches, SmartNIC/DPU | Very strong in SIGCOMM, NSDI, ICNP, SIGMETRICS, OSDI | **Top-tier** |
+| **Network operations, telemetry, diagnosis, and verification** | telemetry, root cause analysis, fault localization, config safety, verification, digital twins | Very strong in SIGCOMM, NSDI, IMC, ICNP, SIGMETRICS | **Top-tier** |
+| **Satellite / non-terrestrial networking** | LEO, direct-to-cell, handover, ISL, NTN, satellite edge, constellation scheduling | Very strong in SIGCOMM, NSDI, IMC, MobiCom, NINeS, ICDCS, TMC | **Top-tier** |
+| **Cellular / 5G / 6G / RAN systems** | RAN, slicing, control plane, handover, fronthaul, O-RAN, mobile congestion control | Strong in SIGCOMM, IMC, MobiCom, NINeS, INFOCOM | **Strong** |
+| **Real-time media and interactive video** | RTC, video conferencing, low-latency video, ABR, FEC, QoE, SFU | Strong in SIGCOMM, NSDI, IMC, MMSys, ACM MM, NINeS | **Top-tier** |
+| **Immersive / XR / volumetric media** | XR, VR, AR, volumetric video, 3D Gaussian splatting, telepresence | Strong in MobiCom, IMC, ACM MM, MMSys | **Strong** |
+| **Edge intelligence and mobile AI** | offloading, split inference, edge serving, on-device LLM, collaborative perception | Strong in MobiCom, ICDCS, INFOCOM, TMC, TPDS | **Strong** |
+| **Robotics, UAVs, vehicles, and cyber-physical networking** | UAV mesh, autonomous driving, collaborative sensing, control loops, deadline traffic | Strong in MobiCom, ICDCS, INFOCOM, NINeS | **Strong** |
+| **Internet measurement and infrastructure** | BGP, DNS, IPv6, CDN, submarine cables, topology, latency, scanning | Very strong in IMC, SIGCOMM, NINeS, SIGMETRICS | **Top-tier** |
+| **Network security, privacy, and censorship resistance** | DDoS, routing security, encrypted traffic, censorship, Internet scanning, DNSSEC | Very strong in USENIX Security, IMC, SIGCOMM, ICNP | **Strong** |
+| **Cloud, serverless, and disaggregated systems** | serverless, microservices, multi-tenancy, CXL, disaggregated memory, SLOs | Strong in NSDI, OSDI, SIGMETRICS, ICDCS | **Strong** |
+| **Deterministic / industrial networking** | TSN, bounded latency, scheduling, reliability, industrial monitoring | Moderate in CoNEXT/POMACS, ICDCS, MobiCom | **Targeted** |
+| **Quantum networking** | entanglement routing, quantum switch, distributed quantum computing, quantum communication | Growing in SIGMETRICS, ICDCS, INFOCOM, NINeS | **Exploratory** |
+| **Sustainable networking and computing** | energy-aware RAN, carbon-aware scheduling, energy proportionality | Growing in NINeS, SIGMETRICS, ICDCS | **Exploratory** |
+
+## Curated paper-and-keyword corpus
+
+This is a **representative seed corpus**, not an exhaustive bibliography of every paper published by every listed venue. It is deliberately biased toward papers that can generate network-design projects for this course.
+
+### AI cluster networks and distributed training
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **ByteScale: Communication-Efficient Scaling of LLM Training with a 2048K Context Length on 16384 GPUs** | SIGCOMM 2025 | LLM training, communication efficiency, long context, GPU clusters |
+| **MixNet: A Runtime Reconfigurable Optical-Electrical Fabric for Distributed Mixture-of-Experts Training** | SIGCOMM 2025 | MoE, optical networking, topology reconfiguration, distributed training |
+| **Coflow Scheduling for LLM Training** | SIGCOMM 2025 | coflows, scheduling, LLM training, flow dependency |
+| **SyCCL: Exploiting Symmetry for Efficient Collective Communication Scheduling** | SIGCOMM 2025 | collectives, scheduling, topology, distributed training |
+| **SchedEP: Online Scheduling of EP Communication with Token Aggregation and Load Balancing** | ICNP 2026 | expert parallelism, token aggregation, load balancing |
+| **Taming Step Misalignment in the Network for Collective Operations** | ICNP 2026 | collective communication, synchronization, network scheduling |
+| **Shuffle-Exchange: Enhancing Collective Communication Efficiency for Large Model Training** | ICDCS 2025 | large-model training, collectives, communication optimization |
+| **RAPIDSCRIBE: Bandwidth-aware Parallel Snapshots for Distributed Neural-Network Training** | ICDCS 2025 | checkpointing, bandwidth allocation, distributed training |
+| **Enhancing In-network Aggregation with Adaptive Gradient Quantization for Multi-tenant Learning** | ICDCS 2025 | in-network aggregation, quantization, multi-tenancy, distributed learning |
+| **ACCL+: an FPGA-Based Collective Engine for Distributed Applications** | OSDI 2024 | FPGA, collectives, RDMA, offload |
+
+### Distributed / disaggregated AI inference
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **MegaScale-Infer: Efficient Mixture-of-Experts Model Serving with Disaggregated Expert Parallelism** | SIGCOMM 2025 | MoE serving, disaggregation, expert parallelism, inference |
+| **DualPath: Accelerating Agentic LLM Inference by Harvesting Disaggregated KV-Cache Storage I/O** | SIGCOMM 2026 | agentic inference, KV cache, disaggregated storage, I/O |
+| **KVServe: Service-Aware KV Cache Compression for Communication-Efficient Disaggregated LLM Serving** | SIGCOMM 2026 | KV cache, compression, disaggregated serving |
+| **AoRA: AI-on-RAN for Backhaul-free Edge Inference** | SIGCOMM 2025 | edge inference, RAN, communication avoidance |
+| **LLMSched: Uncertainty-Aware Workload Scheduling for Compound LLM Applications** | ICDCS 2025 | LLM serving, scheduling, uncertainty |
+| **MCaM: Efficient LLM Inference with Multi-tier KV Cache Management** | ICDCS 2025 | KV cache, hierarchy, inference |
+| **S2M3: Split-and-Share Multi-Modal Models for Distributed Multi-Task Inference on the Edge** | ICDCS 2025 | split inference, edge AI, multimodal |
+| **CFMoE: Cache-Friendly Mixture of Experts Model Serving System on Edge Devices** | MobiCom 2026 | edge serving, MoE, caching |
+| **CRISP: Co-designing Pruning and Scheduling for Efficient MoE Inference on Edge Servers** | MobiCom 2026 | MoE, pruning, scheduling, edge inference |
+| **NPUGen: NPU as KV Generator for Stable Long-Context Mobile LLM Inference** | MobiCom 2026 | mobile LLMs, NPU, KV generation |
+
+### Datacenter transport and programmable networking
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Fast, Scalable, and Accurate Rate Limiter for RDMA NICs** | SIGCOMM 2024 | RDMA, NIC, rate limiting |
+| **OptimusPrime: Unleash Dataplane Programmability through a Transformable Architecture** | SIGCOMM 2024 | programmable dataplane, P4-like processing, switch architecture |
+| **Hawkeye: Diagnosing RDMA Network Performance Anomalies with PFC Provenance** | SIGCOMM 2025 | RDMA, PFC, diagnosis |
+| **ByteDance Jakiro: Enabling RDMA and TCP over Virtual Private Cloud** | SIGCOMM 2025 | RDMA, TCP, VPC, cloud networking |
+| **Simulate Before Sending: Rethinking Transport in Datacenter Networks** | NINeS 2026 | datacenter transport, predictive control, congestion |
+| **No Signal to Rule Them All: A Systematic Analysis of In-Network Congestion Signals** | NINeS 2026 | ECN, congestion signals, transport design |
+| **Making Congestion Control Algorithms Insensitive to Underlying Propagation Delays** | NINeS 2026 | congestion control, RTT robustness |
+| **PEE: Precise ECN Encoding for Efficient Congestion Control in Data Center Networks** | ICDCS 2025 | ECN, datacenter congestion control |
+| **Enabling Rate-Aware Load Balancing for Datacenter Networks** | ICNP 2026 | load balancing, rate awareness, datacenter |
+| **Poison comes in small packages: Application-driven Reexamination of Datacenter Microbursts** | SIGMETRICS 2025 | microbursts, queueing, datacenter traffic |
+
+### Network operations, telemetry, diagnosis, and verification
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Raha: A General Tool to Analyze WAN Degradation** | SIGCOMM 2025 | WAN diagnosis, degradation, root cause |
+| **CAPA: An Architecture For Operating Cluster Networks With High Availability** | NSDI 2024 | network operations, change safety, availability |
+| **POSEIDON: A Consolidated Virtual Network Controller that Manages Millions of Tenants via Config Tree** | NSDI 2024 | virtual networks, control plane, scalability |
+| **Raising the Level of Abstraction for Sketch-Based Network Telemetry with SketchPlan** | IMC 2024 | telemetry, sketches, abstraction |
+| **INT-MC: Low-Overhead In-Band Network-Wide Telemetry Based on Matrix Completion** | SIGMETRICS 2025 | in-band telemetry, matrix completion, overhead |
+| **SlaRepair: Service-Aware Closed-Loop Network Fault Repair via Constrained LLM Arbitration** | ICNP 2026 | network repair, LLM agents, closed-loop operations |
+| **VeriNC: Finding Design Risks of In-Network Computing Systems** | ICNP 2026 | verification, in-network computing, design risk |
+| **Automatic Generation of Digital Twins for Network Testing** | ICDCS 2025 workshop | digital twins, network testing |
+
+### Satellite and non-terrestrial networking
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Democratizing Direct-to-Cell Low Earth Orbit Satellite Networks** | NSDI 2024 | direct-to-cell, LEO, mobility, cellular integration |
+| **LeoCC: Making Internet Congestion Control Robust to LEO Satellite Dynamics** | SIGCOMM 2025 | LEO, congestion control, variable RTT |
+| **StarCDN: Moving Content Delivery Networks to Space** | SIGCOMM 2025 | satellite CDN, caching, content delivery |
+| **Direct-to-Cell Satellite Network without Satellite Navigation** | SIGCOMM 2025 | direct-to-cell, positioning, NTN |
+| **DeepSpace: Super Resolution Powered Efficient and Reliable Satellite Image Data Acquisition** | SIGCOMM 2025 | remote sensing, downlink, compression |
+| **What Obstructed Skies Teach Us about Satellite Internet** | NINeS 2026 | satellite measurements, obstruction, reliability |
+| **CrowdLink: Unlocking Idle LEO Network Capacity with User Terminals** | NINeS 2026 | LEO capacity, user terminals, cooperative networking |
+| **A Global Perspective on the Past, Present, and Future of Video Streaming over Starlink** | SIGMETRICS 2025 | Starlink, video streaming, performance measurement |
+| **Space Booking: Enabling Performance-Critical Applications in Broadband Satellite Networks** | ICDCS 2025 | satellite scheduling, reservations, application QoS |
+| **Partitioning or Not? Hierarchical Task Offloading Optimization in Collaborative Satellite Edge Computing Networks** | ICDCS 2025 | satellite edge, offloading, partitioning |
+| **Direct-to-Cell Satellite Radio Signal Traceback at Scale** | MobiCom 2026 | direct-to-cell, RF measurement, traceback |
+| **DynaFilter: Cloud-Driven Dynamic Filtering for Satellite Edge Intelligence** | MobiCom 2026 | satellite edge, filtering, edge intelligence |
+| **Joint Service Caching and Resource Allocation Over Different Timescales in Satellite Edge Computing Networks** | IEEE TMC 2025 | satellite edge, caching, resource allocation |
+| **Multi-Attribute Consistency Segment Resilient Routing for LEO Satellite Mega Constellations** | IEEE TMC 2025 | LEO routing, failures, segment routing |
+| **Prediction-Based Task Offloading for Ultra-Dense LEO Satellite Edge Computing** | IEEE TMC 2026 Early Access | prediction, task offloading, LEO edge |
+
+### Cellular / RAN / mobile networking
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **RANBooster: Democratizing advanced cellular connectivity through fronthaul middleboxes** | SIGCOMM 2025 | RAN, fronthaul, middleboxes |
+| **Performance Isolation for 5G RAN Slices Across Multiple Interfering Cells** | NINeS 2026 | 5G slicing, isolation, interference |
+| **EcoCell: Energy Conservation through Traffic Shaping in Cellular Radio Access Networks** | NINeS 2026 | RAN, energy, traffic shaping |
+| **BISCAY: Practical Radio KPI Driven Congestion Control for Mobile Networks** | NINeS 2026 | mobile congestion control, radio KPI |
+| **Through the Telco Lens: A Countrywide Empirical Study of Cellular Handovers** | IMC 2024 | handover, cellular measurement |
+| **Automated, Cross-Layer Root Cause Analysis of 5G Video-Conferencing Quality Degradation** | IMC 2025 | 5G, QoE, root cause analysis |
+| **An In-Depth Look into 5G ON-OFF Loops in the Wild** | IMC 2025 | 5G, control loops, measurement |
+| **Chronos: Scalable and Cost-Effective Cloud-based RAN Emulation System** | MobiCom 2026 | RAN emulation, cloud RAN |
+| **Nexus: Efficient and Scalable Multi-Cell mmWave Baseband Processing with Heterogeneous Compute** | MobiCom 2026 | mmWave, baseband, heterogeneous compute |
+
+### Real-time media and interactive video
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Scalable Video Conferencing Using SDN Principles** | SIGCOMM 2025 | video conferencing, SDN, scaling |
+| **NIER: Practical Neural-enhanced Low-bitrate Video Conferencing** | SIGCOMM 2025 | RTC, neural enhancement, bitrate |
+| **ACE: Sending Burstiness Control for High-Quality Real-time Communication** | SIGCOMM 2025 | RTC, burst control, congestion |
+| **Mowgli: Passively Learned Rate Control for Real-Time Video** | NSDI 2025 | rate control, real-time video |
+| **Tooth: Toward Optimal Balance of Video QoE and Redundancy Cost by Fine-Grained FEC in Cloud Gaming Streaming** | NSDI 2025 | cloud gaming, FEC, QoE |
+| **Syntra: Synthesizing Cross-Layer Controllers for Low-Latency Video Streaming** | NSDI 2026 | low-latency streaming, cross-layer control |
+| **Medley: Optimizing Midgress Bandwidth for Commercial Live Streaming CDNs** | NSDI 2026 | live streaming, CDN, bandwidth |
+| **Tight Loops, Smooth Streams: Responsive Congestion Control for Real-Time Video** | NINeS 2026 | real-time video, congestion control |
+| **Protocol Compliance in Popular RTC Applications** | IMC 2025 | RTC, protocol compliance, measurement |
+| **Characterizing User Platforms for Video Streaming in Broadband Networks** | IMC 2024 | streaming, broadband, client heterogeneity |
+
+### Immersive / XR / volumetric media
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **A First Look at Immersive Telepresence on Apple Vision Pro** | IMC 2024 | XR, telepresence, measurement |
+| **EdgeGaussian: Real-time Free-Viewpoint Video for Mobile VR via Edge-Client Collaborative Neural Rendering** | MobiCom 2025 | VR, edge rendering, Gaussian splatting |
+| **L3GS: Layered 3D Gaussian Splats for Efficient 3D Scene Delivery** | MobiCom 2025 | 3D delivery, Gaussian splatting, streaming |
+| **Vega: Fully Immersive Mobile Volumetric Video Streaming with 3D Gaussian Splatting** | MobiCom 2025 | volumetric video, mobile VR |
+| **ProxLink: A Lightweight Decentralized Synchronization Framework for Multi-User XR** | MobiCom 2026 | multi-user XR, synchronization |
+| **RadioSight: Predictive mmWave XR Network Optimization from Dynamic Neural Radio Fields** | MobiCom 2026 | XR, mmWave, prediction |
+| **DeltaAR: Redundancy-Aware Object Detection for Mobile Augmented Reality** | MobiCom 2026 | mobile AR, redundancy, edge perception |
+| **A First Look at Multimodal Mobile Application Performance on XR and AI Smart Glasses** | MobiCom 2026 | smart glasses, XR, mobile AI |
+
+### Edge intelligence, robotics, vehicles, and CPS
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **VI-Planning: Infrastructure-Assisted Real-Time Planning Optimization for Autonomous Driving** | MobiCom 2025 | autonomous driving, edge assistance, planning |
+| **CoPe: Taming Collaborative 3D Perception via Lite Network Attention across Mobile Agents** | ICDCS 2025 | collaborative perception, mobile agents |
+| **DiVE: Differential Video Encoding for Online Edge-assisted Video Analytics on Mobile Agents** | ICDCS 2025 | video analytics, edge, mobile agents |
+| **U-Mesh: Deploying UAV-Mesh Network for Automatic Powerline Inspection in Remote Areas** | ICDCS 2025 | UAV mesh, remote inspection |
+| **Failure-Aware Tasking for Teams of Drones** | ICDCS 2025 | drone fleets, failures, tasking |
+| **TURBO: Utility-Aware Bandwidth Allocation for Cloud-Augmented Autonomous Control** | NINeS 2026 | autonomous control, bandwidth allocation, cloud |
+| **Scalable Routing in a City-Scale Wi-Fi Network for Disaster Recovery** | NINeS 2026 | disaster recovery, Wi-Fi mesh, routing |
+| **“Take Me Home, Wi-Fi Drone”: A Drone-based Wireless System for Wilderness Search and Rescue** | MobiCom 2026 | UAV, Wi-Fi, search and rescue |
+
+### Internet measurement and infrastructure
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Censys: A Map of Internet Hosts and Services** | SIGCOMM 2025 | Internet scanning, asset discovery |
+| **Threading the Ocean: Mapping Digital Routes Across Submarine Cables using Calypso** | SIGCOMM 2025 | submarine cables, path inference |
+| **MetAS Critic: Reframing AS-Level Topology Discovery as a Recommendation System** | IMC 2024 | AS topology, inference |
+| **The wisdom of the measurement crowd: Building a knowledge graph for the Internet** | IMC 2024 | Internet knowledge graph, measurement |
+| **Have you SYN me? Characterizing Ten Years of Internet Scanning** | IMC 2024 | Internet scanning, longitudinal measurement |
+| **Collecting Self-reported Semantics of BGP Communities and Investigating Their Consistency with Real-world Usage** | IMC 2024 | BGP communities, routing |
+| **Sublet Your Subnet: Inferring IP Leasing in the Wild** | IMC 2024 | IP leasing, address infrastructure |
+| **Seeds of Scanning: Understanding the Effects of Datasets, Methods, and Metrics on IPv6 Address Discovery** | IMC 2024 | IPv6, scanning, methodology |
+| **Understanding Partial Reachability in the Internet Core** | NINeS 2026 | reachability, Internet core |
+| **Monitoring Latency on Submarine Cables: Limitations and Opportunities** | NINeS 2026 | submarine cables, latency measurement |
+| **Who Holds the Steering Wheel? Opacity and Consolidation in CDN Replica Selection** | NINeS 2026 | CDN, replica selection, concentration |
+| **Beyond Data Points: Regionalizing Crowdsourced Latency Measurements** | SIGMETRICS 2025 | latency measurement, geographic aggregation |
+| **Internet Service Usage and Delivery As Seen From a Residential Network** | SIGMETRICS 2025 | residential networks, traffic characterization |
+
+### Network security, privacy, and censorship
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **A System to Detect Forged-Origin BGP Hijacks** | NSDI 2024 | BGP security, hijack detection |
+| **Formalizing Dependence of Web Infrastructure** | SIGCOMM 2025 | infrastructure security, dependency |
+| **Reliable and Decentralized Certificate Revocation via DNS: The Case for RevDNS** | SIGCOMM 2025 | PKI, DNS, revocation |
+| **Achieving High-Speed and Robust Encrypted Traffic Anomaly Detection with Programmable Switches** | SIGCOMM 2025 | encrypted traffic, anomaly detection, programmable switches |
+| **Rumors Stop with the Wise: Unveiling Inbound SAV Deployment through Spoofed ICMP Messages** | IMC 2024 | source-address validation, spoofing |
+| **The Age of DDoScovery: An Empirical Comparison of Industry and Academic DDoS Assessments** | IMC 2024 | DDoS, measurement |
+| **Exposing and Circumventing SNI-based QUIC Censorship of the Great Firewall of China** | USENIX Security 2025 | QUIC, censorship, measurement |
+| **Censorship Evasion with Unidentified Protocol Generation** | USENIX Security 2025 | censorship evasion, protocol generation |
+| **Catch-22: Uncovering Compromised Hosts using SSH Public Keys** | USENIX Security 2025 | Internet scanning, compromise detection |
+| **Your Shield is My Sword: A Persistent Denial-of-Service Attack via the Reuse of Unvalidated Caches in DNSSEC Validation** | USENIX Security 2025 | DNSSEC, DoS |
+| **Deanonymizing Ethereum Validators: The P2P Network Has a Privacy Issue** | USENIX Security 2025 | P2P, privacy, blockchain |
+
+### Cloud, serverless, disaggregated systems, and microservices
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **Autothrottle: A Practical Bi-Level Approach to Resource Management for SLO-Targeted Microservices** | NSDI 2024 | microservices, SLO, resource control |
+| **Palladium: A DPU-enabled Multi-Tenant Serverless Cloud over Zero-copy Multi-node RDMA Fabrics** | SIGCOMM 2025 | DPU, serverless, RDMA, multi-tenancy |
+| **The Tale of Errors in Microservices** | SIGMETRICS 2025 | microservices, failures, reliability |
+| **Microns: Connection Subsetting for Microservices in Shared Clusters** | SIGMETRICS 2025 | microservices, connections, shared clusters |
+| **PipeCo: Pipelining Cold Start of Deep Learning Inference Services on Serverless Platforms** | SIGMETRICS 2025 | serverless, cold start, inference |
+| **Exploring Function Granularity for Serverless Machine Learning Application with GPU Sharing** | SIGMETRICS 2025 | serverless, GPU sharing, ML |
+| **Octopus: Decentralized Workflow-granular Scheduling for Serverless Workflow** | ICDCS 2025 | serverless, decentralized scheduling |
+| **Efficient Serverless Cold Start: Reducing Library Loading Overhead by Profile-guided Optimization** | ICDCS 2025 | serverless, cold start |
+
+### Deterministic networking, quantum networking, and sustainability
+
+| Paper | Venue / year | Normalized keywords |
+| --- | --- | --- |
+| **T(SN)-Ray: Gauging TAS and PSFP Delays of TSN Switches for Predictable Deterministic Networking** | CoNEXT / Proceedings of the ACM on Networking, 2025 | TSN, deterministic networking, latency |
+| **Elastic Scheduling for Mix-Flow in Time-Sensitive Networking** | ICDCS 2025 | TSN, scheduling, mixed criticality |
+| **Optimal Scheduling in a Quantum Switch** | SIGMETRICS 2025 | quantum networking, scheduling |
+| **Quantum Network Optimization: From Optimal Routing to Fair Resource Allocation** | SIGMETRICS 2025 | quantum routing, fairness |
+| **Peer-to-Peer Distribution of Graph States Across Spacetime Quantum Networks of Arbitrary Topology** | SIGMETRICS 2025 | quantum networking, P2P, graph states |
+| **CloudQC: A Network-aware Framework for Multi-tenant Distributed Quantum Computing** | ICDCS 2025 | distributed quantum computing, network-aware scheduling |
+| **Stealthy Low Earth Orbit Satellite-to-Ground Quantum Communication** | NINeS 2026 | quantum communication, LEO |
+| **EcoCell: Energy Conservation through Traffic Shaping in Cellular Radio Access Networks** | NINeS 2026 | energy, RAN, traffic shaping |
+| **GreenFL: Carbon-efficient Federated Learning over RE Powered Edge Computing Systems** | ICDCS 2025 | carbon-aware computing, federated learning |
+| **ForgetMeNot: Understanding and Modeling the Impact of Forever Chemicals Toward Sustainable Large-Scale Computing** | SIGMETRICS 2025 | sustainability, systems lifecycle |
+
+## Updated project-area pool
+
+The pool below is the course-facing result of the literature scan. Areas are ranked not merely by paper count but by whether they force students to make and defend **network architecture decisions** across scalability, reliability, and performance.
+
+### 1. AI cluster networks for large-model training
+
+**Why this moved to the top.** Recent SIGCOMM, ICNP, ICDCS, OSDI, IPDPS/TPDS-style work makes communication architecture itself a first-class part of large-model training: topology, collectives, scheduling, optical/electrical fabrics, RDMA, in-network aggregation, placement, and failures.
+
+**Good project question shape.** Given a training workload with a known communication graph, what combination of topology, collective algorithm, flow/coflow scheduling, placement, and failure recovery minimizes job completion time under realistic oversubscription and failures?
+
+**Likely tools.** ns-3 / OMNeT++, SimAI or similar simulators, small-scale NCCL/MPI experiments, Mininet/container testbeds, synthetic collective traces.
+
+**Research anchors.** ByteScale; MixNet; SyCCL; SchedEP; Taming Step Misalignment; Shuffle-Exchange; ACCL+.
+
+### 2. Distributed and disaggregated LLM inference
+
+**Why it is distinct from training.** Inference has different communication structure: request routing, batching, KV-cache movement, disaggregated prefill/decode, expert placement, edge/cloud split, and tail-latency SLOs.
+
+**Good project question shape.** Under a heterogeneous cluster or edge/cloud hierarchy, where should model state and computation live, how should requests be routed, and when is moving KV/model state cheaper than recomputation?
+
+**Likely tools.** vLLM/SGLang-like serving stacks where feasible, trace-driven simulation, container clusters, synthetic KV-transfer workloads.
+
+**Research anchors.** MegaScale-Infer; KVServe; DualPath; MCaM; CFMoE; CRISP.
+
+### 3. Datacenter transport, congestion control, and programmable data planes
+
+**Why it is a core project family.** The literature remains dense and technically deep, but the project should avoid becoming “implement one congestion-control algorithm.” Students should instead compare architectures under mixed workloads and failure/queueing regimes.
+
+**Good project question shape.** How should endpoints, switches, and NICs divide responsibility for congestion signals, load balancing, rate control, and loss recovery for mixed TCP/RDMA/collective workloads?
+
+**Likely tools.** ns-3, Mininet, Linux traffic control, P4/BMv2, eBPF, DPDK, programmable-switch emulators.
+
+**Research anchors.** No Signal to Rule Them All; Simulate Before Sending; PEE; Fast RDMA Rate Limiter; Hawkeye; OptimusPrime.
+
+### 4. Network telemetry, diagnosis, reliability, and automated operations
+
+**Why it became a separate area.** Across SIGCOMM, NSDI, IMC, SIGMETRICS, and ICNP there is sustained work on observing, explaining, verifying, and repairing large networks. This fits the course especially well because students must reason about observability gaps and failure modes, not only optimize steady-state throughput.
+
+**Good project question shape.** What telemetry should be collected, at what granularity and cost, to detect and localize a chosen class of failures quickly enough for safe automated remediation?
+
+**Likely tools.** P4 telemetry, eBPF, Prometheus/OpenTelemetry, emulated WAN/datacenter topologies, fault injection, network digital twins.
+
+**Research anchors.** Raha; Hawkeye; SketchPlan; INT-MC; CAPA; SlaRepair; VeriNC.
+
+### 5. LEO satellite and non-terrestrial networks
+
+**Why this is now broader than “satellite remote sensing.”** Recent work spans direct-to-cell, congestion control, CDN placement, task offloading, routing, measurement, capacity markets, remote sensing, and satellite-edge intelligence. It is one of the clearest multi-layer design spaces in the corpus.
+
+**Good project question shape.** For a moving LEO constellation and terrestrial users, how should routing, handover, congestion control, caching/compute placement, and admission/reservation interact for a specific workload?
+
+**Likely tools.** Hypatia/SatGen-style constellation simulation, ns-3, public TLEs, Starlink measurement traces, trace-driven application models.
+
+**Research anchors.** Democratizing Direct-to-Cell LEO Networks; LeoCC; StarCDN; CrowdLink; Space Booking; MCSR routing; prediction-based LEO offloading.
+
+### 6. 5G/6G RAN and mobile network control
+
+**Why this is a project area.** The research cluster combines radio conditions with transport, slicing, energy, fronthaul, control-plane behavior, and application QoE. It gives students an explicit cross-layer design problem.
+
+**Good project question shape.** How should a mobile network expose and use radio/network state to allocate capacity or control transport while preserving isolation, stability, and energy efficiency?
+
+**Likely tools.** srsRAN/OpenAirInterface, Colosseum-like traces where available, ns-3 5G-LENA, RAN emulation.
+
+**Research anchors.** RANBooster; 5G RAN slice isolation; BISCAY; EcoCell; 5G video-conferencing root-cause analysis; Chronos.
+
+### 7. Real-time communication, conferencing, and interactive streaming
+
+**Why this remains one of the best course projects.** It has direct user-visible outcomes, open-source implementations, network/application cross-layer choices, and meaningful reliability/performance trade-offs.
+
+**Good project question shape.** For heterogeneous receivers and changing paths, what combination of congestion control, bitrate/quality adaptation, forwarding topology, redundancy/FEC, and edge placement maximizes interactive QoE?
+
+**Likely tools.** WebRTC, Pion/mediasoup/Janus, tc/netem, Mahimahi, video traces, objective QoE metrics.
+
+**Research anchors.** Scalable Video Conferencing Using SDN Principles; NIER; ACE; Mowgli; Syntra; Tight Loops, Smooth Streams.
+
+### 8. XR, immersive telepresence, and volumetric media
+
+**Why it deserves its own project family.** The recent mobile/multimedia literature has shifted from ordinary 2D video toward 3D representations, neural rendering, multi-user synchronization, mmWave-aware delivery, and smart glasses.
+
+**Good project question shape.** Which representation, partitioning, rendering placement, transport, caching, and synchronization strategy gives the best motion-to-photon latency and visual quality under mobility and bandwidth variation?
+
+**Likely tools.** Unity/Unreal, WebXR, 3D Gaussian Splatting pipelines, trace-driven network emulation.
+
+**Research anchors.** EdgeGaussian; L3GS; Vega; ProxLink; RadioSight; Apple Vision Pro telepresence measurement.
+
+### 9. Edge intelligence and collaborative perception
+
+**Why this is broader than “edge video analytics.”** Recent work includes split multimodal inference, collaborative 3D perception, mobile agents, on-device LLMs, service placement, and semantic communication.
+
+**Good project question shape.** What information should devices process locally, compress, summarize, or transmit, and where should downstream inference run when bandwidth, energy, accuracy, and latency all matter?
+
+**Likely tools.** PyTorch, edge devices or emulated resource limits, prerecorded sensor/video data, network emulation.
+
+**Research anchors.** S2M3; CoPe; DiVE; TASP; DeltaAR; on-device / edge MoE serving work.
+
+### 10. Networked robotics, UAVs, vehicles, and autonomous control
+
+**Why it is attractive.** Networking choices affect the physical system’s objective, not just packet metrics. The literature spans UAV mesh networks, search and rescue, autonomous-driving planning, collaborative perception, and cloud-augmented control.
+
+**Good project question shape.** What data/control functions should be local, peer-to-peer, edge-assisted, or cloud-assisted under mobility, deadlines, failures, and changing wireless capacity?
+
+**Likely tools.** CARLA, SUMO, AirSim, ROS2, ns-3/Veins, network emulation.
+
+**Research anchors.** VI-Planning; U-Mesh; TURBO; Failure-Aware Tasking for Teams of Drones; Take Me Home, Wi-Fi Drone.
+
+### 11. Internet measurement, routing, naming, and CDN infrastructure
+
+**Why this is now a major pool area.** IMC and related SIGCOMM/NINeS work show a deep research stream around BGP, DNS, IPv6, Internet topology, submarine cables, CDN replica selection, scanning, and residential access.
+
+**Good project question shape.** Can students make a falsifiable claim about how a real Internet mechanism behaves, then design a measurement methodology robust to missing data, bias, and confounding?
+
+**Likely tools.** RIPE Atlas, RouteViews/RIS, CAIDA data, Censys/Shadowserver-style datasets where licensed, public DNS/BGP datasets, active probing with strict ethical controls.
+
+**Research anchors.** MetAS Critic; BGP Communities study; Threading the Ocean; Monitoring Latency on Submarine Cables; CDN Replica Selection; IPv6 discovery work.
+
+### 12. Network security and censorship-resilient infrastructure
+
+**Why it belongs in an advanced networking course.** The most useful subset of security papers treats the network protocol or Internet infrastructure itself as the object of study: BGP, DNSSEC, QUIC censorship, scanning, DDoS, encrypted traffic, and P2P privacy.
+
+**Good project question shape.** How does an attacker exploit a network protocol’s assumptions, and what deployable defense changes the attacker/defender trade-off without unacceptable performance or compatibility cost?
+
+**Likely tools.** Mininet, protocol implementations, safe local testbeds, public measurement datasets. No uncontrolled Internet attacks.
+
+**Research anchors.** forged-origin BGP hijack detection; QUIC censorship; UPGen; DNSSEC cache DoS; SAV measurement; encrypted-traffic anomaly detection.
+
+### 13. Cloud, serverless, and disaggregated networked systems
+
+**Why it is useful but should stay network-centered.** The corpus is large, but many systems papers become ordinary resource-management projects. A suitable course project must put communication, placement, network contention, or failure propagation in the critical path.
+
+**Good project question shape.** How should a service partition and place state/functionality across hosts when cold starts, network paths, memory tiers, multi-tenancy, and SLOs interact?
+
+**Research anchors.** Palladium; Autothrottle; Microns; PipeCo; serverless workflow scheduling.
+
+### 14. Deterministic and industrial networking
+
+**Why it is narrower but valuable.** TSN and predictable networking create explicit hard constraints around deadline guarantees, queue scheduling, interference, and fault recovery.
+
+**Good project question shape.** Which scheduling/admission architecture gives bounded latency to critical flows while retaining acceptable utilization for best-effort traffic?
+
+**Likely tools.** ns-3 TSN models, OMNeT++/INET, Linux TSN support, P4.
+
+**Research anchors.** T(SN)-Ray; Elastic Scheduling for Mix-Flow in TSN; industrial monitoring work from MobiCom.
+
+### 15. Quantum networking and distributed quantum systems
+
+**Why it is exploratory.** The cluster is now visible across SIGMETRICS, ICDCS, INFOCOM-style work, and NINeS, but student feasibility depends strongly on simulation and on how much quantum background the course wants to assume.
+
+**Good project question shape.** How should entanglement, routing, scheduling, or remote-gate resources be allocated under fidelity, latency, and fairness constraints?
+
+**Likely tools.** NetSquid, SeQUeNCe, SimulaQron-style simulators.
+
+**Research anchors.** Optimal Scheduling in a Quantum Switch; Quantum Network Optimization; CloudQC; distributed graph-state delivery.
+
+### 16. Sustainable networking and computing
+
+**Why it is exploratory rather than standalone by default.** Energy/carbon is increasingly present, but it is strongest when used as a cross-cutting constraint on another networked system rather than as an isolated optimization exercise.
+
+**Good project question shape.** How much energy/carbon can be saved by changing network scheduling, placement, or traffic shaping without violating latency/reliability SLOs?
+
+**Research anchors.** EcoCell; GreenFL; sustainable large-scale computing work in SIGMETRICS.
+
+## Areas de-emphasized from the previous pool
+
+The broader corpus changes several earlier conclusions:
+
+- **Smart grid / energy infrastructure** should not be a top-level project family unless anchored in a concrete networking problem such as UAV inspection, TSN, or resilient control.
+- **Massive IoT** is too broad as a standalone label. Stronger briefs should be phrased as satellite IoT, industrial sensing, edge intelligence, smart environments, or low-power wireless systems.
+- **Cloud gaming** is best treated as a subcase of **interactive real-time media**, unless a team has a question specifically about rendering placement or game-streaming FEC.
+- **Satellite remote sensing** and **direct-to-device satellite communication** should be merged into the larger **LEO / non-terrestrial networking** family, then specialized by workload.
+- **Live interactive broadcasting** belongs under real-time media/CDN design rather than as a separate family.
+- **Collaborative AR** belongs under XR / immersive systems.
+- **Teleoperation** belongs under networked robotics / autonomous control.
+- **Content delivery in poor-connectivity regions** remains a useful application scenario but does not appear as a dense standalone research cluster in this corpus.
+- **Multiplayer online games** remains weaker than cloud gaming/RTC/XR in the recent requested venues.
+
+## Recommended shortlist for Fall 2026
+
+If the course wants roughly **6–10 broad project areas**, the strongest set is:
+
+1. AI cluster networks and distributed training
+2. Distributed / disaggregated LLM inference
+3. Datacenter transport and programmable networking
+4. Network telemetry, diagnosis, reliability, and automated operations
+5. LEO satellite / non-terrestrial networking
+6. 5G/6G RAN and mobile networking
+7. Real-time communication and interactive media
+8. XR / immersive / volumetric media
+9. Edge intelligence + networked autonomous systems
+10. Internet measurement, routing, naming, CDN, and network security
+
+The last item can be split into **Internet infrastructure measurement** and **network security** if the teaching team wants more than ten areas.
+
+This shortlist is more robust to rapid AI progress than the previous application-only list because difficulty comes from **architecture choice, experimentation, measurement validity, failure behavior, and trade-offs**, not from implementation difficulty alone.
+
+## Project-release gate
+
+An area should become a released project only when it has:
+
+1. a concrete workload or operational objective;
+2. at least two interacting network/system design dimensions;
+3. measurable scalability, reliability, and performance outcomes;
+4. a plausible open toolchain, emulator, simulator, trace, or implementation;
+5. at least one baseline and multiple defensible alternative architectures;
+6. failures or scale limits that can be experimentally exposed;
+7. enough scope for a 3–4 person team without requiring inaccessible hyperscale infrastructure;
+8. at least three recent papers from this corpus that disagree, optimize different parts of the stack, or expose a meaningful unresolved trade-off;
+9. a research question that students can answer with evidence rather than merely reproduce a paper;
+10. an evaluation plan that makes AI-assisted implementation auditable and requires the team to defend its design and validation decisions.
+
+## Source indexes used for this revision
+
+Official or publisher-maintained sources are preferred:
+
+- ACM SIGCOMM accepted papers:  
+  https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/  
   https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/
-
-## 2. Distributed AI inference
-
-**Application constraints.** Modern inference systems move activations, parameters, KV caches, and requests across heterogeneous accelerators and network tiers. Tail latency, batching, placement, disaggregation, and failure handling interact strongly.
-
-**Why it could become a course project.** Students can study the application/network boundary directly: function placement, resource scheduling, request routing, disaggregation, and congestion can all be changed and experimentally defended.
-
-**Representative recent references**
-- **MegaScale-Infer: Efficient Mixture-of-Experts Model Serving with Disaggregated Expert Parallelism** — ACM SIGCOMM 2025.  
-  https://doi.org/10.1145/3718958.3750506
-- **DualPath: Accelerating Agentic LLM Inference by Harvesting Disaggregated KV-Cache Storage I/O** — ACM SIGCOMM 2026.  
-  https://everythinginsigcomm.group/t/dualpath-accelerating-agentic-llm-inference-by-harvesting-disaggregated-kv-cache-storage-i-o/459
-- **KVServe: Service-Aware KV Cache Compression for Communication-Efficient Disaggregated LLM Serving** — ACM SIGCOMM 2026.  
-  https://conferences.sigcomm.org/sigcomm/2026/program/papers/
-
-## 3. Large-scale video streaming
-
-**Application constraints.** Streaming must jointly manage bitrate adaptation, CDN/server placement, caching, startup delay, rebuffering, bandwidth variation, and huge demand skew.
-
-**Why it could become a course project.** This is one of the cleanest application-oriented choices: students can observe user-visible QoE, implement alternatives, use realistic traces, and reason simultaneously about application, transport, CDN, and resource-allocation layers.
-
-**Representative recent references**
-- **HyperEdge: An Edge CDN Infrastructure for Cost Efficient Video Streaming** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/wei
-- **Syntra: Synthesizing Cross-Layer Controllers for Low-Latency Video Streaming** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/pan
-- **Morphe: High-Fidelity Generative Video Streaming with Vision Foundation Model** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/gong
-- **Predict, Prune, Play: Efficient Video Playback Optimization Under Device Diversity and Drift** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/sharma
-
-## 4. AR/VR and immersive applications
-
-**Application constraints.** Immersive applications combine high data rates, strict motion-to-photon latency, localization, rendering placement, mobility, and sometimes multi-user synchronization.
-
-**Why it could become a course project.** The application naturally creates decisions across device, edge, transport, rendering, and wireless/network layers; different architectures yield clear performance/quality trade-offs.
-
-**Representative recent references**
-- **EdgeGaussian: Real-time Free-Viewpoint Video for Mobile VR via Edge-Client Collaborative Neural Rendering** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/program.html
-- **L3GS: Layered 3D Gaussian Splats for Efficient 3D Scene Delivery** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/program.html
-- **Vega: Fully Immersive Mobile Volumetric Video Streaming with 3D Gaussian Splatting** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/accepted.html
-- **ProxLink: A Lightweight Decentralized Synchronization Framework for Multi-User XR** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-
-## 5. Massive IoT / smart environments
-
-**Application constraints.** Large populations of constrained devices create heterogeneous traffic, energy limits, intermittent links, scalability problems, mobility, and management challenges.
-
-**Why it could become a course project.** A project must be anchored in a concrete application—smart building, sensing infrastructure, environmental monitoring, etc.—rather than generic protocol work.
-
-**Representative recent references**
-- **Towards Next-Generation Global IoT: Empowering Massive Connectivity with Harmonious Multi-Network Coexistence** — ACM SIGCOMM 2025.  
-  https://web.comp.polyu.edu.hk/csyqzheng/papers/AlphaWAN_SIGCOMM2025.pdf
-- **Planet-Scale IoT Connectivity via LEO Satellites** — ACM SIGCOMM 2026.  
-  https://dblp.org/rec/conf/sigcomm/ZhangXLLZKL26.html
-- **LLM-Assisted IoT Testing: Finding Conformance Bugs in Matter SDKs** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/accepted.html
-
-## 6. Video conferencing / real-time communication
-
-**Application constraints.** RTC systems need low interactive latency while adapting rate and quality under congestion, loss, heterogeneous receivers, asymmetric links, and multi-party topologies.
-
-**Why it could become a course project.** There are mature open tools and measurable QoE outcomes. Students can experiment with SFU architecture, rate allocation, forwarding policy, loss recovery, congestion control, and placement.
-
-**Representative recent references**
-- **NIER: Practical Neural-enhanced Low-bitrate Video Conferencing** — ACM SIGCOMM 2025.  
-  https://conferences.sigcomm.org/sigcomm/2025/program/papers-info/
-- **ACE: Sending Burstiness Control for High-Quality Real-time Communication** — ACM SIGCOMM 2025.  
-  https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/
-- **Artic: AI-oriented Real-time Communication for MLLM Video Assistant** — ACM SIGCOMM 2026.  
-  https://conferences.sigcomm.org/sigcomm/2026/program/papers/
-- **Mowgli: Passively Learned Rate Control for Real-Time Video** — USENIX NSDI 2025.  
-  https://www.usenix.org/conference/nsdi25/technical-sessions
-
-## 7. Networked robotics / drone systems
-
-**Application constraints.** Robots and drones combine mobility, sensing, control deadlines, intermittent connectivity, distributed perception, limited energy, and sometimes peer-to-peer coordination.
-
-**Why it could become a course project.** Robotics simulators make realistic workload generation feasible without physical fleets. Networking decisions can be tied directly to control/sensing outcomes rather than synthetic throughput alone.
-
-**Representative recent references**
-- **Auto-UIT: Automating UAV Inspection Trajectory by Recognizing Pylon Structure from 3D Point Cloud** — ACM MobiCom 2025.  
-  https://dblp.org/rec/conf/mobicom/0001HLDWZ0LC25.html
-- **Scalable and Low Power Localization for Underwater Robots** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/program.html
-- **Designing, Deployment and Field Testing of C2Stack for Networked Intelligent Software-Defined UAVs** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- **"Take Me Home, Wi-Fi Drone": A Drone-based Wireless System for Wilderness Search and Rescue** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-
-## 8. Vehicular / autonomous transportation
-
-**Application constraints.** Vehicles have rapidly changing topology, strict timing requirements, large sensor streams, mobility prediction opportunities, and safety-sensitive decisions about what should run locally, at the edge, or cooperatively.
-
-**Why it could become a course project.** Vehicular applications impose concrete network requirements and already have strong simulator ecosystems such as SUMO, CARLA, ns-3, and Veins.
-
-**Representative recent references**
-- **VI-Planning: Infrastructure-Assisted Real-Time Planning Optimization for Autonomous Driving** — ACM MobiCom 2025.  
-  https://doi.org/10.1145/3680207.3765255
-- **UrgenGo: Urgency-Aware Transparent GPU Kernel Launching for Autonomous Driving** — ACM MobiCom 2025.  
-  https://www.sigmobile.org/mobicom/2025/accepted.html
-- **Wall-Street: An Intelligent Vehicular Surface for Reliable mmWave Handover** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-
-## 9. Edge video analytics
-
-**Application constraints.** Cameras generate data faster than networks can often carry it. Systems decide what to encode, sample, transmit, process locally, or prioritize while balancing accuracy, bandwidth, latency, and compute.
-
-**Why it could become a course project.** It produces a very concrete network/compute co-design problem, and experiments can use prerecorded video traces without specialized hardware.
-
-**Representative recent references**
-- **Uirapuru: Timely Video Analytics for High-Resolution Steerable Cameras on Edge Devices** — ACM MobiCom 2025.  
-  https://doi.org/10.1145/3680207.3765260
-- **Artic: AI-oriented Real-time Communication for MLLM Video Assistant** — ACM SIGCOMM 2026; an adjacent example where video transmission decisions are driven by downstream machine understanding rather than human viewing.  
-  https://conferences.sigcomm.org/sigcomm/2026/program/papers/
-
-## 10. Cloud gaming
-
-**Application constraints.** Cloud gaming combines interactive input latency, continuous high-rate video, loss sensitivity, jitter, client heterogeneity, and rendering/server placement.
-
-**Why it could become a course project.** It gives students a user-visible latency/QoE loop and can be built with open game streaming stacks, network emulation, and controlled rendering/encoding workloads.
-
-**Representative recent references**
-- **Dissecting and Streamlining the Interactive Loop of Mobile Cloud Gaming** — USENIX NSDI 2025.  
-  https://www.usenix.org/conference/nsdi25/presentation/li-yang
-- **Tooth: Toward Optimal Balance of Video QoE and Redundancy Cost by Fine-Grained FEC in Cloud Gaming Streaming** — USENIX NSDI 2025.  
-  https://www.usenix.org/conference/nsdi25/presentation/an
-- **Stimpack: An Adaptive Rendering Optimization System for Scalable Cloud Gaming** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/heo
-- **From Source to Solution: Tackling Packet Losses in Large-scale Cloud Gaming Systematically and Precisely** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/wang-jing
-
-## 11. Satellite remote sensing
-
-**Application constraints.** Satellites collect large data objects but have predictable movement, intermittent contacts, constrained downlink capacity, storage limitations, and scheduling conflicts.
-
-**Why it could become a course project.** Unlike generic satellite networking, remote sensing provides a clear application objective: decide what, when, and where to capture/process/store/downlink data.
-
-**Representative recent references**
-- **DeepSpace: Super Resolution Powered Efficient and Reliable Satellite Image Data Acquistion** — ACM SIGCOMM 2025.  
-  https://doi.org/10.1145/3718958.3750523
-- **SpaceSched: A Constellation-Wide Scheduling System for Resolving Ground Track Congestion in Remote Sensing** — ACM MobiCom 2025.  
-  https://doi.org/10.1145/3680207.3765249
-- **CommSAR: Enabling Bidirectional Communication in SAR Imaging Satellites via Shared Waveform** — ACM SIGCOMM 2026.  
-  https://conferences.sigcomm.org/sigcomm/2026/program/papers/
-- **DynaFilter: Cloud-Driven Dynamic Filtering for Satellite Edge Intelligence** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-
-## 12. Direct-to-device satellite communication
-
-**Application constraints.** Ordinary user devices communicate through moving LEO satellites, creating limited capacity, handovers, intermittent coverage, long paths, and integration issues with terrestrial networks.
-
-**Why it could become a course project.** This is a very current application with strong mobility and resource-allocation questions, but experiments will probably rely on traces/simulation rather than real satellite infrastructure.
-
-**Representative recent references**
-- **Direct-to-Cell Satellite Network without Satellite Navigation** — ACM SIGCOMM 2025.  
-  https://doi.org/10.1145/3718958.3750522
-- **A Variegated Look at Direct-to-Cell Satellites in the Wild** — Proceedings of the ACM on Measurement and Analysis of Computing Systems / SIGMETRICS 2026.  
-  https://doi.org/10.1145/3788086
-- **Planet-Scale IoT Connectivity via LEO Satellites** — ACM SIGCOMM 2026; adjacent direct-device/IoT satellite connectivity work.  
-  https://dblp.org/rec/conf/sigcomm/ZhangXLLZKL26.html
-
-## 13. Smart-grid / energy infrastructure
-
-**Application constraints.** Energy systems combine distributed sensing/control, critical infrastructure, high reliability expectations, geographically distributed assets, and heterogeneous traffic.
-
-**Why it could become a course project.** The domain is attractive, but the recent flagship networking corpus contains more monitoring/inspection systems than end-to-end grid-control networking, so any brief should be narrow and evidence-backed.
-
-**Representative recent references**
-- **Auto-UIT: Automating UAV Inspection Trajectory by Recognizing Pylon Structure from 3D Point Cloud** — ACM MobiCom 2025.  
-  https://dblp.org/rec/conf/mobicom/0001HLDWZ0LC25.html
-- **DD-LIVM: Pioneering Cross-Domain Photovoltaic Defect Detection Using Large Infrared-Visible Model** — ACM MobiCom 2025.  
-  https://doi.org/10.1145/3680207.3765266
-- **A3TP: Automated, Accurate, and Adaptive UAV Task Planning for Large-Scale Power Transmission Networks Inspection** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- **Monitoring Electrical Transformer Mechanics via Crowdsourced Imaging** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-
-## 14. Live interactive broadcasting
-
-**Application constraints.** Interactive broadcasts need much lower latency than conventional VOD while retaining large fan-out, resilience, adaptive quality, and often two-way interaction.
-
-**Why it could become a course project.** It sits between CDN-scale streaming and RTC, exposing interesting design choices around forwarding trees, edge placement, buffering, and consistency of live state.
-
-**Representative recent references**
-- **Medley: Optimizing Midgress Bandwidth for Commercial Live Streaming CDNs** — USENIX NSDI 2026.  
-  https://www.usenix.org/conference/nsdi26/presentation/wang-haiping
-- **Syntra: Synthesizing Cross-Layer Controllers for Low-Latency Video Streaming** — USENIX NSDI 2026; useful for the low-latency control side of live streaming.  
-  https://www.usenix.org/conference/nsdi26/presentation/pan
-- **NIER: Practical Neural-enhanced Low-bitrate Video Conferencing** — ACM SIGCOMM 2025; useful adjacent work for interactive low-bitrate media delivery.  
-  https://conferences.sigcomm.org/sigcomm/2025/program/papers-info/
-
-## 15. Industrial automation
-
-**Application constraints.** Industrial systems have deadline-sensitive control traffic, very high reliability requirements, deterministic behavior needs, and coexistence with non-critical monitoring traffic.
-
-**Why it could become a course project.** The application requirements are excellent for network-design reasoning, but recent main-track flagship coverage is sparse enough that the project would need support from industrial-networking venues/standards and selected canonical papers.
-
-**Representative recent references**
-- **A Scalable Full-Stack System for High-Precision Industrial Vibration Monitoring** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- **T(SN)-Ray: Gauging TAS and PSFP Delays of TSN Switches for Predictable Deterministic Networking** — Proceedings of the ACM on Networking / CoNEXT 2025.  
-  https://doi.org/10.1145/3768996
-- For background framing, **Time-Sensitive Networking (TSN) for Industrial Automation: Current Advances and Future Directions** — ACM Computing Surveys, volume published in 2025 (article first published online in 2024).  
-  https://doi.org/10.1145/3695248
-
-## 16. Emergency and disaster response
-
-**Application constraints.** Infrastructure may be damaged or absent; topology changes rapidly; capacity is scarce; some traffic is critical; systems must degrade gracefully and often incorporate drones/mobile relays.
-
-**Why it could become a course project.** The constraints are excellent, but the recent flagship corpus is too sparse to support a project solely from main-track networking papers.
-
-**Representative recent references**
-- **"Take Me Home, Wi-Fi Drone": A Drone-based Wireless System for Wilderness Search and Rescue** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- **A Variegated Look at Direct-to-Cell Satellites in the Wild** — POMACS/SIGMETRICS 2026; includes direct-to-cell behavior relevant to remote and emergency connectivity.  
-  https://doi.org/10.1145/3788086
-
-## 17. Collaborative AR / shared virtual worlds
-
-**Application constraints.** Multiple users must maintain a sufficiently consistent shared spatial state while positions, objects, media, and scene updates move under low latency.
-
-**Why it could become a course project.** The application exposes latency-versus-consistency, local-versus-cloud coordination, multicast/replication, and state-partitioning decisions.
-
-**Representative recent references**
-- **ProxLink: A Lightweight Decentralized Synchronization Framework for Multi-User XR** — ACM MobiCom 2026.  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- **LITE: Loss-Resilient Immersive Telepresence** — ACM SIGCOMM 2026; immersive telepresence work centered on recovering dense 3D content under network loss.  
-  https://conferences.sigcomm.org/sigcomm/2026/program/papers/
-
-## 18. Teleoperation
-
-**Application constraints.** Human control loops require low latency and jitter while high-rate video/telemetry travels in the reverse direction; failures and delay spikes directly affect task performance.
-
-**Why it could become a course project.** This is pedagogically excellent, but recent flagship-networking main-track density is low. It should be included only if we intentionally draw from robotics/control venues.
-
-**Representative recent reference**
-- **VISTA: A Benchmark for Real-Time Video Streaming under Network Impairments in Surgical Teleoperation** — presented at the Connected Autonomous Robotic Systems Workshop at IEEE ICRA 2026; includes an open benchmark and code.  
-  https://arxiv.org/abs/2605.08886
-
-## 19. Multiplayer online games
-
-**Application constraints.** Players need low-latency state exchange while the system handles geographic distribution, consistency, prediction, cheating, server placement, and changing player groups.
-
-**Why it could become a course project.** The application is intuitive and experimentally accessible, but recent top-tier networking papers focus much more on cloud gaming than multiplayer state synchronization.
-
-**Representative recent reference**
-- **Evaluating Browser-Based Networking for Real-Time Multiplayer Games** — USENIX NSDI 2025 poster.  
-  https://aaron.gember-jacobson.com/docs/nsdi2025browser-networking_poster.pdf
-
-## 20. Content delivery in poor-connectivity regions
-
-**Application constraints.** Low bandwidth, high cost, intermittent connectivity, sparse infrastructure, and long outages favor caching, opportunistic transfer, replication, delay tolerance, and careful prioritization.
-
-**Why it could become a course project.** The constraints are compelling and distinct from ordinary CDN design, but the recent flagship-paper density is very low and the research base would need to be curated beyond the six main conference editions.
-
-**Representative recent reference**
-- **Internet Performance Measurements for Rural Areas: Technical and Policy Challenges in Advancing Internet Equity** — ACM SIGCOMM 2025 non-paper session, focused specifically on measuring and reasoning about rural/underserved connectivity.  
-  https://conferences.sigcomm.org/sigcomm/2025/nonpaper/nonpaper-ipmr/
-
-## Notes for turning an area into a project brief
-
-An area should not be released merely because it has many papers. Before promotion into a concrete project, it should have:
-
-1. a **specific application workload and objective**, rather than a technology-only task;
-2. at least **two or three interacting network/system domains** where students must make architectural choices;
-3. measurable **performance, scalability, and reliability** outcomes;
-4. enough tooling, traces, simulators, emulators, or open implementations to support reproducible experiments;
-5. at least one plausible **baseline architecture** and several defensible alternatives;
-6. failure modes or scale limits students can expose experimentally;
-7. enough breadth for a four-person team to own different domains and cross-cutting design aspects;
-8. a literature base that is recent enough to keep the project contemporary but stable enough to remain maintainable in later semesters.
-
-## Screening sources
-
-The **counts** on this page were produced by screening the complete accepted-paper lists for these six conference editions; these links are corpus/index sources rather than substitutes for the individual paper references above:
-
-- **ACM SIGCOMM 2025 — accepted papers index**  
-  https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/
-- **ACM SIGCOMM 2026 — accepted papers index**  
-  https://conferences.sigcomm.org/sigcomm/2026/accepted/
-- **USENIX NSDI 2025 — technical sessions / proceedings index**  
-  https://www.usenix.org/conference/nsdi25/technical-sessions
-- **USENIX NSDI 2026 — technical sessions / proceedings index**  
+- USENIX NSDI technical sessions:  
+  https://www.usenix.org/conference/nsdi24/technical-sessions  
+  https://www.usenix.org/conference/nsdi25/technical-sessions  
   https://www.usenix.org/conference/nsdi26/technical-sessions
-- **ACM MobiCom 2025 — accepted papers index**  
-  https://www.sigmobile.org/mobicom/2025/accepted.html
-- **ACM MobiCom 2026 — accepted papers index**  
+- ACM IMC accepted papers:  
+  https://conferences.sigcomm.org/imc/2024/accepted-papers/  
+  https://conferences.sigcomm.org/imc/2025/accepted-papers/
+- ACM SIGMETRICS 2025 accepted papers:  
+  https://www.sigmetrics.org/sigmetrics2025/accepted_papers.html
+- NINeS 2026 accepted papers:  
+  https://2026.nines-conference.org/accepted
+- IEEE ICNP 2026 program:  
+  https://icnp26.cs.ucr.edu/program.html
+- IEEE ICDCS 2025 accepted papers:  
+  https://icdcs2025.icdcs.org/accepted-papers/
+- ACM MobiCom 2026 accepted papers:  
   https://www.sigmobile.org/mobicom/2026/accepted.html
+- USENIX OSDI 2024 technical sessions:  
+  https://www.usenix.org/conference/osdi24/technical-sessions
+- USENIX Security 2025 technical sessions:  
+  https://www.usenix.org/conference/usenixsecurity25/technical-sessions
+- IEEE Xplore was used for relevant IEEE Transactions papers, including recent TMC and TPDS work.
 
-For reproducibility of the denominator, SIGCOMM/MobiCom paper-count cross-checks also used the DBLP-derived **csconf-papers** indexes:
-
-- **SIGCOMM 2025 paper index** — https://github.com/RealZST/csconf-papers/blob/main/papers/2025/SIGCOMM.md
-- **MobiCom 2025 paper index** — https://github.com/RealZST/csconf-papers/blob/main/papers/2025/MobiCom.md
-- **MobiCom 2026 paper index** — https://github.com/RealZST/csconf-papers/blob/main/papers/2026/MobiCom.md
-
-This is a **research-grounded idea pool**, not a bibliometric claim. The counts are an activity signal; project briefs should be based on inspecting the actual systems, assumptions, artifacts, and evaluation methods in the cited work.
+Additional venue years and papers should be appended when their official accepted-paper lists become available. In particular, the 2027 portion of the requested 2023–2027 window should be updated after 2027 acceptance decisions rather than populated with submissions or speculative entries.
