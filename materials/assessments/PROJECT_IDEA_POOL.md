@@ -62,7 +62,7 @@ The goal is not bibliometric precision. The goal is to expose **stable, repeated
 | **Cloud, serverless, and disaggregated systems** | serverless, microservices, multi-tenancy, CXL, disaggregated memory, SLOs | Strong in NSDI, OSDI, SIGMETRICS, ICDCS | **Strong** |
 | **Deterministic / industrial networking** | TSN, bounded latency, scheduling, reliability, industrial monitoring | Moderate in CoNEXT/POMACS, ICDCS, MobiCom | **Targeted** |
 | **Quantum networking** | entanglement routing, quantum switch, distributed quantum computing, quantum communication | Growing in SIGMETRICS, ICDCS, INFOCOM, NINeS | **Exploratory** |
-| **Sustainable networking and computing** | energy-aware RAN, carbon-aware scheduling, energy proportionality | Growing in NINeS, SIGMETRICS, ICDCS | **Exploratory** |
+| **Sustainable networking and computing** | energy-aware RAN, carbon-aware scheduling, energy proportionality | Growing in NINeS, SIGMETRICS, ICDCS, INFOCOM | **Exploratory** |
 
 ## Curated paper-and-keyword corpus
 
@@ -82,6 +82,9 @@ This is a **representative seed corpus**, not an exhaustive bibliography of ever
 | **RAPIDSCRIBE: Bandwidth-aware Parallel Snapshots for Distributed Neural-Network Training** | ICDCS 2025 | checkpointing, bandwidth allocation, distributed training |
 | **Enhancing In-network Aggregation with Adaptive Gradient Quantization for Multi-tenant Learning** | ICDCS 2025 | in-network aggregation, quantization, multi-tenancy, distributed learning |
 | **ACCL+: an FPGA-Based Collective Engine for Distributed Applications** | OSDI 2024 | FPGA, collectives, RDMA, offload |
+| **HiCCL: A Hierarchical Collective Communication Library** | IPDPS 2025 | hierarchical collectives, HPC, topology-aware communication |
+| **Air-FedGA: A Grouping Asynchronous Federated Learning Mechanism Exploiting Over-the-air Computation** | IPDPS 2025 | federated learning, wireless aggregation, over-the-air computation |
+| **PC4: Precision Collective Communication Congestion Control for AI Cluster** | INFOCOM 2025 | AI clusters, collectives, congestion control |
 
 ### Distributed / disaggregated AI inference
 
@@ -112,6 +115,9 @@ This is a **representative seed corpus**, not an exhaustive bibliography of ever
 | **PEE: Precise ECN Encoding for Efficient Congestion Control in Data Center Networks** | ICDCS 2025 | ECN, datacenter congestion control |
 | **Enabling Rate-Aware Load Balancing for Datacenter Networks** | ICNP 2026 | load balancing, rate awareness, datacenter |
 | **Poison comes in small packages: Application-driven Reexamination of Datacenter Microbursts** | SIGMETRICS 2025 | microbursts, queueing, datacenter traffic |
+| **Taurus: Towards A High-Performance and Generic Congestion Control Framework for Datacenter Networks** | CoNEXT 2025 | congestion control, datacenter, framework |
+| **L4Span: Spanning Congestion Signaling over NextG Networks for Interactive Applications** | CoNEXT 2025 | 5G, ECN, low latency, congestion signaling |
+| **VCCAnalyzer: Identifying Congestion Control Algorithms used by Video Streaming Services** | CoNEXT 2025 | video streaming, congestion-control inference, measurement |
 
 ### Network operations, telemetry, diagnosis, and verification
 
@@ -145,6 +151,8 @@ This is a **representative seed corpus**, not an exhaustive bibliography of ever
 | **Joint Service Caching and Resource Allocation Over Different Timescales in Satellite Edge Computing Networks** | IEEE TMC 2025 | satellite edge, caching, resource allocation |
 | **Multi-Attribute Consistency Segment Resilient Routing for LEO Satellite Mega Constellations** | IEEE TMC 2025 | LEO routing, failures, segment routing |
 | **Prediction-Based Task Offloading for Ultra-Dense LEO Satellite Edge Computing** | IEEE TMC 2026 Early Access | prediction, task offloading, LEO edge |
+| **NovaPlan: An Efficient Plan of Renting Ground Stations for Emerging LEO Satellite Networks** | INFOCOM 2025 | LEO, ground stations, planning |
+| **StableRoute: When Dijkstra's Algorithm Meets Topology-Varying Satellite Networks** | INFOCOM 2025 | LEO routing, dynamic topology |
 
 ### Cellular / RAN / mobile networking
 
@@ -174,6 +182,9 @@ This is a **representative seed corpus**, not an exhaustive bibliography of ever
 | **Tight Loops, Smooth Streams: Responsive Congestion Control for Real-Time Video** | NINeS 2026 | real-time video, congestion control |
 | **Protocol Compliance in Popular RTC Applications** | IMC 2025 | RTC, protocol compliance, measurement |
 | **Characterizing User Platforms for Video Streaming in Broadband Networks** | IMC 2024 | streaming, broadband, client heterogeneity |
+| **Low-Latency Volumetric Video Conferencing in Congested Networks Through L4S** | MMSys 2025 | volumetric video, L4S, conferencing, low latency |
+| **GenStream: Semantic Streaming Framework for Generative Reconstruction of Human-centric Media** | ACM Multimedia 2025 | semantic streaming, generative reconstruction, bandwidth reduction |
+| **Watch, Skip, Repeat: Hotspot-Aware Joint Optimization for Video Streaming** | ACM Multimedia 2025 | video streaming, hotspot prediction, joint optimization |
 
 ### Immersive / XR / volumetric media
 
@@ -499,6 +510,14 @@ Official or publisher-maintained sources are preferred:
   https://www.usenix.org/conference/osdi24/technical-sessions
 - USENIX Security 2025 technical sessions:  
   https://www.usenix.org/conference/usenixsecurity25/technical-sessions
+- ACM CoNEXT / PACMNET 2025 examples were cross-checked through DBLP and author publication pages; representative papers include Taurus, L4Span, VCCAnalyzer, QUIC deployment measurement, and IPv6 scanning.
+- IEEE INFOCOM 2025 papers were cross-checked through DBLP:  
+  https://dblp.org/db/conf/infocom/infocom2025.html
+- ACM MMSys 2025 papers were cross-checked through the ACM Digital Library proceedings, including:  
+  https://doi.org/10.1145/3712676.3714443
+- IEEE IPDPS 2025 papers were cross-checked through the IPDPS proceedings / DBLP, including HiCCL:  
+  https://doi.org/10.1109/IPDPS64566.2025.00089
+- ACM Multimedia 2025 networking-relevant papers were cross-checked through ACM/DBLP records, including GenStream and Watch, Skip, Repeat.
 - IEEE Xplore was used for relevant IEEE Transactions papers, including recent TMC and TPDS work.
 
 Additional venue years and papers should be appended when their official accepted-paper lists become available. In particular, the 2027 portion of the requested 2023–2027 window should be updated after 2027 acceptance decisions rather than populated with submissions or speculative entries.
