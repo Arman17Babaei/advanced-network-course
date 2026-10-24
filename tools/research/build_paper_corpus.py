@@ -451,9 +451,13 @@ def main():
     for year in YEARS:
         if year == 2027 and not TX_CFG.get("include_2027", True):
             continue
-        rows = collect_works(tx_ids, year, venue_override=None, kind="journal", core=False)
-        tx_rows.extend(rows)
-        print(f"COUNT IEEE Transactions {year}: {len(rows)}", flush=True)
+        year_rows = []
+        # Query one journal at a time so anonymous basic pagination never
+        # approaches the 10,000-result per-query ceiling.
+        for sid in tx_ids:
+            year_rows.extend(collect_works([sid], year, venue_override=None, kind="journal", core=False))
+        tx_rows.extend(year_rows)
+        print(f"COUNT IEEE Transactions {year}: {len(year_rows)}", flush=True)
 
     conferences, tx, network = write_outputs(conference_rows, tx_rows, coverage, tx_sources)
 
