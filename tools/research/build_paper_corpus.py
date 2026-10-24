@@ -75,21 +75,30 @@ def get_html(url, attempts=4):
     raise RuntimeError(f"request failed: {url}: {err}")
 
 def oa_list(endpoint, params, max_pages=None):
-    cursor = "*"
-    page = 0
-    while cursor:
+    # Basic page-based pagination is intentionally used instead of cursor
+    # pagination: OpenAlex requires an API key after the first cursor page.
+    # Each query here is scoped to one venue/year or journal/year and remains
+    # safely below the 10,000-result basic-paging ceiling.
+    page = 1
+    per_page = 100
+    while True:
         p = dict(params)
-        p.setdefault("per-page", 200)
-        p["cursor"] = cursor
+        p["per-page"] = per_page
+        p["page"] = page
         data = get_json(f"{OPENALEX}/{endpoint}", p)
-        for item in data.get("results", []) or []:
+        results = data.get("results", []) or []
+        for item in results:
             yield item
-        cursor = (data.get("meta") or {}).get("next_cursor")
-        page += 1
-        if max_pages and page >= max_pages:
+        meta = data.get("meta") or {}
+        total = int(meta.get("count") or 0)
+        if not results or page * per_page >= total:
             break
-        if cursor:
-            time.sleep(0.08)
+        page += 1
+        if max_pages and page > max_pages:
+            break
+        if page * per_page > 10000:
+            raise RuntimeError(f"basic paging limit exceeded for {endpoint}; split the query more narrowly")
+        time.sleep(0.08)
 
 def discover_conference_sources(spec):
     rx = re.compile(spec["source_regex"])
