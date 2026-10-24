@@ -1,5 +1,9 @@
 name: Refresh paper corpus
 
+concurrency:
+  group: paper-corpus-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   push:
@@ -40,5 +44,6 @@ jobs:
             echo "No generated changes"
           else
             git commit -m "Refresh generated paper corpus"
-            git push
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
           fi
