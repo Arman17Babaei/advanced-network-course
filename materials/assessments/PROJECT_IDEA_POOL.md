@@ -14,14 +14,16 @@ The intended window is **2023–2027**. As of **24 October 2026**, essentially a
 
 The machine-readable evidence base is checked into:
 
-- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — flat table for analysis;
-- [`data/recent_networking_papers.jsonl`](data/recent_networking_papers.jsonl) — one JSON object per paper;
+- [`data/all_conference_papers.csv`](data/all_conference_papers.csv) — complete collected conference inventory for the requested venue series;
+- [`data/ieee_transactions_papers.csv.gz`](data/ieee_transactions_papers.csv.gz) — complete collected 2023–2027 inventory for matched IEEE Transactions journal sources;
+- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — network-relevant subset used for project-area mining;
 - [`data/PAPER_CORPUS_SUMMARY.md`](data/PAPER_CORPUS_SUMMARY.md) — generated coverage and category/keyword statistics;
-- [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable venue/year query results.
+- [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable conference venue/year coverage;
+- [`data/IEEE_TRANSACTIONS_SOURCES.csv`](data/IEEE_TRANSACTIONS_SOURCES.csv) — matched Transactions journal sources.
 
-The corpus covers **SIGCOMM, CoNEXT, NSDI, ICNP, INFOCOM, SIGMETRICS/POMACS, IMC, ACM Multimedia, NINeS, MobiCom, MMSys, IPDPS, ICDCS, OSDI, USENIX Security**, and networking-relevant IEEE Transactions families.
+The conference corpus covers **SIGCOMM, CoNEXT, NSDI, ICNP, INFOCOM, SIGMETRICS/POMACS, IMC, ACM Multimedia, NINeS, MobiCom, MMSys, IPDPS, ICDCS, OSDI, and USENIX Security**.
 
-The IEEE Transactions portion is intentionally scoped to Transactions journals relevant to networking and networked/distributed/mobile/cloud/multimedia systems. Treating every IEEE Transactions journal as part of the denominator would mix unrelated fields into the project-discovery corpus.
+The journal inventory separately collects every OpenAlex journal source whose name matches the configured **IEEE Transactions** naming rule. Project-area mining then filters that much broader journal corpus for network relevance rather than silently narrowing the journal list beforehand.
 
 Every machine-readable row records the paper title, authors, venue, year, DOI/publication URL where available, keyword labels, keyword provenance, topic labels, normalized project categories, and the source metadata identifiers used to reproduce the row.
 
@@ -29,8 +31,8 @@ Every machine-readable row records the paper title, authors, venue, year, DOI/pu
 
 The corpus distinguishes **source metadata** from **derived research labels**:
 
-- bibliographic metadata comes primarily from DBLP, with official venue pages used for recent proceedings not yet indexed there;
-- DOI-bearing papers are enriched with OpenAlex paper keywords and topics;
+- bibliographic metadata for the main corpus comes from OpenAlex source/work records, with official venue pages used where a recent venue is not yet reliably indexed;
+- OpenAlex supplies paper-level keyword and topic labels where available;
 - OpenAlex keywords are model-generated aboutness labels from paper metadata, **not author-supplied keywords**;
 - when enrichment is unavailable, the builder uses a deterministic title-derived keyword fallback;
 - `keyword_provenance` records which path produced the keywords for each paper;
