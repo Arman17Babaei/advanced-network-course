@@ -16,7 +16,10 @@
       "match": [
         "sigcomm"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/sigcomm"
+      ]
     },
     {
       "name": "CoNEXT",
@@ -27,7 +30,10 @@
       "match": [
         "conext"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/conext"
+      ]
     },
     {
       "name": "NSDI",
@@ -38,7 +44,10 @@
       "match": [
         "nsdi"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/nsdi"
+      ]
     },
     {
       "name": "ICNP",
@@ -49,7 +58,10 @@
       "match": [
         "icnp"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/icnp"
+      ]
     },
     {
       "name": "INFOCOM",
@@ -60,7 +72,10 @@
       "match": [
         "infocom"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/infocom"
+      ]
     },
     {
       "name": "SIGMETRICS",
@@ -69,9 +84,15 @@
         "SIGMETRICS"
       ],
       "match": [
-        "sigmetrics"
+        "sigmetrics",
+        "proc. acm meas. anal. comput. syst",
+        "proc acm meas anal comput syst"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/sigmetrics",
+        "journals/pomacs"
+      ]
     },
     {
       "name": "IMC",
@@ -83,7 +104,10 @@
         "imc",
         "internet meas"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/imc"
+      ]
     },
     {
       "name": "ACM Multimedia",
@@ -95,7 +119,10 @@
         "acm multimedia",
         "multimedia conference"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "conf/mm"
+      ]
     },
     {
       "name": "NINeS",
@@ -122,7 +149,10 @@
       "match": [
         "mobicom"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/mobicom"
+      ]
     },
     {
       "name": "MMSys",
@@ -133,7 +163,10 @@
       "match": [
         "mmsys"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "conf/mmsys"
+      ]
     },
     {
       "name": "IPDPS",
@@ -144,7 +177,10 @@
       "match": [
         "ipdps"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "conf/ipps"
+      ]
     },
     {
       "name": "ICDCS",
@@ -155,7 +191,10 @@
       "match": [
         "icdcs"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "conf/icdcs"
+      ]
     },
     {
       "name": "OSDI",
@@ -166,7 +205,10 @@
       "match": [
         "osdi"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "conf/osdi"
+      ]
     },
     {
       "name": "USENIX Security",
@@ -179,7 +221,10 @@
         "usenix security",
         "security symposium"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "conf/uss"
+      ]
     },
     {
       "name": "IEEE/ACM Transactions on Networking",
@@ -194,7 +239,10 @@
         "ieee/acm trans. netw",
         "ieee/acm transactions on networking"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/ton"
+      ]
     },
     {
       "name": "IEEE Transactions on Mobile Computing",
@@ -209,7 +257,10 @@
         "ieee trans. mob. comput",
         "transactions on mobile computing"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/tmc"
+      ]
     },
     {
       "name": "IEEE Transactions on Network and Service Management",
@@ -225,7 +276,10 @@
         "ieee trans. netw. serv. manag",
         "transactions on network and service management"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/tnsm"
+      ]
     },
     {
       "name": "IEEE Transactions on Parallel and Distributed Systems",
@@ -240,7 +294,10 @@
         "ieee trans. parallel distributed syst",
         "transactions on parallel and distributed systems"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "journals/tpds"
+      ]
     },
     {
       "name": "IEEE Transactions on Multimedia",
@@ -254,7 +311,10 @@
         "ieee trans. multim",
         "transactions on multimedia"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "journals/tmm"
+      ]
     },
     {
       "name": "IEEE Transactions on Cloud Computing",
@@ -269,7 +329,10 @@
         "ieee trans. cloud comput",
         "transactions on cloud computing"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "journals/tcc"
+      ]
     },
     {
       "name": "IEEE Transactions on Services Computing",
@@ -284,7 +347,10 @@
         "ieee trans. serv. comput",
         "transactions on services computing"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "journals/tsc"
+      ]
     },
     {
       "name": "IEEE Transactions on Dependable and Secure Computing",
@@ -299,7 +365,10 @@
         "ieee trans. dependable secur. comput",
         "transactions on dependable and secure computing"
       ],
-      "core": false
+      "core": false,
+      "streams": [
+        "journals/tdsc"
+      ]
     },
     {
       "name": "IEEE Transactions on Wireless Communications",
@@ -314,7 +383,10 @@
         "ieee trans. wirel. commun",
         "transactions on wireless communications"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/twc"
+      ]
     },
     {
       "name": "IEEE Transactions on Communications",
@@ -328,7 +400,10 @@
         "ieee trans. commun",
         "transactions on communications"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/tcom"
+      ]
     },
     {
       "name": "IEEE Transactions on Vehicular Technology",
@@ -343,7 +418,10 @@
         "ieee trans. veh. technol",
         "transactions on vehicular technology"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/tvt"
+      ]
     },
     {
       "name": "IEEE Transactions on Green Communications and Networking",
@@ -359,7 +437,10 @@
         "ieee trans. green commun. netw",
         "transactions on green communications and networking"
       ],
-      "core": true
+      "core": true,
+      "streams": [
+        "journals/tgcn"
+      ]
     }
   ],
   "categories": {
