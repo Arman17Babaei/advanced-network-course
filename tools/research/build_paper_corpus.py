@@ -35,13 +35,13 @@ def norm(x):
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
 
-def get_json(url, params=None, attempts=6, pause=1.5):
+def get_json(url, params=None, attempts=3, pause=1.0):
     err = None
     for i in range(attempts):
         try:
-            r = S.get(url, params=params, timeout=60)
+            r = S.get(url, params=params, timeout=20)
             if r.status_code == 429:
-                time.sleep(max(10, pause * (i + 2)))
+                time.sleep(max(5, pause * (i + 2)))
                 continue
             r.raise_for_status()
             return r.json()
@@ -180,8 +180,8 @@ def openalex(rows):
             by_doi[r["doi"]].append(r)
     dois = sorted(by_doi)
     print(f"OpenAlex enrichment for {len(dois)} DOI-bearing records", flush=True)
-    for i in range(0, len(dois), 25):
-        chunk = dois[i:i+25]
+    for i in range(0, len(dois), 50):
+        chunk = dois[i:i+50]
         try:
             data = get_json(
                 "https://api.openalex.org/works",
@@ -212,7 +212,7 @@ def openalex(rows):
                     r["keyword_provenance"] = "OpenAlex model-generated keywords"
                 r["topics"] = "; ".join(topics[:3])
                 r["primary_topic"] = primary
-        time.sleep(0.15)
+        time.sleep(0.10)
 
 def title_fallback(title, limit=8):
     low = title.lower()
@@ -334,7 +334,7 @@ def main():
             source = "official venue page" if status == "official-fallback" else "dblp"
             rows.extend(row_from(x, spec, year, source) for x in info)
             coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":len(info),"status":status,"query":query_for(spec,year)})
-            time.sleep(1.0)
+            time.sleep(0.25)
     rows = dedupe(rows)
     print(f"Metadata records: {len(rows)}", flush=True)
     openalex(rows)
