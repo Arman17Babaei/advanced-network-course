@@ -2,14 +2,16 @@
 from __future__ import annotations
 
 import csv
+import gzip
 import html
 import json
+import math
 import re
 import sys
 import time
-import xml.etree.ElementTree as ET
-from collections import Counter, defaultdict
+from collections import Counter
 from pathlib import Path
+from urllib.parse import urljoin
 
 import requests
 from bs4 import BeautifulSoup
@@ -19,30 +21,36 @@ CFG = json.loads((ROOT / "tools/research/paper_corpus_config.json").read_text(en
 OUT = ROOT / "materials/assessments/data"
 OUT.mkdir(parents=True, exist_ok=True)
 YEARS = CFG["years"]
-VENUES = CFG["venues"]
+CONFERENCES = CFG["conferences"]
 CATEGORIES = CFG["categories"]
+TX_CFG = CFG["ieee_transactions"]
+
 S = requests.Session()
-S.headers.update({"User-Agent": "advanced-network-course-paper-corpus/1.0"})
-# Keep source queries deliberately serial to be respectful of public metadata APIs.
+S.headers.update({
+    "User-Agent": "advanced-network-course-paper-corpus/2.0 (+https://github.com/Arman17Babaei/advanced-network-course)",
+    "Accept": "application/json,text/html;q=0.9,*/*;q=0.8",
+})
+OPENALEX = "https://api.openalex.org"
 STOP = {
     "the","and","for","with","from","into","using","via","towards","toward","based",
     "system","systems","framework","method","approach","efficient","effective","new",
     "this","that","over","under","through","without","between","across","their","our",
+    "study","analysis","design","paper","performance",
 }
 
 def norm(x):
     return re.sub(r"\s+", " ", html.unescape(str(x or ""))).strip()
 
 def slug(s):
-    return re.sub(r"[^a-z0-9]+", "-", s.lower()).strip("-")
+    return re.sub(r"[^a-z0-9]+", "-", norm(s).lower()).strip("-")
 
-def get_json(url, params=None, attempts=3, pause=1.0):
+def get_json(url, params=None, attempts=5, pause=1.0):
     err = None
     for i in range(attempts):
         try:
-            r = S.get(url, params=params, timeout=20)
-            if r.status_code == 429:
-                time.sleep(max(5, pause * (i + 2)))
+            r = S.get(url, params=params, timeout=45)
+            if r.status_code in {429, 500, 502, 503, 504}:
+                time.sleep(max(2.0, pause * (2 ** i)))
                 continue
             r.raise_for_status()
             return r.json()
@@ -51,228 +59,175 @@ def get_json(url, params=None, attempts=3, pause=1.0):
             time.sleep(pause * (i + 1))
     raise RuntimeError(f"request failed: {url}: {err}")
 
-def query_for(spec, year):
-    return " ".join([*(f"venue:{x}" for x in spec["terms"]), f"year:{year}"])
+def get_html(url, attempts=4):
+    err = None
+    for i in range(attempts):
+        try:
+            r = S.get(url, timeout=45, headers={"Accept":"text/html,*/*;q=0.8"})
+            if r.status_code in {429, 500, 502, 503, 504}:
+                time.sleep(2 ** i)
+                continue
+            r.raise_for_status()
+            return r.text
+        except Exception as e:
+            err = e
+            time.sleep(i + 1)
+    raise RuntimeError(f"request failed: {url}: {err}")
 
-def accepts(spec, raw_venue):
-    v = norm(raw_venue).lower()
-    return any(x.lower() in v for x in spec["match"])
-
-def dblp(spec, year):
-    q = query_for(spec, year)
-    out, offset = [], 0
-    while True:
-        data = get_json(
-            "https://dblp.org/search/publ/api",
-            {"q": q, "format": "json", "h": 1000, "f": offset},
-            pause=2.0,
-        )
-        h = data.get("result", {}).get("hits", {})
-        batch = h.get("hit", []) or []
-        if isinstance(batch, dict):
-            batch = [batch]
-        for hit in batch:
-            info = hit.get("info", {})
-            if str(info.get("year", "")) == str(year) and accepts(spec, info.get("venue", "")):
-                out.append(info)
-        sent = int(h.get("@sent", len(batch)) or len(batch))
-        total = int(h.get("@total", 0) or 0)
-        offset += sent
-        if sent == 0 or offset >= total:
+def oa_list(endpoint, params, max_pages=None):
+    cursor = "*"
+    page = 0
+    while cursor:
+        p = dict(params)
+        p.setdefault("per-page", 200)
+        p["cursor"] = cursor
+        data = get_json(f"{OPENALEX}/{endpoint}", p)
+        for item in data.get("results", []) or []:
+            yield item
+        cursor = (data.get("meta") or {}).get("next_cursor")
+        page += 1
+        if max_pages and page >= max_pages:
             break
-        time.sleep(2.0)
+        if cursor:
+            time.sleep(0.08)
+
+def discover_conference_sources(spec):
+    rx = re.compile(spec["source_regex"])
+    candidates = {}
+    for q in spec.get("search", []):
+        for s in oa_list("sources", {
+            "search": q,
+            "select": "id,display_name,type,works_count,issn_l,host_organization_name",
+        }, max_pages=2):
+            name = norm(s.get("display_name"))
+            if not name or not rx.search(name):
+                continue
+            sid = norm(s.get("id"))
+            typ = norm(s.get("type"))
+            score = 0
+            if typ == "conference":
+                score += 1000
+            if q.lower() in name.lower():
+                score += 200
+            score += min(100, int(math.log10(max(1, int(s.get("works_count") or 1))) * 20))
+            old = candidates.get(sid)
+            if old is None or score > old["_score"]:
+                x = dict(s)
+                x["_score"] = score
+                candidates[sid] = x
+    ordered = sorted(candidates.values(), key=lambda x: (-x["_score"], -int(x.get("works_count") or 0), norm(x.get("display_name"))))
+    picked = ordered[:int(spec.get("max_sources", 1))]
+    print(f"SOURCES {spec['name']}: " + " | ".join(f"{x.get('display_name')} [{x.get('type')}] {x.get('id')}" for x in picked), flush=True)
+    return picked
+
+def discover_ieee_transactions_sources():
+    rx = re.compile(TX_CFG["include_regex"])
+    found = {}
+    for s in oa_list("sources", {
+        "search": TX_CFG["source_search"],
+        "select": "id,display_name,type,works_count,issn_l,host_organization_name",
+    }, max_pages=4):
+        name = norm(s.get("display_name"))
+        if norm(s.get("type")) != TX_CFG.get("source_type", "journal"):
+            continue
+        if not rx.search(name):
+            continue
+        found[norm(s["id"])] = s
+    out = sorted(found.values(), key=lambda x: norm(x.get("display_name")).lower())
+    print(f"IEEE Transactions sources matched: {len(out)}", flush=True)
+    for x in out:
+        print(f"  {x.get('display_name')} | {x.get('id')} | works={x.get('works_count')}", flush=True)
     return out
 
-def author_list(info):
-    raw = (info.get("authors") or {}).get("author", [])
-    if isinstance(raw, dict):
-        raw = [raw]
-    ans = []
-    for a in raw:
-        n = norm(a.get("text") if isinstance(a, dict) else a)
-        n = re.sub(r"\s+\d{4}$", "", n)
-        if n:
-            ans.append(n)
-    return ans
+def work_row(w, venue_override=None, kind=None, core=False, metadata_source="OpenAlex"):
+    source = ((w.get("primary_location") or {}).get("source") or {})
+    raw_venue = norm(source.get("display_name"))
+    venue = venue_override or raw_venue
+    authors = []
+    for a in w.get("authorships") or []:
+        name = norm((a.get("author") or {}).get("display_name"))
+        if name:
+            authors.append(name)
+    doi = norm(w.get("doi")).lower().replace("https://doi.org/", "")
+    kws = sorted(
+        [(norm(x.get("display_name")), float(x.get("score") or 0)) for x in (w.get("keywords") or []) if norm(x.get("display_name"))],
+        key=lambda x: -x[1],
+    )
+    topics = [norm(x.get("display_name")) for x in (w.get("topics") or []) if norm(x.get("display_name"))]
+    primary = norm((w.get("primary_topic") or {}).get("display_name"))
+    landing = norm((w.get("primary_location") or {}).get("landing_page_url"))
+    return {
+        "title": norm(w.get("display_name")).rstrip("."),
+        "authors": "; ".join(authors),
+        "venue": venue,
+        "raw_venue": raw_venue,
+        "year": int(w.get("publication_year") or 0),
+        "venue_kind": kind or norm(source.get("type")) or "unknown",
+        "source_id": norm(source.get("id")),
+        "doi": doi,
+        "url": landing or (f"https://doi.org/{doi}" if doi else norm(w.get("id"))),
+        "openalex_id": norm(w.get("id")),
+        "metadata_source": metadata_source,
+        "paper_type": norm(w.get("type")),
+        "keywords": "; ".join(x[0] for x in kws[:10]),
+        "keyword_provenance": "OpenAlex model-generated keywords" if kws else "",
+        "topics": "; ".join(topics[:3]),
+        "primary_topic": primary,
+        "categories": "",
+        "network_relevance_score": 0,
+        "network_relevant": False,
+        "_core": bool(core),
+    }
 
-def dblp_stream(spec):
-    """Fetch a complete canonical DBLP venue stream and keep configured years."""
-    out = []
-    for stream in spec.get("streams", []):
-        url = f"https://dblp.org/streams/{stream}.xml"
-        err = None
-        for attempt in range(3):
-            try:
-                r = S.get(url, timeout=120)
-                r.raise_for_status()
-                root = ET.fromstring(r.content)
-                break
-            except Exception as e:
-                err = e
-                if attempt == 2:
-                    raise RuntimeError(f"stream fetch failed: {url}: {err}")
-                time.sleep(2 * (attempt + 1))
-        for rec in root:
-            tag = rec.tag.rsplit("}", 1)[-1]
-            if tag not in {"article", "inproceedings"}:
-                continue
-            year = norm(rec.findtext("year"))
-            if not year.isdigit() or int(year) not in YEARS:
-                continue
-            raw_venue = norm(rec.findtext("journal") or rec.findtext("booktitle"))
-            if raw_venue and not accepts(spec, raw_venue):
-                continue
-            authors = []
-            for a in rec.findall("author"):
-                name = norm("".join(a.itertext()))
-                if name:
-                    authors.append({"text": name})
-            title_el = rec.find("title")
-            title = norm("".join(title_el.itertext())) if title_el is not None else ""
-            ees = [norm("".join(x.itertext())) for x in rec.findall("ee")]
-            ee = next((x for x in ees if "doi.org/" in x.lower()), ees[0] if ees else "")
-            doi = ee.lower().split("doi.org/", 1)[1] if "doi.org/" in ee.lower() else ""
-            out.append({
-                "title": title,
-                "authors": {"author": authors},
-                "venue": raw_venue,
-                "year": year,
-                "type": "Journal Articles" if tag == "article" else "Conference and Workshop Papers",
-                "ee": ee,
-                "url": "https://dblp.org/rec/" + norm(rec.attrib.get("key")),
-                "key": norm(rec.attrib.get("key")),
-                "doi": doi,
-            })
-    return out
-
-def nines_2026():
-    url = "https://2026.nines-conference.org/accepted"
-    try:
-        r = S.get(url, timeout=60)
-        r.raise_for_status()
-    except Exception:
+def collect_works(source_ids, year, venue_override=None, kind=None, core=False):
+    if not source_ids:
         return []
-    soup = BeautifulSoup(r.text, "html.parser")
+    rows = []
+    for i in range(0, len(source_ids), 50):
+        chunk = source_ids[i:i+50]
+        filt = f"primary_location.source.id:{'|'.join(chunk)},publication_year:{year}"
+        for w in oa_list("works", {
+            "filter": filt,
+            "select": "id,doi,display_name,publication_year,type,authorships,primary_location,keywords,topics,primary_topic",
+        }):
+            rows.append(work_row(w, venue_override=venue_override, kind=kind, core=core))
+    return rows
+
+def nines_2026(spec):
+    url = spec["official_2026"]
+    soup = BeautifulSoup(get_html(url), "html.parser")
     rows = []
     for li in soup.find_all("li"):
         a = li.find("a")
         if not a:
             continue
-        title = norm(a.get_text(" ", strip=True)).rstrip(".")
-        if not title or title.lower() in {
-            "home","papers","talk","contributed talks","recorded stream","recorded pods","cfp","faq","sop","organizers"
-        }:
+        label = norm(a.get_text(" ", strip=True)).rstrip(".")
+        if not label or label.lower() in {"home","papers","talk","contributed talks","recorded stream","recorded pods","cfp","faq","sop","organizers"}:
             continue
+        href = urljoin(url, a.get("href") or "")
         txt = norm(li.get_text(" ", strip=True))
         rest = txt[len(norm(a.get_text(" ", strip=True))):].lstrip(". ")
         rest = re.sub(r"\s+Talk\s*$", "", rest)
         rest = re.sub(r"\s*\([^)]*\)", "", rest).replace("∗", "").replace("*", "")
-        authors = [norm(x) for x in rest.split(",") if norm(x)]
-        href = a.get("href") or url
-        if href.startswith("/"):
-            href = "https://2026.nines-conference.org" + href
+        authors = "; ".join(norm(x) for x in rest.split(",") if norm(x))
         rows.append({
-            "title": title,
-            "authors": {"author": [{"text": x} for x in authors]},
-            "venue": "NINeS",
-            "year": "2026",
-            "type": "Conference and Workshop Papers",
-            "ee": href,
-            "url": href,
-            "key": "nines/2026/" + slug(title)[:100],
+            "title": label, "authors": authors, "venue": "NINeS", "raw_venue": "NINeS",
+            "year": 2026, "venue_kind": "conference", "source_id": "", "doi": "", "url": href,
+            "openalex_id": "", "metadata_source": "official accepted-paper page", "paper_type": "conference paper",
+            "keywords": "", "keyword_provenance": "", "topics": "", "primary_topic": "",
+            "categories": "", "network_relevance_score": 0, "network_relevant": False, "_core": True,
         })
     return rows
 
-def row_from(info, spec, year, source):
-    doi = norm(info.get("doi", "")).lower().replace("https://doi.org/", "")
-    if not doi and "doi.org/" in norm(info.get("ee", "")).lower():
-        doi = norm(info.get("ee", "")).lower().split("doi.org/", 1)[1]
-    return {
-        "title": norm(info.get("title", "")).rstrip("."),
-        "authors": "; ".join(author_list(info)),
-        "venue": spec["name"],
-        "raw_venue": norm(info.get("venue", "")),
-        "year": year,
-        "venue_kind": spec["kind"],
-        "doi": doi,
-        "url": norm(info.get("ee") or info.get("url")),
-        "dblp_url": norm(info.get("url")) if source.startswith("dblp") else "",
-        "dblp_key": norm(info.get("key")) if source.startswith("dblp") else "",
-        "metadata_source": source,
-        "paper_type": norm(info.get("type")),
-        "openalex_id": "",
-        "keywords": "",
-        "keyword_provenance": "",
-        "topics": "",
-        "primary_topic": "",
-        "categories": "",
-        "network_relevance_score": 0,
-        "network_relevant": False,
-    }
-
-def dedupe(rows):
-    kept = {}
-    for r in rows:
-        k = (r["doi"], slug(r["title"]), r["year"])
-        if k not in kept:
-            kept[k] = r
-            continue
-        old = kept[k]
-        if old["metadata_source"] != "dblp" and r["metadata_source"] == "dblp":
-            old, r = r, old
-            kept[k] = old
-        for f in ("doi","url","dblp_url","dblp_key","authors"):
-            if not old.get(f) and r.get(f):
-                old[f] = r[f]
-    return sorted(kept.values(), key=lambda r: (r["year"], r["venue"].lower(), r["title"].lower()))
-
-def openalex(rows):
-    by_doi = defaultdict(list)
-    for r in rows:
-        if r["doi"]:
-            by_doi[r["doi"]].append(r)
-    dois = sorted(by_doi)
-    print(f"OpenAlex enrichment for {len(dois)} DOI-bearing records", flush=True)
-    for i in range(0, len(dois), 50):
-        chunk = dois[i:i+50]
-        try:
-            data = get_json(
-                "https://api.openalex.org/works",
-                {
-                    "filter": "doi:" + "|".join(chunk),
-                    "per-page": 100,
-                    "select": "id,doi,title,publication_year,keywords,topics,primary_topic",
-                },
-                pause=1.0,
-            )
-        except Exception as e:
-            print(f"WARNING OpenAlex batch {i}: {e}", file=sys.stderr)
-            continue
-        for w in data.get("results", []) or []:
-            doi = norm(w.get("doi")).lower().replace("https://doi.org/", "")
-            if doi not in by_doi:
-                continue
-            kws = sorted(
-                [(norm(x.get("display_name")), float(x.get("score") or 0)) for x in (w.get("keywords") or []) if norm(x.get("display_name"))],
-                key=lambda x: -x[1],
-            )
-            topics = [norm(x.get("display_name")) for x in (w.get("topics") or []) if norm(x.get("display_name"))]
-            primary = norm((w.get("primary_topic") or {}).get("display_name"))
-            for r in by_doi[doi]:
-                r["openalex_id"] = norm(w.get("id"))
-                if kws:
-                    r["keywords"] = "; ".join(x[0] for x in kws[:10])
-                    r["keyword_provenance"] = "OpenAlex model-generated keywords"
-                r["topics"] = "; ".join(topics[:3])
-                r["primary_topic"] = primary
-        time.sleep(0.10)
-
 def title_fallback(title, limit=8):
     low = title.lower()
-    domain = sorted({p for ps in CATEGORIES.values() for p in ps}, key=len, reverse=True)
-    out = [p for p in domain if p in low][:limit]
-    if len(out) >= limit:
-        return out
+    domain = sorted({p for phrases in CATEGORIES.values() for p in phrases}, key=len, reverse=True)
+    out = []
+    for p in domain:
+        if p in low and p not in out:
+            out.append(p)
+        if len(out) >= limit:
+            return out
     toks = [x for x in re.findall(r"[a-z0-9][a-z0-9+.-]*", low) if len(x) > 2 and x not in STOP and not x.isdigit()]
     for a, b in zip(toks, toks[1:]):
         p = f"{a} {b}"
@@ -287,7 +242,7 @@ def title_fallback(title, limit=8):
             break
     return out
 
-def categorize(r, spec_by_name):
+def categorize(r):
     if not r["keywords"]:
         r["keywords"] = "; ".join(title_fallback(r["title"]))
         r["keyword_provenance"] = "deterministic title-derived fallback"
@@ -295,133 +250,221 @@ def categorize(r, spec_by_name):
     title = r["title"].lower()
     scored = []
     for cat, phrases in CATEGORIES.items():
-        score = sum(2 if p in title else 1 for p in phrases if p in blob)
+        score = sum(3 if p in title else 1 for p in phrases if p in blob)
         if score:
             scored.append((score, cat))
     scored.sort(key=lambda x: (-x[0], x[1]))
     r["categories"] = "; ".join(x[1] for x in scored[:3]) if scored else "Other / adjacent"
-    prior = 1 if spec_by_name[r["venue"]].get("core") else 0
     lexical = scored[0][0] if scored else 0
+    prior = 2 if r.get("_core") else 0
     r["network_relevance_score"] = min(10, prior + lexical)
-    r["network_relevant"] = bool(prior or lexical >= 2)
+    r["network_relevant"] = bool(r.get("_core") or lexical >= 2)
 
-def write(rows, coverage):
-    fields = [
-        "title","authors","venue","raw_venue","year","venue_kind","doi","url","dblp_url","dblp_key",
-        "metadata_source","paper_type","openalex_id","keywords","keyword_provenance","topics","primary_topic",
-        "categories","network_relevance_score","network_relevant",
-    ]
-    with (OUT / "recent_networking_papers.csv").open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=fields)
+def dedupe(rows):
+    kept = {}
+    for r in rows:
+        key = ("doi", r["doi"]) if r.get("doi") else ("title", slug(r["title"]), r["year"], r["venue"])
+        if key not in kept:
+            kept[key] = r
+            continue
+        old = kept[key]
+        score_old = sum(bool(old.get(f)) for f in ("authors","keywords","doi","source_id","openalex_id"))
+        score_new = sum(bool(r.get(f)) for f in ("authors","keywords","doi","source_id","openalex_id"))
+        if score_new > score_old:
+            kept[key] = r
+    return sorted(kept.values(), key=lambda r: (int(r["year"]), r["venue"].lower(), r["title"].lower()))
+
+FIELDS = [
+    "title","authors","venue","raw_venue","year","venue_kind","source_id","doi","url","openalex_id",
+    "metadata_source","paper_type","keywords","keyword_provenance","topics","primary_topic",
+    "categories","network_relevance_score","network_relevant",
+]
+
+def public_row(r):
+    return {k:r.get(k,"") for k in FIELDS}
+
+def write_csv(path, rows):
+    with path.open("w", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=FIELDS)
         w.writeheader()
-        w.writerows(rows)
-    with (OUT / "recent_networking_papers.jsonl").open("w", encoding="utf-8") as f:
         for r in rows:
-            f.write(json.dumps(r, ensure_ascii=False, sort_keys=True) + "\n")
+            w.writerow(public_row(r))
+
+def write_gzip_csv(path, rows):
+    with gzip.open(path, "wt", encoding="utf-8", newline="") as f:
+        w = csv.DictWriter(f, fieldnames=FIELDS)
+        w.writeheader()
+        for r in rows:
+            w.writerow(public_row(r))
+
+def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
+    all_rows = dedupe(conference_rows + tx_rows)
+    for r in all_rows:
+        categorize(r)
+
+    conference_names = {x["name"] for x in CONFERENCES}
+    conferences = [r for r in all_rows if r["venue"] in conference_names]
+    tx = [r for r in all_rows if r["venue"] not in conference_names and re.match(TX_CFG["include_regex"], r["venue"] or "")]
+    network = [r for r in all_rows if r["network_relevant"]]
+
+    write_csv(OUT / "all_conference_papers.csv", conferences)
+    write_gzip_csv(OUT / "ieee_transactions_papers.csv.gz", tx)
+    write_csv(OUT / "recent_networking_papers.csv", network)
+
     with (OUT / "PAPER_CORPUS_COVERAGE.csv").open("w", encoding="utf-8", newline="") as f:
-        w = csv.DictWriter(f, fieldnames=["venue","kind","year","records","status","query"])
+        fields = ["venue","kind","year","records","status","source_ids","source_names"]
+        w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
         w.writerows(coverage)
 
-    by_vy = Counter((r["venue"], r["year"]) for r in rows)
-    prov = Counter(r["keyword_provenance"] for r in rows)
-    cats, kws = Counter(), Counter()
-    for r in rows:
-        if r["network_relevant"]:
-            for x in r["categories"].split("; "):
-                cats[x] += 1
-        for x in r["keywords"].split("; "):
+    with (OUT / "IEEE_TRANSACTIONS_SOURCES.csv").open("w", encoding="utf-8", newline="") as f:
+        fields = ["source_id","display_name","type","works_count","issn_l"]
+        w = csv.DictWriter(f, fieldnames=fields)
+        w.writeheader()
+        for s in tx_sources:
+            w.writerow({k:s.get(k,"") for k in fields})
+
+    by_vy = Counter((r["venue"], int(r["year"])) for r in conferences)
+    prov = Counter(r["keyword_provenance"] for r in all_rows)
+    cats = Counter()
+    for r in network:
+        for x in r["categories"].split("; "):
             if x:
-                kws[x] += 1
+                cats[x] += 1
+
     lines = [
         "# Paper Corpus Summary","",
-        f"Generated from the reproducible corpus pipeline. Total records: {len(rows):,}.",
-        f"Rule-based network-relevant records: {sum(bool(r['network_relevant']) for r in rows):,}.","",
-        "OpenAlex keywords are model-generated aboutness labels, not author-supplied keywords. The keyword_provenance column records whether a row uses OpenAlex enrichment or the deterministic title fallback.","",
-        "## Coverage by venue and year","",
+        f"Conference records: **{len(conferences):,}**.",
+        f"IEEE Transactions records: **{len(tx):,}** across **{len(tx_sources):,}** matching journal sources.",
+        f"Network-relevant records used for project-area mining: **{len(network):,}**.","",
+        "## Coverage by requested conference and year","",
         "| Venue | 2023 | 2024 | 2025 | 2026 | 2027 |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
     ]
-    for spec in VENUES:
+    for spec in CONFERENCES:
         lines.append("| " + spec["name"] + " | " + " | ".join(str(by_vy.get((spec["name"], y), 0)) for y in YEARS) + " |")
-    lines += ["","## Keyword provenance","","| Source | Papers |","| --- | ---: |"]
-    for k, n in prov.most_common():
+    lines += [
+        "","## Keyword provenance","",
+        "OpenAlex keywords are model-generated aboutness labels derived from a work's title, abstract, and venue. They are not represented as author-supplied keywords. Rows without OpenAlex keywords use an explicit deterministic title fallback.","",
+        "| Provenance | Records |","| --- | ---: |",
+    ]
+    for k,n in prov.most_common():
         lines.append(f"| {k or 'missing'} | {n:,} |")
     lines += ["","## Network-relevant category counts","","| Category | Papers |","| --- | ---: |"]
-    for k, n in cats.most_common():
-        lines.append(f"| {k} | {n:,} |")
-    lines += ["","## Most common keywords","","| Keyword | Papers |","| --- | ---: |"]
-    for k, n in kws.most_common(100):
+    for k,n in cats.most_common():
         lines.append(f"| {k} | {n:,} |")
     lines += [
-        "","## Scope notes","",
-        "- 2027 remains empty until accepted-paper or proceedings metadata is available.",
-        "- NINeS 2026 uses its official accepted-paper page if DBLP has no records.",
-        "- IEEE Transactions coverage is limited to the networking, distributed, mobile, cloud, multimedia, communications, and dependability journals listed in paper_corpus_config.json.",
-        "- Category and network-relevance labels are reproducible discovery heuristics, not bibliometric ground truth.",
-        "- PAPER_CORPUS_COVERAGE.csv records the exact query status for every venue-year.",
+        "","## Validation","",
+        "The build fails before committing generated files when an established 2023–2026 conference venue returns fewer than its configured minimum number of papers. This prevents empty or obviously truncated metadata responses from being mistaken for a valid corpus.",
+        "",
+        "2027 conference cells remain zero unless published metadata is actually present. IEEE Transactions rows with publication year 2027 are retained when OpenAlex already exposes them.",
     ]
-    (OUT / "PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines) + "\n", encoding="utf-8")
+    (OUT / "PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines)+"\n", encoding="utf-8")
+
+    readme = """# Recent paper corpus
+
+This directory contains the machine-readable literature corpus used to ground the Advanced Networks project idea pool.
+
+## Files
+
+- all_conference_papers.csv — all papers collected for the requested conference series and available years.
+- ieee_transactions_papers.csv.gz — all 2023–2027 works available from OpenAlex for journal sources whose names match IEEE Transactions on ..., IEEE Transactions of ..., or IEEE/ACM Transactions on ....
+- recent_networking_papers.csv — the network-relevant subset used to derive project clusters.
+- IEEE_TRANSACTIONS_SOURCES.csv — every IEEE Transactions journal source matched by the collector.
+- PAPER_CORPUS_COVERAGE.csv — venue/year counts plus the resolved OpenAlex source IDs.
+- PAPER_CORPUS_SUMMARY.md — compact audit summary.
+
+## Metadata and keyword provenance
+
+OpenAlex provides title, authors, publication year, DOI/URL, venue/source identity, topics, and keywords for most rows. OpenAlex documents its current keywords as model-generated aboutness labels produced from a work's title, abstract, and venue. They are therefore stored as keywords with keyword_provenance = OpenAlex model-generated keywords, not as author keywords.
+
+When OpenAlex does not provide keywords, the builder creates a deterministic title-derived fallback and marks that provenance explicitly.
+
+NINeS 2026 is collected from the official accepted-paper page because it is a new venue and may not yet have a stable bibliographic source.
+
+## Reproducibility and validation
+
+The source configuration and minimum plausible counts are in tools/research/paper_corpus_config.json. The builder is tools/research/build_paper_corpus.py.
+
+The build is fail-closed: an established 2023–2026 conference venue that resolves to an implausibly small paper count causes the workflow to fail rather than commit a misleading corpus.
+"""
+    (OUT / "README.md").write_text(readme, encoding="utf-8")
+
+    obsolete = OUT / "recent_networking_papers.jsonl"
+    if obsolete.exists():
+        obsolete.unlink()
+
+    return conferences, tx, network
 
 def main():
-    rows, coverage = [], []
-    for spec in VENUES:
-        allowed = spec.get("years", YEARS)
-        stream_records = None
-        if spec.get("streams"):
-            print(f"DBLP stream {spec['name']}", flush=True)
-            try:
-                stream_records = dblp_stream(spec)
-            except Exception as e:
-                print(f"WARNING stream {spec['name']}: {e}; falling back to search API", file=sys.stderr)
+    conference_rows = []
+    coverage = []
+    failures = []
 
-        if stream_records is not None:
-            by_year = defaultdict(list)
-            for info in stream_records:
-                by_year[int(info["year"])].append(info)
+    for spec in CONFERENCES:
+        allowed = set(spec.get("years", YEARS))
+        if spec["name"] == "NINeS":
+            rows_2026 = nines_2026(spec)
             for year in YEARS:
                 if year not in allowed:
-                    coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":0,"status":"not-applicable","query":""})
+                    coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":0,"status":"not-applicable","source_ids":"","source_names":""})
                     continue
-                info = by_year.get(year, [])
-                rows.extend(row_from(x, spec, year, "dblp-stream") for x in info)
-                coverage.append({
-                    "venue":spec["name"], "kind":spec["kind"], "year":year,
-                    "records":len(info), "status":"ok" if info else "no-records",
-                    "query":";".join("https://dblp.org/streams/" + s + ".xml" for s in spec.get("streams", [])),
-                })
+                rows = rows_2026 if year == 2026 else []
+                conference_rows.extend(rows)
+                status = "official-page" if rows else ("not-yet-available" if year == 2027 else "no-records")
+                coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":len(rows),"status":status,"source_ids":"","source_names":"NINeS official accepted-paper page"})
+                if year == 2026 and len(rows) < spec["hard_min"]:
+                    failures.append(f"{spec['name']} {year}: {len(rows)} < {spec['hard_min']}")
             continue
 
+        sources = discover_conference_sources(spec)
+        source_ids = [norm(x.get("id")) for x in sources]
+        source_names = [norm(x.get("display_name")) for x in sources]
+        if not source_ids:
+            failures.append(f"{spec['name']}: no OpenAlex source resolved")
         for year in YEARS:
             if year not in allowed:
-                coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":0,"status":"not-applicable","query":""})
+                coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":0,"status":"not-applicable","source_ids":"; ".join(source_ids),"source_names":"; ".join(source_names)})
                 continue
-            print(f"DBLP search {spec['name']} {year}", flush=True)
-            status = "ok"
-            try:
-                info = dblp(spec, year)
-                if not info:
-                    status = "no-records"
-            except Exception as e:
-                print(f"WARNING {spec['name']} {year}: {e}", file=sys.stderr)
-                info, status = [], "query-failed"
-            if spec["name"] == "NINeS" and year == 2026 and not info:
-                info = nines_2026()
-                if info:
-                    status = "official-fallback"
-            source = "official venue page" if status == "official-fallback" else "dblp-search"
-            rows.extend(row_from(x, spec, year, source) for x in info)
-            coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":len(info),"status":status,"query":query_for(spec,year)})
-            time.sleep(0.25)
+            rows = collect_works(source_ids, year, venue_override=spec["name"], kind="conference", core=spec.get("core",False))
+            conference_rows.extend(rows)
+            status = "ok" if rows else ("not-yet-available" if year == 2027 else "no-records")
+            coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":len(rows),"status":status,"source_ids":"; ".join(source_ids),"source_names":"; ".join(source_names)})
+            print(f"COUNT {spec['name']} {year}: {len(rows)}", flush=True)
+            if 2023 <= year <= 2026 and len(rows) < int(spec["hard_min"]):
+                failures.append(f"{spec['name']} {year}: {len(rows)} < {spec['hard_min']}")
 
-    rows = dedupe(rows)
-    print(f"Metadata records: {len(rows)}", flush=True)
-    openalex(rows)
-    by_name = {x["name"]: x for x in VENUES}
-    for r in rows:
-        categorize(r, by_name)
-    write(rows, coverage)
-    print(f"Wrote {len(rows)} records", flush=True)
+    tx_sources = discover_ieee_transactions_sources()
+    if len(tx_sources) < 20:
+        failures.append(f"IEEE Transactions source discovery returned only {len(tx_sources)} sources")
+    tx_ids = [norm(x.get("id")) for x in tx_sources]
+    tx_rows = []
+    for year in YEARS:
+        if year == 2027 and not TX_CFG.get("include_2027", True):
+            continue
+        rows = collect_works(tx_ids, year, venue_override=None, kind="journal", core=False)
+        tx_rows.extend(rows)
+        print(f"COUNT IEEE Transactions {year}: {len(rows)}", flush=True)
+
+    conferences, tx, network = write_outputs(conference_rows, tx_rows, coverage, tx_sources)
+
+    author_missing = sum(not r["authors"] for r in conferences)
+    if conferences and author_missing / len(conferences) > 0.05:
+        failures.append(f"conference author metadata missing for {author_missing}/{len(conferences)} records")
+    if len(conferences) < 1500:
+        failures.append(f"conference corpus unexpectedly small: {len(conferences)}")
+    if len(tx) < 3000:
+        failures.append(f"IEEE Transactions corpus unexpectedly small: {len(tx)}")
+    if any(not r["keywords"] for r in conferences + tx):
+        failures.append("one or more rows have no keywords after fallback")
+
+    if failures:
+        print("\nVALIDATION FAILED", file=sys.stderr)
+        for x in failures:
+            print(" - " + x, file=sys.stderr)
+        sys.exit(2)
+
+    print(f"VALIDATED: {len(conferences)} conference papers; {len(tx)} IEEE Transactions papers; {len(network)} network-relevant rows", flush=True)
 
 if __name__ == "__main__":
     main()
