@@ -7,6 +7,7 @@ import json
 import re
 import sys
 import time
+import xml.etree.ElementTree as ET
 from collections import Counter, defaultdict
 from pathlib import Path
 
@@ -94,6 +95,56 @@ def author_list(info):
             ans.append(n)
     return ans
 
+def dblp_stream(spec):
+    """Fetch a complete canonical DBLP venue stream and keep configured years."""
+    out = []
+    for stream in spec.get("streams", []):
+        url = f"https://dblp.org/streams/{stream}.xml"
+        err = None
+        for attempt in range(3):
+            try:
+                r = S.get(url, timeout=120)
+                r.raise_for_status()
+                root = ET.fromstring(r.content)
+                break
+            except Exception as e:
+                err = e
+                if attempt == 2:
+                    raise RuntimeError(f"stream fetch failed: {url}: {err}")
+                time.sleep(2 * (attempt + 1))
+        for rec in root:
+            tag = rec.tag.rsplit("}", 1)[-1]
+            if tag not in {"article", "inproceedings"}:
+                continue
+            year = norm(rec.findtext("year"))
+            if not year.isdigit() or int(year) not in YEARS:
+                continue
+            raw_venue = norm(rec.findtext("journal") or rec.findtext("booktitle"))
+            if raw_venue and not accepts(spec, raw_venue):
+                continue
+            authors = []
+            for a in rec.findall("author"):
+                name = norm("".join(a.itertext()))
+                if name:
+                    authors.append({"text": name})
+            title_el = rec.find("title")
+            title = norm("".join(title_el.itertext())) if title_el is not None else ""
+            ees = [norm("".join(x.itertext())) for x in rec.findall("ee")]
+            ee = next((x for x in ees if "doi.org/" in x.lower()), ees[0] if ees else "")
+            doi = ee.lower().split("doi.org/", 1)[1] if "doi.org/" in ee.lower() else ""
+            out.append({
+                "title": title,
+                "authors": {"author": authors},
+                "venue": raw_venue,
+                "year": year,
+                "type": "Journal Articles" if tag == "article" else "Conference and Workshop Papers",
+                "ee": ee,
+                "url": "https://dblp.org/rec/" + norm(rec.attrib.get("key")),
+                "key": norm(rec.attrib.get("key")),
+                "doi": doi,
+            })
+    return out
+
 def nines_2026():
     url = "https://2026.nines-conference.org/accepted"
     try:
@@ -134,6 +185,8 @@ def nines_2026():
 
 def row_from(info, spec, year, source):
     doi = norm(info.get("doi", "")).lower().replace("https://doi.org/", "")
+    if not doi and "doi.org/" in norm(info.get("ee", "")).lower():
+        doi = norm(info.get("ee", "")).lower().split("doi.org/", 1)[1]
     return {
         "title": norm(info.get("title", "")).rstrip("."),
         "authors": "; ".join(author_list(info)),
@@ -143,8 +196,8 @@ def row_from(info, spec, year, source):
         "venue_kind": spec["kind"],
         "doi": doi,
         "url": norm(info.get("ee") or info.get("url")),
-        "dblp_url": norm(info.get("url")) if source == "dblp" else "",
-        "dblp_key": norm(info.get("key")) if source == "dblp" else "",
+        "dblp_url": norm(info.get("url")) if source.startswith("dblp") else "",
+        "dblp_key": norm(info.get("key")) if source.startswith("dblp") else "",
         "metadata_source": source,
         "paper_type": norm(info.get("type")),
         "openalex_id": "",
@@ -314,11 +367,36 @@ def main():
     rows, coverage = [], []
     for spec in VENUES:
         allowed = spec.get("years", YEARS)
+        stream_records = None
+        if spec.get("streams"):
+            print(f"DBLP stream {spec['name']}", flush=True)
+            try:
+                stream_records = dblp_stream(spec)
+            except Exception as e:
+                print(f"WARNING stream {spec['name']}: {e}; falling back to search API", file=sys.stderr)
+
+        if stream_records is not None:
+            by_year = defaultdict(list)
+            for info in stream_records:
+                by_year[int(info["year"])].append(info)
+            for year in YEARS:
+                if year not in allowed:
+                    coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":0,"status":"not-applicable","query":""})
+                    continue
+                info = by_year.get(year, [])
+                rows.extend(row_from(x, spec, year, "dblp-stream") for x in info)
+                coverage.append({
+                    "venue":spec["name"], "kind":spec["kind"], "year":year,
+                    "records":len(info), "status":"ok" if info else "no-records",
+                    "query":";".join("https://dblp.org/streams/" + s + ".xml" for s in spec.get("streams", [])),
+                })
+            continue
+
         for year in YEARS:
             if year not in allowed:
                 coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":0,"status":"not-applicable","query":""})
                 continue
-            print(f"DBLP {spec['name']} {year}", flush=True)
+            print(f"DBLP search {spec['name']} {year}", flush=True)
             status = "ok"
             try:
                 info = dblp(spec, year)
@@ -331,10 +409,11 @@ def main():
                 info = nines_2026()
                 if info:
                     status = "official-fallback"
-            source = "official venue page" if status == "official-fallback" else "dblp"
+            source = "official venue page" if status == "official-fallback" else "dblp-search"
             rows.extend(row_from(x, spec, year, source) for x in info)
             coverage.append({"venue":spec["name"],"kind":spec["kind"],"year":year,"records":len(info),"status":status,"query":query_for(spec,year)})
             time.sleep(0.25)
+
     rows = dedupe(rows)
     print(f"Metadata records: {len(rows)}", flush=True)
     openalex(rows)
