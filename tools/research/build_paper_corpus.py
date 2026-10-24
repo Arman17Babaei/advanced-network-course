@@ -260,6 +260,27 @@ def crossref_ieee_transactions(year):
                     authors.append(name)
             doi = norm(item.get("DOI")).lower()
             subjects = [norm(x) for x in (item.get("subject") or []) if norm(x)]
+            abstract = strip_markup(item.get("abstract"))
+            semantic_blob = " ".join([title, abstract, " ".join(subjects)]).lower()
+            derived_terms = []
+            for phrases in CATEGORIES.values():
+                for phrase in phrases:
+                    if phrase in semantic_blob and phrase not in derived_terms:
+                        derived_terms.append(phrase)
+            keyword_terms = []
+            for term in subjects + sorted(derived_terms, key=len, reverse=True):
+                if term and term not in keyword_terms:
+                    keyword_terms.append(term)
+                if len(keyword_terms) >= 12:
+                    break
+            if subjects and derived_terms:
+                provenance = "Crossref subjects + deterministic title/abstract category terms"
+            elif subjects:
+                provenance = "Crossref subjects"
+            elif derived_terms:
+                provenance = "deterministic title/abstract category terms"
+            else:
+                provenance = ""
             rows.append({
                 "title": title.rstrip("."),
                 "authors": "; ".join(authors),
@@ -273,8 +294,8 @@ def crossref_ieee_transactions(year):
                 "openalex_id": "",
                 "metadata_source": "Crossref",
                 "paper_type": norm(item.get("type")) or "journal-article",
-                "keywords": "; ".join(subjects[:10]),
-                "keyword_provenance": "Crossref subjects" if subjects else "",
+                "keywords": "; ".join(keyword_terms),
+                "keyword_provenance": provenance,
                 "topics": "",
                 "primary_topic": "",
                 "categories": "",
@@ -533,7 +554,7 @@ This directory contains the machine-readable literature corpus used to ground th
 
 ## Metadata and keyword provenance
 
-Conference metadata and topic enrichment come primarily from OpenAlex. The bulk IEEE Transactions inventory comes from Crossref because it is substantially larger than the anonymous OpenAlex paging budget. Crossref subjects are retained when available; network-relevant journal records are then enriched through OpenAlex by DOI where budget permits.
+Conference metadata and topic labels come primarily from OpenAlex. The bulk IEEE Transactions inventory comes from Crossref because it is substantially larger than the anonymous OpenAlex paging budget. Crossref subjects are retained when available, and deterministic category terms are extracted from titles/abstracts for journal rows; provenance is recorded explicitly.
 
 OpenAlex documents its current keywords as model-generated aboutness labels produced from a work's title, abstract, and venue. They are therefore stored as keywords with keyword_provenance = OpenAlex model-generated keywords, not as author keywords.
 
