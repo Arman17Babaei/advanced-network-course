@@ -113,6 +113,9 @@ def discover_conference_sources(spec):
                 continue
             sid = norm(s.get("id"))
             typ = norm(s.get("type"))
+            allowed_types = set(spec.get("allow_source_types", ["conference"]))
+            if typ not in allowed_types:
+                continue
             score = 0
             if typ == "conference":
                 score += 1000
@@ -125,8 +128,10 @@ def discover_conference_sources(spec):
                 x["_score"] = score
                 candidates[sid] = x
     ordered = sorted(candidates.values(), key=lambda x: (-x["_score"], -int(x.get("works_count") or 0), norm(x.get("display_name"))))
-    picked = ordered[:int(spec.get("max_sources", 1))]
-    print(f"SOURCES {spec['name']}: " + " | ".join(f"{x.get('display_name')} [{x.get('type')}] {x.get('id')}" for x in picked), flush=True)
+    picked = ordered[:int(spec.get("max_sources", 50))]
+    print(f"SOURCES {spec['name']}: {len(picked)} matched", flush=True)
+    for x in picked:
+        print(f"  {x.get('display_name')} [{x.get('type')}] {x.get('id')}", flush=True)
     return picked
 
 def discover_ieee_transactions_sources():
@@ -201,6 +206,129 @@ def collect_works(source_ids, year, venue_override=None, kind=None, core=False):
         }):
             rows.append(work_row(w, venue_override=venue_override, kind=kind, core=core))
     return rows
+
+
+def strip_markup(x):
+    if not x:
+        return ""
+    return norm(BeautifulSoup(str(x), "html.parser").get_text(" ", strip=True))
+
+def crossref_ieee_transactions(year):
+    """Collect IEEE Transactions journal articles from Crossref for one year.
+
+    IEEE journal articles use the 10.1109 DOI prefix. query.container-title
+    provides the broad candidate set; the configured exact name regex is then
+    applied locally so unrelated IEEE publications are not admitted.
+    """
+    rx = re.compile(TX_CFG["include_regex"])
+    base = "https://api.crossref.org/works"
+    cursor = "*"
+    rows = []
+    seen_cursors = set()
+    retrieved = 0
+    while cursor and cursor not in seen_cursors:
+        seen_cursors.add(cursor)
+        params = {
+            "filter": (
+                f"from-pub-date:{year}-01-01,"
+                f"until-pub-date:{year}-12-31,"
+                f"type:journal-article,"
+                f"prefix:{TX_CFG.get('crossref_prefix','10.1109')}"
+            ),
+            "query.container-title": TX_CFG.get("crossref_query", "IEEE Transactions"),
+            "rows": 1000,
+            "cursor": cursor,
+        }
+        data = get_json(base, params=params, attempts=6, pause=1.5)
+        msg = data.get("message") or {}
+        items = msg.get("items") or []
+        if not items:
+            break
+        for item in items:
+            containers = item.get("container-title") or []
+            raw_venue = norm(containers[0] if containers else "")
+            if not raw_venue or not rx.search(raw_venue):
+                continue
+            title_raw = item.get("title") or []
+            title = norm(title_raw[0] if title_raw else "")
+            if not title:
+                continue
+            authors = []
+            for a in item.get("author") or []:
+                name = norm(" ".join(x for x in [a.get("given",""), a.get("family","")] if x))
+                if name:
+                    authors.append(name)
+            doi = norm(item.get("DOI")).lower()
+            subjects = [norm(x) for x in (item.get("subject") or []) if norm(x)]
+            rows.append({
+                "title": title.rstrip("."),
+                "authors": "; ".join(authors),
+                "venue": raw_venue,
+                "raw_venue": raw_venue,
+                "year": year,
+                "venue_kind": "journal",
+                "source_id": "",
+                "doi": doi,
+                "url": norm(item.get("URL")) or (f"https://doi.org/{doi}" if doi else ""),
+                "openalex_id": "",
+                "metadata_source": "Crossref",
+                "paper_type": norm(item.get("type")) or "journal-article",
+                "keywords": "; ".join(subjects[:10]),
+                "keyword_provenance": "Crossref subjects" if subjects else "",
+                "topics": "",
+                "primary_topic": "",
+                "categories": "",
+                "network_relevance_score": 0,
+                "network_relevant": False,
+                "_core": False,
+            })
+        retrieved += len(items)
+        total = int(msg.get("total-results") or 0)
+        cursor = norm(msg.get("next-cursor"))
+        print(f"CROSSREF IEEE Transactions {year}: scanned {retrieved}/{total}, kept {len(rows)}", flush=True)
+        if retrieved >= total:
+            break
+        time.sleep(0.08)
+    return rows
+
+def enrich_openalex_by_doi(rows):
+    """Enrich a bounded subset with OpenAlex keywords/topics using DOI OR filters."""
+    by_doi = {r["doi"]: r for r in rows if r.get("doi")}
+    dois = sorted(by_doi)
+    if not dois:
+        return
+    print(f"OpenAlex DOI enrichment for {len(dois)} selected journal records", flush=True)
+    for i in range(0, len(dois), 40):
+        chunk = dois[i:i+40]
+        filt = "doi:" + "|".join(chunk)
+        try:
+            works = list(oa_list("works", {
+                "filter": filt,
+                "select": "id,doi,keywords,topics,primary_topic",
+            }, max_pages=2))
+        except Exception as e:
+            print(f"WARNING DOI enrichment batch {i}: {e}", file=sys.stderr)
+            continue
+        for w in works:
+            doi = norm(w.get("doi")).lower().replace("https://doi.org/", "")
+            r = by_doi.get(doi)
+            if not r:
+                continue
+            kws = sorted(
+                [(norm(x.get("display_name")), float(x.get("score") or 0))
+                 for x in (w.get("keywords") or []) if norm(x.get("display_name"))],
+                key=lambda x: -x[1],
+            )
+            if kws:
+                r["keywords"] = "; ".join(x[0] for x in kws[:10])
+                r["keyword_provenance"] = "OpenAlex model-generated keywords"
+            r["topics"] = "; ".join(
+                norm(x.get("display_name")) for x in (w.get("topics") or [])[:3]
+                if norm(x.get("display_name"))
+            )
+            r["primary_topic"] = norm((w.get("primary_topic") or {}).get("display_name"))
+            r["openalex_id"] = norm(w.get("id"))
+        time.sleep(0.05)
 
 def nines_2026(spec):
     url = spec["official_2026"]
