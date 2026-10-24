@@ -1,0 +1,136 @@
+venue,kind,year,records,status,query
+SIGCOMM,conference,2023,0,query-failed,venue:SIGCOMM year:2023
+SIGCOMM,conference,2024,0,query-failed,venue:SIGCOMM year:2024
+SIGCOMM,conference,2025,0,query-failed,venue:SIGCOMM year:2025
+SIGCOMM,conference,2026,0,query-failed,venue:SIGCOMM year:2026
+SIGCOMM,conference,2027,0,query-failed,venue:SIGCOMM year:2027
+CoNEXT,conference,2023,0,query-failed,venue:CoNEXT year:2023
+CoNEXT,conference,2024,0,query-failed,venue:CoNEXT year:2024
+CoNEXT,conference,2025,0,query-failed,venue:CoNEXT year:2025
+CoNEXT,conference,2026,0,query-failed,venue:CoNEXT year:2026
+CoNEXT,conference,2027,0,query-failed,venue:CoNEXT year:2027
+NSDI,conference,2023,0,query-failed,venue:NSDI year:2023
+NSDI,conference,2024,0,query-failed,venue:NSDI year:2024
+NSDI,conference,2025,0,query-failed,venue:NSDI year:2025
+NSDI,conference,2026,0,query-failed,venue:NSDI year:2026
+NSDI,conference,2027,0,query-failed,venue:NSDI year:2027
+ICNP,conference,2023,0,query-failed,venue:ICNP year:2023
+ICNP,conference,2024,0,query-failed,venue:ICNP year:2024
+ICNP,conference,2025,0,query-failed,venue:ICNP year:2025
+ICNP,conference,2026,0,query-failed,venue:ICNP year:2026
+ICNP,conference,2027,0,query-failed,venue:ICNP year:2027
+INFOCOM,conference,2023,0,query-failed,venue:INFOCOM year:2023
+INFOCOM,conference,2024,0,query-failed,venue:INFOCOM year:2024
+INFOCOM,conference,2025,0,query-failed,venue:INFOCOM year:2025
+INFOCOM,conference,2026,0,query-failed,venue:INFOCOM year:2026
+INFOCOM,conference,2027,0,query-failed,venue:INFOCOM year:2027
+SIGMETRICS,conference,2023,0,query-failed,venue:SIGMETRICS year:2023
+SIGMETRICS,conference,2024,0,query-failed,venue:SIGMETRICS year:2024
+SIGMETRICS,conference,2025,0,query-failed,venue:SIGMETRICS year:2025
+SIGMETRICS,conference,2026,0,query-failed,venue:SIGMETRICS year:2026
+SIGMETRICS,conference,2027,0,query-failed,venue:SIGMETRICS year:2027
+IMC,conference,2023,0,query-failed,venue:IMC year:2023
+IMC,conference,2024,0,query-failed,venue:IMC year:2024
+IMC,conference,2025,0,query-failed,venue:IMC year:2025
+IMC,conference,2026,0,query-failed,venue:IMC year:2026
+IMC,conference,2027,0,query-failed,venue:IMC year:2027
+ACM Multimedia,conference,2023,0,query-failed,venue:Multimedia year:2023
+ACM Multimedia,conference,2024,0,query-failed,venue:Multimedia year:2024
+ACM Multimedia,conference,2025,0,query-failed,venue:Multimedia year:2025
+ACM Multimedia,conference,2026,0,query-failed,venue:Multimedia year:2026
+ACM Multimedia,conference,2027,0,query-failed,venue:Multimedia year:2027
+NINeS,conference,2023,0,not-applicable,
+NINeS,conference,2024,0,not-applicable,
+NINeS,conference,2025,0,not-applicable,
+NINeS,conference,2026,28,official-fallback,venue:NINeS year:2026
+NINeS,conference,2027,0,query-failed,venue:NINeS year:2027
+MobiCom,conference,2023,0,query-failed,venue:MobiCom year:2023
+MobiCom,conference,2024,0,query-failed,venue:MobiCom year:2024
+MobiCom,conference,2025,0,query-failed,venue:MobiCom year:2025
+MobiCom,conference,2026,0,query-failed,venue:MobiCom year:2026
+MobiCom,conference,2027,0,query-failed,venue:MobiCom year:2027
+MMSys,conference,2023,0,query-failed,venue:MMSys year:2023
+MMSys,conference,2024,0,query-failed,venue:MMSys year:2024
+MMSys,conference,2025,0,query-failed,venue:MMSys year:2025
+MMSys,conference,2026,0,query-failed,venue:MMSys year:2026
+MMSys,conference,2027,0,query-failed,venue:MMSys year:2027
+IPDPS,conference,2023,0,query-failed,venue:IPDPS year:2023
+IPDPS,conference,2024,0,query-failed,venue:IPDPS year:2024
+IPDPS,conference,2025,0,query-failed,venue:IPDPS year:2025
+IPDPS,conference,2026,0,query-failed,venue:IPDPS year:2026
+IPDPS,conference,2027,0,query-failed,venue:IPDPS year:2027
+ICDCS,conference,2023,0,query-failed,venue:ICDCS year:2023
+ICDCS,conference,2024,0,query-failed,venue:ICDCS year:2024
+ICDCS,conference,2025,0,query-failed,venue:ICDCS year:2025
+ICDCS,conference,2026,0,query-failed,venue:ICDCS year:2026
+ICDCS,conference,2027,0,query-failed,venue:ICDCS year:2027
+OSDI,conference,2023,0,query-failed,venue:OSDI year:2023
+OSDI,conference,2024,0,query-failed,venue:OSDI year:2024
+OSDI,conference,2025,0,query-failed,venue:OSDI year:2025
+OSDI,conference,2026,0,query-failed,venue:OSDI year:2026
+OSDI,conference,2027,0,query-failed,venue:OSDI year:2027
+USENIX Security,conference,2023,0,query-failed,venue:USENIX venue:Security year:2023
+USENIX Security,conference,2024,0,query-failed,venue:USENIX venue:Security year:2024
+USENIX Security,conference,2025,0,query-failed,venue:USENIX venue:Security year:2025
+USENIX Security,conference,2026,0,query-failed,venue:USENIX venue:Security year:2026
+USENIX Security,conference,2027,0,query-failed,venue:USENIX venue:Security year:2027
+IEEE/ACM Transactions on Networking,journal,2023,0,query-failed,venue:IEEE venue:ACM venue:Trans venue:Netw year:2023
+IEEE/ACM Transactions on Networking,journal,2024,0,query-failed,venue:IEEE venue:ACM venue:Trans venue:Netw year:2024
+IEEE/ACM Transactions on Networking,journal,2025,0,query-failed,venue:IEEE venue:ACM venue:Trans venue:Netw year:2025
+IEEE/ACM Transactions on Networking,journal,2026,0,query-failed,venue:IEEE venue:ACM venue:Trans venue:Netw year:2026
+IEEE/ACM Transactions on Networking,journal,2027,0,query-failed,venue:IEEE venue:ACM venue:Trans venue:Netw year:2027
+IEEE Transactions on Mobile Computing,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Mob venue:Comput year:2023
+IEEE Transactions on Mobile Computing,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Mob venue:Comput year:2024
+IEEE Transactions on Mobile Computing,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Mob venue:Comput year:2025
+IEEE Transactions on Mobile Computing,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Mob venue:Comput year:2026
+IEEE Transactions on Mobile Computing,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Mob venue:Comput year:2027
+IEEE Transactions on Network and Service Management,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Netw venue:Serv venue:Manag year:2023
+IEEE Transactions on Network and Service Management,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Netw venue:Serv venue:Manag year:2024
+IEEE Transactions on Network and Service Management,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Netw venue:Serv venue:Manag year:2025
+IEEE Transactions on Network and Service Management,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Netw venue:Serv venue:Manag year:2026
+IEEE Transactions on Network and Service Management,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Netw venue:Serv venue:Manag year:2027
+IEEE Transactions on Parallel and Distributed Systems,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Parallel venue:Distributed year:2023
+IEEE Transactions on Parallel and Distributed Systems,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Parallel venue:Distributed year:2024
+IEEE Transactions on Parallel and Distributed Systems,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Parallel venue:Distributed year:2025
+IEEE Transactions on Parallel and Distributed Systems,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Parallel venue:Distributed year:2026
+IEEE Transactions on Parallel and Distributed Systems,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Parallel venue:Distributed year:2027
+IEEE Transactions on Multimedia,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Multim year:2023
+IEEE Transactions on Multimedia,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Multim year:2024
+IEEE Transactions on Multimedia,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Multim year:2025
+IEEE Transactions on Multimedia,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Multim year:2026
+IEEE Transactions on Multimedia,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Multim year:2027
+IEEE Transactions on Cloud Computing,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Cloud venue:Comput year:2023
+IEEE Transactions on Cloud Computing,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Cloud venue:Comput year:2024
+IEEE Transactions on Cloud Computing,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Cloud venue:Comput year:2025
+IEEE Transactions on Cloud Computing,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Cloud venue:Comput year:2026
+IEEE Transactions on Cloud Computing,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Cloud venue:Comput year:2027
+IEEE Transactions on Services Computing,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Serv venue:Comput year:2023
+IEEE Transactions on Services Computing,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Serv venue:Comput year:2024
+IEEE Transactions on Services Computing,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Serv venue:Comput year:2025
+IEEE Transactions on Services Computing,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Serv venue:Comput year:2026
+IEEE Transactions on Services Computing,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Serv venue:Comput year:2027
+IEEE Transactions on Dependable and Secure Computing,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Dependable venue:Secure year:2023
+IEEE Transactions on Dependable and Secure Computing,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Dependable venue:Secure year:2024
+IEEE Transactions on Dependable and Secure Computing,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Dependable venue:Secure year:2025
+IEEE Transactions on Dependable and Secure Computing,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Dependable venue:Secure year:2026
+IEEE Transactions on Dependable and Secure Computing,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Dependable venue:Secure year:2027
+IEEE Transactions on Wireless Communications,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Wirel venue:Commun year:2023
+IEEE Transactions on Wireless Communications,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Wirel venue:Commun year:2024
+IEEE Transactions on Wireless Communications,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Wirel venue:Commun year:2025
+IEEE Transactions on Wireless Communications,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Wirel venue:Commun year:2026
+IEEE Transactions on Wireless Communications,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Wirel venue:Commun year:2027
+IEEE Transactions on Communications,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Commun year:2023
+IEEE Transactions on Communications,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Commun year:2024
+IEEE Transactions on Communications,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Commun year:2025
+IEEE Transactions on Communications,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Commun year:2026
+IEEE Transactions on Communications,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Commun year:2027
+IEEE Transactions on Vehicular Technology,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Veh venue:Technol year:2023
+IEEE Transactions on Vehicular Technology,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Veh venue:Technol year:2024
+IEEE Transactions on Vehicular Technology,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Veh venue:Technol year:2025
+IEEE Transactions on Vehicular Technology,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Veh venue:Technol year:2026
+IEEE Transactions on Vehicular Technology,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Veh venue:Technol year:2027
+IEEE Transactions on Green Communications and Networking,journal,2023,0,query-failed,venue:IEEE venue:Trans venue:Green venue:Commun venue:Netw year:2023
+IEEE Transactions on Green Communications and Networking,journal,2024,0,query-failed,venue:IEEE venue:Trans venue:Green venue:Commun venue:Netw year:2024
+IEEE Transactions on Green Communications and Networking,journal,2025,0,query-failed,venue:IEEE venue:Trans venue:Green venue:Commun venue:Netw year:2025
+IEEE Transactions on Green Communications and Networking,journal,2026,0,query-failed,venue:IEEE venue:Trans venue:Green venue:Commun venue:Netw year:2026
+IEEE Transactions on Green Communications and Networking,journal,2027,0,query-failed,venue:IEEE venue:Trans venue:Green venue:Commun venue:Netw year:2027
