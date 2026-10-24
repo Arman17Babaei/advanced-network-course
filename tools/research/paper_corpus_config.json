@@ -117,7 +117,7 @@
         "ACM International Conference on Multimedia",
         "ACM Multimedia"
       ],
-      "source_regex": "(?i)(ACM.*Multimedia|Multimedia Conference)",
+      "source_regex": "(?i)(International Conference on Multimedia|ACM Multimedia Conference|ACM MM)",
       "hard_min": 300,
       "core": false,
       "validate_through": 2025,
