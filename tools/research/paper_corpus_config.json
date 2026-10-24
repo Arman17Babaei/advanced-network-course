@@ -241,7 +241,7 @@
     "collection_source": "Crossref",
     "crossref_query": "IEEE Transactions",
     "crossref_prefix": "10.1109",
-    "enrich_network_subset_with_openalex": true
+    "enrich_network_subset_with_openalex": false
   },
   "categories": {
     "AI cluster networks and distributed training": [
