@@ -1,0 +1,565 @@
+{
+  "years": [
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
+  ],
+  "venues": [
+    {
+      "name": "SIGCOMM",
+      "kind": "conference",
+      "terms": [
+        "SIGCOMM"
+      ],
+      "match": [
+        "sigcomm"
+      ],
+      "core": true
+    },
+    {
+      "name": "CoNEXT",
+      "kind": "conference",
+      "terms": [
+        "CoNEXT"
+      ],
+      "match": [
+        "conext"
+      ],
+      "core": true
+    },
+    {
+      "name": "NSDI",
+      "kind": "conference",
+      "terms": [
+        "NSDI"
+      ],
+      "match": [
+        "nsdi"
+      ],
+      "core": true
+    },
+    {
+      "name": "ICNP",
+      "kind": "conference",
+      "terms": [
+        "ICNP"
+      ],
+      "match": [
+        "icnp"
+      ],
+      "core": true
+    },
+    {
+      "name": "INFOCOM",
+      "kind": "conference",
+      "terms": [
+        "INFOCOM"
+      ],
+      "match": [
+        "infocom"
+      ],
+      "core": true
+    },
+    {
+      "name": "SIGMETRICS",
+      "kind": "conference",
+      "terms": [
+        "SIGMETRICS"
+      ],
+      "match": [
+        "sigmetrics"
+      ],
+      "core": true
+    },
+    {
+      "name": "IMC",
+      "kind": "conference",
+      "terms": [
+        "IMC"
+      ],
+      "match": [
+        "imc",
+        "internet meas"
+      ],
+      "core": true
+    },
+    {
+      "name": "ACM Multimedia",
+      "kind": "conference",
+      "terms": [
+        "Multimedia"
+      ],
+      "match": [
+        "acm multimedia",
+        "multimedia conference"
+      ],
+      "core": false
+    },
+    {
+      "name": "NINeS",
+      "kind": "conference",
+      "terms": [
+        "NINeS"
+      ],
+      "match": [
+        "nines",
+        "networked systems"
+      ],
+      "core": true,
+      "years": [
+        2026,
+        2027
+      ]
+    },
+    {
+      "name": "MobiCom",
+      "kind": "conference",
+      "terms": [
+        "MobiCom"
+      ],
+      "match": [
+        "mobicom"
+      ],
+      "core": true
+    },
+    {
+      "name": "MMSys",
+      "kind": "conference",
+      "terms": [
+        "MMSys"
+      ],
+      "match": [
+        "mmsys"
+      ],
+      "core": true
+    },
+    {
+      "name": "IPDPS",
+      "kind": "conference",
+      "terms": [
+        "IPDPS"
+      ],
+      "match": [
+        "ipdps"
+      ],
+      "core": false
+    },
+    {
+      "name": "ICDCS",
+      "kind": "conference",
+      "terms": [
+        "ICDCS"
+      ],
+      "match": [
+        "icdcs"
+      ],
+      "core": false
+    },
+    {
+      "name": "OSDI",
+      "kind": "conference",
+      "terms": [
+        "OSDI"
+      ],
+      "match": [
+        "osdi"
+      ],
+      "core": false
+    },
+    {
+      "name": "USENIX Security",
+      "kind": "conference",
+      "terms": [
+        "USENIX",
+        "Security"
+      ],
+      "match": [
+        "usenix security",
+        "security symposium"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE/ACM Transactions on Networking",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "ACM",
+        "Trans",
+        "Netw"
+      ],
+      "match": [
+        "ieee/acm trans. netw",
+        "ieee/acm transactions on networking"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Mobile Computing",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Mob",
+        "Comput"
+      ],
+      "match": [
+        "ieee trans. mob. comput",
+        "transactions on mobile computing"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Network and Service Management",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Netw",
+        "Serv",
+        "Manag"
+      ],
+      "match": [
+        "ieee trans. netw. serv. manag",
+        "transactions on network and service management"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Parallel and Distributed Systems",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Parallel",
+        "Distributed"
+      ],
+      "match": [
+        "ieee trans. parallel distributed syst",
+        "transactions on parallel and distributed systems"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE Transactions on Multimedia",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Multim"
+      ],
+      "match": [
+        "ieee trans. multim",
+        "transactions on multimedia"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE Transactions on Cloud Computing",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Cloud",
+        "Comput"
+      ],
+      "match": [
+        "ieee trans. cloud comput",
+        "transactions on cloud computing"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE Transactions on Services Computing",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Serv",
+        "Comput"
+      ],
+      "match": [
+        "ieee trans. serv. comput",
+        "transactions on services computing"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE Transactions on Dependable and Secure Computing",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Dependable",
+        "Secure"
+      ],
+      "match": [
+        "ieee trans. dependable secur. comput",
+        "transactions on dependable and secure computing"
+      ],
+      "core": false
+    },
+    {
+      "name": "IEEE Transactions on Wireless Communications",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Wirel",
+        "Commun"
+      ],
+      "match": [
+        "ieee trans. wirel. commun",
+        "transactions on wireless communications"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Communications",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Commun"
+      ],
+      "match": [
+        "ieee trans. commun",
+        "transactions on communications"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Vehicular Technology",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Veh",
+        "Technol"
+      ],
+      "match": [
+        "ieee trans. veh. technol",
+        "transactions on vehicular technology"
+      ],
+      "core": true
+    },
+    {
+      "name": "IEEE Transactions on Green Communications and Networking",
+      "kind": "journal",
+      "terms": [
+        "IEEE",
+        "Trans",
+        "Green",
+        "Commun",
+        "Netw"
+      ],
+      "match": [
+        "ieee trans. green commun. netw",
+        "transactions on green communications and networking"
+      ],
+      "core": true
+    }
+  ],
+  "categories": {
+    "AI cluster networks and distributed training": [
+      "distributed training",
+      "collective communication",
+      "all-reduce",
+      "allreduce",
+      "all-to-all",
+      "mixture of experts",
+      "moe",
+      "gradient aggregation",
+      "gpu cluster",
+      "coflow",
+      "nccl",
+      "expert parallel",
+      "in-network aggregation"
+    ],
+    "Distributed and disaggregated AI inference": [
+      "llm inference",
+      "model serving",
+      "inference serving",
+      "kv cache",
+      "disaggregated inference",
+      "prefill",
+      "expert serving",
+      "split inference",
+      "edge inference"
+    ],
+    "Datacenter transport and programmable networking": [
+      "datacenter",
+      "data center",
+      "rdma",
+      "congestion control",
+      "ecn",
+      "pfc",
+      "load balancing",
+      "smartnic",
+      "dpu",
+      "programmable switch",
+      "programmable data plane",
+      "p4",
+      "microburst"
+    ],
+    "Network telemetry, diagnosis, reliability, and automated operations": [
+      "telemetry",
+      "network diagnosis",
+      "fault localization",
+      "root cause",
+      "network verification",
+      "network operations",
+      "network management",
+      "digital twin",
+      "failure diagnosis",
+      "fault repair"
+    ],
+    "LEO satellite and non-terrestrial networks": [
+      "satellite",
+      "leo",
+      "non-terrestrial",
+      "ntn",
+      "direct-to-cell",
+      "direct to cell",
+      "constellation",
+      "inter-satellite",
+      "ground station",
+      "starlink",
+      "satellite edge"
+    ],
+    "5G/6G RAN and mobile network control": [
+      "5g",
+      "6g",
+      "radio access network",
+      "ran",
+      "o-ran",
+      "network slicing",
+      "handover",
+      "fronthaul",
+      "cellular network",
+      "base station",
+      "mmwave"
+    ],
+    "Real-time communication and interactive media": [
+      "real-time video",
+      "video conferencing",
+      "webrtc",
+      "rtc",
+      "cloud gaming",
+      "live streaming",
+      "low-latency video",
+      "adaptive bitrate",
+      "video qoe",
+      "fec",
+      "interactive video"
+    ],
+    "XR, immersive telepresence, and volumetric media": [
+      "virtual reality",
+      "augmented reality",
+      "extended reality",
+      "mixed reality",
+      "xr",
+      "telepresence",
+      "volumetric video",
+      "gaussian splatting",
+      "3d streaming",
+      "smart glasses",
+      "free-viewpoint"
+    ],
+    "Edge intelligence and collaborative perception": [
+      "edge intelligence",
+      "edge computing",
+      "mobile ai",
+      "collaborative perception",
+      "video analytics",
+      "offloading",
+      "semantic communication",
+      "split computing",
+      "edge-assisted",
+      "on-device"
+    ],
+    "Networked robotics, UAVs, vehicles, and autonomous control": [
+      "uav",
+      "drone",
+      "robotics",
+      "autonomous driving",
+      "vehicular",
+      "v2x",
+      "autonomous control",
+      "platooning",
+      "search and rescue",
+      "cyber-physical"
+    ],
+    "Internet measurement, routing, naming, and CDN infrastructure": [
+      "internet measurement",
+      "bgp",
+      "dns",
+      "ipv6",
+      "cdn",
+      "content delivery",
+      "submarine cable",
+      "internet topology",
+      "autonomous system",
+      "routing",
+      "internet scanning",
+      "anycast",
+      "peering"
+    ],
+    "Network security, privacy, and censorship": [
+      "ddos",
+      "denial of service",
+      "censorship",
+      "routing security",
+      "bgp hijack",
+      "dnssec",
+      "encrypted traffic",
+      "traffic analysis",
+      "privacy",
+      "spoofing",
+      "source address validation"
+    ],
+    "Cloud, serverless, and disaggregated networked systems": [
+      "serverless",
+      "microservice",
+      "cloud network",
+      "disaggregated memory",
+      "cxl",
+      "multi-tenant",
+      "resource disaggregation",
+      "service mesh",
+      "slo",
+      "cloud computing"
+    ],
+    "Deterministic and industrial networking": [
+      "time-sensitive networking",
+      "tsn",
+      "deterministic networking",
+      "industrial network",
+      "deadline traffic",
+      "bounded latency",
+      "industrial iot"
+    ],
+    "Quantum networking and distributed quantum systems": [
+      "quantum network",
+      "quantum networking",
+      "quantum switch",
+      "entanglement routing",
+      "distributed quantum",
+      "quantum communication",
+      "quantum internet"
+    ],
+    "Sustainable networking and computing": [
+      "energy efficient",
+      "energy-efficient",
+      "energy conservation",
+      "carbon aware",
+      "carbon-aware",
+      "green network",
+      "sustainable",
+      "energy-aware",
+      "renewable energy"
+    ]
+  }
+}
