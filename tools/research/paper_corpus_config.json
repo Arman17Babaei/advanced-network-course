@@ -97,7 +97,8 @@
         "2024": "10.1109/INFOCOM52122.2024",
         "2025": "10.1109/INFOCOM55648.2025",
         "2026": "10.1109/INFOCOM59046.2026"
-      }
+      },
+      "collection_status": "blocked-runner; build snapshot externally from exact proceedings metadata"
     },
     {
       "name": "SIGMETRICS",
