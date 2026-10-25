@@ -1201,6 +1201,25 @@ def main():
                 else:
                     rows = []
                     source_name = "not yet available"
+            elif provider == "doi_family":
+                stem = spec.get("doi_stems", {}).get(str(year))
+                rows = crossref_doi_stem(spec, year, stem) if stem else []
+                source_name = "Crossref exact DOI family" if stem else "not yet available"
+            elif provider == "mixed_openalex_official":
+                if year in set(spec.get("openalex_years", [])):
+                    rows = openalex_conference(spec, year)
+                    source_name = "OpenAlex pinned venue series"
+                else:
+                    url = spec.get("official_urls", {}).get(str(year))
+                    rows = official_list_conference(spec, year, url) if url else []
+                    source_name = "official accepted/program page" if url else "not yet available"
+            elif provider == "mobicom_official":
+                url = spec.get("official_urls", {}).get(str(year))
+                rows = mobicom_official(
+                    spec, year, url,
+                    program=year in set(spec.get("program_years", []))
+                ) if url else []
+                source_name = "MobiCom official program/accepted page" if url else "not yet available"
             else:
                 raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
 
