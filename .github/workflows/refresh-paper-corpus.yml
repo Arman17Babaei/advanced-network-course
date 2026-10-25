@@ -1,4 +1,4 @@
-name: Validate IMC source
+name: Validate ACM Multimedia source
 
 concurrency:
   group: paper-source-validation-${{ github.sha }}
@@ -22,7 +22,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate IMC source
-        run: python tools/research/validate_venue.py --venue IMC
-      - name: Export IMC snapshot
-        run: python tools/research/export_validated_venue.py --venue IMC
-      - name: Commit IMC snapshot
+      - name: Validate ACM Multimedia source
+        run: python tools/research/validate_venue.py --venue "ACM Multimedia"
+      - name: Export ACM Multimedia snapshot
+        run: python tools/research/export_validated_venue.py --venue "ACM Multimedia"
+      - name: Commit ACM Multimedia snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/imc.csv
+          git add materials/assessments/data/venues/acm_multimedia.csv
           if git diff --cached --quiet; then
-            echo "No IMC snapshot changes"
+            echo "No ACM Multimedia snapshot changes"
           else
-            git commit -m "Refresh validated IMC snapshot"
+            git commit -m "Refresh validated ACM Multimedia snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
