@@ -30,14 +30,17 @@ NETWORK_TERMS = [
 ]
 
 def is_network_paper(r):
-    # OpenAlex's Computer Networks and Communications subfield is too broad
-    # for venues such as TMC: it also covers sensing and mobile-device ML.
-    # For cross-journal mining, require an explicit networking/system signal.
+    # Adjacent Transactions journals contain substantial non-network work.
+    # Require an explicit token-bounded network/system signal from title and
+    # bibliographic topic metadata instead of raw substring matches.
     blob = " ".join([
         str(r.get("title") or ""),
         str(r.get("keywords") or ""),
-    ]).lower()
-    return any(term in blob for term in NETWORK_TERMS)
+        str(r.get("topics") or ""),
+        str(r.get("primary_topic") or ""),
+    ])
+    return any(corpus.phrase_present(blob, term) for term in NETWORK_TERMS)
+
 
 def rows_for(spec, year):
     source_ids = spec.get("source_ids_by_year", {}).get(str(year)) or ([spec["source_id"]] if spec.get("source_id") else [])
