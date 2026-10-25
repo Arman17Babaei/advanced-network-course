@@ -737,6 +737,168 @@ def openalex_conference(spec, year):
     print(f"OPENALEX {spec['name']} {year}: kept {len(rows)}", flush=True)
     return rows
 
+
+def dblp_html_conference(spec, year, url):
+    """Parse one static DBLP proceedings page.
+
+    This uses the human-facing HTML, not the DBLP search/XML APIs that are
+    intermittently blocked on hosted runners.
+    """
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+    entries = soup.select("li.entry")
+    for entry in entries:
+        classes = set(entry.get("class") or [])
+        if "inproceedings" not in classes and "article" not in classes:
+            continue
+
+        title_tag = entry.select_one(".title")
+        if title_tag is None:
+            # DBLP currently renders titles in span.title; retain a fallback
+            # in case markup changes slightly.
+            title_tag = entry.find(["span","div"], class_=re.compile(r"title", re.I))
+        title = norm(title_tag.get_text(" ", strip=True)) if title_tag else ""
+        if not title:
+            continue
+
+        authors = []
+        for a in entry.select(".authors a"):
+            name = norm(a.get_text(" ", strip=True))
+            if name:
+                authors.append(name)
+        if not authors:
+            author_box = entry.select_one(".authors")
+            if author_box:
+                # DBLP separates names with commas; hyperlinks above are the
+                # preferred path because affiliations may also appear in text.
+                raw = norm(author_box.get_text(" ", strip=True))
+                authors = [norm(x) for x in raw.split(",") if norm(x)]
+
+        doi = ""
+        link = ""
+        for a in entry.find_all("a", href=True):
+            href = norm(a.get("href"))
+            if "doi.org/" in href.lower():
+                doi = href.lower().split("doi.org/",1)[1]
+                link = href
+                break
+        if not link:
+            ee = entry.select_one("nav.publ a[href]")
+            if ee:
+                link = norm(ee.get("href"))
+
+        kw, provenance = _usenix_keywords(title, "")
+        rows.append({
+            "title": title.rstrip("."),
+            "authors": "; ".join(authors),
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": doi,
+            "url": link or url,
+            "openalex_id": "",
+            "metadata_source": "DBLP static proceedings HTML",
+            "paper_type": "conference paper",
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": "",
+        })
+    rows = dedupe(rows)
+    print(f"DBLP-HTML {spec['name']} {year}: kept {len(rows)} from {len(entries)} entries", flush=True)
+    return rows
+
+
+def mobicom_official(spec, year, url):
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+    seen = set()
+
+    # Accepted-paper pages use either list items with an "Authors:" line or,
+    # in some editions, headings/paragraph pairs. Parse both layouts.
+    for li in soup.find_all("li"):
+        text_parts = [norm(x) for x in li.stripped_strings if norm(x)]
+        if not text_parts:
+            continue
+        full = " ".join(text_parts)
+        m = re.search(r"\bAuthors?\s*:\s*", full, flags=re.I)
+        if not m:
+            continue
+        title = norm(full[:m.start()])
+        authors = norm(full[m.end():])
+        if not title or not authors:
+            continue
+        key = slug(title)
+        if key in seen:
+            continue
+        seen.add(key)
+        kw, provenance = _usenix_keywords(title, "")
+        rows.append({
+            "title": title.rstrip("."),
+            "authors": authors,
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": url,
+            "openalex_id": "",
+            "metadata_source": "official accepted-paper page",
+            "paper_type": "conference paper",
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": "",
+        })
+
+    if len(rows) < int(spec.get("hard_min", 1)):
+        # Older MobiCom pages frequently render each title as a heading followed
+        # by a paragraph of authors rather than a list item.
+        for h in soup.find_all(["h3","h4","h5"]):
+            title = norm(h.get_text(" ", strip=True))
+            if not title or title.lower().startswith(("accepted papers","summer round","winter round")):
+                continue
+            nxt = h.find_next_sibling()
+            while nxt is not None and not norm(nxt.get_text(" ", strip=True) if hasattr(nxt,"get_text") else ""):
+                nxt = nxt.find_next_sibling()
+            if nxt is None:
+                continue
+            authors = norm(nxt.get_text(" ", strip=True)) if hasattr(nxt,"get_text") else ""
+            authors = re.sub(r"^Authors?\s*:\s*", "", authors, flags=re.I)
+            if len(title) < 10 or len(authors) < 5:
+                continue
+            key = slug(title)
+            if key in seen:
+                continue
+            seen.add(key)
+            kw, provenance = _usenix_keywords(title, "")
+            rows.append({
+                "title": title.rstrip("."), "authors": authors, "venue": spec["name"],
+                "raw_venue": spec["name"], "year": year, "venue_kind":"conference",
+                "source_id":"", "doi":"", "url":url, "openalex_id":"",
+                "metadata_source":"official accepted-paper page", "paper_type":"conference paper",
+                "keywords":kw, "keyword_provenance":provenance, "topics":"", "primary_topic":"",
+                "categories":"", "network_relevance_score":0, "network_relevant":False,
+                "_core":bool(spec.get("core",False)), "_abstract":"",
+            })
+
+    rows = dedupe(rows)
+    print(f"MOBICOM-OFFICIAL {year}: kept {len(rows)}", flush=True)
+    return rows
+
 def nines_2026(spec):
     url = spec["official_2026"]
     soup = BeautifulSoup(get_html(url), "html.parser")
