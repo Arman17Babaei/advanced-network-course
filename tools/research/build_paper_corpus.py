@@ -819,6 +819,108 @@ def dblp_html_conference(spec, year, url):
     return rows
 
 
+
+def dblp_toc_api_conference(spec, year):
+    """Collect one proceedings volume from DBLP's exact TOC JSON API.
+
+    The TOC query is much more reliable than DBLP's human-facing HTML and
+    avoids fuzzy venue search. DBLP caps a response at 100 hits, so paginate
+    with the documented first-hit offset.
+    """
+    if year == 2027:
+        return []
+    toc = spec["toc_template"].format(year=year)
+    url = "https://dblp.org/search/publ/api"
+    rows = []
+    offset = 0
+    total = None
+    while total is None or offset < total:
+        data = get_json(
+            url,
+            params={
+                "format": "json",
+                "h": 100,
+                "f": offset,
+                "q": f"toc:{toc}:",
+            },
+            attempts=6,
+            pause=1.0,
+        )
+        hits = (data.get("result") or {}).get("hits") or {}
+        total = int(hits.get("@total") or 0)
+        batch = hits.get("hit") or []
+        if isinstance(batch, dict):
+            batch = [batch]
+        if not batch:
+            break
+
+        for hit in batch:
+            info = hit.get("info") or {}
+            if int(info.get("year") or 0) != int(year):
+                continue
+            title = norm(info.get("title")).rstrip(".")
+            if not title:
+                continue
+
+            raw_authors = (info.get("authors") or {}).get("author") or []
+            if isinstance(raw_authors, (str, dict)):
+                raw_authors = [raw_authors]
+            authors = []
+            for a in raw_authors:
+                name = norm(a.get("text") if isinstance(a, dict) else a)
+                # DBLP appends a four-digit disambiguation suffix to common names.
+                name = re.sub(r"\s+\d{4}$", "", name)
+                if name:
+                    authors.append(name)
+
+            doi = norm(info.get("doi")).lower()
+            ee = info.get("ee") or ""
+            if isinstance(ee, list):
+                ee = next((x for x in ee if "doi.org/" in str(x).lower()), ee[0] if ee else "")
+            link = norm(ee) or norm(info.get("url"))
+            if not doi and "doi.org/" in link.lower():
+                doi = link.lower().split("doi.org/", 1)[1]
+
+            kw, provenance = _usenix_keywords(title, "")
+            rows.append({
+                "title": title,
+                "authors": "; ".join(authors),
+                "venue": spec["name"],
+                "raw_venue": norm(info.get("venue")) or spec["name"],
+                "year": year,
+                "venue_kind": "conference",
+                "source_id": "",
+                "doi": doi,
+                "url": link,
+                "openalex_id": "",
+                "metadata_source": "DBLP exact TOC JSON API",
+                "paper_type": norm(info.get("type")) or "conference paper",
+                "keywords": kw,
+                "keyword_provenance": provenance,
+                "topics": "",
+                "primary_topic": "",
+                "categories": "",
+                "network_relevance_score": 0,
+                "network_relevant": False,
+                "_core": bool(spec.get("core", False)),
+                "_abstract": "",
+            })
+
+        sent = int(hits.get("@sent") or len(batch))
+        if sent <= 0:
+            break
+        offset += sent
+        print(
+            f"DBLP-TOC {spec['name']} {year}: {offset}/{total} records fetched",
+            flush=True,
+        )
+        time.sleep(0.05)
+
+    rows = dedupe(rows)
+    print(f"DBLP-TOC {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
+
 def mobicom_official(spec, year, url, program=False):
     soup = BeautifulSoup(get_html(url), "html.parser")
     rows = []
@@ -1509,6 +1611,8 @@ def conference_rows_for(spec, year, force_live=False):
     if provider == "dblp_html":
         url = spec["url_template"].format(year=year)
         return ([] if year == 2027 else dblp_html_conference(spec, year, url)), "DBLP static proceedings page"
+    if provider == "dblp_toc_api":
+        return dblp_toc_api_conference(spec, year), "DBLP exact TOC JSON API"
     if provider == "mixed_static":
         durl = spec.get("dblp_urls", {}).get(str(year))
         ourl = spec.get("official_urls", {}).get(str(year))
