@@ -120,14 +120,16 @@
       "hard_min": 25,
       "validate_through": 2026,
       "core": true,
-      "provider": "imc_mixed",
+      "provider": "static_csv",
       "official_urls": {
         "2023": "https://conferences.sigcomm.org/imc/2023/program/",
         "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
       },
-      "enabled": false
+      "enabled": true,
+      "live_provider": "imc_mixed",
+      "snapshot": "materials/assessments/data/venues/imc.csv"
     },
     {
       "name": "ACM Multimedia",
