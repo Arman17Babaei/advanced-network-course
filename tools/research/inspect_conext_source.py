@@ -1,35 +1,21 @@
 #!/usr/bin/env python3
+import re
 import requests
-from bs4 import BeautifulSoup
 
-paths=["accepted-papers/","accepted-papers.html","program/","program.html"]
 for year in [2023,2024,2025,2026]:
     base=f"https://conferences2.sigcomm.org/co-next/{year}/"
-    print(f"YEAR={year}", flush=True)
-    for p in paths:
-        url=base+p
-        try:
-            r=requests.get(url,timeout=5,headers={"User-Agent":"advanced-network-course-source-inspector/1.0"},allow_redirects=True)
-        except Exception as e:
-            print(f"  {p} ERROR {type(e).__name__}", flush=True)
-            continue
-        if r.status_code != 200:
-            print(f"  {p} STATUS={r.status_code}", flush=True)
-            continue
-        soup=BeautifulSoup(r.text,"html.parser")
-        title=" ".join(soup.title.stripped_strings) if soup.title else ""
-        text=" ".join(soup.stripped_strings)
-        score=sum(k in text.lower() for k in ["accepted paper","technical program","paper title","authors"])
-        print(f"  {p} -> {r.url} bytes={len(r.content)} title={title!r} score={score} h2={len(soup.find_all('h2'))} li={len(soup.find_all('li'))} tr={len(soup.find_all('tr'))}", flush=True)
-        if score:
-            for tag in ["h2","h3","li","tr","p"]:
-                vals=[]
-                for el in soup.find_all(tag):
-                    t=" ".join(el.stripped_strings)
-                    if len(t)>=12:
-                        vals.append(t[:220])
-                    if len(vals)>=6:
-                        break
-                if vals:
-                    print(f"    {tag}: " + " || ".join(vals), flush=True)
+    r=requests.get(base,timeout=10,headers={"User-Agent":"advanced-network-course-source-inspector/1.0"})
+    print(f"YEAR={year} STATUS={r.status_code} BYTES={len(r.content)}", flush=True)
+    raw=r.text
+    low=raw.lower()
+    for term in ["accepted", "program", "papers"]:
+        print(f"TERM={term} occurrences={low.count(term)}", flush=True)
+        for m in list(re.finditer(term, low))[:10]:
+            a=max(0,m.start()-180); b=min(len(raw),m.end()+260)
+            snippet=re.sub(r"\s+"," ",raw[a:b])
+            print("  "+snippet[:500], flush=True)
+    urls=sorted(set(re.findall(r'''(?:href|src|url)\s*[=:]\s*["']([^"'#]+)["']''',raw,re.I)))
+    for u in urls:
+        if any(k in u.lower() for k in ["accept","program","paper"]):
+            print(f"URL_CANDIDATE={u}", flush=True)
     print("----", flush=True)
