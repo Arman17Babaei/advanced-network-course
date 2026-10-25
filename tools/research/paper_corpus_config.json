@@ -200,15 +200,21 @@
     },
     {
       "name": "IPDPS",
-      "hard_min": 60,
+      "hard_min": 80,
       "validate_through": 2026,
       "core": false,
-      "provider": "openalex",
+      "provider": "doi_family",
       "source_ids": [
         "https://openalex.org/S4210174069"
       ],
       "enabled": false,
-      "collection_status": "inventory validated; author metadata incomplete in current bibliographic sources"
+      "live_provider": "doi_family",
+      "doi_stems": {
+        "2023": "10.1109/IPDPS54959.2023",
+        "2024": "10.1109/IPDPS57955.2024",
+        "2025": "10.1109/IPDPS64566.2025",
+        "2026": "10.1109/IPDPS65963.2026"
+      }
     },
     {
       "name": "ICDCS",
