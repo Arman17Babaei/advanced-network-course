@@ -242,14 +242,14 @@
         "https://openalex.org/S4393916864"
       ],
       "enabled": false,
-      "collection_status": "validating official main-paper inventory",
+      "collection_status": "validating published main-paper inventory; 2025 official table has 103 published rows",
       "live_provider": "icdcs_official",
       "drop_authorless_front_matter": true,
       "snapshot": "materials/assessments/data/venues/icdcs.csv",
       "expected_counts": {
         "2023": 83,
         "2024": 121,
-        "2025": 104,
+        "2025": 103,
         "2026": 138
       },
       "doi_stems": {
