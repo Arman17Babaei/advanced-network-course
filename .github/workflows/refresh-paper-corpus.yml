@@ -36,10 +36,13 @@ jobs:
         run: python tools/research/validate_venue.py --venue SIGCOMM
       - name: Validate CoNEXT source
         run: python tools/research/validate_venue.py --venue CoNEXT
+      - name: Validate NSDI source
+        run: python tools/research/validate_venue.py --venue NSDI
       - name: Export validated venue snapshots
         run: |
           python tools/research/export_validated_venue.py --venue SIGCOMM
           python tools/research/export_validated_venue.py --venue CoNEXT
+          python tools/research/export_validated_venue.py --venue NSDI
       - name: Commit validated venue snapshots
         run: |
           git config user.name "github-actions[bot]"
