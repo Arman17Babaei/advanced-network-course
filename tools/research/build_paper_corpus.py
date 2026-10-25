@@ -755,6 +755,47 @@ def enrich_missing_authors_from_crossref(rows):
         time.sleep(0.03)
 
 
+def enrich_missing_authors_from_semantic_scholar(rows):
+    missing = [r for r in rows if not r.get("authors") and r.get("doi")]
+    if not missing:
+        return
+    print(f"Semantic Scholar author enrichment for {len(missing)} rows", flush=True)
+    endpoint = "https://api.semanticscholar.org/graph/v1/paper/batch"
+    for start in range(0, len(missing), 50):
+        batch = missing[start:start+50]
+        payload = {"ids": ["DOI:" + r["doi"] for r in batch]}
+        data = None
+        for attempt in range(4):
+            try:
+                resp = S.post(
+                    endpoint,
+                    params={"fields": "title,authors,externalIds"},
+                    json=payload,
+                    timeout=45,
+                )
+                if resp.status_code == 429:
+                    time.sleep(2 ** (attempt + 1))
+                    continue
+                resp.raise_for_status()
+                data = resp.json()
+                break
+            except Exception as e:
+                if attempt == 3:
+                    print(f"WARNING Semantic Scholar author batch: {e}", file=sys.stderr)
+                else:
+                    time.sleep(attempt + 1)
+        if not isinstance(data, list):
+            continue
+        for r, item in zip(batch, data):
+            if not item:
+                continue
+            authors = [norm(a.get("name")) for a in (item.get("authors") or []) if norm(a.get("name"))]
+            if authors:
+                r["authors"] = "; ".join(authors)
+                r["metadata_source"] = (r.get("metadata_source") or "OpenAlex") + " + Semantic Scholar author enrichment"
+        time.sleep(0.2)
+
+
 def openalex_conference(spec, year):
     rows = collect_works(
         spec.get("source_ids", []),
@@ -765,6 +806,7 @@ def openalex_conference(spec, year):
     )
     rows = dedupe(rows)
     enrich_missing_authors_from_crossref(rows)
+    enrich_missing_authors_from_semantic_scholar(rows)
     print(f"OPENALEX {spec['name']} {year}: kept {len(rows)}", flush=True)
     return rows
 
