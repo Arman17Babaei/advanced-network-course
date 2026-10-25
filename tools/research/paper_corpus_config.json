@@ -164,7 +164,7 @@
       "hard_min": 50,
       "validate_through": 2026,
       "core": true,
-      "provider": "mobicom_official",
+      "provider": "static_csv",
       "official_urls": {
         "2023": "https://www.sigmobile.org/mobicom/2023/accepted.html",
         "2024": "https://www.sigmobile.org/mobicom/2024/program.html",
@@ -174,7 +174,9 @@
       "program_years": [
         2024
       ],
-      "enabled": false
+      "enabled": true,
+      "live_provider": "mobicom_official",
+      "snapshot": "materials/assessments/data/venues/mobicom.csv"
     },
     {
       "name": "MMSys",
