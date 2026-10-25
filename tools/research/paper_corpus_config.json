@@ -136,11 +136,13 @@
       "hard_min": 300,
       "validate_through": 2025,
       "core": false,
-      "provider": "openalex",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S4363608757"
       ],
-      "enabled": false
+      "enabled": true,
+      "live_provider": "openalex",
+      "snapshot": "materials/assessments/data/venues/acm_multimedia.csv"
     },
     {
       "name": "NINeS",
