@@ -57,8 +57,13 @@
       "hard_min": 150,
       "validate_through": 2026,
       "core": true,
-      "provider": "dblp_html",
-      "url_template": "https://dblp.org/db/conf/infocom/infocom{year}.html"
+      "provider": "doi_family",
+      "doi_stems": {
+        "2023": "10.1109/INFOCOM53939.2023",
+        "2024": "10.1109/INFOCOM52122.2024",
+        "2025": "10.1109/INFOCOM55648.2025",
+        "2026": "10.1109/INFOCOM59046.2026"
+      }
     },
     {
       "name": "SIGMETRICS",
@@ -77,15 +82,20 @@
       "hard_min": 25,
       "validate_through": 2026,
       "core": true,
-      "provider": "mixed_static",
+      "provider": "mixed_openalex_official",
       "official_urls": {
         "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
       },
-      "dblp_urls": {
-        "2023": "https://dblp.org/db/conf/imc/imc2023.html"
-      }
+      "openalex_years": [
+        2023
+      ],
+      "source_ids": [
+        "https://openalex.org/S7407087996",
+        "https://openalex.org/S4306420372",
+        "https://openalex.org/S7407087113"
+      ]
     },
     {
       "name": "ACM Multimedia",
@@ -114,8 +124,16 @@
       "hard_min": 50,
       "validate_through": 2026,
       "core": true,
-      "provider": "dblp_html",
-      "url_template": "https://dblp.org/db/conf/mobicom/mobicom{year}.html"
+      "provider": "mobicom_official",
+      "official_urls": {
+        "2023": "https://www.sigmobile.org/mobicom/2023/accepted.html",
+        "2024": "https://www.sigmobile.org/mobicom/2024/program.html",
+        "2025": "https://www.sigmobile.org/mobicom/2025/accepted.html",
+        "2026": "https://www.sigmobile.org/mobicom/2026/accepted.html"
+      },
+      "program_years": [
+        2024
+      ]
     },
     {
       "name": "MMSys",
