@@ -1081,40 +1081,72 @@ def imc_2023_program(spec, year, url):
     soup = BeautifulSoup(get_html(url), "html.parser")
     rows = []
     seen = set()
-    # IMC 2023 program entries label the paper title with Long/Short and place
-    # the author line in the same compact schedule block.
-    for tag in soup.find_all(["li","p","div"]):
-        if tag.find(["li","p","div"], recursive=False):
+
+    # The 2023 schedule nests each paper under its session. Identify papers by
+    # their title anchor, then read the Long/Short marker, authors, and abstract
+    # from the containing list item rather than requiring a leaf DOM node.
+    for a in soup.find_all("a", href=True):
+        title = norm(a.get_text(" ", strip=True))
+        if len(title) < 10:
             continue
-        parts = [norm(x) for x in tag.stripped_strings if norm(x)]
-        if len(parts) < 2:
+        li = a.find_parent("li")
+        if li is None:
             continue
-        title = parts[0]
-        m = re.match(r"^(.*?)(?:\s+)(Long|Short)$", title, flags=re.I)
-        if m:
-            title = norm(m.group(1))
-            authors = parts[1]
-        elif len(parts) >= 3 and parts[1].lower() in {"long","short"}:
-            title = parts[0]
-            authors = parts[2]
-        else:
+        parts = [norm(x) for x in li.stripped_strings if norm(x)]
+        try:
+            pos = parts.index(title)
+        except ValueError:
             continue
-        if len(title) < 10 or len(authors) < 5:
+        tail = parts[pos + 1:]
+        type_pos = next((i for i,x in enumerate(tail) if x.lower() in {"long","short"}), None)
+        if type_pos is None:
             continue
+        ptype = tail[type_pos].title()
+        after_type = tail[type_pos + 1:]
+        if not after_type:
+            continue
+
+        abstract_pos = next(
+            (i for i,x in enumerate(after_type) if x.lower().startswith("abstract:")),
+            None,
+        )
+        if abstract_pos is None or abstract_pos == 0:
+            continue
+        authors = norm(" ".join(after_type[:abstract_pos]))
+        abstract = norm(after_type[abstract_pos])
+        abstract = re.sub(r"^abstract\s*:\s*", "", abstract, flags=re.I)
+        if len(authors) < 5:
+            continue
+
         key = slug(title)
         if key in seen:
             continue
         seen.add(key)
-        kw, provenance = _usenix_keywords(title, "")
+        kw, provenance = _usenix_keywords(title, abstract)
         rows.append({
-            "title": title.rstrip("."), "authors": authors, "venue": spec["name"],
-            "raw_venue": spec["name"], "year": year, "venue_kind":"conference",
-            "source_id":"", "doi":"", "url":url, "openalex_id":"",
-            "metadata_source":"official program page", "paper_type":"conference paper",
-            "keywords":kw, "keyword_provenance":provenance, "topics":"", "primary_topic":"",
-            "categories":"", "network_relevance_score":0, "network_relevant":False,
-            "_core":bool(spec.get("core",False)), "_abstract":"",
+            "title": title.rstrip("."),
+            "authors": authors,
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": urljoin(url, a.get("href") or ""),
+            "openalex_id": "",
+            "metadata_source": "official IMC program page",
+            "paper_type": ptype,
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": abstract,
         })
+
     rows = dedupe(rows)
     print(f"IMC-PROGRAM {year}: kept {len(rows)}", flush=True)
     return rows
