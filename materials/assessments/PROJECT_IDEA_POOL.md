@@ -14,6 +14,7 @@ The intended window is **2023–2027**. As of **25 October 2026**, essentially a
 
 The machine-readable evidence base is now a validated, checked-in corpus rather than a representative sample:
 
+- [`data/master_paper_corpus.csv`](data/master_paper_corpus.csv) — master combined corpus with paper metadata plus explicit source-vs-derived keyword fields;
 - [`data/all_conference_papers.csv`](data/all_conference_papers.csv) — **9,991** papers from the requested conference series;
 - [`data/ieee_transactions_network.csv`](data/ieee_transactions_network.csv) — **6,968** networking-relevant papers from selected IEEE Transactions journals;
 - [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — the combined **16,959-record** corpus used for topic/category analysis;
