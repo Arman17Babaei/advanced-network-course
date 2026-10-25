@@ -11,6 +11,7 @@ CFG=json.loads((ROOT/"tools/research/paper_corpus_config.json").read_text(encodi
 TX=CFG["ieee_transactions"]
 
 NETWORK_TERMS = [
+    # Internet / packet networking
     "networking", "computer network", "communication network", "mobile network",
     "edge network", "data center network", "datacenter network", "cluster network",
     "network traffic", "network resource", "network slicing", "network telemetry",
@@ -22,17 +23,23 @@ NETWORK_TERMS = [
     "software-defined network", "nfv", "service function", "content delivery",
     "peer-to-peer", "p2p", "interconnect", "collective communication",
     "all-reduce", "all-to-all", "coflow", "bandwidth allocation",
+
+    # Wireless/mobile networking. Avoid bare "wireless", "5g", "6g", or
+    # "network" because those admit physical-layer and neural-network papers.
     "wireless network", "wireless communication", "wireless link", "wi-fi", "wifi",
-    "wlan", "cellular network", "5g", "6g", "radio access network", "ran",
-    "handover", "satellite network", "leo satellite", "non-terrestrial network",
-    "ntn", "vehicular network", "v2x", "device-to-device communication", "d2d",
-    "mesh network", "ad hoc network", "sensor network", "lpwan", "lora",
-    "spectrum allocation", "channel access", "medium access", "mac protocol",
-    "task offloading", "computation offloading", "edge-cloud", "cloud-edge",
+    "wlan", "cellular network", "5g network", "6g network", "radio access network",
+    "ran", "handover", "satellite network", "satellite communication",
+    "leo network", "non-terrestrial network", "ntn", "vehicular network", "v2x",
+    "device-to-device communication", "d2d", "mesh network", "ad hoc network",
+    "sensor network", "lpwan", "lora", "spectrum allocation", "channel access",
+    "medium access", "mac protocol",
+
+    # Networked/distributed systems
+    "task offloading", "computation offloading", "mobile edge computing",
+    "multi-access edge computing", "edge-cloud", "cloud-edge",
     "communication-efficient", "communication overhead", "communication scheduling",
     "semantic communication",
 ]
-
 def _has_term(blob, term):
     # Require lexical boundaries so short acronyms such as RAN do not match
     # unrelated words such as "transfer".
@@ -40,14 +47,13 @@ def _has_term(blob, term):
 
 
 def is_network_paper(r):
-    # Adjacent Transactions journals contain substantial non-network work.
-    # Require an explicit token-bounded network/system signal from title and
-    # bibliographic topic metadata instead of raw substring matches.
+    # Broad Transactions journals contain sensing, ML, signal-processing and
+    # device papers alongside networking. Restrict inclusion to explicit
+    # network/system signals in the paper title and paper-level keywords.
+    # OpenAlex topic labels remain available later for categorization.
     blob = " ".join([
         str(r.get("title") or ""),
         str(r.get("keywords") or ""),
-        str(r.get("topics") or ""),
-        str(r.get("primary_topic") or ""),
     ])
     return any(corpus.phrase_present(blob, term) for term in NETWORK_TERMS)
 
