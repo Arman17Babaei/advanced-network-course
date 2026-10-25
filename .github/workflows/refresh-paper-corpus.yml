@@ -33,3 +33,5 @@ jobs:
         run: python tools/research/validate_venue.py --venue SIGCOMM
       - name: Validate CoNEXT source
         run: python tools/research/validate_venue.py --venue CoNEXT
+      - name: Validate NSDI source
+        run: python tools/research/validate_venue.py --venue NSDI
