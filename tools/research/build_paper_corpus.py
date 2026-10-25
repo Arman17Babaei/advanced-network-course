@@ -44,20 +44,32 @@ def norm(x):
 def slug(s):
     return re.sub(r"[^a-z0-9]+", "-", norm(s).lower()).strip("-")
 
-def get_json(url, params=None, attempts=5, pause=1.0):
+def get_json(url, params=None, attempts=8, pause=1.0):
     err = None
     for i in range(attempts):
         try:
             r = S.get(url, params=params, timeout=45)
             if r.status_code in {429, 500, 502, 503, 504}:
-                time.sleep(max(2.0, pause * (2 ** i)))
+                retry_after = r.headers.get("Retry-After")
+                try:
+                    delay = float(retry_after) if retry_after else max(2.0, pause * (2 ** i))
+                except ValueError:
+                    delay = max(2.0, pause * (2 ** i))
+                delay = min(60.0, delay)
+                err = RuntimeError(
+                    f"HTTP {r.status_code}; retry-after={retry_after!r}; "
+                    f"body={r.text[:160]!r}"
+                )
+                print(f"RETRY {url} after HTTP {r.status_code}: sleeping {delay:.1f}s", file=sys.stderr, flush=True)
+                time.sleep(delay)
                 continue
             r.raise_for_status()
             return r.json()
         except Exception as e:
             err = e
-            time.sleep(pause * (i + 1))
-    raise RuntimeError(f"request failed: {url}: {err}")
+            if i + 1 < attempts:
+                time.sleep(min(30.0, pause * (i + 1)))
+    raise RuntimeError(f"request failed after {attempts} attempts: {url}: {err}")
 
 def get_html(url, attempts=4):
     err = None
@@ -98,7 +110,7 @@ def oa_list(endpoint, params, max_pages=None):
             break
         if page * per_page > 10000:
             raise RuntimeError(f"basic paging limit exceeded for {endpoint}; split the query more narrowly")
-        time.sleep(0.08)
+        time.sleep(0.20)
 
 def discover_conference_sources(spec):
     rx = re.compile(spec["source_regex"])
