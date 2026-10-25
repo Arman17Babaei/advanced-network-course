@@ -1904,12 +1904,25 @@ def nines_2026(spec):
         })
     return rows
 
+def _term_normalize(text):
+    return " ".join(re.findall(r"[a-z0-9]+", str(text or "").lower()))
+
+
+def phrase_present(text, phrase):
+    """Match a phrase on token boundaries after punctuation normalization."""
+    hay = _term_normalize(text)
+    needle = _term_normalize(phrase)
+    if not hay or not needle:
+        return False
+    return f" {needle} " in f" {hay} "
+
+
 def title_fallback(title, limit=8):
     low = title.lower()
     domain = sorted({p for phrases in CATEGORIES.values() for p in phrases}, key=len, reverse=True)
     out = []
     for p in domain:
-        if p in low and p not in out:
+        if phrase_present(low, p) and p not in out:
             out.append(p)
         if len(out) >= limit:
             return out
@@ -1927,15 +1940,19 @@ def title_fallback(title, limit=8):
             break
     return out
 
+
 def categorize(r):
     if not r["keywords"]:
         r["keywords"] = "; ".join(title_fallback(r["title"]))
         r["keyword_provenance"] = "deterministic title-derived fallback"
-    blob = " ".join((r["title"], r["keywords"], r["topics"], r["primary_topic"])).lower()
-    title = r["title"].lower()
+    blob = " ".join((r["title"], r["keywords"], r["topics"], r["primary_topic"]))
+    title = r["title"]
     scored = []
     for cat, phrases in CATEGORIES.items():
-        score = sum(3 if p in title else 1 for p in phrases if p in blob)
+        score = 0
+        for p in phrases:
+            if phrase_present(blob, p):
+                score += 3 if phrase_present(title, p) else 1
         if score:
             scored.append((score, cat))
     scored.sort(key=lambda x: (-x[0], x[1]))
