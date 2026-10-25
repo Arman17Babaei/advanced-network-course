@@ -59,19 +59,22 @@
       "validate_through": 2026,
       "core": true,
       "enabled": true,
-      "live_provider": "usenix",
+      "live_provider": "static_csv",
       "snapshot": "materials/assessments/data/venues/nsdi.csv"
     },
     {
       "name": "ICNP",
       "hard_min": 40,
-      "validate_through": 2025,
+      "validate_through": 2026,
       "core": true,
-      "provider": "openalex",
+      "provider": "official_list",
       "source_ids": [
         "https://openalex.org/S4210215197"
       ],
       "official_urls": {
+        "2023": "https://icnp23.cs.ucr.edu/acceptedpapers.html",
+        "2024": "https://icnp24.cs.ucr.edu/acceptedpapers.html",
+        "2025": "https://ieeeicnp2025.pages.dev/acceptedpapers",
         "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
       },
       "enabled": false
