@@ -189,11 +189,13 @@
     }
   ],
   "ieee_transactions": {
-    "provider": "crossref",
+    "provider": "openalex_sources",
+    "source_search": "IEEE Transactions",
     "include_regex": "(?i)^IEEE(?:/ACM)? Transactions (?:on|of) ",
-    "crossref_query": "IEEE Transactions",
-    "crossref_prefix": "10.1109",
-    "include_2027": true
+    "source_type": "journal",
+    "include_2027": true,
+    "minimum_sources": 150,
+    "source_batch_size": 10
   },
   "categories": {
     "AI cluster networks and distributed training": [
