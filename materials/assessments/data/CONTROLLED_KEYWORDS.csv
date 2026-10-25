@@ -1,0 +1,189 @@
+canonical_keyword,aliases,paper_count
+5G,5g; fifth generation,3572
+6G,6g; sixth generation; beyond 5g; b5g,3568
+radio access networks,radio access network; ran; cloud radio access network; c-ran,3561
+O-RAN,o-ran; open ran; open radio access network,172
+network slicing,network slicing; ran slices; slice isolation,224
+cellular networks,cellular network; cellular networks; mobile network; mobile networks,3586
+mmWave,mmwave; millimeter wave; millimeter-wave,280
+massive MIMO,massive mimo; mimo,322
+cell-free massive MIMO,cell-free massive mimo,50
+reconfigurable intelligent surfaces,reconfigurable intelligent surface; intelligent reflecting surface; ris,210
+device-to-device communication,device-to-device communication; d2d,76
+V2X,vehicle-to-everything; v2x; c-v2x,249
+vehicular networks,vehicular network; vehicular networks; vehicular ad hoc; vanet; internet of vehicles,797
+handover,handover; hand-off,223
+user mobility,user mobility; mobile users; mobility management,104
+spectrum allocation,spectrum allocation,41
+spectrum sharing,spectrum sharing,45
+medium access control,medium access control; mac protocol; channel access,107
+beamforming,beamforming,158
+NOMA,non-orthogonal multiple access; noma,157
+URLLC,ultra-reliable low-latency communication; urllc,117
+mMTC,massive machine-type communications; mmtc,25
+eMBB,enhanced mobile broadband; embb,33
+channel state information,channel state information; csi,104
+wireless sensor networks,wireless sensor network; sensor network,17
+Wi-Fi,wi-fi; wifi; wlan,138
+LoRa/LPWAN,lora; lpwan; low-power wide-area,85
+integrated sensing and communication,integrated sensing and communication; isac,88
+semantic communication,semantic communication,75
+mobile edge computing,mobile edge computing; multi-access edge computing; mec,1044
+edge computing,edge computing; edge network; edge networks,1927
+task offloading,task offloading; computation offloading; data offloading,1082
+edge caching,edge caching,50
+edge AI,edge ai; edge intelligence; edge inference,2364
+fog computing,fog computing,2676
+cloud computing,cloud computing,798
+cloud-edge collaboration,cloud-edge collaboration; edge-cloud computing; cloud-edge; edge-cloud,302
+serverless computing,serverless; serverless computing,961
+microservices,microservice; microservices,82
+service placement,service placement,36
+service migration,service migration,28
+service caching,service caching; content caching,69
+resource allocation,resource allocation; network resource allocation; computing resource allocation; radio resource allocation; dynamic resource allocation,1226
+bandwidth allocation,bandwidth allocation,155
+load balancing,load balancing,243
+resource scheduling,resource scheduling; user scheduling,95
+task scheduling,task scheduling; task allocation,196
+service function chaining,service function chaining,59
+network function virtualization,network function virtualization; nfv,178
+virtual network functions,virtual network function; vnf,85
+virtual network function placement,virtual network function placement,34
+data center networks,data center network; data center networks; datacenter network; datacenter networks; datacenter,1765
+congestion control,congestion control; network congestion,938
+RDMA,rdma,116
+RoCE,roce,106
+ECN,ecn; explicit congestion notification,12
+PFC,pfc; priority flow control,6
+traffic engineering,traffic engineering,64
+packet scheduling,packet scheduling,38
+flow completion time,flow completion time; fct,43
+in-network aggregation,in-network aggregation,39
+programmable data plane,programmable data plane; programmable dataplane,33
+P4,p4,90
+programmable switches,programmable switch; programmable switches,101
+SmartNIC/DPU,smartnic; dpu; bluefield,44
+collective communication,collective communication; all-reduce; allreduce; all-to-all,64
+coflows,coflow; coflows,14
+network fabrics,network fabric; network fabrics; optical fabric,1
+routing,routing,1376
+multipath routing,multipath routing; multipath,120
+BGP,bgp,48
+DNS,dns,75
+IPv6,ipv6,172
+CDN,content delivery network; content delivery networks; cdn,1359
+internet measurement,internet measurement,1352
+network measurement,network measurement,37
+network topology,network topology; topology discovery,92
+network monitoring,network monitoring,55
+telemetry,telemetry; in-band network telemetry; int telemetry,409
+network management,network management; network operations,130
+fault localization,fault localization; root cause; root-cause,25
+anomaly detection,anomaly detection,155
+traffic classification,traffic classification; network traffic classification,116
+traffic analysis,traffic analysis; network traffic analysis,387
+packet loss,packet loss,85
+latency,latency; delay reduction; latency reduction; network latency; end-to-end delay; processing delay; queuing delay; queueing delay; tail latency; low latency,1106
+throughput,throughput; network throughput,420
+quality of service,quality of service; qos,441
+quality of experience,quality of experience; qoe,196
+scalability,scalability,144
+network reliability,network reliability; reliability,692
+network resilience,network resilience; resilience,172
+fault tolerance,fault tolerance,237
+SLOs,service level agreement; service level agreements; slo,91
+time-sensitive networking,time-sensitive networking; tsn,96
+deterministic networking,deterministic networking,13
+age of information,age of information; aoi,416
+network security,network security,1784
+intrusion detection,intrusion detection; network intrusion detection,563
+DDoS,ddos; denial-of-service; denial of service,111
+censorship,censorship,1649
+encrypted traffic,encrypted traffic; encrypted traffic classification,62
+privacy,privacy; data privacy; privacy preservation,1672
+differential privacy,differential privacy,86
+physical-layer security,physical layer security; eavesdropping,96
+routing security,routing security; bgp hijack,5
+source address validation,source address validation; sav,5
+DNSSEC,dnssec,8
+blockchain/P2P,blockchain; peer-to-peer; p2p; ethereum,507
+LEO satellites,low earth orbit satellite; low earth orbit satellites; leo satellite; leo satellite networks; leo satellite constellations; leo,800
+satellite networks,satellite network; satellite networks,189
+non-terrestrial networks,non-terrestrial network; non-terrestrial networks; ntn,799
+Starlink,starlink,30
+satellite edge computing,satellite edge computing,33
+satellite-terrestrial networks,satellite-terrestrial integrated network; space-air-ground integrated network; space-air-ground,73
+direct-to-cell,direct-to-cell; direct to cell,7
+inter-satellite links,inter-satellite link; isl,4
+ground stations,ground station; ground stations,12
+Internet of Things,internet of things; iot,3140
+industrial IoT,industrial internet of things; iiot,123
+UAVs,unmanned aerial vehicle; unmanned aerial vehicles; uav,822
+UAV networks,uav network; uav networks; uav-assisted,262
+UAV swarms,uav swarm; uav swarms; multi-uav,156
+autonomous driving,autonomous driving; autonomous vehicle; autonomous vehicles,218
+intelligent transportation systems,intelligent transportation system; intelligent transportation systems,54
+cooperative perception,cooperative perception; collaborative perception,2363
+vehicle platooning,vehicle platooning; platooning,30
+digital twins,digital twin; digital twins,176
+federated learning,federated learning,565
+distributed learning,distributed learning,61
+distributed training,distributed training; distributed deep learning,249
+reinforcement learning,reinforcement learning; deep reinforcement learning,1363
+multi-agent reinforcement learning,multi-agent reinforcement learning; multi-agent deep reinforcement learning; maddpg,381
+graph neural networks,graph neural network; graph neural networks; graph attention network; graph convolutional network,177
+large language models,large language model; large language models; llm; llms,348
+LLM inference,llm inference; language model inference,43
+model serving,model serving; inference serving,24
+mixture of experts,mixture of experts; moe,53
+KV cache,kv cache; kv-cache,23
+split inference,split inference; split computing; model partitioning,37
+model compression,model compression; knowledge distillation,92
+transformer models,transformer model; transformer models; vision transformer,93
+diffusion models,diffusion model; diffusion models,95
+video streaming,video streaming,239
+live streaming,live streaming,54
+adaptive streaming,adaptive streaming; adaptive bitrate; abr,71
+video conferencing,video conferencing; video-conferencing; webrtc; rtc,39
+cloud gaming,cloud gaming,25
+video analytics,video analytics,58
+extended reality,extended reality; xr; mixed reality,253
+virtual reality,virtual reality; vr,106
+augmented reality,augmented reality; ar,57
+volumetric video,volumetric video,33
+3D Gaussian splatting,3d gaussian splatting; gaussian splatting,67
+telepresence,telepresence,249
+quantum networks,quantum network; quantum networks; quantum networking,65
+energy efficiency,energy efficiency; energy optimization; energy consumption; power consumption,1119
+energy harvesting,energy harvesting,172
+green networking,green communication; green communications; green networking; carbon-aware; carbon aware; sustainable networking,482
+fairness,fairness,173
+queue stability,queue stability,30
+network virtualization,network virtualization; virtual network embedding,59
+wireless networks,wireless network; wireless networks,1275
+wireless ad hoc networks,wireless ad hoc network; wireless ad hoc networks; ad hoc network; ad hoc networks,955
+wireless mesh networks,wireless mesh network; wireless mesh networks; mesh network; mesh networks,9
+backscatter,backscatter; ambient backscatter; ofdm backscatter,84
+RFID,rfid; rfid tags; radio frequency identification,35
+mobile crowdsensing,mobile crowdsensing; crowdsensing,59
+in-network computing,in-network computing; in-network classification; in-network processing,26
+network protocols,network protocol; network protocols,12
+TCP,tcp; transmission control protocol,92
+TLS,tls; transport layer security,18
+middleboxes,middlebox; middleboxes,14
+internet scanning,internet scanning; internet-wide scanner; internet-wide scanning; internet-wide measurement,7
+data plane verification,data plane verification; dataplane verification; verification compositional networks,3
+control plane,control plane,38
+network simulation,network simulation; network simulator; emulation,32
+caching,caching; cache hit rate; cache replacement,511
+network synchronization,clock synchronization; time synchronization; precision time protocol,92
+underwater acoustic networks,underwater acoustic; underwater network; underwater networks,33
+web infrastructure,web infrastructure; webpki; web service,10
+malware detection,malware detection; malware,32
+anonymous communication,anonymous communication; anonymous communications; anonymity network,7
+payment channel networks,payment channel network; payment channel networks,19
+traffic prediction,traffic prediction; traffic demand,126
+network localization,network localization; localization,156
+delay-tolerant networking,delay-tolerant network; delay tolerant network; dtn,1
+network coding,network coding,42
