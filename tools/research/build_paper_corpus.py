@@ -906,6 +906,170 @@ def dblp_html_conference(spec, year, url):
 
 
 
+def icdcs_official(spec, year):
+    """Collect ICDCS main-conference research papers from edition-specific sources."""
+    rows = []
+
+    def make_row(title, authors, url, doi="", track="", abstract="", source="official ICDCS paper list"):
+        title = norm(title).rstrip(".")
+        authors = norm(authors)
+        if not title or not authors:
+            return
+        kw, provenance = _usenix_keywords(title, abstract)
+        rows.append({
+            "title": title,
+            "authors": authors,
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": doi,
+            "url": url or (f"https://doi.org/{doi}" if doi else ""),
+            "openalex_id": "",
+            "metadata_source": source,
+            "paper_type": "main conference paper" + (f" / {track}" if track else ""),
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": norm(abstract),
+        })
+
+    if year == 2023:
+        # The archived official program is intermittently unavailable. The
+        # proceedings DOI family is stable and the conference reports exactly
+        # 83 accepted regular papers. Query sequential DOI records politely and
+        # keep full research papers (10+ printed pages), excluding front matter.
+        stem = spec["doi_stems"]["2023"]
+        max_suffix = int(spec.get("doi_max_suffix", {}).get("2023", 130))
+        for n in range(1, max_suffix + 1):
+            doi = f"{stem}.{n:05d}"
+            item = None
+            for attempt in range(4):
+                try:
+                    resp = S.get(
+                        "https://api.crossref.org/works/" + doi,
+                        timeout=30,
+                        headers={"User-Agent": S.headers.get("User-Agent", "advanced-network-course-paper-corpus/2.0")},
+                    )
+                    if resp.status_code == 404:
+                        break
+                    if resp.status_code in {429,500,502,503,504}:
+                        time.sleep(0.4 * (attempt + 1))
+                        continue
+                    resp.raise_for_status()
+                    item = (resp.json().get("message") or {})
+                    break
+                except Exception as e:
+                    if attempt == 3:
+                        print(f"WARNING ICDCS 2023 DOI {doi}: {e}", file=sys.stderr)
+                    else:
+                        time.sleep(0.3 * (attempt + 1))
+            if not item:
+                time.sleep(0.06)
+                continue
+            page = norm(item.get("page"))
+            m = re.match(r"^(\d+)\s*[-–]\s*(\d+)$", page)
+            span = int(m.group(2)) - int(m.group(1)) + 1 if m else None
+            title_raw = item.get("title") or []
+            title = norm(title_raw[0] if title_raw else "")
+            if span is None or span < 10 or re.match(r"^(Poster|Demo:|Workshop)", title, re.I):
+                time.sleep(0.06)
+                continue
+            authors = []
+            for a in item.get("author") or []:
+                name = norm(" ".join(x for x in [a.get("given",""), a.get("family","")] if x))
+                if name:
+                    authors.append(name)
+            make_row(
+                title,
+                "; ".join(authors),
+                norm(item.get("URL")) or f"https://doi.org/{doi}",
+                doi=doi.lower(),
+                source="Crossref exact ICDCS 2023 proceedings DOI record",
+            )
+            time.sleep(0.06)
+
+    elif year == 2024:
+        url = spec["official_urls"]["2024"]
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        heading = next(
+            (h for h in soup.find_all(["h1","h2","h3","h4"])
+             if "regular submission" in norm(h.get_text(" ", strip=True)).lower()),
+            None,
+        )
+        if heading is None:
+            raise RuntimeError("ICDCS 2024: Regular Submissions heading not found")
+        cur = heading.find_next_sibling()
+        while cur is not None:
+            if cur.name in {"h1","h2","h3","h4"}:
+                break
+            if cur.name == "p":
+                text = norm(cur.get_text(" ", strip=True))
+                if text:
+                    # Titles can contain commas. The author boundary is the
+                    # first comma followed by a short name segment and an
+                    # affiliation parenthesis.
+                    m = re.search(r",\s+(?=[^,]{1,100}\([^)]*\))", text)
+                    if m:
+                        make_row(text[:m.start()], text[m.end():], url)
+            cur = cur.find_next_sibling()
+
+    elif year == 2025:
+        url = spec["official_urls"]["2025"]
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        heading = next(
+            (h for h in soup.find_all(["h1","h2","h3","h4"])
+             if norm(h.get_text(" ", strip=True)).lower() == "main tracks"),
+            None,
+        )
+        if heading is None:
+            raise RuntimeError("ICDCS 2025: Main Tracks heading not found")
+        table = heading.find_next("table")
+        if table is None:
+            raise RuntimeError("ICDCS 2025: main-track table not found")
+        for tr in table.find_all("tr"):
+            cells = [norm(td.get_text(" ", strip=True)) for td in tr.find_all(["td","th"])]
+            if len(cells) != 4 or cells[0] == "#" or not cells[0].isdigit():
+                continue
+            _, title, track, authors = cells
+            make_row(title, authors, url, track=track)
+
+    elif year == 2026:
+        url = spec["official_urls"]["2026"]
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        for tr in soup.find_all("tr"):
+            cells = [norm(td.get_text(" ", strip=True)) for td in tr.find_all(["td","th"])]
+            if len(cells) < 3:
+                continue
+            if not re.match(r"^\d{1,2}:\d{2}-\d{1,2}:\d{2}$", cells[0]) or not cells[1].isdigit():
+                continue
+            combined = cells[2]
+            if ". " not in combined:
+                continue
+            authors, title = combined.rsplit(". ", 1)
+            make_row(title, authors, url)
+
+    else:
+        return []
+
+    rows = dedupe(rows)
+    for r in rows:
+        categorize(r)
+    expected = {int(k): int(v) for k, v in spec.get("expected_counts", {}).items()}
+    if year in expected and len(rows) != expected[year]:
+        raise RuntimeError(
+            f"ICDCS {year}: parsed {len(rows)} unique main papers; expected {expected[year]}"
+        )
+    print(f"ICDCS-OFFICIAL {year}: kept {len(rows)} unique main papers", flush=True)
+    return rows
+
+
 def ipdps_official(spec, year):
     """Collect IPDPS main-conference contributed papers from official programs.
 
@@ -1989,6 +2153,8 @@ def conference_rows_for(spec, year, force_live=False):
         return topcsuniv_conference(spec, year), "TopCsUniv published main-track inventory"
     if provider == "ipdps_official":
         return ipdps_official(spec, year), "official IPDPS main-conference program"
+    if provider == "icdcs_official":
+        return icdcs_official(spec, year), "official ICDCS main-paper inventory"
     if provider == "mixed_static":
         durl = spec.get("dblp_urls", {}).get(str(year))
         ourl = spec.get("official_urls", {}).get(str(year))
