@@ -1,0 +1,136 @@
+venue,year,records,kind
+SIGCOMM,2023,71,conference
+SIGCOMM,2024,62,conference
+SIGCOMM,2025,88,conference
+SIGCOMM,2026,109,conference
+SIGCOMM,2027,0,conference
+CoNEXT,2023,30,conference
+CoNEXT,2024,40,conference
+CoNEXT,2025,50,conference
+CoNEXT,2026,60,conference
+CoNEXT,2027,0,conference
+NSDI,2023,96,conference
+NSDI,2024,112,conference
+NSDI,2025,83,conference
+NSDI,2026,151,conference
+NSDI,2027,0,conference
+ICNP,2023,35,conference
+ICNP,2024,49,conference
+ICNP,2025,61,conference
+ICNP,2026,68,conference
+ICNP,2027,0,conference
+INFOCOM,2023,251,conference
+INFOCOM,2024,256,conference
+INFOCOM,2025,272,conference
+INFOCOM,2026,327,conference
+INFOCOM,2027,0,conference
+SIGMETRICS,2023,54,conference
+SIGMETRICS,2024,48,conference
+SIGMETRICS,2025,66,conference
+SIGMETRICS,2026,54,conference
+SIGMETRICS,2027,0,conference
+IMC,2023,52,conference
+IMC,2024,55,conference
+IMC,2025,72,conference
+IMC,2026,77,conference
+IMC,2027,0,conference
+ACM Multimedia,2023,1013,conference
+ACM Multimedia,2024,1237,conference
+ACM Multimedia,2025,1575,conference
+ACM Multimedia,2026,0,conference
+ACM Multimedia,2027,0,conference
+NINeS,2023,0,conference
+NINeS,2024,0,conference
+NINeS,2025,0,conference
+NINeS,2026,28,conference
+NINeS,2027,0,conference
+MobiCom,2023,91,conference
+MobiCom,2024,103,conference
+MobiCom,2025,76,conference
+MobiCom,2026,87,conference
+MobiCom,2027,0,conference
+MMSys,2023,57,conference
+MMSys,2024,69,conference
+MMSys,2025,41,conference
+MMSys,2026,60,conference
+MMSys,2027,0,conference
+IPDPS,2023,95,conference
+IPDPS,2024,88,conference
+IPDPS,2025,106,conference
+IPDPS,2026,101,conference
+IPDPS,2027,0,conference
+ICDCS,2023,83,conference
+ICDCS,2024,121,conference
+ICDCS,2025,103,conference
+ICDCS,2026,138,conference
+ICDCS,2027,0,conference
+OSDI,2023,55,conference
+OSDI,2024,53,conference
+OSDI,2025,53,conference
+OSDI,2026,137,conference
+OSDI,2027,0,conference
+USENIX Security,2023,422,conference
+USENIX Security,2024,418,conference
+USENIX Security,2025,455,conference
+USENIX Security,2026,377,conference
+USENIX Security,2027,0,conference
+IEEE Transactions on Cloud Computing,2023,25,journal-network-subset
+IEEE Transactions on Cloud Computing,2024,38,journal-network-subset
+IEEE Transactions on Cloud Computing,2025,36,journal-network-subset
+IEEE Transactions on Cloud Computing,2026,50,journal-network-subset
+IEEE Transactions on Cloud Computing,2027,0,journal-network-subset
+IEEE Transactions on Communications,2023,72,journal-network-subset
+IEEE Transactions on Communications,2024,87,journal-network-subset
+IEEE Transactions on Communications,2025,98,journal-network-subset
+IEEE Transactions on Communications,2026,80,journal-network-subset
+IEEE Transactions on Communications,2027,0,journal-network-subset
+IEEE Transactions on Dependable and Secure Computing,2023,31,journal-network-subset
+IEEE Transactions on Dependable and Secure Computing,2024,32,journal-network-subset
+IEEE Transactions on Dependable and Secure Computing,2025,54,journal-network-subset
+IEEE Transactions on Dependable and Secure Computing,2026,63,journal-network-subset
+IEEE Transactions on Dependable and Secure Computing,2027,0,journal-network-subset
+IEEE Transactions on Green Communications and Networking,2023,42,journal-network-subset
+IEEE Transactions on Green Communications and Networking,2024,64,journal-network-subset
+IEEE Transactions on Green Communications and Networking,2025,53,journal-network-subset
+IEEE Transactions on Green Communications and Networking,2026,52,journal-network-subset
+IEEE Transactions on Green Communications and Networking,2027,0,journal-network-subset
+IEEE Transactions on Mobile Computing,2023,156,journal-network-subset
+IEEE Transactions on Mobile Computing,2024,234,journal-network-subset
+IEEE Transactions on Mobile Computing,2025,349,journal-network-subset
+IEEE Transactions on Mobile Computing,2026,362,journal-network-subset
+IEEE Transactions on Mobile Computing,2027,0,journal-network-subset
+IEEE Transactions on Multimedia,2023,9,journal-network-subset
+IEEE Transactions on Multimedia,2024,6,journal-network-subset
+IEEE Transactions on Multimedia,2025,9,journal-network-subset
+IEEE Transactions on Multimedia,2026,13,journal-network-subset
+IEEE Transactions on Multimedia,2027,0,journal-network-subset
+IEEE Transactions on Network Science and Engineering,2023,80,journal-network-subset
+IEEE Transactions on Network Science and Engineering,2024,84,journal-network-subset
+IEEE Transactions on Network Science and Engineering,2025,164,journal-network-subset
+IEEE Transactions on Network Science and Engineering,2026,89,journal-network-subset
+IEEE Transactions on Network Science and Engineering,2027,0,journal-network-subset
+IEEE Transactions on Network and Service Management,2023,366,journal-network-subset
+IEEE Transactions on Network and Service Management,2024,429,journal-network-subset
+IEEE Transactions on Network and Service Management,2025,421,journal-network-subset
+IEEE Transactions on Network and Service Management,2026,456,journal-network-subset
+IEEE Transactions on Network and Service Management,2027,0,journal-network-subset
+IEEE Transactions on Networking,2023,239,journal-network-subset
+IEEE Transactions on Networking,2024,219,journal-network-subset
+IEEE Transactions on Networking,2025,335,journal-network-subset
+IEEE Transactions on Networking,2026,338,journal-network-subset
+IEEE Transactions on Networking,2027,0,journal-network-subset
+IEEE Transactions on Parallel and Distributed Systems,2023,47,journal-network-subset
+IEEE Transactions on Parallel and Distributed Systems,2024,25,journal-network-subset
+IEEE Transactions on Parallel and Distributed Systems,2025,30,journal-network-subset
+IEEE Transactions on Parallel and Distributed Systems,2026,24,journal-network-subset
+IEEE Transactions on Parallel and Distributed Systems,2027,0,journal-network-subset
+IEEE Transactions on Vehicular Technology,2023,274,journal-network-subset
+IEEE Transactions on Vehicular Technology,2024,281,journal-network-subset
+IEEE Transactions on Vehicular Technology,2025,323,journal-network-subset
+IEEE Transactions on Vehicular Technology,2026,282,journal-network-subset
+IEEE Transactions on Vehicular Technology,2027,0,journal-network-subset
+IEEE Transactions on Wireless Communications,2023,139,journal-network-subset
+IEEE Transactions on Wireless Communications,2024,116,journal-network-subset
+IEEE Transactions on Wireless Communications,2025,100,journal-network-subset
+IEEE Transactions on Wireless Communications,2026,92,journal-network-subset
+IEEE Transactions on Wireless Communications,2027,0,journal-network-subset
