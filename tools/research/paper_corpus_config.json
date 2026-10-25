@@ -306,12 +306,39 @@
     "journal_specs": [
       {
         "name": "IEEE/ACM Transactions on Networking",
-        "source_id": "https://openalex.org/S62238642",
         "issn_l": "1063-6692",
         "relevance_mode": "all",
         "hard_min": 80,
         "validate_through": 2026,
-        "enabled": true
+        "enabled": true,
+        "canonical_name": "IEEE Transactions on Networking",
+        "source_ids_by_year": {
+          "2023": [
+            "https://openalex.org/S62238642"
+          ],
+          "2024": [
+            "https://openalex.org/S62238642"
+          ],
+          "2025": [
+            "https://openalex.org/S5407042750"
+          ],
+          "2026": [
+            "https://openalex.org/S5407042750"
+          ],
+          "2027": [
+            "https://openalex.org/S5407042750"
+          ]
+        },
+        "title_history": [
+          "IEEE/ACM Transactions on Networking",
+          "IEEE Transactions on Networking"
+        ],
+        "hard_min_by_year": {
+          "2023": 80,
+          "2024": 80,
+          "2025": 80,
+          "2026": 80
+        }
       }
     ]
   },
