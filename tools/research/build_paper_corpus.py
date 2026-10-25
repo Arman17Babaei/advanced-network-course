@@ -351,6 +351,214 @@ def enrich_openalex_by_doi(rows):
             r["openalex_id"] = norm(w.get("id"))
         time.sleep(0.05)
 
+
+def _crossref_item_row(item, venue, year, kind, core, metadata_source):
+    title_raw = item.get("title") or []
+    title = norm(title_raw[0] if title_raw else "")
+    if not title:
+        return None
+    containers = item.get("container-title") or []
+    raw_venue = norm(containers[0] if containers else venue)
+    authors = []
+    for a in item.get("author") or []:
+        name = norm(" ".join(x for x in [a.get("given",""), a.get("family","")] if x))
+        if name:
+            authors.append(name)
+    doi = norm(item.get("DOI")).lower()
+    subjects = [norm(x) for x in (item.get("subject") or []) if norm(x)]
+    abstract = strip_markup(item.get("abstract"))
+    semantic_blob = " ".join([title, abstract, " ".join(subjects)]).lower()
+    terms = []
+    for phrases in CATEGORIES.values():
+        for phrase in phrases:
+            if phrase in semantic_blob and phrase not in terms:
+                terms.append(phrase)
+    keywords = []
+    for term in subjects + sorted(terms, key=len, reverse=True):
+        if term and term not in keywords:
+            keywords.append(term)
+        if len(keywords) >= 12:
+            break
+    if subjects and terms:
+        provenance = "Crossref subjects + deterministic title/abstract category terms"
+    elif subjects:
+        provenance = "Crossref subjects"
+    elif terms:
+        provenance = "deterministic title/abstract category terms"
+    else:
+        provenance = ""
+    return {
+        "title": title.rstrip("."),
+        "authors": "; ".join(authors),
+        "venue": venue,
+        "raw_venue": raw_venue,
+        "year": year,
+        "venue_kind": kind,
+        "source_id": "",
+        "doi": doi,
+        "url": norm(item.get("URL")) or (f"https://doi.org/{doi}" if doi else ""),
+        "openalex_id": "",
+        "metadata_source": metadata_source,
+        "paper_type": norm(item.get("type")),
+        "keywords": "; ".join(keywords),
+        "keyword_provenance": provenance,
+        "topics": "",
+        "primary_topic": "",
+        "categories": "",
+        "network_relevance_score": 0,
+        "network_relevant": False,
+        "_core": bool(core),
+        "_abstract": abstract,
+    }
+
+
+def crossref_conference(spec, year):
+    rx = re.compile(spec["container_regex"])
+    base = "https://api.crossref.org/works"
+    rows = []
+    types = spec.get("crossref_types", ["proceedings-article"])
+    for typ in types:
+        cursor = "*"
+        seen_cursors = set()
+        retrieved = 0
+        while cursor and cursor not in seen_cursors:
+            seen_cursors.add(cursor)
+            params = {
+                "filter": (
+                    f"from-pub-date:{year}-01-01,"
+                    f"until-pub-date:{year}-12-31,"
+                    f"type:{typ},"
+                    f"prefix:{spec['prefix']}"
+                ),
+                "query.container-title": spec["query"],
+                "rows": 1000,
+                "cursor": cursor,
+                "select": "DOI,title,author,container-title,URL,type,subject,abstract,published",
+            }
+            data = get_json(base, params=params, attempts=6, pause=1.0)
+            msg = data.get("message") or {}
+            items = msg.get("items") or []
+            if not items:
+                break
+            for item in items:
+                containers = item.get("container-title") or []
+                raw_venue = norm(containers[0] if containers else "")
+                if not raw_venue or not rx.search(raw_venue):
+                    continue
+                row = _crossref_item_row(
+                    item, spec["name"], year, "conference", spec.get("core", False), "Crossref"
+                )
+                if row:
+                    rows.append(row)
+            retrieved += len(items)
+            total = int(msg.get("total-results") or 0)
+            cursor = norm(msg.get("next-cursor"))
+            if retrieved >= total:
+                break
+            time.sleep(0.05)
+    rows = dedupe(rows)
+    print(f"CROSSREF {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
+
+def _meta_values(soup, name):
+    vals = []
+    for tag in soup.find_all("meta", attrs={"name": name}):
+        v = norm(tag.get("content"))
+        if v:
+            vals.append(v)
+    return vals
+
+
+def _usenix_keywords(title, abstract):
+    blob = f"{title} {abstract}".lower()
+    terms = []
+    for phrases in CATEGORIES.values():
+        for phrase in phrases:
+            if phrase in blob and phrase not in terms:
+                terms.append(phrase)
+    if terms:
+        return "; ".join(sorted(terms, key=len, reverse=True)[:12]), "deterministic title/abstract category terms"
+    return "", ""
+
+
+def usenix_conference(spec, year):
+    slug_value = spec["slug"].format(yy=str(year)[2:])
+    index_url = f"https://www.usenix.org/conference/{slug_value}/technical-sessions"
+    soup = BeautifulSoup(get_html(index_url), "html.parser")
+    path_marker = f"/conference/{slug_value}/presentation/"
+    links = {}
+    for a in soup.find_all("a", href=True):
+        href = norm(a.get("href"))
+        if path_marker not in href:
+            continue
+        title = norm(a.get_text(" ", strip=True))
+        if not title or len(title) < 8:
+            continue
+        if title.lower() in {"available media","video","slides","paper","presentation"}:
+            continue
+        url = urljoin(index_url, href)
+        if url not in links or len(title) > len(links[url]):
+            links[url] = title
+
+    rows = []
+    for idx, (url, listed_title) in enumerate(sorted(links.items()), start=1):
+        try:
+            psoup = BeautifulSoup(get_html(url), "html.parser")
+        except Exception as e:
+            print(f"WARNING USENIX page {url}: {e}", file=sys.stderr)
+            continue
+
+        citation_title = _meta_values(psoup, "citation_title")
+        title = citation_title[0] if citation_title else listed_title
+        authors = _meta_values(psoup, "citation_author")
+        pdfs = _meta_values(psoup, "citation_pdf_url")
+        # Technical-session pages also contain keynotes and panels. Proceedings
+        # papers expose citation_pdf_url; require it for the paper inventory.
+        if not pdfs:
+            continue
+
+        abstract_values = _meta_values(psoup, "description")
+        abstract = abstract_values[0] if abstract_values else ""
+        keywords = _meta_values(psoup, "citation_keywords")
+        if not keywords:
+            keywords = _meta_values(psoup, "keywords")
+        if keywords:
+            kw = "; ".join(dict.fromkeys(keywords))
+            provenance = "publisher metadata keywords"
+        else:
+            kw, provenance = _usenix_keywords(title, abstract)
+
+        rows.append({
+            "title": norm(title).rstrip("."),
+            "authors": "; ".join(authors),
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": url,
+            "openalex_id": "",
+            "metadata_source": "USENIX technical sessions + presentation metadata",
+            "paper_type": "conference paper",
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": abstract,
+        })
+        if idx % 50 == 0:
+            print(f"USENIX {spec['name']} {year}: checked {idx}/{len(links)}, kept {len(rows)}", flush=True)
+        time.sleep(0.02)
+    rows = dedupe(rows)
+    print(f"USENIX {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
 def nines_2026(spec):
     url = spec["official_2026"]
     soup = BeautifulSoup(get_html(url), "html.parser")
