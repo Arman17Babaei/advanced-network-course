@@ -1,0 +1,209 @@
+\documentclass[12pt]{article}
+\usepackage[a4paper,left=20mm,right=20mm,top=22mm,bottom=25mm]{geometry}
+\usepackage{enumitem}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{xcolor}
+\usepackage[unicode,colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{xepersian}
+\settextfont{Noto Naskh Arabic}
+\setlatintextfont{Noto Serif}
+\setdigitfont{Noto Naskh Arabic}
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.45em}
+\sloppy
+\renewcommand{\arraystretch}{1.25}
+\newcommand{\en}[1]{\lr{#1}}
+\newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
+\newcommand{\aspectlist}[1]{\textbf{ده جنبه‌ی برتر:} \lr{#1}}
+\newcommand{\taglist}[1]{\textbf{برچسب‌های فناوری و زیرحوزه:} \lr{#1}}
+
+\begin{document}
+
+\begin{center}
+    {\LARGE\textbf{راهنمای درس شبکه‌های پیشرفته}}\\[0.35em]
+    {\large پاییز ۱۴۰۵}\\[0.25em]
+    {\small نسخه‌ی دانشجوییِ شرح درس و پروژه}
+\end{center}
+
+\section{هدف و ساختار کلی درس}
+این درس بر تصمیم‌های طراحی در شبکه‌ها و سامانه‌های شبکه‌ای پیشرفته تمرکز دارد. هدف فقط آشنایی با مجموعه‌ای از فناوری‌ها نیست؛ انتظار می‌رود بتوانید درباره‌ی انتخاب‌های طراحی، مقیاس‌پذیری، قابلیت اطمینان، کارایی، روش ارزیابی و محدودیت‌های یک سامانه استدلال کنید و نتیجه‌ی خود را با شواهد دفاع‌پذیر پشتیبانی کنید.
+
+ارزیابی درس از چهار جزء اصلی تشکیل می‌شود:
+\begin{itemize}[label=$\bullet$]
+    \item مجموعه‌ای از مقاله‌های پژوهشی مشترک کلاس؛ در حال حاضر \textbf{پنج مقاله} برای مطالعه در طول ترم برنامه‌ریزی شده است؛
+    \item یک \textbf{پروژه‌ی گروهی} با ساختاری نزدیک به یک پروژه‌ی پژوهشی؛
+    \item یک \textbf{آزمون میان‌ترم}؛
+    \item یک \textbf{آزمون پایان‌ترم}.
+\end{itemize}
+
+نسبت نمره‌ی این اجزا در نسخه‌ی فعلی این راهنما نهایی نشده و \pending. تقویم دقیق جلسات، مقاله‌ها، آزمون‌ها و نقاط تحویل نیز حداکثر تا \textbf{یک هفته پس از آغاز درس} در اختیار دانشجویان قرار می‌گیرد.
+
+\section{مطالعه‌ی مقاله‌های مشترک کلاس}
+پنج مقاله‌ی پژوهشی برای کل کلاس در طول ترم تعیین می‌شود. هدف از مطالعه، صرفاً خلاصه‌کردن متن مقاله نیست. انتظار می‌رود بتوانید مسئله‌ی مقاله، انتخاب‌های طراحی، روش ارزیابی، شواهد اصلی، محدودیت‌ها و رابطه‌ی آن با مفاهیم درس را توضیح دهید.
+
+این مقاله‌های مشترک از مقاله‌هایی که برای پروژه‌ی گروهی انتخاب می‌کنید جدا هستند. جزئیات زمان‌بندی و شیوه‌ی ارزیابی مقاله‌های مشترک در تقویم درس اعلام می‌شود.
+
+\section{پروژه‌ی گروهی}
+\subsection{ساختار تیم}
+پروژه در گروه‌های \textbf{سه یا چهار نفره} انجام می‌شود. هر گروه یک حوزه‌ی کلی را انتخاب می‌کند و سپس خودش مشخص می‌کند کدام دامنه‌ها، جنبه‌های طراحی و فناوری‌ها را در آن حوزه بررسی خواهد کرد.
+
+اگر یکی از اعضای گروه در طول ترم از درس حذف شود، انتظار نمی‌رود اعضای باقی‌مانده به‌صورت خودکار مسئولیت کامل او را نیز بر عهده بگیرند. دامنه و برنامه‌ی پروژه با کمک دستیار آموزشی بازتنظیم می‌شود تا کار مربوط به مسئولیت دانشجوی حذف‌شده محدود یا حذف شود و حجم باقی‌مانده متناسب با اندازه‌ی جدید گروه باشد.
+
+\subsection{ماهیت پروژه}
+پروژه باید از نظر شیوه‌ی کار به یک پروژه‌ی پژوهشی نزدیک باشد. گروه یک پاسخ ازپیش‌تعیین‌شده یا فهرست کامل وظایف دریافت نمی‌کند. دانشجویان باید مسئله را صورت‌بندی کنند، فضای طراحی را بشناسند، پرسش پژوهشی بسازند، گزینه‌های قابل بررسی را انتخاب کنند، آزمایش یا تحلیل مناسب طراحی کنند و در طول پروژه بر اساس شواهد مسیر خود را اصلاح کنند.
+
+واحد اصلی برای تعریف پروژه چنین است:
+\begin{center}
+\textbf{دامنه $\times$ جنبه‌ی طراحی $\times$ برچسب‌های اختیاری فناوری و بافت}
+\end{center}
+
+گروه بر اساس این ابعاد یک \textbf{ماتریس پروژه} می‌سازد. ماتریس قرار نیست همه‌ی خانه‌های ممکن را پوشش دهد؛ هدف آن است که فضای مسئله را روشن کند و نشان دهد گروه آگاهانه چه بخش‌هایی را برای بررسی انتخاب کرده است.
+
+\subsection{مسئولیت فردی درون پروژه}
+هر عضو گروه باید مسئولیت مشخصی در بخشی از دامنه یا یکی از جنبه‌های طراحی پروژه داشته باشد. این مسئولیت نباید به معنای کارکردن کاملاً مستقل از گروه باشد؛ هر دانشجو باید بداند کار خودش چگونه به پرسش پژوهشی و نتیجه‌ی کلی پروژه متصل می‌شود.
+
+در ارزیابی پروژه، علاوه بر خروجی تیم، به دو موضوع فردی توجه می‌شود:
+\begin{itemize}[label=$\bullet$]
+    \item میزان تسلط دانشجو بر دامنه یا جنبه‌ی طراحی‌ای که مسئول آن است و توانایی توضیح اثر آن بر کل پروژه؛
+    \item کیفیت انجام وظایفی که در هر مرحله به او واگذار شده است، بر اساس تعریف انجام و شواهد توافق‌شده برای همان وظیفه.
+\end{itemize}
+
+\section{دستیار آموزشی و چرخه‌ی پروژه}
+برای هر پروژه یک دستیار آموزشی با عنوان \en{TA} تعیین می‌شود که در طول پروژه همان گروه را راهنمایی می‌کند. نقش دستیار آموزشی انتخاب مسیر به جای دانشجویان نیست؛ گروه باید یافته‌ها، تصمیم‌های پیشنهادی و ایده‌ی ادامه‌ی کار را به جلسه بیاورد. دستیار آموزشی به اصلاح دامنه، تبدیل ایده‌ها به وظایف قابل ارزیابی و حفظ تناسب حجم کار کمک می‌کند.
+
+در مجموع \textbf{چهار جلسه‌ی پروژه با دستیار آموزشی} برگزار می‌شود. میان این چهار جلسه، \textbf{سه فاز کاری پروژه} قرار دارد:
+\begin{center}
+جلسه‌ی ۱ $\longrightarrow$ فاز ۱ $\longrightarrow$ جلسه‌ی ۲ $\longrightarrow$ فاز ۲ $\longrightarrow$ جلسه‌ی ۳ $\longrightarrow$ فاز ۳ $\longrightarrow$ جلسه‌ی ۴
+\end{center}
+
+همه‌ی اعضای تیم باید در این جلسات حضور داشته باشند. در هر جلسه:
+\begin{enumerate}[label=\arabic*.]
+    \item گروه یافته‌ها و پیشرفت از جلسه‌ی قبلی را ارائه می‌کند؛
+    \item هر دانشجو وضعیت دامنه یا جنبه‌ی طراحیِ تحت مسئولیت خود، وظایف شخصی انجام‌شده و معنای نتایج آن‌ها برای پروژه را توضیح می‌دهد؛
+    \item گروه توضیح می‌دهد بر اساس شواهد فعلی چگونه می‌خواهد پروژه را ادامه دهد؛
+    \item مقاله‌های پژوهشی مرتبط و اثری که بر انتخاب مسیر بعدی داشته‌اند بررسی می‌شوند؛
+    \item دستیار آموزشی درباره‌ی دامنه، اعتبارسنجی و حجم کار بازخورد می‌دهد و در صورت بیش‌ازحد بزرگ یا کوچک بودن محدوده، درخواست اصلاح می‌کند؛
+    \item برای فاز بعد، وظایف مشخص با مسئول فردی و تعریف انجام روشن ساخته و ثبت می‌شوند.
+\end{enumerate}
+
+وظایف باید به پرسش پروژه متصل باشند و خروجی آن‌ها قابل بررسی باشد. یک وظیفه ممکن است پیاده‌سازی، آزمایش، بازتولید یک نتیجه، اندازه‌گیری، مقایسه، تحلیل، ساخت ابزار، بررسی یک فرضیه یا اعتبارسنجی یک تصمیم طراحی باشد. نتیجه‌ی منفی نیز می‌تواند یک نتیجه‌ی معتبر باشد، اگر روش درست اجرا و تحلیل شده باشد.
+
+\section{جلسه‌ی اول پروژه}
+جلسه‌ی اول نقطه‌ی شروع رسمی پروژه است. گروه باید پیش از این جلسه حداقل موارد زیر را آماده کرده باشد:
+\begin{itemize}[label=$\square$]
+    \item یک یا چند \textbf{پرسش پژوهشی اولیه}؛
+    \item \textbf{ماتریس پروژه} شامل دامنه‌ها، جنبه‌های طراحی و در صورت نیاز برچسب‌های فناوری؛
+    \item مشخص‌کردن خانه‌ها یا ترکیب‌هایی که گروه قصد دارد بررسی کند؛
+    \item توضیح اولیه‌ی این‌که گروه چگونه می‌خواهد پرسش را بررسی کند: ابزار، محیط آزمایش، داده، خط مبنا، روش اندازه‌گیری یا نوع تحلیل؛
+    \item تقسیم اولیه‌ی مسئولیت‌های دامنه یا جنبه‌ی طراحی میان اعضای تیم.
+\end{itemize}
+
+در خود جلسه، این طرح با دستیار آموزشی بررسی و در صورت نیاز کوچک یا بازساخت می‌شود. سپس وظایف فاز اول با کمک دستیار آموزشی تعریف می‌شوند و بر اساس مسئولیت هر دانشجو به اعضای تیم واگذار می‌شوند.
+
+\section{مقاله‌های پروژه}
+در هر یک از سه فاز پروژه، \textbf{هر دانشجو باید حداقل یک مقاله‌ی پژوهشی مرتبط با پروژه} را تا جلسه‌ی بعدی مطالعه کرده باشد؛ در صورت مفیدبودن می‌تواند مقاله را زودتر از موعد مطرح کند. در نتیجه، هر دانشجو در طول سه فاز حداقل سه مقاله‌ی پروژه‌محور بررسی می‌کند.
+
+هدف این مقاله‌ها ایجاد ورودی مستقیم برای تصمیم‌های پروژه است. دانشجو باید بتواند توضیح دهد:
+\begin{itemize}[label=$\bullet$]
+    \item مقاله چه مسئله‌ای را حل می‌کند و کدام بخش آن به پروژه‌ی گروه مرتبط است؛
+    \item چه فرض، طراحی، روش، خط مبنا، معیار یا نتیجه‌ای از مقاله برای پروژه مفید است؛
+    \item مقاله چه تغییری در ماتریس، فرضیه، روش آزمایش یا وظایف پیشنهادی بعدی ایجاد می‌کند؛
+    \item محدودیت‌های مقاله چیست و کدام بخش آن نباید بدون اعتبارسنجی مستقیماً پذیرفته شود.
+\end{itemize}
+
+فهم دانشجو از مقاله در جلسه توسط دستیار آموزشی بررسی و به‌عنوان بخشی از ارزیابی پروژه ثبت می‌شود. بنابراین، صرف ارائه‌ی خلاصه یا نام مقاله کافی نیست.
+
+\section{استفاده از هوش مصنوعی در پروژه}
+ابزارهای هوش مصنوعی و عامل‌های کدنویسی می‌توانند برای پیاده‌سازی، جست‌وجوی اولیه، تحلیل و توسعه‌ی آزمایش‌ها استفاده شوند. مسئولیت نهایی فهم، صحت‌سنجی و دفاع از خروجی همچنان با دانشجویان است. هر نتیجه‌ای که وارد گزارش یا استدلال پروژه می‌شود باید توسط تیم قابل توضیح و اعتبارسنجی باشد.
+
+جلسات پروژه به‌صورت گروهی برگزار می‌شوند و هر عضو باید بتواند درباره‌ی تصمیم‌ها و شواهد مربوط به مسئولیت خودش پاسخ دهد؛ استفاده از ابزار هوش مصنوعی جایگزین این مسئولیت فردی نیست.
+
+\section{خروجی و ارزیابی پروژه}
+جزئیات وزن نمره‌ی پروژه در نمره‌ی کل درس همراه با ساختار نهایی ارزیابی اعلام می‌شود. در خود پروژه، ارزیابی بر کیفیت پژوهش و فهم دانشجو متمرکز است، نه صرفاً بر حجم کد یا تعداد وظایف.
+
+موارد مهم عبارت‌اند از:
+\begin{itemize}[label=$\bullet$]
+    \item کیفیت صورت‌بندی پرسش و انتخاب دامنه‌ی شدنی؛
+    \item توانایی استفاده از ماتریس برای توضیح فضای طراحی و انتخاب‌های بررسی‌شده؛
+    \item کیفیت وظایف تعریف‌شده، انجام آن‌ها و شواهد ارائه‌شده؛
+    \item تسلط هر دانشجو بر مسئولیت دامنه یا جنبه‌ی طراحی خود؛
+    \item استفاده‌ی معنادار از مقاله‌های پروژه برای تصمیم‌گیری؛
+    \item کیفیت روش ارزیابی، خطوط مبنا، اندازه‌گیری‌ها و اعتبارسنجی؛
+    \item توانایی گروه در استنتاج نتیجه از شواهد و بیان محدودیت‌ها و عدم‌قطعیت‌ها.
+\end{itemize}
+
+\appendix
+\section{حوزه‌های پروژه، جنبه‌های پرتکرار طراحی و برچسب‌های فناوری}
+این پیوست از مجموعه‌ی پژوهشی و طبقه‌بندی فعلی پروژه‌های درس استخراج شده است. «ده جنبه‌ی برتر» برای هر حوزه بر اساس تعداد مقاله‌های نگاشت‌شده به آن حوزه در مجموعه‌ی فعلی مرتب شده‌اند. این رتبه‌بندی نشان‌دهنده‌ی تراکم پژوهش است، نه الزام یا توصیه‌ی قطعی برای انتخاب پروژه.
+
+\subsection{\lr{Cellular \& Wireless Access Networks}}
+\aspectlist{Scheduling \& Resource Allocation; MAC, Spectrum \& Radio Resource Management; Security, Privacy \& Trust; Mobility \& Handover; Admission Control \& Network Slicing; Latency \& Deadline Optimization; Placement, Offloading \& Partitioning; Routing \& Path Selection; Energy, Carbon \& Sustainability; Architecture \& System Design}
+\taglist{cellular RAN, Wi-Fi/WLAN, ad hoc/mesh, spectrum/radio access, 5G, 6G, O-RAN, network slicing, Wi-Fi, RIS, NOMA, beamforming, URLLC, ISAC, D2D, massive/cell-free MIMO}
+
+\subsection{\lr{Edge, Cloud \& Networked Services}}
+\aspectlist{Placement, Offloading \& Partitioning; Scheduling \& Resource Allocation; Security, Privacy \& Trust; Mobility \& Handover; Latency \& Deadline Optimization; Caching \& Content Placement; MAC, Spectrum \& Radio Resource Management; Cost, Economics \& Provisioning; Coding, Compression \& Redundancy; Energy, Carbon \& Sustainability}
+\taglist{MEC, edge intelligence, cloud-edge orchestration, fog computing, serverless, microservices, service mesh, digital twins, disaggregated resources}
+
+\subsection{\lr{Packet Networks \& End-to-End Protocols}}
+\aspectlist{Transport \& Congestion Control; Routing \& Path Selection; Security, Privacy \& Trust; Scheduling \& Resource Allocation; Reliability, Fault Tolerance \& Recovery; Protocol Design \& Interoperability; Traffic Engineering \& Load Balancing; Latency \& Deadline Optimization; Cost, Economics \& Provisioning; Coding, Compression \& Redundancy}
+\taglist{transport protocols, packet routing, queueing, multipath, TCP, QUIC, FEC, SDN-assisted control}
+
+\subsection{\lr{Autonomous \& Cyber-Physical Networks}}
+\aspectlist{Scheduling \& Resource Allocation; Placement, Offloading \& Partitioning; Security, Privacy \& Trust; Mobility \& Handover; Routing \& Path Selection; MAC, Spectrum \& Radio Resource Management; Latency \& Deadline Optimization; Caching \& Content Placement; Energy, Carbon \& Sustainability; Architecture \& System Design}
+\taglist{vehicular/V2X, UAV/aerial, robotics/teleoperation, V2X, UAV swarms, autonomous driving, cooperative perception, ITS, digital twins, MEC, 5G/6G}
+
+\subsection{\lr{IoT, Sensor \& Industrial Networks}}
+\aspectlist{Scheduling \& Resource Allocation; Security, Privacy \& Trust; Routing \& Path Selection; Placement, Offloading \& Partitioning; Latency \& Deadline Optimization; MAC, Spectrum \& Radio Resource Management; Localization \& Positioning; Throughput, Capacity \& Scalability; Energy, Carbon \& Sustainability; Topology, Fabric \& Architecture}
+\taglist{sensor networks, LPWAN, industrial/factory networks, deterministic networking, TSN, LoRa/LPWAN, RFID, backscatter, energy harvesting, industrial IoT, URLLC}
+
+\subsection{\lr{Datacenter \& AI Cluster Networks}}
+\aspectlist{Transport \& Congestion Control; Scheduling \& Resource Allocation; Programmability \& Hardware Offload; Placement, Offloading \& Partitioning; Routing \& Path Selection; Traffic Engineering \& Load Balancing; Latency \& Deadline Optimization; Architecture \& System Design; Coding, Compression \& Redundancy; Topology, Fabric \& Architecture}
+\taglist{datacenter transport, AI/GPU clusters, RDMA, RoCE, ECN, PFC, SmartNIC/DPU, collectives, coflows, in-network aggregation, optical interconnects, P4}
+
+\subsection{\lr{Network Security, Privacy \& Censorship}}
+\aspectlist{Security, Privacy \& Trust; Traffic Analysis \& Classification; Control-Plane Design \& Management; Programmability \& Hardware Offload; Scheduling \& Resource Allocation; Telemetry \& Monitoring; Architecture \& System Design; Coding, Compression \& Redundancy; Measurement \& Characterization; Packet Processing \& Data Structures}
+\taglist{routing/DNS security, traffic security, censorship resistance, anonymity, DDoS, intrusion detection, encrypted traffic, DNSSEC, TLS, QUIC, Tor/onion services}
+
+\subsection{\lr{Real-Time Media \& Immersive Networking}}
+\aspectlist{Latency \& Deadline Optimization; Architecture \& System Design; Application Adaptation \& Cross-Layer Control; Transport \& Congestion Control; QoS, QoE \& SLO Management; Scheduling \& Resource Allocation; Coding, Compression \& Redundancy; Placement, Offloading \& Partitioning; Measurement \& Characterization; Caching \& Content Placement}
+\taglist{conferencing, interactive/live streaming, cloud gaming, XR/AR/VR, volumetric media, WebRTC, ABR, FEC, QUIC, volumetric video, 3D Gaussian splatting}
+
+\subsection{\lr{Distributed AI \& LLM Systems}}
+\aspectlist{Security, Privacy \& Trust; Scheduling \& Resource Allocation; Coding, Compression \& Redundancy; Model/State Placement \& Movement; Placement, Offloading \& Partitioning; Cost, Economics \& Provisioning; Latency \& Deadline Optimization; Energy, Carbon \& Sustainability; Caching \& Content Placement; Throughput, Capacity \& Scalability}
+\taglist{distributed/federated training, inference/serving, split inference, federated learning, distributed training, LLM inference, model serving, MoE, KV cache, collectives, differential privacy}
+
+\subsection{\lr{Satellite \& Non-Terrestrial Networks}}
+\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Mobility \& Handover; Placement, Offloading \& Partitioning; Latency \& Deadline Optimization; Architecture \& System Design; Control-Plane Design \& Management; Transport \& Congestion Control; Service Chaining \& Virtualization; Measurement \& Characterization}
+\taglist{LEO, satellite Internet, Starlink, direct-to-cell, inter-satellite links, ground stations, satellite-terrestrial integration, NTN, satellite edge}
+
+\subsection{\lr{Network Measurement \& Operations}}
+\aspectlist{Telemetry \& Monitoring; Measurement \& Characterization; Security, Privacy \& Trust; Diagnosis \& Root Cause Analysis; Packet Processing \& Data Structures; Routing \& Path Selection; Programmability \& Hardware Offload; Control-Plane Design \& Management; Topology, Fabric \& Architecture; Traffic Engineering \& Load Balancing}
+\taglist{observability, telemetry, troubleshooting, configuration/state management, network digital twins, P4, SDN, SRv6}
+
+\subsection{\lr{Programmable Network Infrastructure}}
+\aspectlist{Programmability \& Hardware Offload; Service Chaining \& Virtualization; Packet Processing \& Data Structures; Security, Privacy \& Trust; Scheduling \& Resource Allocation; Control-Plane Design \& Management; Placement, Offloading \& Partitioning; Measurement \& Characterization; Reliability, Fault Tolerance \& Recovery; Verification \& Correctness}
+\taglist{programmable data planes, NFV, service chaining, in-network computing, middleboxes, P4, eBPF, SmartNIC/DPU, NFV, service-function chaining, SDN}
+
+\subsection{\lr{Internet Routing, WAN \& CDN}}
+\aspectlist{Routing \& Path Selection; Measurement \& Characterization; Security, Privacy \& Trust; Architecture \& System Design; Traffic Engineering \& Load Balancing; Caching \& Content Placement; Control-Plane Design \& Management; Coding, Compression \& Redundancy; Traffic Analysis \& Classification; Transport \& Congestion Control}
+\taglist{interdomain routing, WANs, naming/addressing, CDNs, BGP, DNS, IPv6, Anycast, submarine cables, Internet scanning, Tor/onion services}
+
+\subsection{\lr{P2P \& Decentralized Networks}}
+\aspectlist{Security, Privacy \& Trust; Distributed Coordination \& Consensus; Throughput, Capacity \& Scalability; Routing \& Path Selection; Scheduling \& Resource Allocation; Protocol Design \& Interoperability; Reliability, Fault Tolerance \& Recovery; Topology, Fabric \& Architecture; Coding, Compression \& Redundancy; Latency \& Deadline Optimization}
+\taglist{peer-to-peer overlays, blockchain networks, decentralized services, Blockchain/P2P, payment channels, anonymous communication}
+
+\subsection{\lr{Quantum Networks}}
+\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Topology, Fabric \& Architecture; Cost, Economics \& Provisioning; Throughput, Capacity \& Scalability; Control-Plane Design \& Management; Fairness, Isolation \& Multi-Tenancy; Measurement \& Characterization; Protocol Design \& Interoperability; Verification \& Correctness}
+\taglist{quantum Internet, entanglement distribution, quantum switches, distributed quantum systems, quantum entanglement}
+
+\subsection{\lr{Harsh-Environment \& Delay-Tolerant Networks}}
+\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Security, Privacy \& Trust; Control-Plane Design \& Management; MAC, Spectrum \& Radio Resource Management; Latency \& Deadline Optimization; Localization \& Positioning; Placement, Offloading \& Partitioning; Telemetry \& Monitoring; Topology, Fabric \& Architecture}
+\taglist{underwater acoustic networks, disconnected/intermittent networks, underwater acoustic, DTN}
+
+\section{نحوه‌ی استفاده از پیوست}
+حوزه‌ها و جنبه‌های بالا نقطه‌ی شروع‌اند، نه فهرست پروژه‌های آماده. گروه باید ترکیبی را انتخاب کند که به یک پرسش پژوهشی قابل بررسی منجر شود. استفاده از چند جنبه یا چند برچسب ممکن است، اما فقط زمانی مناسب است که تعامل میان آن‌ها خود بخش مهمی از پرسش باشد و دامنه همچنان در سه فاز پروژه قابل ارزیابی باقی بماند.
+
+\end{document}
