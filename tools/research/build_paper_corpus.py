@@ -663,7 +663,7 @@ def write_gzip_csv(path, rows):
         for r in rows:
             w.writerow(public_row(r))
 
-def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
+def write_outputs(conference_rows, tx_rows, coverage):
     all_rows = dedupe(conference_rows + tx_rows)
     for r in all_rows:
         categorize(r)
@@ -671,16 +671,6 @@ def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
     conference_names = {x["name"] for x in CONFERENCES}
     conferences = [r for r in all_rows if r["venue"] in conference_names]
     tx = [r for r in all_rows if r["venue"] not in conference_names and re.match(TX_CFG["include_regex"], r["venue"] or "")]
-
-    # Bulk Transactions metadata comes from Crossref. Spend the more limited
-    # OpenAlex request budget only on journal rows that the deterministic
-    # first pass considers network-relevant, then recategorize after enrichment.
-    tx_candidates = [r for r in tx if r["network_relevant"] and r.get("doi")]
-    if TX_CFG.get("enrich_network_subset_with_openalex", True):
-        enrich_openalex_by_doi(tx_candidates)
-        for r in tx_candidates:
-            categorize(r)
-
     network = [r for r in conferences + tx if r["network_relevant"]]
 
     write_csv(OUT / "all_conference_papers.csv", conferences)
@@ -693,19 +683,23 @@ def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
         w.writeheader()
         w.writerows(coverage)
 
+    tx_by_vy = Counter((r["venue"], int(r["year"])) for r in tx)
+    tx_venues = sorted({r["venue"] for r in tx})
     with (OUT / "IEEE_TRANSACTIONS_SOURCES.csv").open("w", encoding="utf-8", newline="") as f:
-        fields = ["source_id","display_name","type","works_count","issn_l"]
+        fields = ["display_name","records_2023_2027"]
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
-        for s in tx_sources:
-            w.writerow({k:s.get(k,"") for k in fields})
+        for venue in tx_venues:
+            w.writerow({
+                "display_name": venue,
+                "records_2023_2027": sum(tx_by_vy.get((venue, y), 0) for y in YEARS),
+            })
 
-    tx_by_vy = Counter((r["venue"], int(r["year"])) for r in tx)
     with (OUT / "IEEE_TRANSACTIONS_COVERAGE.csv").open("w", encoding="utf-8", newline="") as f:
         fields = ["venue","year","records"]
         w = csv.DictWriter(f, fieldnames=fields)
         w.writeheader()
-        for venue in sorted({r["venue"] for r in tx}):
+        for venue in tx_venues:
             for year in YEARS:
                 w.writerow({"venue": venue, "year": year, "records": tx_by_vy.get((venue, year), 0)})
 
@@ -720,7 +714,7 @@ def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
     lines = [
         "# Paper Corpus Summary","",
         f"Conference records: **{len(conferences):,}**.",
-        f"IEEE Transactions records: **{len(tx):,}** across **{len(tx_sources):,}** matching journal sources.",
+        f"IEEE Transactions records: **{len(tx):,}** across **{len(tx_venues):,}** matching journal titles.",
         f"Network-relevant records used for project-area mining: **{len(network):,}**.","",
         "## Coverage by requested conference and year","",
         "| Venue | 2023 | 2024 | 2025 | 2026 | 2027 |",
@@ -730,7 +724,7 @@ def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
         lines.append("| " + spec["name"] + " | " + " | ".join(str(by_vy.get((spec["name"], y), 0)) for y in YEARS) + " |")
     lines += [
         "","## Keyword provenance","",
-        "OpenAlex keywords are model-generated aboutness labels derived from a work's title, abstract, and venue. They are not represented as author-supplied keywords. Rows without OpenAlex keywords use an explicit deterministic title fallback.","",
+        "Keywords are never silently presented as author keywords. Crossref subjects and publisher metadata are retained when available; otherwise deterministic title/abstract-derived terms are used and marked as such.","",
         "| Provenance | Records |","| --- | ---: |",
     ]
     for k,n in prov.most_common():
@@ -740,9 +734,9 @@ def write_outputs(conference_rows, tx_rows, coverage, tx_sources):
         lines.append(f"| {k} | {n:,} |")
     lines += [
         "","## Validation","",
-        "The build fails before committing generated files when an established 2023–2026 conference venue returns fewer than its configured minimum number of papers. This prevents empty or obviously truncated metadata responses from being mistaken for a valid corpus.",
+        "The build is fail-closed. Established venue-years must meet configured minimum paper counts, and conference records must contain authors and keywords after provenance-aware fallback. Generated files are committed only after validation succeeds.",
         "",
-        "2027 conference cells remain zero unless published metadata is actually present. IEEE Transactions rows with publication year 2027 are retained when Crossref already exposes them.",
+        "2027 conference cells remain zero unless published paper metadata is actually available. IEEE Transactions rows with a 2027 publication year are retained when Crossref already exposes them.",
     ]
     (OUT / "PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines)+"\n", encoding="utf-8")
 
@@ -752,29 +746,29 @@ This directory contains the machine-readable literature corpus used to ground th
 
 ## Files
 
-- all_conference_papers.csv — all papers collected for the requested conference series and available years.
-- ieee_transactions_papers.csv.gz — all 2023–2027 DOI records collected from Crossref whose container title matches IEEE Transactions on ..., IEEE Transactions of ..., or IEEE/ACM Transactions on ....
+- all_conference_papers.csv — all collected papers for the requested conference series and available years.
+- ieee_transactions_papers.csv.gz — all 2023–2027 Crossref records whose container title matches IEEE Transactions on ..., IEEE Transactions of ..., or IEEE/ACM Transactions on ....
 - recent_networking_papers.csv — the network-relevant subset used to derive project clusters.
-- IEEE_TRANSACTIONS_SOURCES.csv — every matching IEEE Transactions source discovered in OpenAlex.
-- IEEE_TRANSACTIONS_COVERAGE.csv — per-journal, per-year counts for the Transactions inventory.
-- PAPER_CORPUS_COVERAGE.csv — conference venue/year counts plus the resolved OpenAlex source IDs.
+- IEEE_TRANSACTIONS_SOURCES.csv — every matched IEEE Transactions journal title and record count.
+- IEEE_TRANSACTIONS_COVERAGE.csv — per-journal, per-year counts.
+- PAPER_CORPUS_COVERAGE.csv — requested conference venue/year counts and collection status.
 - PAPER_CORPUS_SUMMARY.md — compact audit summary.
 
-## Metadata and keyword provenance
+## Metadata sources
 
-Conference metadata and topic labels come primarily from OpenAlex. The bulk IEEE Transactions inventory comes from Crossref because it is substantially larger than the anonymous OpenAlex paging budget. Crossref subjects are retained when available, and deterministic category terms are extracted from titles/abstracts for journal rows; provenance is recorded explicitly.
+ACM and IEEE conference proceedings are collected from Crossref and filtered by exact venue-family patterns. NSDI, OSDI, and USENIX Security are collected from official USENIX technical-session/presentation metadata. NINeS is collected from its official accepted-paper page.
 
-OpenAlex documents its current keywords as model-generated aboutness labels produced from a work's title, abstract, and venue. They are therefore stored as keywords with keyword_provenance = OpenAlex model-generated keywords, not as author keywords.
+The IEEE Transactions inventory is collected from Crossref using the IEEE DOI prefix and then filtered locally by journal-title regex.
 
-When neither OpenAlex keywords nor Crossref subjects are available, the builder creates a deterministic title-derived fallback and marks that provenance explicitly.
+## Keyword provenance
 
-NINeS 2026 is collected from the official accepted-paper page because it is a new venue and may not yet have a stable bibliographic source.
+The corpus distinguishes publisher/Crossref metadata from inferred terms. Crossref subjects and publisher keyword metadata are preserved when available. If a paper exposes no keywords, deterministic terms are derived from its title and abstract and the row records that provenance explicitly.
 
 ## Reproducibility and validation
 
 The source configuration and minimum plausible counts are in tools/research/paper_corpus_config.json. The builder is tools/research/build_paper_corpus.py.
 
-The build is fail-closed: an established 2023–2026 conference venue that resolves to an implausibly small paper count causes the workflow to fail rather than commit a misleading corpus.
+The build is fail-closed: if an established venue-year is implausibly small, or required metadata is missing at an unacceptable rate, the workflow fails without committing generated data.
 """
     (OUT / "README.md").write_text(readme, encoding="utf-8")
 
@@ -784,6 +778,7 @@ The build is fail-closed: an established 2023–2026 conference venue that resol
 
     return conferences, tx, network
 
+
 def main():
     conference_rows = []
     coverage = []
@@ -791,41 +786,41 @@ def main():
 
     for spec in CONFERENCES:
         allowed = set(spec.get("years", YEARS))
-        if spec["name"] == "NINeS":
-            rows_2026 = nines_2026(spec)
-            for year in YEARS:
-                if year not in allowed:
-                    coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":0,"status":"not-applicable","source_ids":"","source_names":""})
-                    continue
-                rows = rows_2026 if year == 2026 else []
-                conference_rows.extend(rows)
-                status = "official-page" if rows else ("not-yet-available" if year == 2027 else "no-records")
-                coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":len(rows),"status":status,"source_ids":"","source_names":"NINeS official accepted-paper page"})
-                if year == 2026 and len(rows) < spec["hard_min"]:
-                    failures.append(f"{spec['name']} {year}: {len(rows)} < {spec['hard_min']}")
-            continue
-
-        sources = discover_conference_sources(spec)
-        source_ids = [norm(x.get("id")) for x in sources]
-        source_names = [norm(x.get("display_name")) for x in sources]
-        if not source_ids:
-            failures.append(f"{spec['name']}: no OpenAlex source resolved")
         for year in YEARS:
             if year not in allowed:
-                coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":0,"status":"not-applicable","source_ids":"; ".join(source_ids),"source_names":"; ".join(source_names)})
+                coverage.append({
+                    "venue":spec["name"],"kind":"conference","year":year,"records":0,
+                    "status":"not-applicable","source_ids":"","source_names":"",
+                })
                 continue
-            rows = collect_works(source_ids, year, venue_override=spec["name"], kind="conference", core=spec.get("core",False))
+
+            provider = spec["provider"]
+            if provider == "nines":
+                rows = nines_2026(spec) if year == 2026 else []
+                source_name = "NINeS official accepted-paper page"
+            elif provider == "usenix":
+                rows = [] if year == 2027 else usenix_conference(spec, year)
+                source_name = "USENIX technical sessions"
+            elif provider == "crossref":
+                rows = crossref_conference(spec, year)
+                source_name = "Crossref"
+            else:
+                raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
+
+            if rows and provider == "crossref":
+                enrich_openalex_by_doi(rows)
+
             conference_rows.extend(rows)
             status = "ok" if rows else ("not-yet-available" if year == 2027 else "no-records")
-            coverage.append({"venue":spec["name"],"kind":"conference","year":year,"records":len(rows),"status":status,"source_ids":"; ".join(source_ids),"source_names":"; ".join(source_names)})
+            coverage.append({
+                "venue":spec["name"],"kind":"conference","year":year,"records":len(rows),
+                "status":status,"source_ids":"","source_names":source_name,
+            })
             print(f"COUNT {spec['name']} {year}: {len(rows)}", flush=True)
+
             validate_through = int(spec.get("validate_through", 2026))
             if 2023 <= year <= validate_through and len(rows) < int(spec["hard_min"]):
                 failures.append(f"{spec['name']} {year}: {len(rows)} < {spec['hard_min']}")
-
-    tx_sources = discover_ieee_transactions_sources()
-    if len(tx_sources) < 20:
-        failures.append(f"IEEE Transactions source discovery returned only {len(tx_sources)} sources")
 
     tx_rows = []
     for year in YEARS:
@@ -835,17 +830,18 @@ def main():
         tx_rows.extend(year_rows)
         print(f"COUNT IEEE Transactions {year}: {len(year_rows)}", flush=True)
 
-    conferences, tx, network = write_outputs(conference_rows, tx_rows, coverage, tx_sources)
+    conferences, tx, network = write_outputs(conference_rows, tx_rows, coverage)
 
     author_missing = sum(not r["authors"] for r in conferences)
-    if conferences and author_missing / len(conferences) > 0.05:
+    keyword_missing = sum(not r["keywords"] for r in conferences)
+    if conferences and author_missing / len(conferences) > 0.02:
         failures.append(f"conference author metadata missing for {author_missing}/{len(conferences)} records")
-    if len(conferences) < 1500:
+    if keyword_missing:
+        failures.append(f"conference keywords missing after fallback for {keyword_missing} records")
+    if len(conferences) < 2500:
         failures.append(f"conference corpus unexpectedly small: {len(conferences)}")
     if len(tx) < 3000:
         failures.append(f"IEEE Transactions corpus unexpectedly small: {len(tx)}")
-    if any(not r["keywords"] for r in conferences + tx):
-        failures.append("one or more rows have no keywords after fallback")
 
     if failures:
         print("\nVALIDATION FAILED", file=sys.stderr)
@@ -853,7 +849,11 @@ def main():
             print(" - " + x, file=sys.stderr)
         sys.exit(2)
 
-    print(f"VALIDATED: {len(conferences)} conference papers; {len(tx)} IEEE Transactions papers; {len(network)} network-relevant rows", flush=True)
+    print(
+        f"VALIDATED: {len(conferences)} conference papers; "
+        f"{len(tx)} IEEE Transactions papers; {len(network)} network-relevant rows",
+        flush=True,
+    )
 
 if __name__ == "__main__":
     main()
