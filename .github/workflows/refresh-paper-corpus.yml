@@ -1,8 +1,8 @@
-name: Validate INFOCOM source
+name: Validate SIGMETRICS source
 
 concurrency:
-  group: paper-source-validation-${{ github.ref }}
-  cancel-in-progress: true
+  group: paper-source-validation-${{ github.sha }}
+  cancel-in-progress: false
 
 on:
   workflow_dispatch:
@@ -31,20 +31,20 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install dependencies
-        run: python -m pip install --disable-pip-version-check requests beautifulsoup4 beautifulsoup4
-      - name: Validate INFOCOM source
-        run: python tools/research/validate_venue.py --venue INFOCOM
-      - name: Export INFOCOM snapshot
-        run: python tools/research/export_validated_venue.py --venue INFOCOM
-      - name: Commit INFOCOM snapshot
+        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Validate SIGMETRICS source
+        run: python tools/research/validate_venue.py --venue SIGMETRICS
+      - name: Export SIGMETRICS snapshot
+        run: python tools/research/export_validated_venue.py --venue SIGMETRICS
+      - name: Commit SIGMETRICS snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/infocom.csv
+          git add materials/assessments/data/venues/sigmetrics.csv
           if git diff --cached --quiet; then
-            echo "No INFOCOM snapshot changes"
+            echo "No SIGMETRICS snapshot changes"
           else
-            git commit -m "Refresh validated INFOCOM snapshot"
+            git commit -m "Refresh validated SIGMETRICS snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
