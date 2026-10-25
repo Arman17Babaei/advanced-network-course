@@ -1,4 +1,4 @@
-name: Validate ICDCS source
+name: Validate OSDI source
 
 concurrency:
   group: paper-source-validation-${{ github.sha }}
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate ICDCS source
-        run: python tools/research/validate_venue.py --venue ICDCS
-      - name: Export ICDCS snapshot
-        run: python tools/research/export_validated_venue.py --venue ICDCS
-      - name: Commit ICDCS snapshot
+      - name: Validate OSDI source
+        run: python tools/research/validate_venue.py --venue OSDI
+      - name: Export OSDI snapshot
+        run: python tools/research/export_validated_venue.py --venue OSDI
+      - name: Commit OSDI snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/icdcs.csv
+          git add materials/assessments/data/venues/osdi.csv
           if git diff --cached --quiet; then
-            echo "No ICDCS snapshot changes"
+            echo "No OSDI snapshot changes"
           else
-            git commit -m "Refresh validated ICDCS snapshot"
+            git commit -m "Refresh validated OSDI snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
