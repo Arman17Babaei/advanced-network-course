@@ -53,12 +53,14 @@
     },
     {
       "name": "NSDI",
-      "provider": "usenix",
+      "provider": "static_csv",
       "slug": "nsdi{yy}",
       "hard_min": 35,
       "validate_through": 2026,
       "core": true,
-      "enabled": false
+      "enabled": true,
+      "live_provider": "usenix",
+      "snapshot": "materials/assessments/data/venues/nsdi.csv"
     },
     {
       "name": "ICNP",
