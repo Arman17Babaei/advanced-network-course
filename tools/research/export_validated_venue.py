@@ -19,30 +19,8 @@ OUT.mkdir(parents=True, exist_ok=True)
 FIELDS = corpus.FIELDS
 
 def rows_for(spec, year):
-    provider = spec["provider"]
-    if provider == "sigcomm_official":
-        return corpus.sigcomm_official(spec, year)
-    if provider == "conext_official":
-        return corpus.conext_official(spec, year)
-    if provider == "usenix":
-        return corpus.usenix_conference(spec, year)
-    if provider == "nines":
-        return corpus.nines_2026(spec) if year == 2026 else []
-    if provider == "official_list":
-        url = spec.get("official_urls", {}).get(str(year))
-        return corpus.official_list_conference(spec, year, url) if url else []
-    if provider == "imc_mixed":
-        url = spec.get("official_urls", {}).get(str(year))
-        if year == 2023 and url:
-            return corpus.imc_2023_program(spec, year, url)
-        return corpus.official_list_conference(spec, year, url) if url else []
-    if provider == "mobicom_official":
-        url = spec.get("official_urls", {}).get(str(year))
-        return corpus.mobicom_official(
-            spec, year, url,
-            program=year in set(spec.get("program_years", []))
-        ) if url else []
-    raise SystemExit(f"Provider {provider} is not supported by the static exporter")
+    rows, _ = corpus.conference_rows_for(spec, year, force_live=True)
+    return rows
 
 def main():
     p = argparse.ArgumentParser()
