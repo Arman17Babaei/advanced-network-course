@@ -16,13 +16,14 @@ The active time window is **2023–2027**. As of 25 October 2026, the conference
 
 - `all_conference_papers.csv` — complete collected conference inventory for the requested venue series.
 - `ieee_transactions_network.csv` — combined networking-only IEEE Transactions subset.
-- `recent_networking_papers.csv` — combined corpus used for project-area mining.
+- `master_paper_corpus.csv` — master combined corpus with explicit keyword provenance columns.
+- `recent_networking_papers.csv` — analysis-facing copy of the combined corpus used for project-area mining.
 - `PAPER_CORPUS_COVERAGE.csv` — venue/year coverage.
 - `PAPER_CORPUS_SUMMARY.md` — generated counts, keyword provenance, and category statistics.
 - `venues/` — frozen per-conference snapshots.
 - `transactions/` — frozen per-journal networking subsets.
 
-Each paper row contains title, authors, venue, year, DOI or canonical URL, keyword labels, keyword provenance, normalized categories, and source metadata where available.
+Each paper row contains title, authors, venue, year, DOI or canonical URL, keyword labels, keyword provenance, normalized categories, and source metadata where available. The assembled master also includes `source_keywords_or_index_terms` and `derived_keywords`, so source-provided terms are structurally separate from inferred labels.
 
 ## Conference coverage
 
