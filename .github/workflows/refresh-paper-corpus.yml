@@ -1,4 +1,4 @@
-name: Validate paper source
+name: Validate ICNP source
 
 concurrency:
   group: paper-source-validation-${{ github.ref }}
@@ -32,7 +32,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate ICNP source
+      - name: Validate ICNP live source
         run: python tools/research/validate_venue.py --venue ICNP
       - name: Export ICNP snapshot
         run: python tools/research/export_validated_venue.py --venue ICNP
