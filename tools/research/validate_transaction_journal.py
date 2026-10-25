@@ -36,8 +36,6 @@ def is_network_paper(r):
     blob = " ".join([
         str(r.get("title") or ""),
         str(r.get("keywords") or ""),
-        str(r.get("topics") or ""),
-        str(r.get("primary_topic") or ""),
     ]).lower()
     return any(term in blob for term in NETWORK_TERMS)
 
