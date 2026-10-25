@@ -1,46 +1,22 @@
-name: Assemble validated paper corpus
+name: Count corpus keywords
 
 on:
   workflow_dispatch:
   push:
     branches: [research/refresh-project-idea-pool-2023-2026]
     paths:
-      - tools/research/assemble_validated_corpus.py
-      - tools/research/paper_corpus_config.json
-      - materials/assessments/data/venues/**
-      - materials/assessments/data/transactions/**
+      - tools/research/count_unique_keywords.py
       - .github/workflows/refresh-paper-corpus.yml
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  assemble:
+  count:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Assemble and validate corpus
-        run: python tools/research/assemble_validated_corpus.py
-      - name: Commit generated corpus
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/all_conference_papers.csv
-          git add materials/assessments/data/ieee_transactions_network.csv
-          git add materials/assessments/data/master_paper_corpus.csv
-          git add materials/assessments/data/recent_networking_papers.csv
-          git add materials/assessments/data/PAPER_CORPUS_COVERAGE.csv
-          git add materials/assessments/data/PAPER_CORPUS_SUMMARY.md
-          if git diff --cached --quiet; then
-            echo "No generated corpus changes"
-          else
-            git commit -m "Assemble validated networking paper corpus"
-            git pull --rebase origin "$GITHUB_REF_NAME"
-            git push origin "HEAD:$GITHUB_REF_NAME"
-          fi
+      - run: python tools/research/count_unique_keywords.py
