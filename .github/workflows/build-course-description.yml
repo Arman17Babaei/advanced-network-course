@@ -31,7 +31,8 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends \
             latexmk texlive-xetex texlive-latex-extra texlive-lang-arabic \
-            texlive-fonts-recommended fonts-noto-core lmodern
+            texlive-fonts-recommended texlive-science texlive-pictures \
+            fonts-noto-core lmodern
 
       - name: Prepare template assets
         run: |
