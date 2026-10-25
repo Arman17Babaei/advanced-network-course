@@ -86,13 +86,18 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "dblp_toc_api",
+      "provider": "doi_family",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
       "enabled": false,
-      "toc_template": "db/conf/infocom/infocom{year}.bht"
+      "doi_stems": {
+        "2023": "10.1109/INFOCOM53939.2023",
+        "2024": "10.1109/INFOCOM52122.2024",
+        "2025": "10.1109/INFOCOM55648.2025",
+        "2026": "10.1109/INFOCOM59046.2026"
+      }
     },
     {
       "name": "SIGMETRICS",
