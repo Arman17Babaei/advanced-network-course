@@ -288,47 +288,7 @@ This is deliberately different from treating every recurring keyword as a projec
 
 The counts below are based on the stricter project-mappable subset of the corpus: papers must have both a defensible domain and a meaningful design aspect. Counts use the paper's primary mapped domain after merging obvious subdomains.
 
-### 1. Datacenter & AI Cluster Networks
-
-**Corpus signal:** about **401** primary-mapped papers.
-
-**Subdomains / technology tags:** datacenter transport; AI/GPU clusters; **RDMA**; **RoCE**; **ECN**; **PFC**; **SmartNIC/DPU**; **collectives**; **coflows**; **in-network aggregation**; optical interconnects; **P4**.
-
-**Strong design aspects:** transport & congestion control; programmability & hardware offload; scheduling & resource allocation; throughput/capacity/scalability; traffic engineering & load balancing; routing/path selection; topology/fabric design; reliability/fault recovery.
-
-**Typical project shape:** compare how endpoints, NICs, switches, topology, and scheduling should divide responsibility for mixed RDMA/TCP/collective workloads under contention and failures.
-
-### 2. Packet Networks & End-to-End Protocols
-
-**Corpus signal:** about **833** primary-mapped papers.
-
-**Subdomains / technology tags:** transport protocols; packet routing; queueing; multipath; **TCP**; **QUIC**; **FEC**; SDN-assisted control.
-
-**Strong design aspects:** transport & congestion control; routing & path selection; latency/deadline optimization; scheduling/resource allocation; reliability/fault recovery; throughput/capacity; protocol design/interoperability; queueing/stability.
-
-**Typical project shape:** study a protocol or algorithmic design choice that is not tied to one deployment environment, then validate its behavior across scale, latency, loss, or failure regimes.
-
-### 3. Internet Routing, WAN & CDN
-
-**Corpus signal:** about **184** primary-mapped papers.
-
-**Subdomains / technology tags:** interdomain routing; WANs; naming/addressing; CDNs; **BGP**; **DNS**; **IPv6**; **Anycast**; submarine cables; Internet scanning; Tor/onion services.
-
-**Strong design aspects:** routing/path selection; measurement & characterization; security/privacy/trust; traffic engineering & load balancing; control-plane design; architecture/system design; reliability/fault recovery.
-
-**Typical project shape:** make and test a falsifiable claim about Internet-scale routing, naming, reachability, CDN placement, or path behavior using real measurements and explicit bias/error analysis.
-
-### 4. Network Measurement & Operations
-
-**Corpus signal:** about **267** primary-mapped papers.
-
-**Subdomains / technology tags:** observability; telemetry; troubleshooting; configuration/state management; network digital twins; **P4**; **SDN**; **SRv6**.
-
-**Strong design aspects:** telemetry & monitoring; measurement & characterization; diagnosis & root-cause analysis; verification/correctness; packet-processing data structures; programmability/hardware offload; control-plane management.
-
-**Typical project shape:** decide what to measure, at what granularity/cost, and how to turn partial observations into safe diagnosis, verification, or automated remediation.
-
-### 5. Cellular & Wireless Access Networks
+### 1. Cellular & Wireless Access Networks
 
 This top-level domain absorbs the narrower former domains **Cellular RAN & 5G/6G**, **Wireless Access & Spectrum**, **Wi-Fi / Ad Hoc / Mesh**, and generic **Mobile Connectivity**.
 
@@ -340,19 +300,7 @@ This top-level domain absorbs the narrower former domains **Cellular RAN & 5G/6G
 
 **Typical project shape:** determine how radio/network state should influence scheduling, slicing, handover, transport, or admission while preserving isolation, stability, and application performance.
 
-### 6. IoT, Sensor & Industrial Networks
-
-This top-level domain absorbs the narrower former domains **IoT / Sensor / LPWAN** and **Industrial / Deterministic Networking**.
-
-**Corpus signal:** about **568** primary-mapped papers.
-
-**Subdomains / technology tags:** sensor networks; LPWAN; industrial/factory networks; deterministic networking; **TSN**; **LoRa/LPWAN**; **RFID**; backscatter; energy harvesting; industrial IoT; URLLC.
-
-**Strong design aspects:** scheduling/resource allocation; latency/deadline guarantees; security/privacy/trust; energy/sustainability; routing; reliability/recovery; MAC/channel access; QoS; freshness/Age of Information.
-
-**Typical project shape:** trade energy, reliability, bounded delay, and network utilization for constrained sensors or industrial flows with explicit workload/deadline assumptions.
-
-### 7. Edge, Cloud & Networked Services
+### 2. Edge, Cloud & Networked Services
 
 This top-level domain absorbs **Edge & MEC Systems** and **Cloud / Serverless / Microservices**.
 
@@ -364,17 +312,17 @@ This top-level domain absorbs **Edge & MEC Systems** and **Cloud / Serverless / 
 
 **Typical project shape:** decide where computation/state/services should live and move when network paths, compute capacity, cold starts, SLOs, mobility, and failures interact.
 
-### 8. Satellite & Non-Terrestrial Networks
+### 3. Packet Networks & End-to-End Protocols
 
-**Corpus signal:** about **275** primary-mapped papers.
+**Corpus signal:** about **833** primary-mapped papers.
 
-**Subdomains / technology tags:** **LEO**; satellite Internet; **Starlink**; direct-to-cell; inter-satellite links; ground stations; satellite-terrestrial integration; NTN; satellite edge.
+**Subdomains / technology tags:** transport protocols; packet routing; queueing; multipath; **TCP**; **QUIC**; **FEC**; SDN-assisted control.
 
-**Strong design aspects:** routing/path selection; mobility/handover; scheduling/resource allocation; latency optimization; placement/offloading; capacity/scalability; reliability; QoS; cost/provisioning.
+**Strong design aspects:** transport & congestion control; routing & path selection; latency/deadline optimization; scheduling/resource allocation; reliability/fault recovery; throughput/capacity; protocol design/interoperability; queueing/stability.
 
-**Typical project shape:** combine constellation dynamics with routing, handover, transport, caching/compute placement, or reservations for a concrete workload.
+**Typical project shape:** study a protocol or algorithmic design choice that is not tied to one deployment environment, then validate its behavior across scale, latency, loss, or failure regimes.
 
-### 9. Autonomous & Cyber-Physical Networks
+### 4. Autonomous & Cyber-Physical Networks
 
 This top-level domain absorbs **Vehicular & V2X Networks**, **UAV & Aerial Networks**, and **Robotics & Cyber-Physical Networks**.
 
@@ -386,7 +334,39 @@ This top-level domain absorbs **Vehicular & V2X Networks**, **UAV & Aerial Netwo
 
 **Typical project shape:** decide which sensing/control functions remain local, peer-to-peer, edge-assisted, or cloud-assisted under mobility, deadlines, failures, and changing wireless capacity.
 
-### 10. Real-Time Media & Immersive Networking
+### 5. IoT, Sensor & Industrial Networks
+
+This top-level domain absorbs the narrower former domains **IoT / Sensor / LPWAN** and **Industrial / Deterministic Networking**.
+
+**Corpus signal:** about **568** primary-mapped papers.
+
+**Subdomains / technology tags:** sensor networks; LPWAN; industrial/factory networks; deterministic networking; **TSN**; **LoRa/LPWAN**; **RFID**; backscatter; energy harvesting; industrial IoT; URLLC.
+
+**Strong design aspects:** scheduling/resource allocation; latency/deadline guarantees; security/privacy/trust; energy/sustainability; routing; reliability/recovery; MAC/channel access; QoS; freshness/Age of Information.
+
+**Typical project shape:** trade energy, reliability, bounded delay, and network utilization for constrained sensors or industrial flows with explicit workload/deadline assumptions.
+
+### 6. Datacenter & AI Cluster Networks
+
+**Corpus signal:** about **401** primary-mapped papers.
+
+**Subdomains / technology tags:** datacenter transport; AI/GPU clusters; **RDMA**; **RoCE**; **ECN**; **PFC**; **SmartNIC/DPU**; **collectives**; **coflows**; **in-network aggregation**; optical interconnects; **P4**.
+
+**Strong design aspects:** transport & congestion control; programmability & hardware offload; scheduling & resource allocation; throughput/capacity/scalability; traffic engineering & load balancing; routing/path selection; topology/fabric design; reliability/fault recovery.
+
+**Typical project shape:** compare how endpoints, NICs, switches, topology, and scheduling should divide responsibility for mixed RDMA/TCP/collective workloads under contention and failures.
+
+### 7. Network Security, Privacy & Censorship
+
+**Corpus signal:** about **321** primary-mapped papers.
+
+**Subdomains / technology tags:** routing/DNS security; traffic security; censorship resistance; anonymity; **DDoS**; intrusion detection; encrypted traffic; **DNSSEC**; TLS; QUIC; Tor/onion services.
+
+**Strong design aspects:** security/privacy/trust; traffic analysis/classification; verification/correctness; telemetry/monitoring; control-plane management; packet processing; reliability; protocol design/interoperability.
+
+**Typical project shape:** identify a network/protocol assumption an attacker can exploit, then compare deployable defenses under measurable compatibility, performance, and operational costs.
+
+### 8. Real-Time Media & Immersive Networking
 
 This top-level domain absorbs **Real-Time Media & Streaming** and **XR & Immersive Networking**.
 
@@ -398,7 +378,7 @@ This top-level domain absorbs **Real-Time Media & Streaming** and **XR & Immersi
 
 **Typical project shape:** jointly choose transport, adaptation, redundancy, forwarding topology, representation, and edge placement to optimize interactive QoE under changing capacity and delay.
 
-### 11. Distributed AI & LLM Systems
+### 9. Distributed AI & LLM Systems
 
 This remains a top-level domain because the same AI workload spans datacenter, edge, and wireless environments; making it only a datacenter tag would hide important cross-environment design choices.
 
@@ -409,6 +389,26 @@ This remains a top-level domain because the same AI workload spans datacenter, e
 **Strong design aspects:** scheduling/resource allocation; model/state placement & movement; placement/offloading/partitioning; coding/compression; latency optimization; energy efficiency; security/privacy; cost/provisioning; reliability.
 
 **Typical project shape:** determine where model computation/state should reside and how communication should be scheduled or compressed while meeting throughput, tail-latency, cost, and failure objectives.
+
+### 10. Satellite & Non-Terrestrial Networks
+
+**Corpus signal:** about **275** primary-mapped papers.
+
+**Subdomains / technology tags:** **LEO**; satellite Internet; **Starlink**; direct-to-cell; inter-satellite links; ground stations; satellite-terrestrial integration; NTN; satellite edge.
+
+**Strong design aspects:** routing/path selection; mobility/handover; scheduling/resource allocation; latency optimization; placement/offloading; capacity/scalability; reliability; QoS; cost/provisioning.
+
+**Typical project shape:** combine constellation dynamics with routing, handover, transport, caching/compute placement, or reservations for a concrete workload.
+
+### 11. Network Measurement & Operations
+
+**Corpus signal:** about **267** primary-mapped papers.
+
+**Subdomains / technology tags:** observability; telemetry; troubleshooting; configuration/state management; network digital twins; **P4**; **SDN**; **SRv6**.
+
+**Strong design aspects:** telemetry & monitoring; measurement & characterization; diagnosis & root-cause analysis; verification/correctness; packet-processing data structures; programmability/hardware offload; control-plane management.
+
+**Typical project shape:** decide what to measure, at what granularity/cost, and how to turn partial observations into safe diagnosis, verification, or automated remediation.
 
 ### 12. Programmable Network Infrastructure
 
@@ -422,15 +422,15 @@ This is the broader parent for the former **Programmable Networks & NFV** domain
 
 **Typical project shape:** decide what functionality belongs in the switch/NIC/DPU/host/controller and evaluate the resulting performance, correctness, deployability, and failure trade-offs.
 
-### 13. Network Security, Privacy & Censorship
+### 13. Internet Routing, WAN & CDN
 
-**Corpus signal:** about **321** primary-mapped papers.
+**Corpus signal:** about **184** primary-mapped papers.
 
-**Subdomains / technology tags:** routing/DNS security; traffic security; censorship resistance; anonymity; **DDoS**; intrusion detection; encrypted traffic; **DNSSEC**; TLS; QUIC; Tor/onion services.
+**Subdomains / technology tags:** interdomain routing; WANs; naming/addressing; CDNs; **BGP**; **DNS**; **IPv6**; **Anycast**; submarine cables; Internet scanning; Tor/onion services.
 
-**Strong design aspects:** security/privacy/trust; traffic analysis/classification; verification/correctness; telemetry/monitoring; control-plane management; packet processing; reliability; protocol design/interoperability.
+**Strong design aspects:** routing/path selection; measurement & characterization; security/privacy/trust; traffic engineering & load balancing; control-plane design; architecture/system design; reliability/fault recovery.
 
-**Typical project shape:** identify a network/protocol assumption an attacker can exploit, then compare deployable defenses under measurable compatibility, performance, and operational costs.
+**Typical project shape:** make and test a falsifiable claim about Internet-scale routing, naming, reachability, CDN placement, or path behavior using real measurements and explicit bias/error analysis.
 
 ### 14. P2P & Decentralized Networks
 
@@ -515,20 +515,20 @@ The broader corpus changes several earlier conclusions:
 
 ## Recommended shortlist for Fall 2026
 
-If the course wants to expose students to a smaller menu rather than all sixteen domains, the strongest starting set is:
+If the course wants to expose students to a smaller menu rather than all sixteen domains, the strongest starting set is listed below in descending order of current project-mappable paper count:
 
-1. Datacenter & AI Cluster Networks
-2. Packet Networks & End-to-End Protocols
-3. Cellular & Wireless Access Networks
-4. Edge, Cloud & Networked Services
-5. Satellite & Non-Terrestrial Networks
-6. Autonomous & Cyber-Physical Networks
+1. Cellular & Wireless Access Networks
+2. Edge, Cloud & Networked Services
+3. Packet Networks & End-to-End Protocols
+4. Autonomous & Cyber-Physical Networks
+5. Datacenter & AI Cluster Networks
+6. Network Security, Privacy & Censorship
 7. Real-Time Media & Immersive Networking
 8. Distributed AI & LLM Systems
-9. Internet Routing, WAN & CDN
+9. Satellite & Non-Terrestrial Networks
 10. Network Measurement & Operations
 11. Programmable Network Infrastructure
-12. Network Security, Privacy & Censorship
+12. Internet Routing, WAN & CDN
 
 The remaining domains—IoT/industrial, P2P/decentralized, quantum, and harsh-environment/DTN—are still valid project spaces, but are more useful as targeted options when a team or TA has a concrete question and suitable evaluation environment.
 
