@@ -379,6 +379,16 @@
         "hard_min": 10,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Cloud Computing",
+        "canonical_name": "IEEE Transactions on Cloud Computing",
+        "source_id": "https://openalex.org/S2492498579",
+        "issn_l": "2168-7161",
+        "relevance_mode": "filter",
+        "hard_min": 10,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
