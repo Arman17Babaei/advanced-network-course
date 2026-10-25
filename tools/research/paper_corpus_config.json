@@ -222,7 +222,7 @@
         "2026": 101
       },
       "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
-      "collection_status": "validated and frozen",
+      "collection_status": "validating complete published main-proceedings inventory; 2025 includes one published open-source contribution in addition to 105 contributed papers",
       "expected_count_notes": {
         "2023": "95 contributed main-conference papers per official report",
         "2024": "88 contributed main-conference papers per official report",
