@@ -1243,11 +1243,33 @@ def main():
             print(" - " + x, file=sys.stderr)
         sys.exit(2)
 
+    tx_sources = discover_ieee_transactions_sources()
+    min_sources = int(TX_CFG.get("minimum_sources", 1))
+    if len(tx_sources) < min_sources:
+        print(
+            f"\nTRANSACTIONS SOURCE VALIDATION FAILED: "
+            f"{len(tx_sources)} < {min_sources} matched journals",
+            file=sys.stderr,
+        )
+        sys.exit(2)
+
     tx_rows = []
+    source_ids = [norm(x.get("id")) for x in tx_sources]
+    batch_size = int(TX_CFG.get("source_batch_size", 10))
     for year in YEARS:
         if year == 2027 and not TX_CFG.get("include_2027", True):
             continue
-        year_rows = crossref_ieee_transactions(year)
+        year_rows = []
+        for i in range(0, len(source_ids), batch_size):
+            batch = source_ids[i:i+batch_size]
+            rows = collect_works(batch, year, venue_override=None, kind="journal", core=False)
+            year_rows.extend(rows)
+            print(
+                f"TRANSACTIONS {year}: sources {i+1}-{min(i+batch_size, len(source_ids))}/"
+                f"{len(source_ids)}, cumulative {len(year_rows)}",
+                flush=True,
+            )
+        year_rows = dedupe(year_rows)
         tx_rows.extend(year_rows)
         print(f"COUNT IEEE Transactions {year}: {len(year_rows)}", flush=True)
 
