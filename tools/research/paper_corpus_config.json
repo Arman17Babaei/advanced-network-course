@@ -203,17 +203,22 @@
       "hard_min": 80,
       "validate_through": 2026,
       "core": false,
-      "provider": "doi_family",
+      "provider": "ipdps_official",
       "source_ids": [
         "https://openalex.org/S4210174069"
       ],
       "enabled": false,
-      "live_provider": "doi_family",
+      "live_provider": "ipdps_official",
       "doi_stems": {
         "2023": "10.1109/IPDPS54959.2023",
         "2024": "10.1109/IPDPS57955.2024",
         "2025": "10.1109/IPDPS64566.2025",
         "2026": "10.1109/IPDPS65963.2026"
+      },
+      "expected_counts": {
+        "2023": 95,
+        "2024": 88,
+        "2025": 105
       }
     },
     {
