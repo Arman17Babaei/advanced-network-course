@@ -203,11 +203,11 @@
       "hard_min": 80,
       "validate_through": 2026,
       "core": false,
-      "provider": "ipdps_official",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S4210174069"
       ],
-      "enabled": false,
+      "enabled": true,
       "live_provider": "ipdps_official",
       "doi_stems": {
         "2023": "10.1109/IPDPS54959.2023",
@@ -222,12 +222,13 @@
         "2026": 101
       },
       "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
-      "collection_status": "official program inventory validated per edition",
+      "collection_status": "validated and frozen",
       "expected_count_notes": {
         "2023": "95 contributed main-conference papers per official report",
         "2024": "88 contributed main-conference papers per official report",
         "2025": "105 contributed papers plus 1 separately awarded open-source contribution published in the main IPDPS proceedings"
-      }
+      },
+      "snapshot": "materials/assessments/data/venues/ipdps.csv"
     },
     {
       "name": "ICDCS",
