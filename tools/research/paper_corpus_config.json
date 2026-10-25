@@ -222,7 +222,12 @@
         "2026": 101
       },
       "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
-      "collection_status": "validating published program inventory"
+      "collection_status": "official program inventory validated per edition",
+      "expected_count_notes": {
+        "2023": "95 contributed main-conference papers per official report",
+        "2024": "88 contributed main-conference papers per official report",
+        "2025": "105 contributed papers plus 1 separately awarded open-source contribution published in the main IPDPS proceedings"
+      }
     },
     {
       "name": "ICDCS",
