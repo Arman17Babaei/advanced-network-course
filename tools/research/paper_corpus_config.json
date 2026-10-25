@@ -86,13 +86,12 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "dblp_html",
+      "provider": "openalex_issn",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
-      "enabled": false,
-      "url_template": "https://dblp.org/db/conf/infocom/infocom{year}.html"
+      "enabled": false
     },
     {
       "name": "SIGMETRICS",
