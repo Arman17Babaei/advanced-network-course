@@ -822,6 +822,14 @@ def main():
             if 2023 <= year <= validate_through and len(rows) < int(spec["hard_min"]):
                 failures.append(f"{spec['name']} {year}: {len(rows)} < {spec['hard_min']}")
 
+    # Do not spend minutes scanning the very large IEEE Transactions
+    # corpus if conference inventory is already incomplete.
+    if failures:
+        print("\nCONFERENCE VALIDATION FAILED", file=sys.stderr)
+        for x in failures:
+            print(" - " + x, file=sys.stderr)
+        sys.exit(2)
+
     tx_rows = []
     for year in YEARS:
         if year == 2027 and not TX_CFG.get("include_2027", True):
