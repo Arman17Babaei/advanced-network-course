@@ -1,32 +1,99 @@
 \documentclass[12pt]{article}
-\usepackage[a4paper,left=20mm,right=20mm,top=22mm,bottom=25mm]{geometry}
+\usepackage{geometry}
+\geometry{
+	letterpaper,
+	left=20mm,
+	right=20mm,
+	top=25mm,
+	bottom=30mm,
+}
+\usepackage{graphicx}
+\usepackage{tikz}
+\usepackage{tikzscale}
+\usepackage{pgfplots}
+
+\usepackage{amsmath,amssymb}
 \usepackage{enumitem}
-\usepackage{amssymb}
-\usepackage{booktabs}
-\usepackage{longtable}
-\usepackage{array}
-\usepackage{xcolor}
-\usepackage[unicode,colorlinks=true,linkcolor=blue,urlcolor=blue]{hyperref}
+\usepackage{algorithm}
+\usepackage{algorithmicx}
+\usepackage{algpseudocode}
+\usepackage{subcaption}
+\usepackage{mathtools}
+\usepackage{amsthm}
+\usepackage{nccmath}
+\usepackage{listings}
+\usepackage{tcolorbox}
+
+\makeatletter
+\def\verbatim@font{\linespread{1}\normalfont\ttfamily}
+\makeatother
+\usepackage[breaklinks]{hyperref}
+\hypersetup{
+	colorlinks = true,
+	citecolor = blue,
+	linkcolor = blue
+}
+\usepackage[T1]{fontenc}
+\DeclarePairedDelimiter{\ceil}{\lceil}{\rceil}
+\mathchardef\mhyphen="2D
+\newcommand\makeset{\mathop{make\mhyphen set}}
+\newcommand\findset{\mathop{find\mhyphen set}}
+\newcommand*{\Comb}[2]{{}^{#1}C_{#2}}
+\usepackage{mdframed}
+\usepackage{fancyhdr}
+\fancyhf{}
+\chead{\courseName}
+\lhead{\thepage}
+\rhead{\homeworkName}
+\renewcommand{\headrulewidth}{1pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancypagestyle{first}{
+	\fancyhf{}
+	\chead{\small}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+\fancypagestyle{second}{
+	\fancyhf{}
+	\chead{}
+	\renewcommand{\headrulewidth}{0pt}
+	\renewcommand{\footrulewidth}{0pt}
+}
+\pagestyle{fancy}
+
+\input{LaTeX_Common/mahdiq}
+
 \usepackage{xepersian}
-\settextfont{Noto Naskh Arabic}
-\setlatintextfont{Noto Serif}
-\setdigitfont{Noto Naskh Arabic}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0.45em}
-\sloppy
-\renewcommand{\arraystretch}{1.25}
+\settextfont[
+    Scale=1.2,
+    Path={LaTeX_Common/fonts/BNazanin/},
+    Extension=.ttf,
+    BoldFont = BNAZANB
+]{BNAZANIN}
+\setlatintextfont[
+    Scale=1.1,
+    Path={LaTeX_Common/fonts/LatinModernRoman/},
+    Extension=.otf
+]{LMR_Regular}
+
+\newcommand{\courseName}{شبکه‌های کامپیوتری پیشرفته}
+\newcommand{\courseSemester}{پاییز ۱۴۰۵}
+\newcommand{\homeworkName}{راهنمای درس}
+\newcommand{\homeworkDue}{دانشکده مهندسی کامپیوتر}
+
+\renewcommand{\baselinestretch}{1.5}
+
 \newcommand{\en}[1]{\lr{#1}}
 \newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
 \newcommand{\aspectlist}[1]{\textbf{ده جنبه‌ی برتر:} \lr{#1}}
 \newcommand{\taglist}[1]{\textbf{برچسب‌های فناوری و زیرحوزه:} \lr{#1}}
 
 \begin{document}
+	\graphicspath{{LaTeX_Common/cover/}}
+	\pagenumbering{gobble}
+	\input{LaTeX_Common/cover/hwcover.tex}
 
-\begin{center}
-    {\LARGE\textbf{راهنمای درس شبکه‌های پیشرفته}}\\[0.35em]
-    {\large پاییز ۱۴۰۵}\\[0.25em]
-    {\small نسخه‌ی دانشجوییِ شرح درس و پروژه}
-\end{center}
+	\pagenumbering{arabic}
 
 \section{هدف و ساختار کلی درس}
 این درس بر تصمیم‌های طراحی در شبکه‌ها و سامانه‌های شبکه‌ای پیشرفته تمرکز دارد. هدف فقط آشنایی با مجموعه‌ای از فناوری‌ها نیست؛ انتظار می‌رود بتوانید درباره‌ی انتخاب‌های طراحی، مقیاس‌پذیری، قابلیت اطمینان، کارایی، روش ارزیابی و محدودیت‌های یک سامانه استدلال کنید و نتیجه‌ی خود را با شواهد دفاع‌پذیر پشتیبانی کنید.
