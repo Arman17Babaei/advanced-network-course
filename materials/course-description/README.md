@@ -19,7 +19,7 @@ The source preserves the template's original font locations:
 - `LaTeX_Common/fonts/BNazanin/BNAZANB.TTF`
 - `LaTeX_Common/fonts/LatinModernRoman/LMR_Regular.otf`
 
-When those bundled template fonts are present, XeLaTeX uses them directly. CI has a packaged-font fallback so the document remains buildable in an environment where the local template font binaries are not available.
+The build requires these exact template font files. CI intentionally fails if any are missing; there is no substitute-font fallback.
 
 The Sharif cover layout is retained under `LaTeX_Common/cover/`.
 
