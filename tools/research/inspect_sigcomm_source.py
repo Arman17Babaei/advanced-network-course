@@ -39,3 +39,8 @@ print(f"2026_TR_TOTAL={len(rows)} TH_TOTAL={len(soup.find_all('th'))} TD_TOTAL={
 for idx in list(range(min(3,len(rows)))) + list(range(max(0,len(rows)-3),len(rows))):
     cells = [" ".join(x.stripped_strings) for x in rows[idx].find_all(["th","td"])]
     print(f"ROW[{idx}] CELLS={len(cells)} :: " + " || ".join(cells)[:600])
+
+# Inspect internal markup of a 2026 data row
+for idx in [1, 2, len(rows)-1]:
+    row = rows[idx]
+    print(f"ROW_MARKUP[{idx}]=" + str(row)[:2200].replace("\n"," "))
