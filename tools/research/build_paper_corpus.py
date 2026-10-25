@@ -1036,7 +1036,15 @@ def ipdps_official(spec, year):
         return []
 
     # Best-paper plenaries can repeat papers already mapped to a technical
-    # session. For this venue the paper title is the stable identity.
+    # session. Log duplicate schedule appearances before deduplication so a
+    # malformed program cannot silently hide missing papers.
+    if year == 2023:
+        raw_counts = Counter(slug(r["title"]) for r in rows)
+        dup_keys = [k for k,v in raw_counts.items() if v > 1]
+        print(f"IPDPS 2023 raw parsed papers={len(rows)} duplicate-title-groups={len(dup_keys)}", flush=True)
+        for key in dup_keys:
+            vals = [r["title"] for r in rows if slug(r["title"]) == key]
+            print("IPDPS 2023 DUPLICATE: " + " | ".join(vals), flush=True)
     by_title = {}
     for r in rows:
         key = slug(r["title"])
