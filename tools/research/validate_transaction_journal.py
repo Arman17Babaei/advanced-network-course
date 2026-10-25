@@ -22,14 +22,17 @@ NETWORK_TERMS = [
     "content delivery", "peer-to-peer", "p2p", "network telemetry",
     "network measurement", "interconnect", "collective communication",
     "all-reduce", "all-to-all", "coflow", "bandwidth allocation",
+    "task offloading", "computation offloading", "mobile edge computing",
+    "multi-access edge computing", "edge network", "edge-cloud",
+    "communication-efficient", "communication overhead", "communication scheduling",
+    "semantic communication", "wireless communication", "network resource",
+    "spectrum allocation", "channel access", "medium access", "mac protocol",
 ]
 
 def is_network_paper(r):
-    subfields = set(r.get("_topic_subfields") or [])
-    if r.get("_primary_subfield"):
-        subfields.add(r["_primary_subfield"])
-    if "Computer Networks and Communications" in subfields:
-        return True
+    # OpenAlex's Computer Networks and Communications subfield is too broad
+    # for venues such as TMC: it also covers sensing and mobile-device ML.
+    # For cross-journal mining, require an explicit networking/system signal.
     blob = " ".join([
         str(r.get("title") or ""),
         str(r.get("keywords") or ""),
