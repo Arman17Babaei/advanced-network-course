@@ -409,6 +409,46 @@
         "hard_min": 20,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Vehicular Technology",
+        "canonical_name": "IEEE Transactions on Vehicular Technology",
+        "source_id": "https://openalex.org/S10936095",
+        "issn_l": "0018-9545",
+        "relevance_mode": "filter",
+        "hard_min": 30,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Green Communications and Networking",
+        "canonical_name": "IEEE Transactions on Green Communications and Networking",
+        "source_id": "https://openalex.org/S4210192662",
+        "issn_l": "2473-2400",
+        "relevance_mode": "filter",
+        "hard_min": 15,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Dependable and Secure Computing",
+        "canonical_name": "IEEE Transactions on Dependable and Secure Computing",
+        "source_id": "https://openalex.org/S133795288",
+        "issn_l": "1545-5971",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Network Science and Engineering",
+        "canonical_name": "IEEE Transactions on Network Science and Engineering",
+        "source_id": "https://openalex.org/S2484352698",
+        "issn_l": "2327-4697",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
