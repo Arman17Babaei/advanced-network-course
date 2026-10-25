@@ -942,25 +942,52 @@ def ipdps_official(spec, year):
     if year in {2023, 2024}:
         url = f"https://www.ipdps.org/ipdps{year}/{year}-advance-program.html"
         soup = BeautifulSoup(get_html(url), "html.parser")
+
+        def parse_program_li(li):
+            """Split malformed schedule list items into individual papers.
+
+            The 2023 program has two HTML defects: one <li> contains two papers,
+            and another contains two papers where the second title is split
+            across adjacent <em> tags.  Treat adjacent <em> tags as one title;
+            a later <em> after author text starts a new paper.
+            """
+            container = li.find("p") or li
+            papers = []
+            current = None
+            for node in container.children:
+                name = getattr(node, "name", None)
+                if name == "em":
+                    title_part = norm(node.get_text(" ", strip=True))
+                    if not title_part:
+                        continue
+                    if current is None or current["authors"]:
+                        current = {"title": title_part, "authors": ""}
+                        papers.append(current)
+                    else:
+                        current["title"] = norm(current["title"] + " " + title_part)
+                    continue
+                if name == "br":
+                    continue
+                if hasattr(node, "get_text"):
+                    txt = norm(node.get_text(" ", strip=True))
+                else:
+                    txt = norm(str(node))
+                if txt and current is not None:
+                    current["authors"] = norm(current["authors"] + " " + txt)
+            return [p for p in papers if p["title"] and p["authors"]]
+
         for tr in soup.find_all("tr"):
             cells = tr.find_all("td", recursive=False)
             if len(cells) < 2:
                 continue
             left = norm(cells[0].get_text(" ", strip=True))
-            if "parallel technical" not in left.lower():
+            low = left.lower()
+            if "parallel technical" not in low and "best paper" not in low:
                 continue
             right = cells[1]
             for li in right.find_all("li"):
-                em = li.find("em")
-                if em is None:
-                    continue
-                title = norm(em.get_text(" ", strip=True))
-                clone = BeautifulSoup(str(li), "html.parser")
-                em2 = clone.find("em")
-                if em2:
-                    em2.decompose()
-                authors = norm(clone.get_text(" ", strip=True))
-                make_row(title, authors, url)
+                for paper in parse_program_li(li):
+                    make_row(paper["title"], paper["authors"], url)
 
     elif year == 2025:
         url = "https://ssl.linklings.net/conferences/ipdps/ipdps2025_program/views/at_a_glance.html"
