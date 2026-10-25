@@ -29,3 +29,13 @@ for year, url in spec["official_urls"].items():
         for v in vals:
             print(f"  {v}")
     print("----")
+
+# Focused 2026 table sanity check
+url = spec["official_urls"]["2026"]
+r = requests.get(url, timeout=30, headers={"User-Agent":"advanced-network-course-source-inspector/1.0"})
+soup = BeautifulSoup(r.text, "html.parser")
+rows = soup.find_all("tr")
+print(f"2026_TR_TOTAL={len(rows)} TH_TOTAL={len(soup.find_all('th'))} TD_TOTAL={len(soup.find_all('td'))}")
+for idx in list(range(min(3,len(rows)))) + list(range(max(0,len(rows)-3),len(rows))):
+    cells = [" ".join(x.stripped_strings) for x in rows[idx].find_all(["th","td"])]
+    print(f"ROW[{idx}] CELLS={len(cells)} :: " + " || ".join(cells)[:600])
