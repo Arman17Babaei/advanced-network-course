@@ -1320,6 +1320,24 @@ FIELDS = [
 def public_row(r):
     return {k:r.get(k,"") for k in FIELDS}
 
+def static_csv_conference(spec, year):
+    path = ROOT / spec["snapshot"]
+    rows = []
+    with path.open("r", encoding="utf-8", newline="") as f:
+        for raw in csv.DictReader(f):
+            if int(raw.get("year") or 0) != int(year):
+                continue
+            r = dict(raw)
+            r["year"] = int(r["year"])
+            r["network_relevance_score"] = int(r.get("network_relevance_score") or 0)
+            r["network_relevant"] = str(r.get("network_relevant","")).lower() == "true"
+            r["_core"] = bool(spec.get("core", False))
+            rows.append(r)
+    rows = dedupe(rows)
+    print(f"STATIC {spec['name']} {year}: loaded {len(rows)} from {spec['snapshot']}", flush=True)
+    return rows
+
+
 def write_csv(path, rows):
     with path.open("w", encoding="utf-8", newline="") as f:
         w = csv.DictWriter(f, fieldnames=FIELDS)
@@ -1467,7 +1485,10 @@ def main():
                 continue
 
             provider = spec["provider"]
-            if provider == "nines":
+            if provider == "static_csv":
+                rows = static_csv_conference(spec, year)
+                source_name = spec["snapshot"]
+            elif provider == "nines":
                 rows = nines_2026(spec) if year == 2026 else []
                 source_name = "NINeS official accepted-paper page"
             elif provider == "usenix":
