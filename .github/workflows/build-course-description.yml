@@ -36,7 +36,13 @@ jobs:
           sudo apt-get install -y --no-install-recommends \
             latexmk texlive-xetex texlive-latex-extra texlive-lang-arabic \
             texlive-fonts-recommended texlive-science texlive-pictures \
-            fonts-noto-core fonts-freefont-otf lmodern
+            lmodern
+
+      - name: Check supplied template fonts
+        run: |
+          test -f materials/course-description/LaTeX_Common/fonts/BNazanin/BNAZANIN.TTF || { echo "Missing BNAZANIN.TTF"; exit 1; }
+          test -f materials/course-description/LaTeX_Common/fonts/BNazanin/BNAZANB.TTF || { echo "Missing BNAZANB.TTF"; exit 1; }
+          test -f materials/course-description/LaTeX_Common/fonts/LatinModernRoman/LMR_Regular.otf || { echo "Missing LMR_Regular.otf"; exit 1; }
 
       - name: Prepare template assets
         run: |
