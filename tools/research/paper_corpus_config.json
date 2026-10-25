@@ -369,6 +369,16 @@
         "hard_min": 40,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Parallel and Distributed Systems",
+        "canonical_name": "IEEE Transactions on Parallel and Distributed Systems",
+        "source_id": "https://openalex.org/S97130795",
+        "issn_l": "1045-9219",
+        "relevance_mode": "filter",
+        "hard_min": 10,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
