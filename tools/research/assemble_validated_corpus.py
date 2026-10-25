@@ -13,6 +13,7 @@ CFG = json.loads((ROOT / "tools/research/paper_corpus_config.json").read_text(en
 DATA = ROOT / "materials/assessments/data"
 VENUES = DATA / "venues"
 TX = DATA / "transactions"
+CONTROLLED = DATA / "CONTROLLED_KEYWORDS.csv"
 
 REQUIRED = [
     "title","authors","venue","year","keywords","keyword_provenance",
@@ -21,11 +22,10 @@ REQUIRED = [
 
 MASTER_FIELDS = [
     "title","authors","venue","year","venue_kind","doi","url",
-    "keywords","keyword_provenance","topics","primary_topic",
-    "categories","network_relevance_score","network_relevant",
-    "metadata_source","paper_type","source_id","openalex_id","raw_venue",
-    "source_keywords_or_index_terms","derived_keywords",
-    "corpus_source"
+    "keywords","keyword_provenance","controlled_keyword_count",
+    "topics","primary_topic","categories","network_relevance_score",
+    "network_relevant","metadata_source","paper_type","source_id",
+    "openalex_id","raw_venue","corpus_source"
 ]
 
 def read_csv(path: Path):
@@ -38,27 +38,71 @@ def read_csv(path: Path):
         raise RuntimeError(f"{path}: missing columns {missing}")
     return rows
 
-def keyword_columns(r):
-    keywords=(r.get("keywords") or "").strip()
-    provenance=(r.get("keyword_provenance") or "").lower()
-    source_markers=(
-        "author keyword","publisher keyword","publisher metadata",
-        "index term","crossref subject",
-    )
-    if any(marker in provenance for marker in source_markers):
-        return keywords,""
-    return "",keywords
+CATEGORY_FALLBACK = {
+    "AI cluster networks and distributed training":"distributed training",
+    "Distributed and disaggregated AI inference":"LLM inference",
+    "Datacenter transport and programmable networking":"data center networks",
+    "Network telemetry, diagnosis, reliability, and automated operations":"network management",
+    "LEO satellite and non-terrestrial networks":"satellite networks",
+    "5G/6G RAN and mobile network control":"5G",
+    "Real-time communication and interactive media":"video streaming",
+    "XR, immersive telepresence, and volumetric media":"extended reality",
+    "Edge intelligence and collaborative perception":"edge computing",
+    "Networked robotics, UAVs, vehicles, and autonomous control":"autonomous driving",
+    "Internet measurement, routing, naming, and CDN infrastructure":"internet measurement",
+    "Network security, privacy, and censorship":"network security",
+    "Cloud, serverless, and disaggregated networked systems":"cloud computing",
+    "Deterministic and industrial networking":"deterministic networking",
+    "Quantum networking and distributed quantum systems":"quantum networks",
+    "Sustainable networking and computing":"green networking",
+}
+
+def load_controlled_keywords():
+    with CONTROLLED.open("r",encoding="utf-8",newline="") as f:
+        rows=list(csv.DictReader(f))
+    vocab=[]
+    for r in rows:
+        canonical=(r.get("canonical_keyword") or "").strip()
+        aliases=[x.strip() for x in (r.get("aliases") or "").split(";") if x.strip()]
+        if canonical:
+            vocab.append((canonical,aliases))
+    if not 100 <= len(vocab) <= 200:
+        raise RuntimeError(f"controlled keyword vocabulary must contain 100-200 entries; found {len(vocab)}")
+    return vocab
+
+def phrase_present(blob, phrase):
+    return re.search(r"(?<![a-z0-9])"+re.escape(phrase.lower())+r"(?![a-z0-9])",blob.lower()) is not None
+
+def apply_controlled_keywords(r, vocab):
+    blob=" ".join([
+        str(r.get("title") or ""),
+        str(r.get("keywords") or ""),
+        str(r.get("topics") or ""),
+        str(r.get("primary_topic") or ""),
+        str(r.get("categories") or ""),
+    ])
+    found=[]
+    for canonical,aliases in vocab:
+        if any(phrase_present(blob,a) for a in aliases):
+            found.append(canonical)
+    if not found:
+        for cat in (r.get("categories") or "").split("; "):
+            fallback=CATEGORY_FALLBACK.get(cat)
+            if fallback:
+                found.append(fallback)
+                break
+    found=list(dict.fromkeys(found))
+    r["keywords"]="; ".join(found)
+    r["keyword_provenance"]="controlled-vocabulary-v1"
+    r["controlled_keyword_count"]=str(len(found))
+    return r
 
 def write_csv(path: Path, rows):
     with path.open("w", encoding="utf-8", newline="") as f:
         w=csv.DictWriter(f, fieldnames=MASTER_FIELDS)
         w.writeheader()
         for r in rows:
-            out={k:r.get(k,"") for k in MASTER_FIELDS}
-            source_terms,derived=keyword_columns(r)
-            out["source_keywords_or_index_terms"]=source_terms
-            out["derived_keywords"]=derived
-            w.writerow(out)
+            w.writerow({k:r.get(k,"") for k in MASTER_FIELDS})
 
 def norm_key(r):
     doi=(r.get("doi") or "").lower().strip()
@@ -150,6 +194,13 @@ def main():
         seen.add(k)
         combined.append(r)
 
+    # The analysis corpus intentionally excludes weakly network-relevant rows.
+    # Raw venue/journal snapshots remain checked in separately for auditability.
+    vocab=load_controlled_keywords()
+    conference_rows=[apply_controlled_keywords(r,vocab) for r in conference_rows if int(r.get("network_relevance_score") or 0) >= 2]
+    tx_rows=[apply_controlled_keywords(r,vocab) for r in tx_rows if int(r.get("network_relevance_score") or 0) >= 2]
+    combined=[apply_controlled_keywords(r,vocab) for r in combined if int(r.get("network_relevance_score") or 0) >= 2]
+
     conference_rows.sort(key=lambda r:(int(r["year"]),r["venue"].lower(),r["title"].lower()))
     tx_rows.sort(key=lambda r:(int(r["year"]),r["venue"].lower(),r["title"].lower()))
     combined.sort(key=lambda r:(int(r["year"]),r["venue"].lower(),r["title"].lower()))
@@ -182,6 +233,13 @@ def main():
     # Summary.
     tx_counts=Counter((r["venue"],int(r["year"])) for r in tx_rows)
     keyword_prov=Counter(r.get("keyword_provenance","") or "missing" for r in combined)
+    keyword_usage=Counter()
+    unmatched_keywords=0
+    for r in combined:
+        kws=[x.strip() for x in (r.get("keywords") or "").split(";") if x.strip()]
+        if not kws:
+            unmatched_keywords+=1
+        keyword_usage.update(kws)
     cat_counts=Counter()
     for r in combined:
         for c in (r.get("categories") or "").split("; "):
@@ -190,9 +248,11 @@ def main():
 
     lines=[
         "# Paper Corpus Summary","",
-        f"Conference papers: **{len(conference_rows):,}**.",
-        f"Networking-relevant IEEE Transactions papers: **{len(tx_rows):,}**.",
-        f"Combined unique records: **{len(combined):,}**.","",
+        f"Retained conference papers (network relevance >= 2): **{len(conference_rows):,}**.",
+        f"Retained IEEE Transactions papers (network relevance >= 2): **{len(tx_rows):,}**.",
+        f"Combined retained records: **{len(combined):,}**.",
+        f"Controlled keyword vocabulary: **{len(vocab)}** terms.",
+        f"Records with no controlled-keyword match: **{unmatched_keywords:,}**.","",
         "## Conference coverage","",
         "| Venue | 2023 | 2024 | 2025 | 2026 | 2027 |",
         "| --- | ---: | ---: | ---: | ---: | ---: |",
@@ -210,6 +270,11 @@ def main():
     for p,n in keyword_prov.most_common():
         lines.append(f"| {p} | {n:,} |")
 
+    lines += ["","## Controlled keyword usage","",
+              "| Keyword | Records |","| --- | ---: |"]
+    for kw,n in keyword_usage.most_common():
+        lines.append(f"| {kw} | {n:,} |")
+
     lines += ["","## Category counts","",
               "| Category | Records |","| --- | ---: |"]
     for c,n in cat_counts.most_common():
@@ -219,7 +284,9 @@ def main():
               "- Every conference row has title, authors, venue, year, keyword metadata, and a DOI or canonical URL.",
               "- Conference snapshots satisfy their configured per-year minimums; exact expected counts are enforced where known.",
               "- IEEE Transactions inputs are networking-only subsets; the assembler prefers the Transactions-wide filtered sweep when available and otherwise falls back to individually validated journal snapshots.",
-              "- Keyword provenance is explicit. The assembled files separate source_keywords_or_index_terms from derived_keywords, so inferred labels are not represented as publisher/author keywords.",
+              "- The master/recent corpus excludes rows with network_relevance_score 0 or 1; raw frozen snapshots remain available separately.",
+              "- The active keywords field is restricted to the version-controlled 100-200 term controlled vocabulary in CONTROLLED_KEYWORDS.csv.",
+              "- Raw source/inferred keyword metadata remains preserved in the frozen per-venue and per-journal snapshots rather than duplicated into the analysis corpus.",
               "- 2027 is populated only when records already exist in the source metadata.",
               ""]
     (DATA/"PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines),encoding="utf-8")
