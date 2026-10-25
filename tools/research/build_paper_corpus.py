@@ -420,8 +420,10 @@ def crossref_conference(spec, year):
     for typ in types:
         cursor = "*"
         seen_cursors = set()
-        retrieved = 0
-        while cursor and cursor not in seen_cursors:
+        pages = 0
+        empty_match_pages = 0
+        found_any = False
+        while cursor and cursor not in seen_cursors and pages < int(spec.get("max_crossref_pages", 10)):
             seen_cursors.add(cursor)
             params = {
                 "filter": (
@@ -440,6 +442,7 @@ def crossref_conference(spec, year):
             items = msg.get("items") or []
             if not items:
                 break
+            matched_this_page = 0
             for item in items:
                 containers = item.get("container-title") or []
                 raw_venue = norm(containers[0] if containers else "")
@@ -450,16 +453,29 @@ def crossref_conference(spec, year):
                 )
                 if row:
                     rows.append(row)
-            retrieved += len(items)
-            total = int(msg.get("total-results") or 0)
+                    matched_this_page += 1
+            pages += 1
+            if matched_this_page:
+                found_any = True
+                empty_match_pages = 0
+            elif found_any:
+                empty_match_pages += 1
             cursor = norm(msg.get("next-cursor"))
-            if retrieved >= total:
+            print(
+                f"CROSSREF {spec['name']} {year}: page {pages}, "
+                f"matched {matched_this_page}, cumulative {len(rows)}",
+                flush=True,
+            )
+            # query.container-title is a ranked search. Once a venue has been
+            # found and then vanishes for two full 1000-result pages, continuing
+            # through the publisher's entire annual corpus only adds unrelated
+            # records.
+            if found_any and empty_match_pages >= 2:
                 break
             time.sleep(0.05)
     rows = dedupe(rows)
     print(f"CROSSREF {spec['name']} {year}: kept {len(rows)}", flush=True)
     return rows
-
 
 def _meta_values(soup, name):
     vals = []
