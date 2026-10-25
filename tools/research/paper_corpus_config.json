@@ -100,7 +100,7 @@
       },
       "toc_template": "db/conf/infocom/infocom{year}.bht",
       "live_provider": "dblp_html",
-      "url_template": "https://dblp.org/db/conf/infocom/infocom{year}.html"
+      "url_template": "https://dblp.uni-trier.de/db/conf/infocom/infocom{year}.html"
     },
     {
       "name": "SIGMETRICS",
