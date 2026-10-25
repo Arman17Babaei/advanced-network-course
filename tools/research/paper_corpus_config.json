@@ -223,12 +223,14 @@
     },
     {
       "name": "OSDI",
-      "provider": "usenix",
+      "provider": "static_csv",
       "slug": "osdi{yy}",
       "hard_min": 30,
       "validate_through": 2026,
       "core": false,
-      "enabled": false
+      "enabled": true,
+      "live_provider": "usenix",
+      "snapshot": "materials/assessments/data/venues/osdi.csv"
     },
     {
       "name": "USENIX Security",
