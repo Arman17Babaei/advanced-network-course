@@ -339,6 +339,16 @@
           "2025": 80,
           "2026": 80
         }
+      },
+      {
+        "name": "IEEE Transactions on Network and Service Management",
+        "canonical_name": "IEEE Transactions on Network and Service Management",
+        "source_id": "https://openalex.org/S173527311",
+        "issn_l": "1932-4537",
+        "relevance_mode": "all",
+        "hard_min": 80,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
