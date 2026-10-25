@@ -1,4 +1,4 @@
-name: Validate SIGMETRICS source
+name: Validate IMC source
 
 concurrency:
   group: paper-source-validation-${{ github.sha }}
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate SIGMETRICS source
-        run: python tools/research/validate_venue.py --venue SIGMETRICS
-      - name: Export SIGMETRICS snapshot
-        run: python tools/research/export_validated_venue.py --venue SIGMETRICS
-      - name: Commit SIGMETRICS snapshot
+      - name: Validate IMC source
+        run: python tools/research/validate_venue.py --venue IMC
+      - name: Export IMC snapshot
+        run: python tools/research/export_validated_venue.py --venue IMC
+      - name: Commit IMC snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/sigmetrics.csv
+          git add materials/assessments/data/venues/imc.csv
           if git diff --cached --quiet; then
-            echo "No SIGMETRICS snapshot changes"
+            echo "No IMC snapshot changes"
           else
-            git commit -m "Refresh validated SIGMETRICS snapshot"
+            git commit -m "Refresh validated IMC snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
