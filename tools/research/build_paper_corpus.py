@@ -1002,13 +1002,17 @@ def ipdps_official(spec, year):
         url = "https://ssl.linklings.net/conferences/ipdps/ipdps2025_program/views/at_a_glance.html"
         soup = BeautifulSoup(get_html(url), "html.parser")
         for slot in soup.select(".slot-wrapper"):
-            title_tag = slot.select_one(".slot-title")
+            # Linklings mixes keynotes, panels, tutorials and papers in the
+            # same slot markup.  The calendar identifier is the stable subtype
+            # discriminator: main papers use --papNNN.ics.
+            cal = slot.select_one("a.calendar-link[href*='--pap']")
+            title_tag = slot.select_one("span.ttip_object_info")
             authors_tag = slot.select_one(".author-names")
-            if title_tag is None or authors_tag is None:
+            if cal is None or title_tag is None or authors_tag is None:
                 continue
             title = norm(title_tag.get_text(" ", strip=True))
             authors = norm(authors_tag.get_text(" ", strip=True))
-            abstract_tag = slot.select_one(".slot-abstract")
+            abstract_tag = slot.select_one("blockquote")
             abstract = norm(abstract_tag.get_text(" ", strip=True)) if abstract_tag else ""
             make_row(title, authors, url, abstract)
 
