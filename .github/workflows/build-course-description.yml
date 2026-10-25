@@ -1,0 +1,44 @@
+name: Build course description PDF
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - materials/course-description/**
+      - .github/workflows/build-course-description.yml
+  pull_request:
+    paths:
+      - materials/course-description/**
+      - .github/workflows/build-course-description.yml
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install XeLaTeX and Persian support
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            latexmk texlive-xetex texlive-latex-extra texlive-lang-arabic \
+            fonts-noto-core lmodern
+
+      - name: Build PDF
+        working-directory: materials/course-description
+        run: latexmk -xelatex -interaction=nonstopmode -halt-on-error main.tex
+
+      - name: Rename PDF artifact
+        run: cp materials/course-description/main.pdf advanced-networks-course-description.pdf
+
+      - name: Upload PDF
+        uses: actions/upload-artifact@v4
+        with:
+          name: advanced-networks-course-description
+          path: advanced-networks-course-description.pdf
+          if-no-files-found: error
