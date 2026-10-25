@@ -23,6 +23,9 @@
 \usepackage{nccmath}
 \usepackage{listings}
 \usepackage{tcolorbox}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multicol}
 
 \makeatletter
 \def\verbatim@font{\linespread{1}\normalfont\ttfamily}
@@ -85,8 +88,27 @@
 
 \newcommand{\en}[1]{\lr{#1}}
 \newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
-\newcommand{\aspectlist}[1]{\textbf{ده جنبه‌ی برتر:} \lr{#1}}
-\newcommand{\taglist}[1]{\textbf{برچسب‌های فناوری و زیرحوزه:} \lr{#1}}
+\newcommand{\projectarea}[3]{%
+\begin{tcolorbox}[
+    colback=black!2,
+    colframe=black!45,
+    boxrule=0.55pt,
+    arc=1.2mm,
+    left=2mm,right=2mm,top=1.5mm,bottom=1.5mm
+]
+{\large\bfseries\lr{#1}}\par
+\smallskip
+\textbf{ده جنبه‌ی پرتکرار طراحی}\par
+\begin{multicols}{2}
+\begin{enumerate}[leftmargin=*,nosep,label=\arabic*.]
+#2
+\end{enumerate}
+\end{multicols}
+\smallskip
+\textbf{برچسب‌های فناوری و بافت:} \lr{#3}
+\end{tcolorbox}
+\vspace{0.5em}
+}
 
 \begin{document}
 	\graphicspath{{LaTeX_Common/cover/}}
@@ -128,6 +150,38 @@
 \end{center}
 
 گروه بر اساس این ابعاد یک \textbf{ماتریس پروژه} می‌سازد. ماتریس قرار نیست همه‌ی خانه‌های ممکن را پوشش دهد؛ هدف آن است که فضای مسئله را روشن کند و نشان دهد گروه آگاهانه چه بخش‌هایی را برای بررسی انتخاب کرده است.
+
+\subsubsection*{نمونه‌ی ماتریس پروژه}
+برای نمونه، فرض کنید یک گروه حوزه‌ی \lr{Real-Time Media \& Immersive Networking} را انتخاب کرده است. یک ماتریس اولیه می‌تواند چند زیرحوزه را در ستون‌ها و چند جنبه‌ی طراحی را در سطرها قرار دهد. خانه‌های «اصلی» مستقیماً در پرسش و آزمایش‌های پروژه بررسی می‌شوند، خانه‌های «مقایسه» فقط برای ایجاد خط مبنا یا درک بهتر استفاده می‌شوند، و خانه‌ی خالی خارج از دامنه‌ی فعلی پروژه است.
+
+\begin{center}
+\small
+\renewcommand{\arraystretch}{1.35}
+\begin{tabularx}{\textwidth}{
+    >{\raggedleft\arraybackslash}p{0.28\textwidth}
+    >{\centering\arraybackslash}X
+    >{\centering\arraybackslash}X
+    >{\centering\arraybackslash}X
+}
+\toprule
+\textbf{جنبه‌ی طراحی} &
+\textbf{\lr{Video Conferencing}} &
+\textbf{\lr{Cloud Gaming}} &
+\textbf{\lr{XR / AR / VR}} \\
+\midrule
+\lr{Latency \& Deadline Optimization} &
+مقایسه & \textbf{اصلی} & \textbf{اصلی} \\
+\lr{Transport \& Congestion Control} &
+-- & \textbf{اصلی} & \textbf{اصلی} \\
+\lr{Application Adaptation \& Cross-Layer Control} &
+مقایسه & مقایسه & \textbf{اصلی} \\
+\lr{Placement, Offloading \& Partitioning} &
+-- & مقایسه & \textbf{اصلی} \\
+\bottomrule
+\end{tabularx}
+\end{center}
+
+برای چنین ماتریسی، یک پرسش اولیه می‌تواند این باشد که در یک سرویس تعاملی \lr{XR} با بخشی از پردازش در لبه، ترکیب کنترل ازدحام، سازگارسازی کیفیت و محل پردازش تحت بارهای مختلف شبکه چه اثری بر تأخیر انتهابه‌انتها و کیفیت تجربه دارد. این فقط یک نمونه است؛ ماتریس هر گروه باید متناسب با حوزه، پرسش و روش ارزیابی خودش ساخته شود و لازم نیست شکل یا ابعاد یکسانی داشته باشد.
 
 \subsection{مسئولیت فردی درون پروژه}
 هر عضو گروه باید مسئولیت مشخصی در بخشی از دامنه یا یکی از جنبه‌های طراحی پروژه داشته باشد. این مسئولیت نباید به معنای کارکردن کاملاً مستقل از گروه باشد؛ هر دانشجو باید بداند کار خودش چگونه به پرسش پژوهشی و نتیجه‌ی کلی پروژه متصل می‌شود.
@@ -203,74 +257,228 @@
 \end{itemize}
 
 \appendix
-\section{حوزه‌های پروژه، جنبه‌های پرتکرار طراحی و برچسب‌های فناوری}
-این پیوست از مجموعه‌ی پژوهشی و طبقه‌بندی فعلی پروژه‌های درس استخراج شده است. «ده جنبه‌ی برتر» برای هر حوزه بر اساس تعداد مقاله‌های نگاشت‌شده به آن حوزه در مجموعه‌ی فعلی مرتب شده‌اند. این رتبه‌بندی نشان‌دهنده‌ی تراکم پژوهش است، نه الزام یا توصیه‌ی قطعی برای انتخاب پروژه.
+\section{حوزه‌های پیشنهادی پروژه، جنبه‌های طراحی و برچسب‌های فناوری}
+اطلاعات لازم برای انتخاب اولیه‌ی حوزه‌ی پروژه در همین پیوست آمده است. هر گروه ابتدا یک حوزه‌ی کلی را انتخاب می‌کند، سپس با استفاده از جنبه‌های طراحی و برچسب‌های فناوری، محدوده‌ی دقیق‌تری برای ماتریس و پرسش پژوهشی خود می‌سازد.
 
-\subsection{\lr{Cellular \& Wireless Access Networks}}
-\aspectlist{Scheduling \& Resource Allocation; MAC, Spectrum \& Radio Resource Management; Security, Privacy \& Trust; Mobility \& Handover; Admission Control \& Network Slicing; Latency \& Deadline Optimization; Placement, Offloading \& Partitioning; Routing \& Path Selection; Energy, Carbon \& Sustainability; Architecture \& System Design}
-\taglist{cellular RAN, Wi-Fi/WLAN, ad hoc/mesh, spectrum/radio access, 5G, 6G, O-RAN, network slicing, Wi-Fi, RIS, NOMA, beamforming, URLLC, ISAC, D2D, massive/cell-free MIMO}
+فهرست «ده جنبه‌ی پرتکرار طراحی» برای کمک به شناخت سریع فضای پژوهش هر حوزه مرتب شده است. ترتیب آن‌ها فقط نشان‌دهنده‌ی فراوانی نسبی موضوع در مرور پژوهش‌های اخیر است و به معنی بهتر بودن، آسان‌تر بودن یا الزامی بودن آن جنبه نیست. برچسب‌های فناوری نیز برای محدودکردن دامنه یا ساختن یک بافت مشخص برای پروژه پیشنهاد شده‌اند.
 
-\subsection{\lr{Edge, Cloud \& Networked Services}}
-\aspectlist{Placement, Offloading \& Partitioning; Scheduling \& Resource Allocation; Security, Privacy \& Trust; Mobility \& Handover; Latency \& Deadline Optimization; Caching \& Content Placement; MAC, Spectrum \& Radio Resource Management; Cost, Economics \& Provisioning; Coding, Compression \& Redundancy; Energy, Carbon \& Sustainability}
-\taglist{MEC, edge intelligence, cloud-edge orchestration, fog computing, serverless, microservices, service mesh, digital twins, disaggregated resources}
+\begin{tcolorbox}[
+    colback=black!3,
+    colframe=black!50,
+    boxrule=0.6pt,
+    arc=1.2mm,
+    left=2.5mm,right=2.5mm,top=2mm,bottom=2mm
+]
+\textbf{روش استفاده از این پیوست:}
+یک یا چند خانه‌ی معنادار از ترکیب \textbf{حوزه $\times$ جنبه‌ی طراحی} را انتخاب کنید و در صورت نیاز با یک یا چند برچسب فناوری محدودترشان کنید. لازم نیست همه‌ی جنبه‌ها را پوشش دهید. اگر چند جنبه را هم‌زمان انتخاب می‌کنید، باید تعامل میان آن‌ها بخشی واقعی از پرسش پروژه باشد و کل محدوده همچنان در سه فاز پروژه قابل بررسی بماند.
+\end{tcolorbox}
 
-\subsection{\lr{Packet Networks \& End-to-End Protocols}}
-\aspectlist{Transport \& Congestion Control; Routing \& Path Selection; Security, Privacy \& Trust; Scheduling \& Resource Allocation; Reliability, Fault Tolerance \& Recovery; Protocol Design \& Interoperability; Traffic Engineering \& Load Balancing; Latency \& Deadline Optimization; Cost, Economics \& Provisioning; Coding, Compression \& Redundancy}
-\taglist{transport protocols, packet routing, queueing, multipath, TCP, QUIC, FEC, SDN-assisted control}
+\projectarea{Cellular \& Wireless Access Networks}{
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{MAC, Spectrum \& Radio Resource Management}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Mobility \& Handover}
+    \item \lr{Admission Control \& Network Slicing}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Energy, Carbon \& Sustainability}
+    \item \lr{Architecture \& System Design}
+}{cellular RAN, Wi-Fi/WLAN, ad hoc/mesh, spectrum/radio access, 5G, 6G, O-RAN, network slicing, Wi-Fi, RIS, NOMA, beamforming, URLLC, ISAC, D2D, massive/cell-free MIMO}
 
-\subsection{\lr{Autonomous \& Cyber-Physical Networks}}
-\aspectlist{Scheduling \& Resource Allocation; Placement, Offloading \& Partitioning; Security, Privacy \& Trust; Mobility \& Handover; Routing \& Path Selection; MAC, Spectrum \& Radio Resource Management; Latency \& Deadline Optimization; Caching \& Content Placement; Energy, Carbon \& Sustainability; Architecture \& System Design}
-\taglist{vehicular/V2X, UAV/aerial, robotics/teleoperation, V2X, UAV swarms, autonomous driving, cooperative perception, ITS, digital twins, MEC, 5G/6G}
+\projectarea{Edge, Cloud \& Networked Services}{
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Mobility \& Handover}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Caching \& Content Placement}
+    \item \lr{MAC, Spectrum \& Radio Resource Management}
+    \item \lr{Cost, Economics \& Provisioning}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Energy, Carbon \& Sustainability}
+}{MEC, edge intelligence, cloud-edge orchestration, fog computing, serverless, microservices, service mesh, digital twins, disaggregated resources}
 
-\subsection{\lr{IoT, Sensor \& Industrial Networks}}
-\aspectlist{Scheduling \& Resource Allocation; Security, Privacy \& Trust; Routing \& Path Selection; Placement, Offloading \& Partitioning; Latency \& Deadline Optimization; MAC, Spectrum \& Radio Resource Management; Localization \& Positioning; Throughput, Capacity \& Scalability; Energy, Carbon \& Sustainability; Topology, Fabric \& Architecture}
-\taglist{sensor networks, LPWAN, industrial/factory networks, deterministic networking, TSN, LoRa/LPWAN, RFID, backscatter, energy harvesting, industrial IoT, URLLC}
+\projectarea{Packet Networks \& End-to-End Protocols}{
+    \item \lr{Transport \& Congestion Control}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Reliability, Fault Tolerance \& Recovery}
+    \item \lr{Protocol Design \& Interoperability}
+    \item \lr{Traffic Engineering \& Load Balancing}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Cost, Economics \& Provisioning}
+    \item \lr{Coding, Compression \& Redundancy}
+}{transport protocols, packet routing, queueing, multipath, TCP, QUIC, FEC, SDN-assisted control}
 
-\subsection{\lr{Datacenter \& AI Cluster Networks}}
-\aspectlist{Transport \& Congestion Control; Scheduling \& Resource Allocation; Programmability \& Hardware Offload; Placement, Offloading \& Partitioning; Routing \& Path Selection; Traffic Engineering \& Load Balancing; Latency \& Deadline Optimization; Architecture \& System Design; Coding, Compression \& Redundancy; Topology, Fabric \& Architecture}
-\taglist{datacenter transport, AI/GPU clusters, RDMA, RoCE, ECN, PFC, SmartNIC/DPU, collectives, coflows, in-network aggregation, optical interconnects, P4}
+\projectarea{Autonomous \& Cyber-Physical Networks}{
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Mobility \& Handover}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{MAC, Spectrum \& Radio Resource Management}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Caching \& Content Placement}
+    \item \lr{Energy, Carbon \& Sustainability}
+    \item \lr{Architecture \& System Design}
+}{vehicular/V2X, UAV/aerial, robotics/teleoperation, V2X, UAV swarms, autonomous driving, cooperative perception, ITS, digital twins, MEC, 5G/6G}
 
-\subsection{\lr{Network Security, Privacy \& Censorship}}
-\aspectlist{Security, Privacy \& Trust; Traffic Analysis \& Classification; Control-Plane Design \& Management; Programmability \& Hardware Offload; Scheduling \& Resource Allocation; Telemetry \& Monitoring; Architecture \& System Design; Coding, Compression \& Redundancy; Measurement \& Characterization; Packet Processing \& Data Structures}
-\taglist{routing/DNS security, traffic security, censorship resistance, anonymity, DDoS, intrusion detection, encrypted traffic, DNSSEC, TLS, QUIC, Tor/onion services}
+\projectarea{IoT, Sensor \& Industrial Networks}{
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{MAC, Spectrum \& Radio Resource Management}
+    \item \lr{Localization \& Positioning}
+    \item \lr{Throughput, Capacity \& Scalability}
+    \item \lr{Energy, Carbon \& Sustainability}
+    \item \lr{Topology, Fabric \& Architecture}
+}{sensor networks, LPWAN, industrial/factory networks, deterministic networking, TSN, LoRa/LPWAN, RFID, backscatter, energy harvesting, industrial IoT, URLLC}
 
-\subsection{\lr{Real-Time Media \& Immersive Networking}}
-\aspectlist{Latency \& Deadline Optimization; Architecture \& System Design; Application Adaptation \& Cross-Layer Control; Transport \& Congestion Control; QoS, QoE \& SLO Management; Scheduling \& Resource Allocation; Coding, Compression \& Redundancy; Placement, Offloading \& Partitioning; Measurement \& Characterization; Caching \& Content Placement}
-\taglist{conferencing, interactive/live streaming, cloud gaming, XR/AR/VR, volumetric media, WebRTC, ABR, FEC, QUIC, volumetric video, 3D Gaussian splatting}
+\projectarea{Datacenter \& AI Cluster Networks}{
+    \item \lr{Transport \& Congestion Control}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Programmability \& Hardware Offload}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Traffic Engineering \& Load Balancing}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Architecture \& System Design}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Topology, Fabric \& Architecture}
+}{datacenter transport, AI/GPU clusters, RDMA, RoCE, ECN, PFC, SmartNIC/DPU, collectives, coflows, in-network aggregation, optical interconnects, P4}
 
-\subsection{\lr{Distributed AI \& LLM Systems}}
-\aspectlist{Security, Privacy \& Trust; Scheduling \& Resource Allocation; Coding, Compression \& Redundancy; Model/State Placement \& Movement; Placement, Offloading \& Partitioning; Cost, Economics \& Provisioning; Latency \& Deadline Optimization; Energy, Carbon \& Sustainability; Caching \& Content Placement; Throughput, Capacity \& Scalability}
-\taglist{distributed/federated training, inference/serving, split inference, federated learning, distributed training, LLM inference, model serving, MoE, KV cache, collectives, differential privacy}
+\projectarea{Network Security, Privacy \& Censorship}{
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Traffic Analysis \& Classification}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Programmability \& Hardware Offload}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Telemetry \& Monitoring}
+    \item \lr{Architecture \& System Design}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Packet Processing \& Data Structures}
+}{routing/DNS security, traffic security, censorship resistance, anonymity, DDoS, intrusion detection, encrypted traffic, DNSSEC, TLS, QUIC, Tor/onion services}
 
-\subsection{\lr{Satellite \& Non-Terrestrial Networks}}
-\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Mobility \& Handover; Placement, Offloading \& Partitioning; Latency \& Deadline Optimization; Architecture \& System Design; Control-Plane Design \& Management; Transport \& Congestion Control; Service Chaining \& Virtualization; Measurement \& Characterization}
-\taglist{LEO, satellite Internet, Starlink, direct-to-cell, inter-satellite links, ground stations, satellite-terrestrial integration, NTN, satellite edge}
+\projectarea{Real-Time Media \& Immersive Networking}{
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Architecture \& System Design}
+    \item \lr{Application Adaptation \& Cross-Layer Control}
+    \item \lr{Transport \& Congestion Control}
+    \item \lr{QoS, QoE \& SLO Management}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Caching \& Content Placement}
+}{conferencing, interactive/live streaming, cloud gaming, XR/AR/VR, volumetric media, WebRTC, ABR, FEC, QUIC, volumetric video, 3D Gaussian splatting}
 
-\subsection{\lr{Network Measurement \& Operations}}
-\aspectlist{Telemetry \& Monitoring; Measurement \& Characterization; Security, Privacy \& Trust; Diagnosis \& Root Cause Analysis; Packet Processing \& Data Structures; Routing \& Path Selection; Programmability \& Hardware Offload; Control-Plane Design \& Management; Topology, Fabric \& Architecture; Traffic Engineering \& Load Balancing}
-\taglist{observability, telemetry, troubleshooting, configuration/state management, network digital twins, P4, SDN, SRv6}
+\projectarea{Distributed AI \& LLM Systems}{
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Model/State Placement \& Movement}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Cost, Economics \& Provisioning}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Energy, Carbon \& Sustainability}
+    \item \lr{Caching \& Content Placement}
+    \item \lr{Throughput, Capacity \& Scalability}
+}{distributed/federated training, inference/serving, split inference, federated learning, distributed training, LLM inference, model serving, MoE, KV cache, collectives, differential privacy}
 
-\subsection{\lr{Programmable Network Infrastructure}}
-\aspectlist{Programmability \& Hardware Offload; Service Chaining \& Virtualization; Packet Processing \& Data Structures; Security, Privacy \& Trust; Scheduling \& Resource Allocation; Control-Plane Design \& Management; Placement, Offloading \& Partitioning; Measurement \& Characterization; Reliability, Fault Tolerance \& Recovery; Verification \& Correctness}
-\taglist{programmable data planes, NFV, service chaining, in-network computing, middleboxes, P4, eBPF, SmartNIC/DPU, NFV, service-function chaining, SDN}
+\projectarea{Satellite \& Non-Terrestrial Networks}{
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Mobility \& Handover}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Architecture \& System Design}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Transport \& Congestion Control}
+    \item \lr{Service Chaining \& Virtualization}
+    \item \lr{Measurement \& Characterization}
+}{LEO, satellite Internet, Starlink, direct-to-cell, inter-satellite links, ground stations, satellite-terrestrial integration, NTN, satellite edge}
 
-\subsection{\lr{Internet Routing, WAN \& CDN}}
-\aspectlist{Routing \& Path Selection; Measurement \& Characterization; Security, Privacy \& Trust; Architecture \& System Design; Traffic Engineering \& Load Balancing; Caching \& Content Placement; Control-Plane Design \& Management; Coding, Compression \& Redundancy; Traffic Analysis \& Classification; Transport \& Congestion Control}
-\taglist{interdomain routing, WANs, naming/addressing, CDNs, BGP, DNS, IPv6, Anycast, submarine cables, Internet scanning, Tor/onion services}
+\projectarea{Network Measurement \& Operations}{
+    \item \lr{Telemetry \& Monitoring}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Diagnosis \& Root Cause Analysis}
+    \item \lr{Packet Processing \& Data Structures}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Programmability \& Hardware Offload}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Topology, Fabric \& Architecture}
+    \item \lr{Traffic Engineering \& Load Balancing}
+}{observability, telemetry, troubleshooting, configuration/state management, network digital twins, P4, SDN, SRv6}
 
-\subsection{\lr{P2P \& Decentralized Networks}}
-\aspectlist{Security, Privacy \& Trust; Distributed Coordination \& Consensus; Throughput, Capacity \& Scalability; Routing \& Path Selection; Scheduling \& Resource Allocation; Protocol Design \& Interoperability; Reliability, Fault Tolerance \& Recovery; Topology, Fabric \& Architecture; Coding, Compression \& Redundancy; Latency \& Deadline Optimization}
-\taglist{peer-to-peer overlays, blockchain networks, decentralized services, Blockchain/P2P, payment channels, anonymous communication}
+\projectarea{Programmable Network Infrastructure}{
+    \item \lr{Programmability \& Hardware Offload}
+    \item \lr{Service Chaining \& Virtualization}
+    \item \lr{Packet Processing \& Data Structures}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Reliability, Fault Tolerance \& Recovery}
+    \item \lr{Verification \& Correctness}
+}{programmable data planes, NFV, service chaining, in-network computing, middleboxes, P4, eBPF, SmartNIC/DPU, NFV, service-function chaining, SDN}
 
-\subsection{\lr{Quantum Networks}}
-\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Topology, Fabric \& Architecture; Cost, Economics \& Provisioning; Throughput, Capacity \& Scalability; Control-Plane Design \& Management; Fairness, Isolation \& Multi-Tenancy; Measurement \& Characterization; Protocol Design \& Interoperability; Verification \& Correctness}
-\taglist{quantum Internet, entanglement distribution, quantum switches, distributed quantum systems, quantum entanglement}
+\projectarea{Internet Routing, WAN \& CDN}{
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Architecture \& System Design}
+    \item \lr{Traffic Engineering \& Load Balancing}
+    \item \lr{Caching \& Content Placement}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Traffic Analysis \& Classification}
+    \item \lr{Transport \& Congestion Control}
+}{interdomain routing, WANs, naming/addressing, CDNs, BGP, DNS, IPv6, Anycast, submarine cables, Internet scanning, Tor/onion services}
 
-\subsection{\lr{Harsh-Environment \& Delay-Tolerant Networks}}
-\aspectlist{Routing \& Path Selection; Scheduling \& Resource Allocation; Security, Privacy \& Trust; Control-Plane Design \& Management; MAC, Spectrum \& Radio Resource Management; Latency \& Deadline Optimization; Localization \& Positioning; Placement, Offloading \& Partitioning; Telemetry \& Monitoring; Topology, Fabric \& Architecture}
-\taglist{underwater acoustic networks, disconnected/intermittent networks, underwater acoustic, DTN}
+\projectarea{P2P \& Decentralized Networks}{
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Distributed Coordination \& Consensus}
+    \item \lr{Throughput, Capacity \& Scalability}
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Protocol Design \& Interoperability}
+    \item \lr{Reliability, Fault Tolerance \& Recovery}
+    \item \lr{Topology, Fabric \& Architecture}
+    \item \lr{Coding, Compression \& Redundancy}
+    \item \lr{Latency \& Deadline Optimization}
+}{peer-to-peer overlays, blockchain networks, decentralized services, Blockchain/P2P, payment channels, anonymous communication}
 
-\section{نحوه‌ی استفاده از پیوست}
-حوزه‌ها و جنبه‌های بالا نقطه‌ی شروع‌اند، نه فهرست پروژه‌های آماده. گروه باید ترکیبی را انتخاب کند که به یک پرسش پژوهشی قابل بررسی منجر شود. استفاده از چند جنبه یا چند برچسب ممکن است، اما فقط زمانی مناسب است که تعامل میان آن‌ها خود بخش مهمی از پرسش باشد و دامنه همچنان در سه فاز پروژه قابل ارزیابی باقی بماند.
+\projectarea{Quantum Networks}{
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Topology, Fabric \& Architecture}
+    \item \lr{Cost, Economics \& Provisioning}
+    \item \lr{Throughput, Capacity \& Scalability}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{Fairness, Isolation \& Multi-Tenancy}
+    \item \lr{Measurement \& Characterization}
+    \item \lr{Protocol Design \& Interoperability}
+    \item \lr{Verification \& Correctness}
+}{quantum Internet, entanglement distribution, quantum switches, distributed quantum systems, quantum entanglement}
+
+\projectarea{Harsh-Environment \& Delay-Tolerant Networks}{
+    \item \lr{Routing \& Path Selection}
+    \item \lr{Scheduling \& Resource Allocation}
+    \item \lr{Security, Privacy \& Trust}
+    \item \lr{Control-Plane Design \& Management}
+    \item \lr{MAC, Spectrum \& Radio Resource Management}
+    \item \lr{Latency \& Deadline Optimization}
+    \item \lr{Localization \& Positioning}
+    \item \lr{Placement, Offloading \& Partitioning}
+    \item \lr{Telemetry \& Monitoring}
+    \item \lr{Topology, Fabric \& Architecture}
+}{underwater acoustic networks, disconnected/intermittent networks, underwater acoustic, DTN}
 
 \end{document}
