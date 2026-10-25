@@ -594,6 +594,149 @@ def usenix_conference(spec, year):
     print(f"USENIX {spec['name']} {year}: kept {len(rows)} from {len(paper_nodes)} paper nodes", flush=True)
     return rows
 
+
+def official_list_conference(spec, year, url):
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+    seen = set()
+
+    # Accepted-paper/program pages in the SIGCOMM family and ICNP generally
+    # represent each paper as a leaf list item or a compact paragraph/block.
+    candidates = []
+    for li in soup.find_all("li"):
+        if li.find("li"):
+            continue
+        strings = [norm(x) for x in li.stripped_strings if norm(x)]
+        if len(strings) >= 2:
+            candidates.append(strings)
+
+    # ICNP-style accepted pages may use paragraph/div blocks instead of lists.
+    if len(candidates) < int(spec.get("hard_min", 1)):
+        for tag in soup.find_all(["p","div"]):
+            if tag.find(["p","div"], recursive=False):
+                continue
+            strings = [norm(x) for x in tag.stripped_strings if norm(x)]
+            if 2 <= len(strings) <= 8:
+                candidates.append(strings)
+
+    skip_prefixes = (
+        "home","call for","registration","program committee","conference information",
+        "deadline","session chair","break","lunch","opening remarks","closing remarks",
+        "keynote","panel","award","cycle 1","cycle 2","accepted papers","technical program",
+    )
+    for strings in candidates:
+        title = strings[0]
+        title = re.sub(r"\s+(?:Long|Short)\s*$", "", title, flags=re.I).strip()
+        if len(title) < 12 or title.lower().startswith(skip_prefixes):
+            continue
+        if re.match(r"^\d{1,2}:\d{2}", title):
+            continue
+
+        authors = strings[1] if len(strings) > 1 else ""
+        if not authors or authors.lower().startswith(("abstract", "available media", "session chair")):
+            continue
+
+        # Author lines on these pages either contain comma/semicolon-separated
+        # names or affiliation parentheses. This rejects navigation prose.
+        if not any(ch in authors for ch in [",",";","("]) and len(authors.split()) < 2:
+            continue
+
+        key = slug(title)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        abstract = ""
+        for s in strings[2:]:
+            if s.lower().startswith("abstract"):
+                abstract = re.sub(r"^abstract\s*:\s*", "", s, flags=re.I)
+                break
+        kw, provenance = _usenix_keywords(title, abstract)
+        rows.append({
+            "title": title.rstrip("."),
+            "authors": authors,
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": url,
+            "openalex_id": "",
+            "metadata_source": "official accepted/program page",
+            "paper_type": "conference paper",
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": abstract,
+        })
+    rows = dedupe(rows)
+    print(f"OFFICIAL {spec['name']} {year}: kept {len(rows)} from {url}", flush=True)
+    return rows
+
+
+def crossref_doi_stem(spec, year, stem):
+    base = "https://api.crossref.org/works"
+    prefix = stem.split("/", 1)[0]
+    rows = []
+    cursor = "*"
+    pages = 0
+    while cursor and pages < 5:
+        params = {
+            "filter": (
+                f"from-pub-date:{year}-01-01,"
+                f"until-pub-date:{year}-12-31,"
+                f"type:proceedings-article,"
+                f"prefix:{prefix}"
+            ),
+            "query": stem,
+            "rows": 1000,
+            "cursor": cursor,
+            "select": "DOI,title,author,container-title,URL,type,subject,abstract,published",
+        }
+        data = get_json(base, params=params, attempts=6, pause=1.0)
+        msg = data.get("message") or {}
+        items = msg.get("items") or []
+        if not items:
+            break
+        matched = 0
+        for item in items:
+            doi = norm(item.get("DOI")).lower()
+            if not doi.startswith(stem.lower() + "."):
+                continue
+            row = _crossref_item_row(
+                item, spec["name"], year, "conference", spec.get("core", False), "Crossref DOI-family"
+            )
+            if row:
+                rows.append(row)
+                matched += 1
+        pages += 1
+        cursor = norm(msg.get("next-cursor"))
+        print(f"DOI-FAMILY {spec['name']} {year}: page {pages}, matched {matched}", flush=True)
+        if matched == 0 and rows:
+            break
+        time.sleep(0.05)
+    rows = dedupe(rows)
+    print(f"DOI-FAMILY {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
+
+def openalex_conference(spec, year):
+    rows = collect_works(
+        spec.get("source_ids", []),
+        year,
+        venue_override=spec["name"],
+        kind="conference",
+        core=spec.get("core", False),
+    )
+    rows = dedupe(rows)
+    print(f"OPENALEX {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
 def nines_2026(spec):
     url = spec["official_2026"]
     soup = BeautifulSoup(get_html(url), "html.parser")
