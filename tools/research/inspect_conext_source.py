@@ -1,18 +1,27 @@
 #!/usr/bin/env python3
+import re
 import requests
-from bs4 import BeautifulSoup
-from urllib.parse import urljoin
 
+H={"User-Agent":"advanced-network-course-source-inspector/1.0"}
 for year in [2023,2024,2025,2026]:
     base=f"https://conferences2.sigcomm.org/co-next/{year}/"
-    r=requests.get(base,timeout=10,headers={"User-Agent":"advanced-network-course-source-inspector/1.0"})
-    print(f"YEAR={year} STATUS={r.status_code} BYTES={len(r.content)}", flush=True)
-    soup=BeautifulSoup(r.text,"html.parser")
-    for tag in soup.find_all(["script","link","iframe"]):
-        attrs={k:v for k,v in tag.attrs.items() if k in ["src","href","rel","type"]}
-        if attrs:
-            if "src" in attrs: attrs["src"]=urljoin(base,attrs["src"])
-            if "href" in attrs: attrs["href"]=urljoin(base,attrs["href"])
-            print(f"  {tag.name} {attrs}", flush=True)
-    print("RAW=" + " ".join(r.text.split())[:1800], flush=True)
-    print("----", flush=True)
+    print(f"YEAR={year}",flush=True)
+    for path in ["js/app.js","js/variables.js"]:
+        url=base+path
+        r=requests.get(url,timeout=15,headers=H)
+        print(f"  FILE={path} STATUS={r.status_code} BYTES={len(r.content)}",flush=True)
+        if r.status_code!=200:
+            continue
+        raw=r.text
+        low=raw.lower()
+        templates=sorted(set(re.findall(r'''templateUrl\s*:\s*["']([^"']+)["']''',raw,re.I)))
+        for t in templates:
+            if any(k in t.lower() for k in ["accept","program","paper"]):
+                print(f"    TEMPLATE={t}",flush=True)
+        for term in ["accepted","program","papers"]:
+            positions=[m.start() for m in re.finditer(term,low)]
+            print(f"    TERM={term} N={len(positions)}",flush=True)
+            for pos in positions[:8]:
+                snippet=re.sub(r"\s+"," ",raw[max(0,pos-260):min(len(raw),pos+520)])
+                print("      "+snippet[:780],flush=True)
+    print("----",flush=True)
