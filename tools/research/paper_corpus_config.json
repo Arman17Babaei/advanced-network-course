@@ -203,12 +203,12 @@
       "hard_min": 80,
       "validate_through": 2026,
       "core": false,
-      "provider": "dblp_html",
+      "provider": "ipdps_official",
       "source_ids": [
         "https://openalex.org/S4210174069"
       ],
       "enabled": false,
-      "live_provider": "dblp_html",
+      "live_provider": "ipdps_official",
       "doi_stems": {
         "2023": "10.1109/IPDPS54959.2023",
         "2024": "10.1109/IPDPS57955.2024",
@@ -218,10 +218,10 @@
       "expected_counts": {
         "2023": 95,
         "2024": 88,
-        "2025": 105
+        "2025": 105,
+        "2026": 101
       },
-      "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
-      "collection_status": "validating exact DBLP proceedings table"
+      "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html"
     },
     {
       "name": "ICDCS",
