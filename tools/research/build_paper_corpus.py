@@ -487,51 +487,83 @@ def usenix_conference(spec, year):
     index_url = f"https://www.usenix.org/conference/{slug_value}/technical-sessions"
     soup = BeautifulSoup(get_html(index_url), "html.parser")
     path_marker = f"/conference/{slug_value}/presentation/"
-    links = {}
-    for a in soup.find_all("a", href=True):
-        href = norm(a.get("href"))
-        if path_marker not in href:
-            continue
-        title = norm(a.get_text(" ", strip=True))
-        if not title or len(title) < 8:
-            continue
-        if title.lower() in {"available media","video","slides","paper","presentation"}:
-            continue
-        url = urljoin(index_url, href)
-        if url not in links or len(title) > len(links[url]):
-            links[url] = title
-
     rows = []
-    for idx, (url, listed_title) in enumerate(sorted(links.items()), start=1):
-        try:
-            psoup = BeautifulSoup(get_html(url), "html.parser")
-        except Exception as e:
-            print(f"WARNING USENIX page {url}: {e}", file=sys.stderr)
+    seen_urls = set()
+
+    # USENIX technical-session pages render papers as Drupal node-paper
+    # blocks. Parse those blocks directly; this is both faster and less
+    # fragile than issuing one HTTP request per paper.
+    paper_nodes = []
+    for tag in soup.find_all(["article", "div"]):
+        classes = " ".join(tag.get("class") or [])
+        if "node-paper" in classes or ("node--type-paper" in classes):
+            if tag.find("a", href=lambda x: x and path_marker in x):
+                paper_nodes.append(tag)
+
+    for node in paper_nodes:
+        a = node.find("a", href=lambda x: x and path_marker in x)
+        if not a:
+            continue
+        url = urljoin(index_url, a.get("href"))
+        if url in seen_urls:
+            continue
+        seen_urls.add(url)
+        title = norm(a.get_text(" ", strip=True)).rstrip(".")
+        if not title:
             continue
 
-        citation_title = _meta_values(psoup, "citation_title")
-        title = citation_title[0] if citation_title else listed_title
-        authors = _meta_values(psoup, "citation_author")
-        pdfs = _meta_values(psoup, "citation_pdf_url")
-        # Technical-session pages also contain keynotes and panels. Proceedings
-        # papers expose citation_pdf_url; require it for the paper inventory.
-        if not pdfs:
-            continue
+        authors = ""
+        for tag in node.find_all(["div","p","span"]):
+            classes = " ".join(tag.get("class") or []).lower()
+            if "paper-people" in classes or ("people" in classes and "paper" in classes):
+                authors = norm(tag.get_text(" ", strip=True))
+                if authors:
+                    break
+        if not authors:
+            # Usually the first compact text block after the title is the
+            # author/affiliation line.
+            h = a.find_parent(["h2","h3","h4"])
+            if h:
+                nxt = h.find_next_sibling()
+                hops = 0
+                while nxt is not None and hops < 5:
+                    txt = norm(nxt.get_text(" ", strip=True)) if hasattr(nxt, "get_text") else ""
+                    if txt and not txt.lower().startswith(("available media","abstract","download")):
+                        authors = txt
+                        break
+                    nxt = nxt.find_next_sibling()
+                    hops += 1
 
-        abstract_values = _meta_values(psoup, "description")
-        abstract = abstract_values[0] if abstract_values else ""
-        keywords = _meta_values(psoup, "citation_keywords")
-        if not keywords:
-            keywords = _meta_values(psoup, "keywords")
-        if keywords:
-            kw = "; ".join(dict.fromkeys(keywords))
+        abstract = ""
+        for tag in node.find_all(["div","p"]):
+            classes = " ".join(tag.get("class") or []).lower()
+            if "abstract" in classes:
+                abstract = norm(tag.get_text(" ", strip=True))
+                if abstract:
+                    break
+
+        keyword_tags = node.find_all(attrs={"class": re.compile(r"keyword", re.I)})
+        publisher_keywords = []
+        for tag in keyword_tags:
+            txt = norm(tag.get_text(" ", strip=True))
+            if txt and txt not in publisher_keywords:
+                publisher_keywords.append(txt)
+        if publisher_keywords:
+            kw = "; ".join(publisher_keywords)
             provenance = "publisher metadata keywords"
         else:
             kw, provenance = _usenix_keywords(title, abstract)
 
+        pdf = node.find("a", href=re.compile(r"\.pdf(?:$|\?)", re.I))
+        if pdf is None:
+            # Some layouts wrap the PDF link in an image/file field whose URL
+            # does not literally end in .pdf in the HTML. A presentation URL
+            # inside a node-paper block is still considered a proceedings paper.
+            pass
+
         rows.append({
-            "title": norm(title).rstrip("."),
-            "authors": "; ".join(authors),
+            "title": title,
+            "authors": authors,
             "venue": spec["name"],
             "raw_venue": spec["name"],
             "year": year,
@@ -540,7 +572,7 @@ def usenix_conference(spec, year):
             "doi": "",
             "url": url,
             "openalex_id": "",
-            "metadata_source": "USENIX technical sessions + presentation metadata",
+            "metadata_source": "USENIX technical sessions",
             "paper_type": "conference paper",
             "keywords": kw,
             "keyword_provenance": provenance,
@@ -552,11 +584,74 @@ def usenix_conference(spec, year):
             "_core": bool(spec.get("core", False)),
             "_abstract": abstract,
         })
-        if idx % 50 == 0:
-            print(f"USENIX {spec['name']} {year}: checked {idx}/{len(links)}, kept {len(rows)}", flush=True)
-        time.sleep(0.02)
+
+    # Fallback for a future layout change: recover presentation links from the
+    # schedule page, but do not crawl every page unless node-paper parsing found
+    # implausibly few papers.
+    if len(rows) < int(spec.get("hard_min", 1)):
+        links = {}
+        for a in soup.find_all("a", href=True):
+            href = norm(a.get("href"))
+            if path_marker not in href:
+                continue
+            title = norm(a.get_text(" ", strip=True))
+            if not title or len(title) < 8:
+                continue
+            if title.lower() in {"available media","video","slides","paper","presentation"}:
+                continue
+            url = urljoin(index_url, href)
+            if url not in links or len(title) > len(links[url]):
+                links[url] = title
+
+        for url, listed_title in sorted(links.items()):
+            if url in seen_urls:
+                continue
+            try:
+                psoup = BeautifulSoup(get_html(url), "html.parser")
+            except Exception as e:
+                print(f"WARNING USENIX page {url}: {e}", file=sys.stderr)
+                continue
+            citation_title = _meta_values(psoup, "citation_title")
+            title = citation_title[0] if citation_title else listed_title
+            authors = _meta_values(psoup, "citation_author")
+            pdfs = _meta_values(psoup, "citation_pdf_url")
+            if not pdfs:
+                continue
+            abstract_values = _meta_values(psoup, "description")
+            abstract = abstract_values[0] if abstract_values else ""
+            kw_values = _meta_values(psoup, "citation_keywords") or _meta_values(psoup, "keywords")
+            if kw_values:
+                kw = "; ".join(dict.fromkeys(kw_values))
+                provenance = "publisher metadata keywords"
+            else:
+                kw, provenance = _usenix_keywords(title, abstract)
+            rows.append({
+                "title": norm(title).rstrip("."),
+                "authors": "; ".join(authors),
+                "venue": spec["name"],
+                "raw_venue": spec["name"],
+                "year": year,
+                "venue_kind": "conference",
+                "source_id": "",
+                "doi": "",
+                "url": url,
+                "openalex_id": "",
+                "metadata_source": "USENIX presentation metadata fallback",
+                "paper_type": "conference paper",
+                "keywords": kw,
+                "keyword_provenance": provenance,
+                "topics": "",
+                "primary_topic": "",
+                "categories": "",
+                "network_relevance_score": 0,
+                "network_relevant": False,
+                "_core": bool(spec.get("core", False)),
+                "_abstract": abstract,
+            })
+            seen_urls.add(url)
+
     rows = dedupe(rows)
-    print(f"USENIX {spec['name']} {year}: kept {len(rows)}", flush=True)
+    print(f"USENIX {spec['name']} {year}: kept {len(rows)} from {len(paper_nodes)} paper nodes", flush=True)
     return rows
 
 def nines_2026(spec):
