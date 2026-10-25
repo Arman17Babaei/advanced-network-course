@@ -100,7 +100,7 @@ def main():
                 failures.append(f"{name} {y}: {n} != expected {expected}")
 
     tx_rows=[]
-    tx_files=sorted(TX.glob("ieee_transactions_*.csv"))
+    tx_files=sorted(p for p in TX.glob("ieee_transactions_*.csv") if p.name != "ieee_transactions_network.csv")
     if not tx_files:
         failures.append("no Transactions snapshots found")
     for path in tx_files:
