@@ -232,20 +232,37 @@
     },
     {
       "name": "ICDCS",
-      "hard_min": 60,
+      "hard_min": 80,
       "validate_through": 2026,
       "core": false,
-      "provider": "static_csv",
+      "provider": "icdcs_official",
       "source_ids": [
         "https://openalex.org/S4363608224",
         "https://openalex.org/S4306419352",
         "https://openalex.org/S4393916864"
       ],
-      "enabled": true,
-      "collection_status": "validated and frozen; verified proceedings front matter excluded",
-      "live_provider": "openalex",
+      "enabled": false,
+      "collection_status": "validating official main-paper inventory",
+      "live_provider": "icdcs_official",
       "drop_authorless_front_matter": true,
-      "snapshot": "materials/assessments/data/venues/icdcs.csv"
+      "snapshot": "materials/assessments/data/venues/icdcs.csv",
+      "expected_counts": {
+        "2023": 83,
+        "2024": 121,
+        "2025": 104,
+        "2026": 138
+      },
+      "doi_stems": {
+        "2023": "10.1109/ICDCS57875.2023"
+      },
+      "doi_max_suffix": {
+        "2023": 130
+      },
+      "official_urls": {
+        "2024": "https://icdcs2024.icdcs.org/accepted-papers/",
+        "2025": "https://icdcs2025.icdcs.org/accepted-papers/",
+        "2026": "https://icdcs2026.icdcs.org/program/main-technical-sessions/"
+      }
     },
     {
       "name": "OSDI",
