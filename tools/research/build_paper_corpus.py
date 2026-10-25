@@ -692,7 +692,10 @@ def crossref_doi_stem(spec, year, stem):
                 f"until-pub-date:{year}-12-31,"
                 f"prefix:{prefix}"
             ),
-            "query": stem,
+            "query.container-title": spec.get(
+                "query",
+                f"IEEE International Parallel and Distributed Processing Symposium IPDPS {year}"
+            ),
             "rows": 1000,
             "cursor": cursor,
             "select": "DOI,title,author,container-title,URL,type,subject,abstract,published",
