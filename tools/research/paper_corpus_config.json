@@ -183,7 +183,7 @@
       "hard_min": 20,
       "validate_through": 2026,
       "core": true,
-      "provider": "openalex_crossref",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S7407085912"
       ],
@@ -191,7 +191,9 @@
       "query": "ACM Multimedia Systems Conference MMSys",
       "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
       "max_crossref_pages": 5,
-      "enabled": false
+      "enabled": true,
+      "live_provider": "openalex_crossref",
+      "snapshot": "materials/assessments/data/venues/mmsys.csv"
     },
     {
       "name": "IPDPS",
