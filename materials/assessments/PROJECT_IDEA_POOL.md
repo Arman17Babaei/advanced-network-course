@@ -17,7 +17,6 @@ The machine-readable evidence base is now a validated, checked-in corpus rather 
 - [`data/master_paper_corpus.csv`](data/master_paper_corpus.csv) — master combined corpus with paper metadata plus explicit source-vs-derived keyword fields;
 - [`data/all_conference_papers.csv`](data/all_conference_papers.csv) — **9,991** papers from the requested conference series;
 - [`data/ieee_transactions_network.csv`](data/ieee_transactions_network.csv) — **6,968** networking-relevant papers from selected IEEE Transactions journals;
-- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — the combined **16,959-record** corpus used for topic/category analysis;
 - [`data/PAPER_CORPUS_SUMMARY.md`](data/PAPER_CORPUS_SUMMARY.md) — generated venue/year coverage, keyword provenance, and category counts;
 - [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable per-venue/per-year counts;
 - [`data/venues/`](data/venues/) — frozen, independently validated conference snapshots;
@@ -68,7 +67,7 @@ Counts below come from the full 16,959-record corpus. Categories are **not mutua
 
 ## Representative paper anchors
 
-The tables below are **human-readable anchors selected from the full machine-readable corpus**. They are deliberately biased toward papers that can generate network-design projects for this course; the exhaustive paper inventory is in `data/recent_networking_papers.csv`.
+The tables below are **human-readable anchors selected from the full machine-readable corpus**. They are deliberately biased toward papers that can generate network-design projects for this course; the exhaustive paper inventory is in `data/master_paper_corpus.csv`.
 
 ### AI cluster networks and distributed training
 
