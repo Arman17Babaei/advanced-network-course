@@ -167,8 +167,16 @@ def work_row(w, venue_override=None, kind=None, core=False, metadata_source="Ope
         [(norm(x.get("display_name")), float(x.get("score") or 0)) for x in (w.get("keywords") or []) if norm(x.get("display_name"))],
         key=lambda x: -x[1],
     )
-    topics = [norm(x.get("display_name")) for x in (w.get("topics") or []) if norm(x.get("display_name"))]
-    primary = norm((w.get("primary_topic") or {}).get("display_name"))
+    topics_raw = w.get("topics") or []
+    topics = [norm(x.get("display_name")) for x in topics_raw if norm(x.get("display_name"))]
+    topic_subfields = sorted({
+        norm((x.get("subfield") or {}).get("display_name"))
+        for x in topics_raw
+        if norm((x.get("subfield") or {}).get("display_name"))
+    })
+    primary_obj = w.get("primary_topic") or {}
+    primary = norm(primary_obj.get("display_name"))
+    primary_subfield = norm((primary_obj.get("subfield") or {}).get("display_name"))
     landing = norm((w.get("primary_location") or {}).get("landing_page_url"))
     return {
         "title": norm(w.get("display_name")).rstrip("."),
@@ -191,6 +199,8 @@ def work_row(w, venue_override=None, kind=None, core=False, metadata_source="Ope
         "network_relevance_score": 0,
         "network_relevant": False,
         "_core": bool(core),
+        "_topic_subfields": topic_subfields,
+        "_primary_subfield": primary_subfield,
     }
 
 def collect_works(source_ids, year, venue_override=None, kind=None, core=False):
