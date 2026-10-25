@@ -78,7 +78,7 @@
         "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
       },
       "enabled": true,
-      "live_provider": "official_list",
+      "live_provider": "static_csv",
       "snapshot": "materials/assessments/data/venues/icnp.csv"
     },
     {
