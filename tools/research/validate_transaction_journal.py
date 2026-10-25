@@ -10,53 +10,87 @@ import build_paper_corpus as corpus
 CFG=json.loads((ROOT/"tools/research/paper_corpus_config.json").read_text(encoding="utf-8"))
 TX=CFG["ieee_transactions"]
 
-NETWORK_TERMS = [
-    # Internet / packet networking
-    "networking", "computer network", "communication network", "mobile network",
-    "edge network", "data center network", "datacenter network", "cluster network",
-    "network traffic", "network resource", "network slicing", "network telemetry",
-    "network measurement", "network management", "network function", "network security",
-    "network protocol", "network topology", "network planning", "network coding",
-    "routing", "router", "internet", "packet", "packet scheduling", "switch",
-    "transport layer", "transport protocol", "congestion control", "tcp", "quic",
-    "rdma", "roce", "bgp", "dns", "ipv6", "cdn", "traffic engineering", "sdn",
-    "software-defined network", "nfv", "service function", "content delivery",
-    "peer-to-peer", "p2p", "interconnect", "collective communication",
-    "all-reduce", "all-to-all", "coflow", "bandwidth allocation",
+STRONG_NETWORK_TERMS = [
+    # Packet / Internet / transport / network control.
+    "computer network", "networking", "network traffic", "network resource",
+    "network slicing", "network telemetry", "network measurement",
+    "network management", "network function", "network security",
+    "network protocol", "network planning", "routing", "router",
+    "packet scheduling", "packet network", "transport protocol", "transport layer",
+    "congestion control", "tcp", "quic", "rdma", "roce", "bgp", "dns", "ipv6",
+    "content delivery network", "cdn", "traffic engineering",
+    "software-defined network", "sdn", "network function virtualization", "nfv",
+    "service function chain", "network service", "peer-to-peer", "p2p",
+    "network interconnect", "collective communication", "all-reduce", "all-to-all",
+    "coflow",
 
-    # Wireless/mobile networking. Avoid bare "wireless", "5g", "6g", or
-    # "network" because those admit physical-layer and neural-network papers.
-    "wireless network", "wireless communication", "wireless link", "wi-fi", "wifi",
-    "wlan", "cellular network", "5g network", "6g network", "radio access network",
-    "ran", "handover", "satellite network", "satellite communication",
-    "leo network", "non-terrestrial network", "ntn", "vehicular network", "v2x",
-    "device-to-device communication", "d2d", "mesh network", "ad hoc network",
-    "sensor network", "lpwan", "lora", "spectrum allocation", "channel access",
-    "medium access", "mac protocol",
+    # Wireless/mobile network architecture and control. Deliberately avoid
+    # bare "wireless", "wifi", "5g", "6g", "internet", "bandwidth allocation",
+    # and "spectrum allocation": those admit sensing and PHY-only papers.
+    "wireless network", "cellular network", "5g network", "6g network",
+    "radio access network", "ran", "handover", "satellite network",
+    "non-terrestrial network", "ntn", "vehicular network", "vehicular ad hoc network",
+    "v2x", "vehicle-to-everything", "device-to-device network", "mesh network",
+    "ad hoc network", "sensor network", "lpwan", "lora network",
+    "channel access", "medium access", "mac protocol",
 
-    # Networked/distributed systems
+    # Networked/distributed systems where communication placement/control is
+    # part of the system design rather than incidental.
     "task offloading", "computation offloading", "mobile edge computing",
-    "multi-access edge computing", "edge-cloud", "cloud-edge",
-    "communication-efficient", "communication overhead", "communication scheduling",
-    "semantic communication",
+    "multi-access edge computing", "vehicular edge computing", "edge-cloud",
+    "cloud-edge", "communication scheduling", "communication overhead",
 ]
-def _has_term(blob, term):
-    # Require lexical boundaries so short acronyms such as RAN do not match
-    # unrelated words such as "transfer".
-    return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", blob) is not None
 
+WEAK_NETWORK_TERMS = [
+    "wifi", "wi-fi", "wireless communication", "5g", "6g",
+    "device-to-device communication", "semantic communication",
+    "edge computing", "internet of things", "iot", "bandwidth allocation",
+    "spectrum allocation",
+]
+
+SYSTEM_CONTEXT_TERMS = [
+    "network", "routing", "traffic", "transport", "packet", "latency", "throughput",
+    "quality of service", "qos", "handover", "offloading", "edge", "cloud",
+    "resource allocation", "scheduling", "congestion", "service", "protocol",
+    "topology", "link", "base station", "access point", "roadside unit",
+]
+
+NON_NETWORK_DOMINANT_TERMS = [
+    "antenna", "beamforming", "channel estimation", "channel modeling",
+    "channel model", "modulation", "waveform", "radar", "localization",
+    "object detection", "image reconstruction", "activity recognition",
+    "gesture recognition", "handwriting recognition", "brain network",
+    "protein network", "social network analysis", "power grid",
+]
+
+def _contains(blob, term):
+    return corpus.phrase_present(blob, term)
 
 def is_network_paper(r):
-    # Broad Transactions journals contain sensing, ML, signal-processing and
-    # device papers alongside networking. Restrict inclusion to explicit
-    # network/system signals in the paper title and paper-level keywords.
-    # OpenAlex topic labels remain available later for categorization.
-    blob = " ".join([
-        str(r.get("title") or ""),
-        str(r.get("keywords") or ""),
-    ])
-    return any(corpus.phrase_present(blob, term) for term in NETWORK_TERMS)
+    # High-precision course filter.  The journal may be about mobility,
+    # communications, graph/network science, security, multimedia, or cloud
+    # systems; retain a paper only when its title/keywords make a network
+    # architecture, protocol, transport, routing, network-control, or
+    # communication-placement problem explicit.
+    title = str(r.get("title") or "")
+    keywords = str(r.get("keywords") or "")
+    blob = f"{title} {keywords}"
 
+    strong = [t for t in STRONG_NETWORK_TERMS if _contains(blob, t)]
+    if strong:
+        return True
+
+    weak = [t for t in WEAK_NETWORK_TERMS if _contains(blob, t)]
+    context = [t for t in SYSTEM_CONTEXT_TERMS if _contains(blob, t)]
+    if len(weak) >= 1 and len(context) >= 2:
+        # Guard against common sensing/PHY cases where Wi-Fi/wireless/5G is
+        # merely the measurement substrate rather than the networking object.
+        dominant = [t for t in NON_NETWORK_DOMINANT_TERMS if _contains(blob, t)]
+        if dominant and len(context) < 3:
+            return False
+        return True
+
+    return False
 
 def rows_for(spec, year):
     source_ids = spec.get("source_ids_by_year", {}).get(str(year)) or ([spec["source_id"]] if spec.get("source_id") else [])
