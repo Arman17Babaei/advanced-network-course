@@ -12,13 +12,11 @@
       "hard_min": 40,
       "validate_through": 2026,
       "core": true,
-      "provider": "openalex",
-      "source_ids": [
-        "https://openalex.org/S7407086014",
-        "https://openalex.org/S7407087451",
-        "https://openalex.org/S7407085998",
-        "https://openalex.org/S7407086761"
-      ]
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "ACM SIGCOMM Conference",
+      "container_regex": "(?i)(SIGCOMM|Special Interest Group on Data Communication)",
+      "max_crossref_pages": 5
     },
     {
       "name": "CoNEXT",
