@@ -724,6 +724,37 @@ def crossref_doi_stem(spec, year, stem):
     return rows
 
 
+def enrich_missing_authors_from_crossref(rows):
+    missing = [r for r in rows if not r.get("authors") and r.get("doi")]
+    if not missing:
+        return
+    print(f"Crossref author enrichment for {len(missing)} rows", flush=True)
+    for idx, r in enumerate(missing, start=1):
+        doi = r["doi"]
+        try:
+            data = get_json(
+                "https://api.crossref.org/works/" + requests.utils.quote(doi, safe=""),
+                attempts=4,
+                pause=0.5,
+            )
+        except Exception as e:
+            print(f"WARNING Crossref DOI author lookup {doi}: {e}", file=sys.stderr)
+            continue
+        item = data.get("message") or {}
+        authors = []
+        for a in item.get("author") or []:
+            name = norm(" ".join(x for x in [a.get("given",""), a.get("family","")] if x))
+            if name:
+                authors.append(name)
+        if authors:
+            r["authors"] = "; ".join(authors)
+            if r.get("metadata_source") == "OpenAlex":
+                r["metadata_source"] = "OpenAlex + Crossref author enrichment"
+        if idx % 25 == 0:
+            print(f"Crossref author enrichment: {idx}/{len(missing)}", flush=True)
+        time.sleep(0.03)
+
+
 def openalex_conference(spec, year):
     rows = collect_works(
         spec.get("source_ids", []),
@@ -733,6 +764,7 @@ def openalex_conference(spec, year):
         core=spec.get("core", False),
     )
     rows = dedupe(rows)
+    enrich_missing_authors_from_crossref(rows)
     print(f"OPENALEX {spec['name']} {year}: kept {len(rows)}", flush=True)
     return rows
 
