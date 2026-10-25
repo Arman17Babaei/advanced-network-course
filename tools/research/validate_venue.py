@@ -24,7 +24,11 @@ def main():
     if not spec:
         raise SystemExit(f"Unknown venue: {args.venue}")
 
-    years = args.year or [y for y in CFG["years"] if 2023 <= y <= int(spec.get("validate_through", 2026))]
+    allowed_years = set(spec.get("years", CFG["years"]))
+    years = args.year or [
+        y for y in CFG["years"]
+        if y in allowed_years and 2023 <= y <= int(spec.get("validate_through", 2026))
+    ]
     failures = []
 
     for year in years:
