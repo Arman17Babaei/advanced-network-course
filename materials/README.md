@@ -8,5 +8,6 @@ The design files in `design/` state **what** the course intends to assess and wh
 
 - [Assessments](assessments/) — detailed assessment statements, methodology, rubrics, evaluation procedures, and supporting resources.
 - [Activities](activities/) — detailed learning-activity statements, methodology, facilitation guidance, and supporting resources.
+- [Course description](course-description/) — student-facing Persian course guide and its reproducible XeLaTeX/PDF build.
 
 Each concrete item should eventually be detailed enough that another member of the teaching team can run and evaluate it reproducibly.
