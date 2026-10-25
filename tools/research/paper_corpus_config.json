@@ -9,24 +9,26 @@
   "conferences": [
     {
       "name": "SIGCOMM",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "SIGCOMM",
-      "container_regex": "(?i)(SIGCOMM|Special Interest Group on Data Communication)",
       "hard_min": 40,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S7407086014",
+        "https://openalex.org/S7407087451",
+        "https://openalex.org/S7407085998",
+        "https://openalex.org/S7407086761"
+      ]
     },
     {
       "name": "CoNEXT",
+      "hard_min": 12,
+      "validate_through": 2025,
+      "core": true,
       "provider": "crossref",
       "prefix": "10.1145",
       "query": "CoNEXT emerging Networking EXperiments and Technologies",
       "container_regex": "(?i)(CoNEXT|emerging Networking EXperiments and Technologies)",
-      "hard_min": 12,
-      "validate_through": 2025,
-      "core": true,
       "max_crossref_pages": 3
     },
     {
@@ -39,58 +41,65 @@
     },
     {
       "name": "ICNP",
-      "provider": "crossref",
-      "prefix": "10.1109",
-      "query": "IEEE International Conference on Network Protocols ICNP",
-      "container_regex": "(?i)(International Conference on Network Protocols|ICNP)",
       "hard_min": 40,
       "validate_through": 2025,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S4210215197"
+      ],
+      "official_urls": {
+        "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
+      }
     },
     {
       "name": "INFOCOM",
-      "provider": "crossref",
-      "prefix": "10.1109",
-      "query": "IEEE INFOCOM Conference on Computer Communications",
-      "container_regex": "(?i)(INFOCOM|Conference on Computer Communications)",
       "hard_min": 150,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S7407087743",
+        "https://openalex.org/S7407086428"
+      ],
+      "doi_stems": {
+        "2026": "10.1109/INFOCOM59046.2026"
+      }
     },
     {
       "name": "SIGMETRICS",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "SIGMETRICS Measurement and Analysis of Computing Systems",
-      "container_regex": "(?i)(SIGMETRICS|Measurement and Analysis of Computing Systems)",
       "hard_min": 12,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S7407088608",
+        "https://openalex.org/S7407088280",
+        "https://openalex.org/S4210193547"
+      ]
     },
     {
       "name": "IMC",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "Internet Measurement Conference",
-      "container_regex": "(?i)Internet Measurement Conference",
       "hard_min": 25,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "official_list",
+      "official_urls": {
+        "2023": "https://conferences.sigcomm.org/imc/2023/program/",
+        "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
+        "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
+        "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
+      }
     },
     {
       "name": "ACM Multimedia",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "ACM International Conference on Multimedia",
-      "container_regex": "(?i)(ACM.*Multimedia|International Conference on Multimedia|Multimedia Conference)",
       "hard_min": 300,
       "validate_through": 2025,
       "core": false,
-      "max_crossref_pages": 5
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S4363608757"
+      ]
     },
     {
       "name": "NINeS",
@@ -106,47 +115,49 @@
     },
     {
       "name": "MobiCom",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "Mobile Computing and Networking MobiCom",
-      "container_regex": "(?i)(MobiCom|Mobile Computing and Networking)",
       "hard_min": 50,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S4306417560"
+      ]
     },
     {
       "name": "MMSys",
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "ACM Multimedia Systems Conference MMSys",
-      "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
       "hard_min": 20,
       "validate_through": 2026,
       "core": true,
-      "max_crossref_pages": 3
+      "provider": "openalex_crossref",
+      "source_ids": [
+        "https://openalex.org/S7407085912"
+      ],
+      "prefix": "10.1145",
+      "query": "ACM Multimedia Systems Conference MMSys",
+      "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
+      "max_crossref_pages": 5
     },
     {
       "name": "IPDPS",
-      "provider": "crossref",
-      "prefix": "10.1109",
-      "query": "IEEE International Parallel and Distributed Processing Symposium IPDPS",
-      "container_regex": "(?i)(Parallel and Distributed Processing Symposium|IPDPS)",
       "hard_min": 60,
       "validate_through": 2026,
       "core": false,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S4210174069"
+      ]
     },
     {
       "name": "ICDCS",
-      "provider": "crossref",
-      "prefix": "10.1109",
-      "query": "IEEE International Conference on Distributed Computing Systems ICDCS",
-      "container_regex": "(?i)(International Conference on Distributed Computing Systems|ICDCS)",
       "hard_min": 60,
       "validate_through": 2026,
       "core": false,
-      "max_crossref_pages": 3
+      "provider": "openalex",
+      "source_ids": [
+        "https://openalex.org/S4363608224",
+        "https://openalex.org/S4306419352",
+        "https://openalex.org/S4393916864"
+      ]
     },
     {
       "name": "OSDI",
