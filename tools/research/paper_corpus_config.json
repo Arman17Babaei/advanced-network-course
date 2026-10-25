@@ -389,6 +389,16 @@
         "hard_min": 10,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Multimedia",
+        "canonical_name": "IEEE Transactions on Multimedia",
+        "source_id": "https://openalex.org/S137030581",
+        "issn_l": "1520-9210",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
