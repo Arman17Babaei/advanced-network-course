@@ -78,7 +78,7 @@
         "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
       },
       "enabled": true,
-      "live_provider": "static_csv",
+      "live_provider": "official_list",
       "snapshot": "materials/assessments/data/venues/icnp.csv"
     },
     {
@@ -86,12 +86,13 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "openalex_issn",
+      "provider": "dblp_toc_api",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
-      "enabled": false
+      "enabled": false,
+      "toc_template": "db/conf/infocom/infocom{year}.bht"
     },
     {
       "name": "SIGMETRICS",
