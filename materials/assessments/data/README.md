@@ -17,7 +17,7 @@ Project taxonomy and domain/tag hierarchy: [`../PROJECT_IDEA_POOL.md`](../PROJEC
 
 - [`all_conference_papers.csv`](all_conference_papers.csv) — collected conference inventory.
 - [`ieee_transactions_network.csv`](ieee_transactions_network.csv) — networking-relevant IEEE Transactions subset.
-- [`recent_networking_papers.csv`](recent_networking_papers.csv) — combined 16,959-paper corpus.
+- [`master_paper_corpus.csv`](master_paper_corpus.csv) — combined 16,959-paper corpus.
 - [`PAPER_CORPUS_COVERAGE.csv`](PAPER_CORPUS_COVERAGE.csv) — venue/year coverage.
 - [`PAPER_CORPUS_SUMMARY.md`](PAPER_CORPUS_SUMMARY.md) — generated corpus statistics.
 - [`venues/`](venues/) and [`transactions/`](transactions/) — frozen validated source snapshots.
