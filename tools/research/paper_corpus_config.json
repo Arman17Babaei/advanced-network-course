@@ -359,6 +359,16 @@
         "hard_min": 20,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Wireless Communications",
+        "canonical_name": "IEEE Transactions on Wireless Communications",
+        "source_id": "https://openalex.org/S63459445",
+        "issn_l": "1536-1276",
+        "relevance_mode": "filter",
+        "hard_min": 40,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
