@@ -1,0 +1,24 @@
+name: Discover IEEE Transactions sources
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/refresh-project-idea-pool-2023-2026]
+    paths:
+      - tools/research/discover_ieee_transactions.py
+      - .github/workflows/discover-ieee-transactions.yml
+
+permissions:
+  contents: read
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - run: python tools/research/discover_ieee_transactions.py
