@@ -86,17 +86,13 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "crossref",
+      "provider": "dblp_toc_api",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
       "enabled": false,
-      "toc_template": "db/conf/infocom/infocom{year}.bht",
-      "prefix": "10.1109",
-      "query": "IEEE INFOCOM",
-      "container_regex": "(?i)INFOCOM",
-      "max_crossref_pages": 6
+      "toc_template": "db/conf/infocom/infocom{year}.bht"
     },
     {
       "name": "SIGMETRICS",
