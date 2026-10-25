@@ -349,6 +349,16 @@
         "hard_min": 80,
         "validate_through": 2026,
         "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Mobile Computing",
+        "canonical_name": "IEEE Transactions on Mobile Computing",
+        "source_id": "https://openalex.org/S69141925",
+        "issn_l": "1536-1233",
+        "relevance_mode": "filter",
+        "hard_min": 20,
+        "validate_through": 2026,
+        "enabled": true
       }
     ]
   },
