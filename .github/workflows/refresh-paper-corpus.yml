@@ -1,4 +1,4 @@
-name: Validate ICNP source
+name: Validate paper source
 
 concurrency:
   group: paper-source-validation-${{ github.ref }}
@@ -22,7 +22,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate ICNP live source
-        run: python tools/research/validate_venue.py --venue ICNP
-      - name: Export ICNP snapshot
-        run: python tools/research/export_validated_venue.py --venue ICNP
-      - name: Commit ICNP snapshot
+      - name: Validate INFOCOM source
+        run: python tools/research/validate_venue.py --venue INFOCOM
+      - name: Export INFOCOM snapshot
+        run: python tools/research/export_validated_venue.py --venue INFOCOM
+      - name: Commit INFOCOM snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/icnp.csv
+          git add materials/assessments/data/venues/infocom.csv
           if git diff --cached --quiet; then
-            echo "No ICNP snapshot changes"
+            echo "No INFOCOM snapshot changes"
           else
-            git commit -m "Refresh validated ICNP snapshot"
+            git commit -m "Refresh validated INFOCOM snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
