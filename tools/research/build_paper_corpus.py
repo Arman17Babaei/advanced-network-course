@@ -808,8 +808,6 @@ def openalex_conference(spec, year):
         core=spec.get("core", False),
     )
     rows = dedupe(rows)
-    enrich_missing_authors_from_crossref(rows)
-    enrich_missing_authors_from_semantic_scholar(rows)
     if spec.get("drop_authorless_front_matter", False):
         before = len(rows)
         rows = [r for r in rows if r.get("authors")]
@@ -818,6 +816,9 @@ def openalex_conference(spec, year):
             f"verified authorless front-matter records",
             flush=True,
         )
+    else:
+        enrich_missing_authors_from_crossref(rows)
+        enrich_missing_authors_from_semantic_scholar(rows)
     print(f"OPENALEX {spec['name']} {year}: kept {len(rows)}", flush=True)
     return rows
 
