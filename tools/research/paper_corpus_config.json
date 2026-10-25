@@ -9,239 +9,157 @@
   "conferences": [
     {
       "name": "SIGCOMM",
-      "search": [
-        "SIGCOMM"
-      ],
-      "source_regex": "(?i)SIGCOMM",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "SIGCOMM",
+      "container_regex": "(?i)(SIGCOMM|Special Interest Group on Data Communication)",
       "hard_min": 40,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "CoNEXT",
-      "search": [
-        "CoNEXT",
-        "emerging Networking EXperiments and Technologies"
-      ],
-      "source_regex": "(?i)(CoNEXT|emerging Networking EXperiments)",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "CoNEXT emerging Networking EXperiments and Technologies",
+      "container_regex": "(?i)(CoNEXT|emerging Networking EXperiments and Technologies)",
       "hard_min": 12,
-      "core": true,
       "validate_through": 2025,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "NSDI",
-      "search": [
-        "Networked Systems Design and Implementation",
-        "NSDI"
-      ],
-      "source_regex": "(?i)(Networked Systems Design and Implementation|NSDI)",
+      "provider": "usenix",
+      "slug": "nsdi{yy}",
       "hard_min": 35,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "ICNP",
-      "search": [
-        "IEEE International Conference on Network Protocols",
-        "ICNP"
-      ],
-      "source_regex": "(?i)(International Conference on Network Protocols|ICNP)",
+      "provider": "crossref",
+      "prefix": "10.1109",
+      "query": "IEEE International Conference on Network Protocols ICNP",
+      "container_regex": "(?i)(International Conference on Network Protocols|ICNP)",
       "hard_min": 40,
-      "core": true,
       "validate_through": 2025,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "INFOCOM",
-      "search": [
-        "IEEE INFOCOM",
-        "INFOCOM"
-      ],
-      "source_regex": "(?i)INFOCOM",
+      "provider": "crossref",
+      "prefix": "10.1109",
+      "query": "IEEE INFOCOM Conference on Computer Communications",
+      "container_regex": "(?i)(INFOCOM|Conference on Computer Communications)",
       "hard_min": 150,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "SIGMETRICS",
-      "search": [
-        "SIGMETRICS",
-        "Proceedings of the ACM on Measurement and Analysis of Computing Systems"
-      ],
-      "source_regex": "(?i)(SIGMETRICS|Measurement and Analysis of Computing Systems)",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "SIGMETRICS Measurement and Analysis of Computing Systems",
+      "container_regex": "(?i)(SIGMETRICS|Measurement and Analysis of Computing Systems)",
       "hard_min": 12,
-      "core": true,
-      "max_sources": 50,
       "validate_through": 2026,
-      "allow_source_types": [
-        "conference",
-        "journal"
-      ]
+      "core": true
     },
     {
       "name": "IMC",
-      "search": [
-        "Internet Measurement Conference"
-      ],
-      "source_regex": "(?i)Internet Measurement Conference",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "Internet Measurement Conference",
+      "container_regex": "(?i)Internet Measurement Conference",
       "hard_min": 25,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "ACM Multimedia",
-      "search": [
-        "ACM International Conference on Multimedia",
-        "ACM Multimedia"
-      ],
-      "source_regex": "(?i)(International Conference on Multimedia|ACM Multimedia Conference|ACM MM)",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "ACM International Conference on Multimedia",
+      "container_regex": "(?i)(ACM.*Multimedia|International Conference on Multimedia|Multimedia Conference)",
       "hard_min": 300,
-      "core": false,
       "validate_through": 2025,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": false
     },
     {
       "name": "NINeS",
-      "search": [],
-      "source_regex": "(?i)NINeS",
+      "provider": "nines",
       "hard_min": 20,
+      "validate_through": 2026,
       "core": true,
       "years": [
         2026,
         2027
       ],
-      "official_2026": "https://2026.nines-conference.org/accepted",
-      "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "official_2026": "https://2026.nines-conference.org/accepted"
     },
     {
       "name": "MobiCom",
-      "search": [
-        "Mobile Computing and Networking",
-        "MobiCom"
-      ],
-      "source_regex": "(?i)(Mobile Computing and Networking|MobiCom)",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "Mobile Computing and Networking MobiCom",
+      "container_regex": "(?i)(MobiCom|Mobile Computing and Networking)",
       "hard_min": 50,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "MMSys",
-      "search": [
-        "Multimedia Systems Conference",
-        "MMSys"
-      ],
-      "source_regex": "(?i)(Multimedia Systems Conference|MMSys)",
+      "provider": "crossref",
+      "prefix": "10.1145",
+      "query": "ACM Multimedia Systems Conference MMSys",
+      "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
       "hard_min": 20,
-      "core": true,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": true
     },
     {
       "name": "IPDPS",
-      "search": [
-        "Parallel and Distributed Processing Symposium",
-        "IPDPS"
-      ],
-      "source_regex": "(?i)(Parallel and Distributed Processing Symposium|IPDPS)",
+      "provider": "crossref",
+      "prefix": "10.1109",
+      "query": "IEEE International Parallel and Distributed Processing Symposium IPDPS",
+      "container_regex": "(?i)(Parallel and Distributed Processing Symposium|IPDPS)",
       "hard_min": 60,
-      "core": false,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": false
     },
     {
       "name": "ICDCS",
-      "search": [
-        "International Conference on Distributed Computing Systems",
-        "ICDCS"
-      ],
-      "source_regex": "(?i)(International Conference on Distributed Computing Systems|ICDCS)",
+      "provider": "crossref",
+      "prefix": "10.1109",
+      "query": "IEEE International Conference on Distributed Computing Systems ICDCS",
+      "container_regex": "(?i)(International Conference on Distributed Computing Systems|ICDCS)",
       "hard_min": 60,
-      "core": false,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": false
     },
     {
       "name": "OSDI",
-      "search": [
-        "Operating Systems Design and Implementation",
-        "OSDI"
-      ],
-      "source_regex": "(?i)(Operating Systems Design and Implementation|OSDI)",
+      "provider": "usenix",
+      "slug": "osdi{yy}",
       "hard_min": 30,
-      "core": false,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": false
     },
     {
       "name": "USENIX Security",
-      "search": [
-        "USENIX Security Symposium"
-      ],
-      "source_regex": "(?i)USENIX Security Symposium",
+      "provider": "usenix",
+      "slug": "usenixsecurity{yy}",
       "hard_min": 100,
-      "core": false,
       "validate_through": 2026,
-      "max_sources": 50,
-      "allow_source_types": [
-        "conference"
-      ]
+      "core": false
     }
   ],
   "ieee_transactions": {
-    "source_search": "IEEE Transactions",
+    "provider": "crossref",
     "include_regex": "(?i)^IEEE(?:/ACM)? Transactions (?:on|of) ",
-    "source_type": "journal",
-    "include_2027": true,
-    "collection_source": "Crossref",
     "crossref_query": "IEEE Transactions",
     "crossref_prefix": "10.1109",
-    "enrich_network_subset_with_openalex": false
+    "include_2027": true
   },
   "categories": {
     "AI cluster networks and distributed training": [
