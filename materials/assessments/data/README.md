@@ -67,19 +67,19 @@ Only networking-relevant papers are retained from these journals.
 
 | Domain | Project-mappable papers | Share of 7,595-paper subset |
 | --- | ---: | ---: |
-| Datacenter & AI Cluster Networks | 401 | 5.3% |
-| Packet Networks & End-to-End Protocols | 833 | 11.0% |
-| Internet Routing, WAN & CDN | 184 | 2.4% |
-| Network Measurement & Operations | 267 | 3.5% |
 | Cellular & Wireless Access Networks | 1,570 | 20.7% |
-| IoT, Sensor & Industrial Networks | 568 | 7.5% |
 | Edge, Cloud & Networked Services | 1,526 | 20.1% |
-| Satellite & Non-Terrestrial Networks | 275 | 3.6% |
+| Packet Networks & End-to-End Protocols | 833 | 11.0% |
 | Autonomous & Cyber-Physical Networks | 615 | 8.1% |
+| IoT, Sensor & Industrial Networks | 568 | 7.5% |
+| Datacenter & AI Cluster Networks | 401 | 5.3% |
+| Network Security, Privacy & Censorship | 321 | 4.2% |
 | Real-Time Media & Immersive Networking | 295 | 3.9% |
 | Distributed AI & LLM Systems | 290 | 3.8% |
+| Satellite & Non-Terrestrial Networks | 275 | 3.6% |
+| Network Measurement & Operations | 267 | 3.5% |
 | Programmable Network Infrastructure | 256 | 3.4% |
-| Network Security, Privacy & Censorship | 321 | 4.2% |
+| Internet Routing, WAN & CDN | 184 | 2.4% |
 | P2P & Decentralized Networks | 120 | 1.6% |
 | Quantum Networks | 46 | 0.6% |
 | Harsh-Environment & Delay-Tolerant Networks | 28 | 0.4% |
@@ -87,148 +87,7 @@ Only networking-relevant papers are retained from these journals.
 
 ## Domain × design-aspect counts
 
-Only non-zero cells are shown. Counts are sorted from the densest design aspect to the sparsest within each domain.
-
-### Datacenter & AI Cluster Networks — 401 papers
-
-| Design aspect | Papers | Share of domain |
-| --- | ---: | ---: |
-| Transport & Congestion Control | 75 | 18.7% |
-| Scheduling & Resource Allocation | 49 | 12.2% |
-| Programmability & Hardware Offload | 35 | 8.7% |
-| Placement, Offloading & Partitioning | 33 | 8.2% |
-| Routing & Path Selection | 22 | 5.5% |
-| Traffic Engineering & Load Balancing | 22 | 5.5% |
-| Latency & Deadline Optimization | 17 | 4.2% |
-| Architecture & System Design | 16 | 4.0% |
-| Coding, Compression & Redundancy | 14 | 3.5% |
-| Topology, Fabric & Architecture | 14 | 3.5% |
-| Security, Privacy & Trust | 12 | 3.0% |
-| Throughput, Capacity & Scalability | 12 | 3.0% |
-| Reliability, Fault Tolerance & Recovery | 10 | 2.5% |
-| Diagnosis & Root Cause Analysis | 8 | 2.0% |
-| Fairness, Isolation & Multi-Tenancy | 8 | 2.0% |
-| Distributed Coordination & Consensus | 7 | 1.7% |
-| Measurement & Characterization | 7 | 1.7% |
-| Telemetry & Monitoring | 7 | 1.7% |
-| Control-Plane Design & Management | 6 | 1.5% |
-| Synchronization & Consistency | 5 | 1.2% |
-| Energy, Carbon & Sustainability | 4 | 1.0% |
-| Cost, Economics & Provisioning | 3 | 0.7% |
-| Protocol Design & Interoperability | 3 | 0.7% |
-| Queueing & Stability | 3 | 0.7% |
-| Localization & Positioning | 2 | 0.5% |
-| Service Chaining & Virtualization | 2 | 0.5% |
-| Admission Control & Network Slicing | 1 | 0.2% |
-| Caching & Content Placement | 1 | 0.2% |
-| Data/Traffic Prediction & Forecasting | 1 | 0.2% |
-| MAC, Spectrum & Radio Resource Management | 1 | 0.2% |
-| Verification & Correctness | 1 | 0.2% |
-
-### Packet Networks & End-to-End Protocols — 833 papers
-
-| Design aspect | Papers | Share of domain |
-| --- | ---: | ---: |
-| Transport & Congestion Control | 111 | 13.3% |
-| Routing & Path Selection | 93 | 11.2% |
-| Security, Privacy & Trust | 78 | 9.4% |
-| Scheduling & Resource Allocation | 64 | 7.7% |
-| Reliability, Fault Tolerance & Recovery | 39 | 4.7% |
-| Protocol Design & Interoperability | 32 | 3.8% |
-| Traffic Engineering & Load Balancing | 30 | 3.6% |
-| Latency & Deadline Optimization | 28 | 3.4% |
-| Cost, Economics & Provisioning | 26 | 3.1% |
-| Coding, Compression & Redundancy | 24 | 2.9% |
-| Topology, Fabric & Architecture | 24 | 2.9% |
-| Control-Plane Design & Management | 23 | 2.8% |
-| Caching & Content Placement | 22 | 2.6% |
-| Throughput, Capacity & Scalability | 22 | 2.6% |
-| Placement, Offloading & Partitioning | 21 | 2.5% |
-| Measurement & Characterization | 19 | 2.3% |
-| QoS, QoE & SLO Management | 18 | 2.2% |
-| Traffic Analysis & Classification | 16 | 1.9% |
-| Programmability & Hardware Offload | 15 | 1.8% |
-| Application Adaptation & Cross-Layer Control | 13 | 1.6% |
-| Queueing & Stability | 13 | 1.6% |
-| Data/Traffic Prediction & Forecasting | 12 | 1.4% |
-| Verification & Correctness | 11 | 1.3% |
-| Distributed Coordination & Consensus | 10 | 1.2% |
-| Localization & Positioning | 10 | 1.2% |
-| Fairness, Isolation & Multi-Tenancy | 9 | 1.1% |
-| Service Chaining & Virtualization | 9 | 1.1% |
-| Energy, Carbon & Sustainability | 8 | 1.0% |
-| Diagnosis & Root Cause Analysis | 7 | 0.8% |
-| Freshness & Age of Information | 7 | 0.8% |
-| Packet Processing & Data Structures | 6 | 0.7% |
-| MAC, Spectrum & Radio Resource Management | 4 | 0.5% |
-| Mobility & Handover | 4 | 0.5% |
-| Architecture & System Design | 2 | 0.2% |
-| Synchronization & Consistency | 2 | 0.2% |
-| Admission Control & Network Slicing | 1 | 0.1% |
-
-### Internet Routing, WAN & CDN — 184 papers
-
-| Design aspect | Papers | Share of domain |
-| --- | ---: | ---: |
-| Routing & Path Selection | 30 | 16.3% |
-| Measurement & Characterization | 29 | 15.8% |
-| Security, Privacy & Trust | 29 | 15.8% |
-| Architecture & System Design | 15 | 8.2% |
-| Traffic Engineering & Load Balancing | 9 | 4.9% |
-| Caching & Content Placement | 7 | 3.8% |
-| Control-Plane Design & Management | 7 | 3.8% |
-| Coding, Compression & Redundancy | 6 | 3.3% |
-| Traffic Analysis & Classification | 6 | 3.3% |
-| Transport & Congestion Control | 6 | 3.3% |
-| Data/Traffic Prediction & Forecasting | 4 | 2.2% |
-| Latency & Deadline Optimization | 4 | 2.2% |
-| Localization & Positioning | 4 | 2.2% |
-| Topology, Fabric & Architecture | 4 | 2.2% |
-| Programmability & Hardware Offload | 3 | 1.6% |
-| Reliability, Fault Tolerance & Recovery | 3 | 1.6% |
-| Verification & Correctness | 3 | 1.6% |
-| Application Adaptation & Cross-Layer Control | 2 | 1.1% |
-| QoS, QoE & SLO Management | 2 | 1.1% |
-| Scheduling & Resource Allocation | 2 | 1.1% |
-| Synchronization & Consistency | 2 | 1.1% |
-| Throughput, Capacity & Scalability | 2 | 1.1% |
-| Cost, Economics & Provisioning | 1 | 0.5% |
-| Diagnosis & Root Cause Analysis | 1 | 0.5% |
-| Packet Processing & Data Structures | 1 | 0.5% |
-| Queueing & Stability | 1 | 0.5% |
-| Telemetry & Monitoring | 1 | 0.5% |
-
-### Network Measurement & Operations — 267 papers
-
-| Design aspect | Papers | Share of domain |
-| --- | ---: | ---: |
-| Telemetry & Monitoring | 132 | 49.4% |
-| Measurement & Characterization | 21 | 7.9% |
-| Security, Privacy & Trust | 19 | 7.1% |
-| Diagnosis & Root Cause Analysis | 17 | 6.4% |
-| Packet Processing & Data Structures | 16 | 6.0% |
-| Routing & Path Selection | 11 | 4.1% |
-| Programmability & Hardware Offload | 6 | 2.2% |
-| Control-Plane Design & Management | 5 | 1.9% |
-| Topology, Fabric & Architecture | 5 | 1.9% |
-| Traffic Engineering & Load Balancing | 4 | 1.5% |
-| Architecture & System Design | 3 | 1.1% |
-| Coding, Compression & Redundancy | 3 | 1.1% |
-| Data/Traffic Prediction & Forecasting | 3 | 1.1% |
-| Cost, Economics & Provisioning | 2 | 0.7% |
-| Energy, Carbon & Sustainability | 2 | 0.7% |
-| Freshness & Age of Information | 2 | 0.7% |
-| Latency & Deadline Optimization | 2 | 0.7% |
-| Placement, Offloading & Partitioning | 2 | 0.7% |
-| Protocol Design & Interoperability | 2 | 0.7% |
-| Scheduling & Resource Allocation | 2 | 0.7% |
-| Transport & Congestion Control | 2 | 0.7% |
-| Localization & Positioning | 1 | 0.4% |
-| QoS, QoE & SLO Management | 1 | 0.4% |
-| Queueing & Stability | 1 | 0.4% |
-| Throughput, Capacity & Scalability | 1 | 0.4% |
-| Traffic Analysis & Classification | 1 | 0.4% |
-| Verification & Correctness | 1 | 0.4% |
+Only non-zero cells are shown. Domains are sorted by total paper count; design aspects are sorted from densest to sparsest within each domain.
 
 ### Cellular & Wireless Access Networks — 1,570 papers
 
@@ -272,47 +131,6 @@ Only non-zero cells are shown. Counts are sorted from the densest design aspect 
 | Verification & Correctness | 2 | 0.1% |
 | Packet Processing & Data Structures | 1 | 0.1% |
 
-### IoT, Sensor & Industrial Networks — 568 papers
-
-| Design aspect | Papers | Share of domain |
-| --- | ---: | ---: |
-| Scheduling & Resource Allocation | 114 | 20.1% |
-| Security, Privacy & Trust | 105 | 18.5% |
-| Routing & Path Selection | 29 | 5.1% |
-| Placement, Offloading & Partitioning | 26 | 4.6% |
-| Latency & Deadline Optimization | 22 | 3.9% |
-| MAC, Spectrum & Radio Resource Management | 21 | 3.7% |
-| Localization & Positioning | 20 | 3.5% |
-| Throughput, Capacity & Scalability | 19 | 3.3% |
-| Energy, Carbon & Sustainability | 18 | 3.2% |
-| Topology, Fabric & Architecture | 18 | 3.2% |
-| Coding, Compression & Redundancy | 16 | 2.8% |
-| Architecture & System Design | 14 | 2.5% |
-| Reliability, Fault Tolerance & Recovery | 13 | 2.3% |
-| Cost, Economics & Provisioning | 11 | 1.9% |
-| Mobility & Handover | 11 | 1.9% |
-| Control-Plane Design & Management | 10 | 1.8% |
-| Protocol Design & Interoperability | 8 | 1.4% |
-| QoS, QoE & SLO Management | 8 | 1.4% |
-| Queueing & Stability | 8 | 1.4% |
-| Measurement & Characterization | 7 | 1.2% |
-| Service Chaining & Virtualization | 7 | 1.2% |
-| Telemetry & Monitoring | 7 | 1.2% |
-| Traffic Analysis & Classification | 7 | 1.2% |
-| Caching & Content Placement | 6 | 1.1% |
-| Freshness & Age of Information | 6 | 1.1% |
-| Programmability & Hardware Offload | 6 | 1.1% |
-| Synchronization & Consistency | 6 | 1.1% |
-| Transport & Congestion Control | 5 | 0.9% |
-| Application Adaptation & Cross-Layer Control | 4 | 0.7% |
-| Distributed Coordination & Consensus | 4 | 0.7% |
-| Admission Control & Network Slicing | 3 | 0.5% |
-| Data/Traffic Prediction & Forecasting | 3 | 0.5% |
-| Traffic Engineering & Load Balancing | 3 | 0.5% |
-| Diagnosis & Root Cause Analysis | 1 | 0.2% |
-| Packet Processing & Data Structures | 1 | 0.2% |
-| Verification & Correctness | 1 | 0.2% |
-
 ### Edge, Cloud & Networked Services — 1,526 papers
 
 | Design aspect | Papers | Share of domain |
@@ -355,36 +173,46 @@ Only non-zero cells are shown. Counts are sorted from the densest design aspect 
 | Packet Processing & Data Structures | 1 | 0.1% |
 | Synchronization & Consistency | 1 | 0.1% |
 
-### Satellite & Non-Terrestrial Networks — 275 papers
+### Packet Networks & End-to-End Protocols — 833 papers
 
 | Design aspect | Papers | Share of domain |
 | --- | ---: | ---: |
-| Routing & Path Selection | 61 | 22.2% |
-| Scheduling & Resource Allocation | 31 | 11.3% |
-| Mobility & Handover | 24 | 8.7% |
-| Placement, Offloading & Partitioning | 22 | 8.0% |
-| Latency & Deadline Optimization | 15 | 5.5% |
-| Architecture & System Design | 13 | 4.7% |
-| Control-Plane Design & Management | 12 | 4.4% |
-| Transport & Congestion Control | 12 | 4.4% |
-| Service Chaining & Virtualization | 11 | 4.0% |
-| Measurement & Characterization | 10 | 3.6% |
-| Security, Privacy & Trust | 10 | 3.6% |
-| MAC, Spectrum & Radio Resource Management | 9 | 3.3% |
-| Reliability, Fault Tolerance & Recovery | 8 | 2.9% |
-| Coding, Compression & Redundancy | 6 | 2.2% |
-| Cost, Economics & Provisioning | 5 | 1.8% |
-| Application Adaptation & Cross-Layer Control | 3 | 1.1% |
-| Caching & Content Placement | 3 | 1.1% |
-| QoS, QoE & SLO Management | 3 | 1.1% |
-| Queueing & Stability | 3 | 1.1% |
-| Topology, Fabric & Architecture | 3 | 1.1% |
-| Traffic Engineering & Load Balancing | 3 | 1.1% |
-| Data/Traffic Prediction & Forecasting | 2 | 0.7% |
-| Programmability & Hardware Offload | 2 | 0.7% |
-| Protocol Design & Interoperability | 2 | 0.7% |
-| Packet Processing & Data Structures | 1 | 0.4% |
-| Throughput, Capacity & Scalability | 1 | 0.4% |
+| Transport & Congestion Control | 111 | 13.3% |
+| Routing & Path Selection | 93 | 11.2% |
+| Security, Privacy & Trust | 78 | 9.4% |
+| Scheduling & Resource Allocation | 64 | 7.7% |
+| Reliability, Fault Tolerance & Recovery | 39 | 4.7% |
+| Protocol Design & Interoperability | 32 | 3.8% |
+| Traffic Engineering & Load Balancing | 30 | 3.6% |
+| Latency & Deadline Optimization | 28 | 3.4% |
+| Cost, Economics & Provisioning | 26 | 3.1% |
+| Coding, Compression & Redundancy | 24 | 2.9% |
+| Topology, Fabric & Architecture | 24 | 2.9% |
+| Control-Plane Design & Management | 23 | 2.8% |
+| Caching & Content Placement | 22 | 2.6% |
+| Throughput, Capacity & Scalability | 22 | 2.6% |
+| Placement, Offloading & Partitioning | 21 | 2.5% |
+| Measurement & Characterization | 19 | 2.3% |
+| QoS, QoE & SLO Management | 18 | 2.2% |
+| Traffic Analysis & Classification | 16 | 1.9% |
+| Programmability & Hardware Offload | 15 | 1.8% |
+| Application Adaptation & Cross-Layer Control | 13 | 1.6% |
+| Queueing & Stability | 13 | 1.6% |
+| Data/Traffic Prediction & Forecasting | 12 | 1.4% |
+| Verification & Correctness | 11 | 1.3% |
+| Distributed Coordination & Consensus | 10 | 1.2% |
+| Localization & Positioning | 10 | 1.2% |
+| Fairness, Isolation & Multi-Tenancy | 9 | 1.1% |
+| Service Chaining & Virtualization | 9 | 1.1% |
+| Energy, Carbon & Sustainability | 8 | 1.0% |
+| Diagnosis & Root Cause Analysis | 7 | 0.8% |
+| Freshness & Age of Information | 7 | 0.8% |
+| Packet Processing & Data Structures | 6 | 0.7% |
+| MAC, Spectrum & Radio Resource Management | 4 | 0.5% |
+| Mobility & Handover | 4 | 0.5% |
+| Architecture & System Design | 2 | 0.2% |
+| Synchronization & Consistency | 2 | 0.2% |
+| Admission Control & Network Slicing | 1 | 0.1% |
 
 ### Autonomous & Cyber-Physical Networks — 615 papers
 
@@ -424,6 +252,114 @@ Only non-zero cells are shown. Counts are sorted from the densest design aspect 
 | Programmability & Hardware Offload | 1 | 0.2% |
 | Queueing & Stability | 1 | 0.2% |
 | Verification & Correctness | 1 | 0.2% |
+
+### IoT, Sensor & Industrial Networks — 568 papers
+
+| Design aspect | Papers | Share of domain |
+| --- | ---: | ---: |
+| Scheduling & Resource Allocation | 114 | 20.1% |
+| Security, Privacy & Trust | 105 | 18.5% |
+| Routing & Path Selection | 29 | 5.1% |
+| Placement, Offloading & Partitioning | 26 | 4.6% |
+| Latency & Deadline Optimization | 22 | 3.9% |
+| MAC, Spectrum & Radio Resource Management | 21 | 3.7% |
+| Localization & Positioning | 20 | 3.5% |
+| Throughput, Capacity & Scalability | 19 | 3.3% |
+| Energy, Carbon & Sustainability | 18 | 3.2% |
+| Topology, Fabric & Architecture | 18 | 3.2% |
+| Coding, Compression & Redundancy | 16 | 2.8% |
+| Architecture & System Design | 14 | 2.5% |
+| Reliability, Fault Tolerance & Recovery | 13 | 2.3% |
+| Cost, Economics & Provisioning | 11 | 1.9% |
+| Mobility & Handover | 11 | 1.9% |
+| Control-Plane Design & Management | 10 | 1.8% |
+| Protocol Design & Interoperability | 8 | 1.4% |
+| QoS, QoE & SLO Management | 8 | 1.4% |
+| Queueing & Stability | 8 | 1.4% |
+| Measurement & Characterization | 7 | 1.2% |
+| Service Chaining & Virtualization | 7 | 1.2% |
+| Telemetry & Monitoring | 7 | 1.2% |
+| Traffic Analysis & Classification | 7 | 1.2% |
+| Caching & Content Placement | 6 | 1.1% |
+| Freshness & Age of Information | 6 | 1.1% |
+| Programmability & Hardware Offload | 6 | 1.1% |
+| Synchronization & Consistency | 6 | 1.1% |
+| Transport & Congestion Control | 5 | 0.9% |
+| Application Adaptation & Cross-Layer Control | 4 | 0.7% |
+| Distributed Coordination & Consensus | 4 | 0.7% |
+| Admission Control & Network Slicing | 3 | 0.5% |
+| Data/Traffic Prediction & Forecasting | 3 | 0.5% |
+| Traffic Engineering & Load Balancing | 3 | 0.5% |
+| Diagnosis & Root Cause Analysis | 1 | 0.2% |
+| Packet Processing & Data Structures | 1 | 0.2% |
+| Verification & Correctness | 1 | 0.2% |
+
+### Datacenter & AI Cluster Networks — 401 papers
+
+| Design aspect | Papers | Share of domain |
+| --- | ---: | ---: |
+| Transport & Congestion Control | 75 | 18.7% |
+| Scheduling & Resource Allocation | 49 | 12.2% |
+| Programmability & Hardware Offload | 35 | 8.7% |
+| Placement, Offloading & Partitioning | 33 | 8.2% |
+| Routing & Path Selection | 22 | 5.5% |
+| Traffic Engineering & Load Balancing | 22 | 5.5% |
+| Latency & Deadline Optimization | 17 | 4.2% |
+| Architecture & System Design | 16 | 4.0% |
+| Coding, Compression & Redundancy | 14 | 3.5% |
+| Topology, Fabric & Architecture | 14 | 3.5% |
+| Security, Privacy & Trust | 12 | 3.0% |
+| Throughput, Capacity & Scalability | 12 | 3.0% |
+| Reliability, Fault Tolerance & Recovery | 10 | 2.5% |
+| Diagnosis & Root Cause Analysis | 8 | 2.0% |
+| Fairness, Isolation & Multi-Tenancy | 8 | 2.0% |
+| Distributed Coordination & Consensus | 7 | 1.7% |
+| Measurement & Characterization | 7 | 1.7% |
+| Telemetry & Monitoring | 7 | 1.7% |
+| Control-Plane Design & Management | 6 | 1.5% |
+| Synchronization & Consistency | 5 | 1.2% |
+| Energy, Carbon & Sustainability | 4 | 1.0% |
+| Cost, Economics & Provisioning | 3 | 0.7% |
+| Protocol Design & Interoperability | 3 | 0.7% |
+| Queueing & Stability | 3 | 0.7% |
+| Localization & Positioning | 2 | 0.5% |
+| Service Chaining & Virtualization | 2 | 0.5% |
+| Admission Control & Network Slicing | 1 | 0.2% |
+| Caching & Content Placement | 1 | 0.2% |
+| Data/Traffic Prediction & Forecasting | 1 | 0.2% |
+| MAC, Spectrum & Radio Resource Management | 1 | 0.2% |
+| Verification & Correctness | 1 | 0.2% |
+
+### Network Security, Privacy & Censorship — 321 papers
+
+| Design aspect | Papers | Share of domain |
+| --- | ---: | ---: |
+| Security, Privacy & Trust | 183 | 57.0% |
+| Traffic Analysis & Classification | 77 | 24.0% |
+| Control-Plane Design & Management | 8 | 2.5% |
+| Programmability & Hardware Offload | 4 | 1.2% |
+| Scheduling & Resource Allocation | 4 | 1.2% |
+| Telemetry & Monitoring | 4 | 1.2% |
+| Architecture & System Design | 3 | 0.9% |
+| Coding, Compression & Redundancy | 3 | 0.9% |
+| Measurement & Characterization | 3 | 0.9% |
+| Packet Processing & Data Structures | 3 | 0.9% |
+| Placement, Offloading & Partitioning | 3 | 0.9% |
+| Routing & Path Selection | 3 | 0.9% |
+| Transport & Congestion Control | 3 | 0.9% |
+| Application Adaptation & Cross-Layer Control | 2 | 0.6% |
+| Cost, Economics & Provisioning | 2 | 0.6% |
+| Distributed Coordination & Consensus | 2 | 0.6% |
+| Protocol Design & Interoperability | 2 | 0.6% |
+| Service Chaining & Virtualization | 2 | 0.6% |
+| Topology, Fabric & Architecture | 2 | 0.6% |
+| Traffic Engineering & Load Balancing | 2 | 0.6% |
+| Admission Control & Network Slicing | 1 | 0.3% |
+| Diagnosis & Root Cause Analysis | 1 | 0.3% |
+| Fairness, Isolation & Multi-Tenancy | 1 | 0.3% |
+| Mobility & Handover | 1 | 0.3% |
+| Reliability, Fault Tolerance & Recovery | 1 | 0.3% |
+| Synchronization & Consistency | 1 | 0.3% |
 
 ### Real-Time Media & Immersive Networking — 295 papers
 
@@ -496,6 +432,69 @@ Only non-zero cells are shown. Counts are sorted from the densest design aspect 
 | Telemetry & Monitoring | 1 | 0.3% |
 | Verification & Correctness | 1 | 0.3% |
 
+### Satellite & Non-Terrestrial Networks — 275 papers
+
+| Design aspect | Papers | Share of domain |
+| --- | ---: | ---: |
+| Routing & Path Selection | 61 | 22.2% |
+| Scheduling & Resource Allocation | 31 | 11.3% |
+| Mobility & Handover | 24 | 8.7% |
+| Placement, Offloading & Partitioning | 22 | 8.0% |
+| Latency & Deadline Optimization | 15 | 5.5% |
+| Architecture & System Design | 13 | 4.7% |
+| Control-Plane Design & Management | 12 | 4.4% |
+| Transport & Congestion Control | 12 | 4.4% |
+| Service Chaining & Virtualization | 11 | 4.0% |
+| Measurement & Characterization | 10 | 3.6% |
+| Security, Privacy & Trust | 10 | 3.6% |
+| MAC, Spectrum & Radio Resource Management | 9 | 3.3% |
+| Reliability, Fault Tolerance & Recovery | 8 | 2.9% |
+| Coding, Compression & Redundancy | 6 | 2.2% |
+| Cost, Economics & Provisioning | 5 | 1.8% |
+| Application Adaptation & Cross-Layer Control | 3 | 1.1% |
+| Caching & Content Placement | 3 | 1.1% |
+| QoS, QoE & SLO Management | 3 | 1.1% |
+| Queueing & Stability | 3 | 1.1% |
+| Topology, Fabric & Architecture | 3 | 1.1% |
+| Traffic Engineering & Load Balancing | 3 | 1.1% |
+| Data/Traffic Prediction & Forecasting | 2 | 0.7% |
+| Programmability & Hardware Offload | 2 | 0.7% |
+| Protocol Design & Interoperability | 2 | 0.7% |
+| Packet Processing & Data Structures | 1 | 0.4% |
+| Throughput, Capacity & Scalability | 1 | 0.4% |
+
+### Network Measurement & Operations — 267 papers
+
+| Design aspect | Papers | Share of domain |
+| --- | ---: | ---: |
+| Telemetry & Monitoring | 132 | 49.4% |
+| Measurement & Characterization | 21 | 7.9% |
+| Security, Privacy & Trust | 19 | 7.1% |
+| Diagnosis & Root Cause Analysis | 17 | 6.4% |
+| Packet Processing & Data Structures | 16 | 6.0% |
+| Routing & Path Selection | 11 | 4.1% |
+| Programmability & Hardware Offload | 6 | 2.2% |
+| Control-Plane Design & Management | 5 | 1.9% |
+| Topology, Fabric & Architecture | 5 | 1.9% |
+| Traffic Engineering & Load Balancing | 4 | 1.5% |
+| Architecture & System Design | 3 | 1.1% |
+| Coding, Compression & Redundancy | 3 | 1.1% |
+| Data/Traffic Prediction & Forecasting | 3 | 1.1% |
+| Cost, Economics & Provisioning | 2 | 0.7% |
+| Energy, Carbon & Sustainability | 2 | 0.7% |
+| Freshness & Age of Information | 2 | 0.7% |
+| Latency & Deadline Optimization | 2 | 0.7% |
+| Placement, Offloading & Partitioning | 2 | 0.7% |
+| Protocol Design & Interoperability | 2 | 0.7% |
+| Scheduling & Resource Allocation | 2 | 0.7% |
+| Transport & Congestion Control | 2 | 0.7% |
+| Localization & Positioning | 1 | 0.4% |
+| QoS, QoE & SLO Management | 1 | 0.4% |
+| Queueing & Stability | 1 | 0.4% |
+| Throughput, Capacity & Scalability | 1 | 0.4% |
+| Traffic Analysis & Classification | 1 | 0.4% |
+| Verification & Correctness | 1 | 0.4% |
+
 ### Programmable Network Infrastructure — 256 papers
 
 | Design aspect | Papers | Share of domain |
@@ -529,36 +528,37 @@ Only non-zero cells are shown. Counts are sorted from the densest design aspect 
 | QoS, QoE & SLO Management | 1 | 0.4% |
 | Telemetry & Monitoring | 1 | 0.4% |
 
-### Network Security, Privacy & Censorship — 321 papers
+### Internet Routing, WAN & CDN — 184 papers
 
 | Design aspect | Papers | Share of domain |
 | --- | ---: | ---: |
-| Security, Privacy & Trust | 183 | 57.0% |
-| Traffic Analysis & Classification | 77 | 24.0% |
-| Control-Plane Design & Management | 8 | 2.5% |
-| Programmability & Hardware Offload | 4 | 1.2% |
-| Scheduling & Resource Allocation | 4 | 1.2% |
-| Telemetry & Monitoring | 4 | 1.2% |
-| Architecture & System Design | 3 | 0.9% |
-| Coding, Compression & Redundancy | 3 | 0.9% |
-| Measurement & Characterization | 3 | 0.9% |
-| Packet Processing & Data Structures | 3 | 0.9% |
-| Placement, Offloading & Partitioning | 3 | 0.9% |
-| Routing & Path Selection | 3 | 0.9% |
-| Transport & Congestion Control | 3 | 0.9% |
-| Application Adaptation & Cross-Layer Control | 2 | 0.6% |
-| Cost, Economics & Provisioning | 2 | 0.6% |
-| Distributed Coordination & Consensus | 2 | 0.6% |
-| Protocol Design & Interoperability | 2 | 0.6% |
-| Service Chaining & Virtualization | 2 | 0.6% |
-| Topology, Fabric & Architecture | 2 | 0.6% |
-| Traffic Engineering & Load Balancing | 2 | 0.6% |
-| Admission Control & Network Slicing | 1 | 0.3% |
-| Diagnosis & Root Cause Analysis | 1 | 0.3% |
-| Fairness, Isolation & Multi-Tenancy | 1 | 0.3% |
-| Mobility & Handover | 1 | 0.3% |
-| Reliability, Fault Tolerance & Recovery | 1 | 0.3% |
-| Synchronization & Consistency | 1 | 0.3% |
+| Routing & Path Selection | 30 | 16.3% |
+| Measurement & Characterization | 29 | 15.8% |
+| Security, Privacy & Trust | 29 | 15.8% |
+| Architecture & System Design | 15 | 8.2% |
+| Traffic Engineering & Load Balancing | 9 | 4.9% |
+| Caching & Content Placement | 7 | 3.8% |
+| Control-Plane Design & Management | 7 | 3.8% |
+| Coding, Compression & Redundancy | 6 | 3.3% |
+| Traffic Analysis & Classification | 6 | 3.3% |
+| Transport & Congestion Control | 6 | 3.3% |
+| Data/Traffic Prediction & Forecasting | 4 | 2.2% |
+| Latency & Deadline Optimization | 4 | 2.2% |
+| Localization & Positioning | 4 | 2.2% |
+| Topology, Fabric & Architecture | 4 | 2.2% |
+| Programmability & Hardware Offload | 3 | 1.6% |
+| Reliability, Fault Tolerance & Recovery | 3 | 1.6% |
+| Verification & Correctness | 3 | 1.6% |
+| Application Adaptation & Cross-Layer Control | 2 | 1.1% |
+| QoS, QoE & SLO Management | 2 | 1.1% |
+| Scheduling & Resource Allocation | 2 | 1.1% |
+| Synchronization & Consistency | 2 | 1.1% |
+| Throughput, Capacity & Scalability | 2 | 1.1% |
+| Cost, Economics & Provisioning | 1 | 0.5% |
+| Diagnosis & Root Cause Analysis | 1 | 0.5% |
+| Packet Processing & Data Structures | 1 | 0.5% |
+| Queueing & Stability | 1 | 0.5% |
+| Telemetry & Monitoring | 1 | 0.5% |
 
 ### P2P & Decentralized Networks — 120 papers
 
