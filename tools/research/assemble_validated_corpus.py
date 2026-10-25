@@ -216,7 +216,6 @@ def main():
     write_csv(DATA/"all_conference_papers.csv",conference_rows)
     write_csv(DATA/"ieee_transactions_network.csv",tx_rows)
     write_csv(DATA/"master_paper_corpus.csv",combined)
-    write_csv(DATA/"recent_networking_papers.csv",combined)
 
     # Coverage table.
     with (DATA/"PAPER_CORPUS_COVERAGE.csv").open("w",encoding="utf-8",newline="") as f:
@@ -291,7 +290,7 @@ def main():
               ""]
     (DATA/"PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines),encoding="utf-8")
     print(f"VALIDATED conference={len(conference_rows)} transactions={len(tx_rows)} combined={len(combined)}")
-    print("WROTE materials/assessments/data/recent_networking_papers.csv")
+    print("WROTE materials/assessments/data/master_paper_corpus.csv")
 
 if __name__=="__main__":
     main()
