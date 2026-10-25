@@ -11,7 +11,9 @@ CFG=json.loads((ROOT/"tools/research/paper_corpus_config.json").read_text(encodi
 TX=CFG["ieee_transactions"]
 
 def rows_for(spec, year):
-    rows=corpus.collect_works([spec["source_id"]], year, venue_override=None, kind="journal", core=False)
+    source_ids = spec.get("source_ids_by_year", {}).get(str(year)) or ([spec["source_id"]] if spec.get("source_id") else [])
+    venue_name = spec.get("canonical_name") or spec["name"]
+    rows=corpus.collect_works(source_ids, year, venue_override=venue_name, kind="journal", core=False)
     rows=corpus.dedupe(rows)
     # Journal metadata may include front matter; research-paper inventory requires authors.
     rows=[r for r in rows if r.get("authors")]
@@ -41,8 +43,9 @@ def main():
         print("SAMPLE:")
         for r in rows[:5]:
             print(f" - {r['title']} | {r['authors']} | {r.get('doi') or r.get('url')} | {r['keywords']}")
-        if 2023 <= year <= int(spec.get("validate_through",2026)) and n < int(spec.get("hard_min",1)):
-            failures.append(f"{year}: count {n} < minimum {spec.get('hard_min')}")
+        min_count = int(spec.get("hard_min_by_year", {}).get(str(year), spec.get("hard_min",1)))
+        if 2023 <= year <= int(spec.get("validate_through",2026)) and n < min_count:
+            failures.append(f"{year}: count {n} < minimum {min_count}")
         if n and authors/n < .98: failures.append(f"{year}: author coverage {authors}/{n} < 98%")
         if n and links/n < .98: failures.append(f"{year}: link coverage {links}/{n} < 98%")
         if n and keywords/n < 1: failures.append(f"{year}: keyword coverage {keywords}/{n} < 100%")
