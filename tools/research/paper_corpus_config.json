@@ -57,13 +57,11 @@
       "hard_min": 150,
       "validate_through": 2026,
       "core": true,
-      "provider": "doi_family",
-      "doi_stems": {
-        "2023": "10.1109/INFOCOM53939.2023",
-        "2024": "10.1109/INFOCOM52122.2024",
-        "2025": "10.1109/INFOCOM55648.2025",
-        "2026": "10.1109/INFOCOM59046.2026"
-      }
+      "provider": "openalex_issn",
+      "issns": [
+        "0743-166X",
+        "2641-9874"
+      ]
     },
     {
       "name": "SIGMETRICS",
@@ -82,20 +80,13 @@
       "hard_min": 25,
       "validate_through": 2026,
       "core": true,
-      "provider": "mixed_openalex_official",
+      "provider": "imc_mixed",
       "official_urls": {
+        "2023": "https://conferences.sigcomm.org/imc/2023/program/",
         "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
-      },
-      "openalex_years": [
-        2023
-      ],
-      "source_ids": [
-        "https://openalex.org/S7407087996",
-        "https://openalex.org/S4306420372",
-        "https://openalex.org/S7407087113"
-      ]
+      }
     },
     {
       "name": "ACM Multimedia",
