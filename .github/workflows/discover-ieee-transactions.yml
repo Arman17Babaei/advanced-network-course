@@ -2,11 +2,6 @@ name: Discover IEEE Transactions sources
 
 on:
   workflow_dispatch:
-  push:
-    branches: [research/refresh-project-idea-pool-2023-2026]
-    paths:
-      - tools/research/discover_ieee_transactions.py
-      - .github/workflows/discover-ieee-transactions.yml
 
 permissions:
   contents: read
