@@ -1,7 +1,7 @@
-name: Inspect CoNEXT source
+name: Validate paper source
 
 concurrency:
-  group: conext-source-inspection-${{ github.ref }}
+  group: paper-source-validation-${{ github.ref }}
   cancel-in-progress: true
 
 on:
@@ -10,14 +10,16 @@ on:
     branches:
       - research/refresh-project-idea-pool-2023-2026
     paths:
-      - tools/research/inspect_conext_source.py
+      - tools/research/build_paper_corpus.py
+      - tools/research/validate_venue.py
+      - tools/research/paper_corpus_config.json
       - .github/workflows/refresh-paper-corpus.yml
 
 permissions:
   contents: read
 
 jobs:
-  inspect:
+  validate:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
@@ -27,5 +29,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Inspect official CoNEXT pages
-        run: python tools/research/inspect_conext_source.py
+      - name: Validate SIGCOMM source
+        run: python tools/research/validate_venue.py --venue SIGCOMM
+      - name: Validate CoNEXT source
+        run: python tools/research/validate_venue.py --venue CoNEXT
