@@ -2041,7 +2041,7 @@ def write_outputs(conference_rows, tx_rows, coverage):
 
     write_csv(OUT / "all_conference_papers.csv", conferences)
     write_gzip_csv(OUT / "ieee_transactions_papers.csv.gz", tx)
-    write_csv(OUT / "recent_networking_papers.csv", network)
+    write_csv(OUT / "master_paper_corpus.csv", network)
 
     with (OUT / "PAPER_CORPUS_COVERAGE.csv").open("w", encoding="utf-8", newline="") as f:
         fields = ["venue","kind","year","records","status","source_ids","source_names"]
@@ -2114,7 +2114,7 @@ This directory contains the machine-readable literature corpus used to ground th
 
 - all_conference_papers.csv — all collected papers for the requested conference series and available years.
 - ieee_transactions_papers.csv.gz — all 2023–2027 Crossref records whose container title matches IEEE Transactions on ..., IEEE Transactions of ..., or IEEE/ACM Transactions on ....
-- recent_networking_papers.csv — the network-relevant subset used to derive project clusters.
+- master_paper_corpus.csv — the network-relevant subset used to derive project clusters.
 - IEEE_TRANSACTIONS_SOURCES.csv — every matched IEEE Transactions journal title and record count.
 - IEEE_TRANSACTIONS_COVERAGE.csv — per-journal, per-year counts.
 - PAPER_CORPUS_COVERAGE.csv — requested conference venue/year counts and collection status.
