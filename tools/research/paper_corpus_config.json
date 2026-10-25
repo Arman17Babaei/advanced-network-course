@@ -86,12 +86,12 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "topcsuniv",
+      "provider": "static_csv",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
-      "enabled": false,
+      "enabled": true,
       "doi_stems": {
         "2023": "10.1109/INFOCOM53939.2023",
         "2024": "10.1109/INFOCOM52122.2024",
@@ -100,7 +100,8 @@
       },
       "toc_template": "db/conf/infocom/infocom{year}.bht",
       "live_provider": "topcsuniv",
-      "url_template": "https://topcsuniv.org/japan/conferences/infocom/{year}/"
+      "url_template": "https://topcsuniv.org/japan/conferences/infocom/{year}/",
+      "snapshot": "materials/assessments/data/venues/infocom.csv"
     },
     {
       "name": "SIGMETRICS",
