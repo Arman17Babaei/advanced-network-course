@@ -1163,6 +1163,22 @@ def main():
                 url = spec.get("official_urls", {}).get(str(year))
                 rows = official_list_conference(spec, year, url) if url else []
                 source_name = "official accepted/program page"
+            elif provider == "dblp_html":
+                url = spec["url_template"].format(year=year)
+                rows = [] if year == 2027 else dblp_html_conference(spec, year, url)
+                source_name = "DBLP static proceedings page"
+            elif provider == "mixed_static":
+                durl = spec.get("dblp_urls", {}).get(str(year))
+                ourl = spec.get("official_urls", {}).get(str(year))
+                if durl:
+                    rows = dblp_html_conference(spec, year, durl)
+                    source_name = "DBLP static proceedings page"
+                elif ourl:
+                    rows = official_list_conference(spec, year, ourl)
+                    source_name = "official accepted/program page"
+                else:
+                    rows = []
+                    source_name = "not yet available"
             else:
                 raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
 
