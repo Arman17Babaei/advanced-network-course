@@ -974,6 +974,15 @@ def ipdps_official(spec, year):
                     txt = norm(str(node))
                 if txt and current is not None:
                     current["authors"] = norm(current["authors"] + " " + txt)
+            # A few legacy program rows close the <p> immediately after
+            # the title and leave the author text directly under <li>.  Recover
+            # that text only for a single-paper item; doing this for a
+            # multi-paper malformed item would mix author lists.
+            if len(papers) == 1 and papers[0]["title"] and not papers[0]["authors"]:
+                clone = BeautifulSoup(str(li), "html.parser")
+                for tag in clone.find_all("em"):
+                    tag.decompose()
+                papers[0]["authors"] = norm(clone.get_text(" ", strip=True))
             return [p for p in papers if p["title"] and p["authors"]]
 
         for tr in soup.find_all("tr"):
