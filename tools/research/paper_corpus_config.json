@@ -235,16 +235,17 @@
       "hard_min": 60,
       "validate_through": 2026,
       "core": false,
-      "provider": "openalex",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S4363608224",
         "https://openalex.org/S4306419352",
         "https://openalex.org/S4393916864"
       ],
-      "enabled": false,
-      "collection_status": "validated inventory; verified authorless proceedings front matter filtered",
+      "enabled": true,
+      "collection_status": "validated and frozen; verified proceedings front matter excluded",
       "live_provider": "openalex",
-      "drop_authorless_front_matter": true
+      "drop_authorless_front_matter": true,
+      "snapshot": "materials/assessments/data/venues/icdcs.csv"
     },
     {
       "name": "OSDI",
