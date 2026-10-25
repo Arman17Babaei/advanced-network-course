@@ -1,0 +1,76 @@
+name: Scan IEEE Transactions in shards
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [research/refresh-project-idea-pool-2023-2026]
+    paths:
+      - tools/research/scan_ieee_transactions_shard.py
+      - tools/research/merge_ieee_transactions_shards.py
+      - tools/research/validate_transaction_journal.py
+      - tools/research/build_paper_corpus.py
+      - .github/workflows/scan-ieee-transactions-sharded.yml
+
+permissions:
+  contents: write
+
+jobs:
+  scan:
+    strategy:
+      fail-fast: false
+      matrix:
+        shard: [0, 1, 2, 3]
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - name: Scan shard
+        run: |
+          python tools/research/scan_ieee_transactions_shard.py             --shard ${{ matrix.shard }}             --shards 4             --out "/tmp/transactions-shard-${{ matrix.shard }}.csv"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: transactions-shard-${{ matrix.shard }}
+          path: |
+            /tmp/transactions-shard-${{ matrix.shard }}.csv
+            /tmp/transactions-shard-${{ matrix.shard }}.json
+          if-no-files-found: error
+          retention-days: 1
+
+  merge:
+    needs: scan
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: transactions-shard-*
+          path: /tmp/transaction-shards
+          merge-multiple: true
+      - name: Merge and validate shards
+        run: |
+          python tools/research/merge_ieee_transactions_shards.py             --input-dir /tmp/transaction-shards             --shards 4
+      - name: Commit Transactions-wide subset
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add materials/assessments/data/transactions/ieee_transactions_network.csv
+          git add materials/assessments/data/transactions/IEEE_TRANSACTIONS_SOURCES.csv
+          git add materials/assessments/data/transactions/IEEE_TRANSACTIONS_COVERAGE.csv
+          if git diff --cached --quiet; then
+            echo "No Transactions-wide changes"
+          else
+            git commit -m "Refresh Transactions-wide networking subset"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
