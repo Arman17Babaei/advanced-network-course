@@ -690,7 +690,6 @@ def crossref_doi_stem(spec, year, stem):
             "filter": (
                 f"from-pub-date:{year}-01-01,"
                 f"until-pub-date:{year}-12-31,"
-                f"type:proceedings-article,"
                 f"prefix:{prefix}"
             ),
             "query": stem,
@@ -820,27 +819,46 @@ def dblp_html_conference(spec, year, url):
     return rows
 
 
-def mobicom_official(spec, year, url):
+def mobicom_official(spec, year, url, program=False):
     soup = BeautifulSoup(get_html(url), "html.parser")
     rows = []
     seen = set()
+    skip = (
+        "accepted papers","summer round","winter round","program","session ",
+        "workshop","tutorial","registration","break","lunch","keynote",
+        "test-of-time","test of time","poster","demo","student research",
+    )
 
-    # Accepted-paper pages use either list items with an "Authors:" line or,
-    # in some editions, headings/paragraph pairs. Parse both layouts.
     for li in soup.find_all("li"):
-        text_parts = [norm(x) for x in li.stripped_strings if norm(x)]
-        if not text_parts:
+        if li.find("li"):
             continue
-        full = " ".join(text_parts)
+        parts = [norm(x) for x in li.stripped_strings if norm(x)]
+        if len(parts) < 2:
+            continue
+        full = " ".join(parts)
         m = re.search(r"\bAuthors?\s*:\s*", full, flags=re.I)
-        if not m:
+        if m:
+            title = norm(full[:m.start()])
+            authors = norm(full[m.end():])
+        else:
+            title = parts[0]
+            authors = " ".join(parts[1:])
+
+        low = title.lower().strip()
+        if len(title) < 10 or low.startswith(skip):
             continue
-        title = norm(full[:m.start()])
-        authors = norm(full[m.end():])
-        if not title or not authors:
+        if low.startswith(("paper:", "room:", "day ")):
             continue
+        # A research-paper author line nearly always contains an affiliation in
+        # parentheses or multiple author separators. This filters navigation,
+        # room names, and workshop links from program pages.
+        if not ("(" in authors or "," in authors or ";" in authors):
+            continue
+        if program and any(x in low for x in ("award talk", "work-in-progress")):
+            continue
+
         key = slug(title)
-        if key in seen:
+        if not key or key in seen:
             continue
         seen.add(key)
         kw, provenance = _usenix_keywords(title, "")
@@ -855,7 +873,7 @@ def mobicom_official(spec, year, url):
             "doi": "",
             "url": url,
             "openalex_id": "",
-            "metadata_source": "official accepted-paper page",
+            "metadata_source": "official program page" if program else "official accepted-paper page",
             "paper_type": "conference paper",
             "keywords": kw,
             "keyword_provenance": provenance,
@@ -868,12 +886,11 @@ def mobicom_official(spec, year, url):
             "_abstract": "",
         })
 
+    # Some accepted pages render title/author pairs as headings plus paragraphs.
     if len(rows) < int(spec.get("hard_min", 1)):
-        # Older MobiCom pages frequently render each title as a heading followed
-        # by a paragraph of authors rather than a list item.
         for h in soup.find_all(["h3","h4","h5"]):
             title = norm(h.get_text(" ", strip=True))
-            if not title or title.lower().startswith(("accepted papers","summer round","winter round")):
+            if not title or title.lower().startswith(skip):
                 continue
             nxt = h.find_next_sibling()
             while nxt is not None and not norm(nxt.get_text(" ", strip=True) if hasattr(nxt,"get_text") else ""):
@@ -893,9 +910,10 @@ def mobicom_official(spec, year, url):
                 "title": title.rstrip("."), "authors": authors, "venue": spec["name"],
                 "raw_venue": spec["name"], "year": year, "venue_kind":"conference",
                 "source_id":"", "doi":"", "url":url, "openalex_id":"",
-                "metadata_source":"official accepted-paper page", "paper_type":"conference paper",
-                "keywords":kw, "keyword_provenance":provenance, "topics":"", "primary_topic":"",
-                "categories":"", "network_relevance_score":0, "network_relevant":False,
+                "metadata_source":"official program page" if program else "official accepted-paper page",
+                "paper_type":"conference paper", "keywords":kw, "keyword_provenance":provenance,
+                "topics":"", "primary_topic":"", "categories":"",
+                "network_relevance_score":0, "network_relevant":False,
                 "_core":bool(spec.get("core",False)), "_abstract":"",
             })
 
