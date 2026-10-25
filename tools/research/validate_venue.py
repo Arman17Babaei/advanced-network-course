@@ -17,6 +17,7 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--venue", required=True)
     p.add_argument("--year", type=int, action="append")
+    p.add_argument("--live", action="store_true", help="Validate the live provider instead of a frozen snapshot")
     args = p.parse_args()
 
     spec = next((x for x in CFG["conferences"] if x["name"] == args.venue), None)
@@ -27,22 +28,8 @@ def main():
     failures = []
 
     for year in years:
-        provider = spec["provider"]
-        if provider == "crossref":
-            rows = corpus.crossref_conference(spec, year)
-        elif provider == "sigcomm_official":
-            rows = corpus.sigcomm_official(spec, year)
-        elif provider == "conext_official":
-            rows = corpus.conext_official(spec, year)
-        elif provider == "usenix":
-            rows = corpus.usenix_conference(spec, year)
-        elif provider == "nines":
-            rows = corpus.nines_2026(spec) if year == 2026 else []
-        elif provider == "official_list":
-            url = spec.get("official_urls", {}).get(str(year))
-            rows = corpus.official_list_conference(spec, year, url) if url else []
-        else:
-            raise SystemExit(f"Unsupported provider: {provider}")
+        rows, source_name = corpus.conference_rows_for(spec, year, force_live=args.live)
+        provider = spec.get("live_provider") if args.live and spec.get("live_provider") else spec["provider"]
 
         for r in rows:
             corpus.categorize(r)
@@ -53,7 +40,7 @@ def main():
         keywords = sum(bool(r.get("keywords")) for r in rows)
         min_count = int(spec["hard_min"])
 
-        print(f"VENUE={args.venue} YEAR={year} PROVIDER={provider}")
+        print(f"VENUE={args.venue} YEAR={year} PROVIDER={provider} SOURCE={source_name}")
         print(f"COUNT={n} AUTHORS={authors}/{n} LINKS={links}/{n} KEYWORDS={keywords}/{n}")
         print("SAMPLE:")
         for r in rows[:5]:
