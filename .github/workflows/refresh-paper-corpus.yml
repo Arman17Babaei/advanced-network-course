@@ -1,41 +1,24 @@
-name: Build Transactions-wide network subset
+name: Inspect unresolved Transactions sources
 
 on:
   workflow_dispatch:
   push:
     branches: [research/refresh-project-idea-pool-2023-2026]
     paths:
-      - tools/research/scan_ieee_transactions.py
-      - tools/research/validate_transaction_journal.py
-      - tools/research/build_paper_corpus.py
+      - tools/research/inspect_remaining_transactions.py
       - .github/workflows/refresh-paper-corpus.yml
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
-  build:
+  inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 45
+    timeout-minutes: 10
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Build all-Transactions network subset
-        run: python tools/research/scan_ieee_transactions.py --write
-      - name: Commit Transactions-wide subset
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add             materials/assessments/data/transactions/ieee_transactions_network.csv             materials/assessments/data/transactions/IEEE_TRANSACTIONS_SOURCES.csv             materials/assessments/data/transactions/IEEE_TRANSACTIONS_COVERAGE.csv
-          if git diff --cached --quiet; then
-            echo "No Transactions-wide changes"
-          else
-            git commit -m "Build Transactions-wide networking paper subset"
-            git pull --rebase origin "$GITHUB_REF_NAME"
-            git push origin "HEAD:$GITHUB_REF_NAME"
-          fi
+      - run: python tools/research/inspect_remaining_transactions.py
