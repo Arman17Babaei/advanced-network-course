@@ -105,13 +105,15 @@
       "hard_min": 12,
       "validate_through": 2026,
       "core": true,
-      "provider": "openalex",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S7407088608",
         "https://openalex.org/S7407088280",
         "https://openalex.org/S4210193547"
       ],
-      "enabled": false
+      "enabled": true,
+      "live_provider": "openalex",
+      "snapshot": "materials/assessments/data/venues/sigmetrics.csv"
     },
     {
       "name": "IMC",
