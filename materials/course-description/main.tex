@@ -75,6 +75,9 @@
     ]{BNAZANIN}
 }{
     \settextfont[Scale=1.2]{Noto Naskh Arabic}
+    % Match the supplied template's Persian numeral shapes more closely
+    % when the bundled B Nazanin font is unavailable in CI.
+    \setdigitfont[Scale=1.2]{FreeSerif}
 }
 \IfFileExists{LaTeX_Common/fonts/LatinModernRoman/LMR_Regular.otf}{
     \setlatintextfont[
