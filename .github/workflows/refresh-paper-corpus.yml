@@ -1,4 +1,4 @@
-name: Validate OSDI source
+name: Validate USENIX Security source
 
 concurrency:
   group: paper-source-validation-${{ github.sha }}
@@ -22,7 +22,7 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
         with:
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate OSDI source
-        run: python tools/research/validate_venue.py --venue OSDI
-      - name: Export OSDI snapshot
-        run: python tools/research/export_validated_venue.py --venue OSDI
-      - name: Commit OSDI snapshot
+      - name: Validate USENIX Security source
+        run: python tools/research/validate_venue.py --venue "USENIX Security"
+      - name: Export USENIX Security snapshot
+        run: python tools/research/export_validated_venue.py --venue "USENIX Security"
+      - name: Commit USENIX Security snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/osdi.csv
+          git add materials/assessments/data/venues/usenix_security.csv
           if git diff --cached --quiet; then
-            echo "No OSDI snapshot changes"
+            echo "No USENIX Security snapshot changes"
           else
-            git commit -m "Refresh validated OSDI snapshot"
+            git commit -m "Refresh validated USENIX Security snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
