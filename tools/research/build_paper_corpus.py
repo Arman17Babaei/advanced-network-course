@@ -1316,6 +1316,16 @@ def main():
                     program=year in set(spec.get("program_years", []))
                 ) if url else []
                 source_name = "MobiCom official program/accepted page" if url else "not yet available"
+            elif provider == "openalex_issn":
+                rows = openalex_issn_conference(spec, year) if year != 2027 else []
+                source_name = "OpenAlex exact proceedings ISSN"
+            elif provider == "imc_mixed":
+                url = spec.get("official_urls", {}).get(str(year))
+                if year == 2023 and url:
+                    rows = imc_2023_program(spec, year, url)
+                else:
+                    rows = official_list_conference(spec, year, url) if url else []
+                source_name = "IMC official program/accepted page" if url else "not yet available"
             else:
                 raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
 
