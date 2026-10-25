@@ -276,165 +276,228 @@ The tables below are **human-readable anchors selected from the full machine-rea
 | **GreenFL: Carbon-efficient Federated Learning over RE Powered Edge Computing Systems** | ICDCS 2025 | carbon-aware computing, federated learning |
 | **ForgetMeNot: Understanding and Modeling the Impact of Forever Chemicals Toward Sustainable Large-Scale Computing** | SIGMETRICS 2025 | sustainability, systems lifecycle |
 
-## Updated project-area pool
+## Project-domain pool
 
-The pool below is the course-facing result of the literature scan. Areas are ranked not merely by paper count but by whether they force students to make and defend **network architecture decisions** across scalability, reliability, and performance.
+The project pool is organized as a **domain × design-aspect** matrix, with optional **subdomain / technology tags**. A project should normally choose:
 
-### 1. AI cluster networks for large-model training
+1. one top-level **domain** that defines the system/environment being studied;
+2. one or more **design aspects** that define the actual networking decision or trade-off;
+3. optional **technology/context tags** that narrow the setting without becoming a separate project family.
 
-**Why this moved to the top.** Recent SIGCOMM, ICNP, ICDCS, OSDI, IPDPS/TPDS-style work makes communication architecture itself a first-class part of large-model training: topology, collectives, scheduling, optical/electrical fabrics, RDMA, in-network aggregation, placement, and failures.
+This is deliberately different from treating every recurring keyword as a project area. For example, **Wi-Fi**, **TSN**, **V2X**, **UAVs**, **XR**, and **serverless** are useful project contexts, but they are better treated as subdomains/tags inside broader networking domains.
 
-**Good project question shape.** Given a training workload with a known communication graph, what combination of topology, collective algorithm, flow/coflow scheduling, placement, and failure recovery minimizes job completion time under realistic oversubscription and failures?
+The counts below are based on the stricter project-mappable subset of the corpus: papers must have both a defensible domain and a meaningful design aspect. Counts use the paper's primary mapped domain after merging obvious subdomains.
 
-**Likely tools.** ns-3 / OMNeT++, SimAI or similar simulators, small-scale NCCL/MPI experiments, Mininet/container testbeds, synthetic collective traces.
+### 1. Datacenter & AI Cluster Networks
 
-**Research anchors.** ByteScale; MixNet; SyCCL; SchedEP; Taming Step Misalignment; Shuffle-Exchange; ACCL+.
+**Corpus signal:** about **401** primary-mapped papers.
 
-### 2. Distributed and disaggregated LLM inference
+**Subdomains / technology tags:** datacenter transport; AI/GPU clusters; **RDMA**; **RoCE**; **ECN**; **PFC**; **SmartNIC/DPU**; **collectives**; **coflows**; **in-network aggregation**; optical interconnects; **P4**.
 
-**Why it is distinct from training.** Inference has different communication structure: request routing, batching, KV-cache movement, disaggregated prefill/decode, expert placement, edge/cloud split, and tail-latency SLOs.
+**Strong design aspects:** transport & congestion control; programmability & hardware offload; scheduling & resource allocation; throughput/capacity/scalability; traffic engineering & load balancing; routing/path selection; topology/fabric design; reliability/fault recovery.
 
-**Good project question shape.** Under a heterogeneous cluster or edge/cloud hierarchy, where should model state and computation live, how should requests be routed, and when is moving KV/model state cheaper than recomputation?
+**Typical project shape:** compare how endpoints, NICs, switches, topology, and scheduling should divide responsibility for mixed RDMA/TCP/collective workloads under contention and failures.
 
-**Likely tools.** vLLM/SGLang-like serving stacks where feasible, trace-driven simulation, container clusters, synthetic KV-transfer workloads.
+### 2. Packet Networks & End-to-End Protocols
 
-**Research anchors.** MegaScale-Infer; KVServe; DualPath; MCaM; CFMoE; CRISP.
+**Corpus signal:** about **833** primary-mapped papers.
 
-### 3. Datacenter transport, congestion control, and programmable data planes
+**Subdomains / technology tags:** transport protocols; packet routing; queueing; multipath; **TCP**; **QUIC**; **FEC**; SDN-assisted control.
 
-**Why it is a core project family.** The literature remains dense and technically deep, but the project should avoid becoming “implement one congestion-control algorithm.” Students should instead compare architectures under mixed workloads and failure/queueing regimes.
+**Strong design aspects:** transport & congestion control; routing & path selection; latency/deadline optimization; scheduling/resource allocation; reliability/fault recovery; throughput/capacity; protocol design/interoperability; queueing/stability.
 
-**Good project question shape.** How should endpoints, switches, and NICs divide responsibility for congestion signals, load balancing, rate control, and loss recovery for mixed TCP/RDMA/collective workloads?
+**Typical project shape:** study a protocol or algorithmic design choice that is not tied to one deployment environment, then validate its behavior across scale, latency, loss, or failure regimes.
 
-**Likely tools.** ns-3, Mininet, Linux traffic control, P4/BMv2, eBPF, DPDK, programmable-switch emulators.
+### 3. Internet Routing, WAN & CDN
 
-**Research anchors.** No Signal to Rule Them All; Simulate Before Sending; PEE; Fast RDMA Rate Limiter; Hawkeye; OptimusPrime.
+**Corpus signal:** about **184** primary-mapped papers.
 
-### 4. Network telemetry, diagnosis, reliability, and automated operations
+**Subdomains / technology tags:** interdomain routing; WANs; naming/addressing; CDNs; **BGP**; **DNS**; **IPv6**; **Anycast**; submarine cables; Internet scanning; Tor/onion services.
 
-**Why it became a separate area.** Across SIGCOMM, NSDI, IMC, SIGMETRICS, and ICNP there is sustained work on observing, explaining, verifying, and repairing large networks. This fits the course especially well because students must reason about observability gaps and failure modes, not only optimize steady-state throughput.
+**Strong design aspects:** routing/path selection; measurement & characterization; security/privacy/trust; traffic engineering & load balancing; control-plane design; architecture/system design; reliability/fault recovery.
 
-**Good project question shape.** What telemetry should be collected, at what granularity and cost, to detect and localize a chosen class of failures quickly enough for safe automated remediation?
+**Typical project shape:** make and test a falsifiable claim about Internet-scale routing, naming, reachability, CDN placement, or path behavior using real measurements and explicit bias/error analysis.
 
-**Likely tools.** P4 telemetry, eBPF, Prometheus/OpenTelemetry, emulated WAN/datacenter topologies, fault injection, network digital twins.
+### 4. Network Measurement & Operations
 
-**Research anchors.** Raha; Hawkeye; SketchPlan; INT-MC; CAPA; SlaRepair; VeriNC.
+**Corpus signal:** about **267** primary-mapped papers.
 
-### 5. LEO satellite and non-terrestrial networks
+**Subdomains / technology tags:** observability; telemetry; troubleshooting; configuration/state management; network digital twins; **P4**; **SDN**; **SRv6**.
 
-**Why this is now broader than “satellite remote sensing.”** Recent work spans direct-to-cell, congestion control, CDN placement, task offloading, routing, measurement, capacity markets, remote sensing, and satellite-edge intelligence. It is one of the clearest multi-layer design spaces in the corpus.
+**Strong design aspects:** telemetry & monitoring; measurement & characterization; diagnosis & root-cause analysis; verification/correctness; packet-processing data structures; programmability/hardware offload; control-plane management.
 
-**Good project question shape.** For a moving LEO constellation and terrestrial users, how should routing, handover, congestion control, caching/compute placement, and admission/reservation interact for a specific workload?
+**Typical project shape:** decide what to measure, at what granularity/cost, and how to turn partial observations into safe diagnosis, verification, or automated remediation.
 
-**Likely tools.** Hypatia/SatGen-style constellation simulation, ns-3, public TLEs, Starlink measurement traces, trace-driven application models.
+### 5. Cellular & Wireless Access Networks
 
-**Research anchors.** Democratizing Direct-to-Cell LEO Networks; LeoCC; StarCDN; CrowdLink; Space Booking; MCSR routing; prediction-based LEO offloading.
+This top-level domain absorbs the narrower former domains **Cellular RAN & 5G/6G**, **Wireless Access & Spectrum**, **Wi-Fi / Ad Hoc / Mesh**, and generic **Mobile Connectivity**.
 
-### 6. 5G/6G RAN and mobile network control
+**Corpus signal:** about **1,570** primary-mapped papers.
 
-**Why this is a project area.** The research cluster combines radio conditions with transport, slicing, energy, fronthaul, control-plane behavior, and application QoE. It gives students an explicit cross-layer design problem.
+**Subdomains / technology tags:** cellular RAN; Wi-Fi/WLAN; ad hoc/mesh; spectrum/radio access; **5G**; **6G**; **O-RAN**; network slicing; **Wi-Fi**; **RIS**; **NOMA**; beamforming; **URLLC**; **ISAC**; D2D; massive/cell-free MIMO.
 
-**Good project question shape.** How should a mobile network expose and use radio/network state to allocate capacity or control transport while preserving isolation, stability, and energy efficiency?
+**Strong design aspects:** scheduling & resource allocation; MAC/spectrum/radio-resource management; mobility & handover; admission control/network slicing; latency/deadline optimization; QoS/QoE; throughput/capacity; energy efficiency; security/privacy.
 
-**Likely tools.** srsRAN/OpenAirInterface, Colosseum-like traces where available, ns-3 5G-LENA, RAN emulation.
+**Typical project shape:** determine how radio/network state should influence scheduling, slicing, handover, transport, or admission while preserving isolation, stability, and application performance.
 
-**Research anchors.** RANBooster; 5G RAN slice isolation; BISCAY; EcoCell; 5G video-conferencing root-cause analysis; Chronos.
+### 6. IoT, Sensor & Industrial Networks
 
-### 7. Real-time communication, conferencing, and interactive streaming
+This top-level domain absorbs the narrower former domains **IoT / Sensor / LPWAN** and **Industrial / Deterministic Networking**.
 
-**Why this remains one of the best course projects.** It has direct user-visible outcomes, open-source implementations, network/application cross-layer choices, and meaningful reliability/performance trade-offs.
+**Corpus signal:** about **568** primary-mapped papers.
 
-**Good project question shape.** For heterogeneous receivers and changing paths, what combination of congestion control, bitrate/quality adaptation, forwarding topology, redundancy/FEC, and edge placement maximizes interactive QoE?
+**Subdomains / technology tags:** sensor networks; LPWAN; industrial/factory networks; deterministic networking; **TSN**; **LoRa/LPWAN**; **RFID**; backscatter; energy harvesting; industrial IoT; URLLC.
 
-**Likely tools.** WebRTC, Pion/mediasoup/Janus, tc/netem, Mahimahi, video traces, objective QoE metrics.
+**Strong design aspects:** scheduling/resource allocation; latency/deadline guarantees; security/privacy/trust; energy/sustainability; routing; reliability/recovery; MAC/channel access; QoS; freshness/Age of Information.
 
-**Research anchors.** Scalable Video Conferencing Using SDN Principles; NIER; ACE; Mowgli; Syntra; Tight Loops, Smooth Streams.
+**Typical project shape:** trade energy, reliability, bounded delay, and network utilization for constrained sensors or industrial flows with explicit workload/deadline assumptions.
 
-### 8. XR, immersive telepresence, and volumetric media
+### 7. Edge, Cloud & Networked Services
 
-**Why it deserves its own project family.** The recent mobile/multimedia literature has shifted from ordinary 2D video toward 3D representations, neural rendering, multi-user synchronization, mmWave-aware delivery, and smart glasses.
+This top-level domain absorbs **Edge & MEC Systems** and **Cloud / Serverless / Microservices**.
 
-**Good project question shape.** Which representation, partitioning, rendering placement, transport, caching, and synchronization strategy gives the best motion-to-photon latency and visual quality under mobility and bandwidth variation?
+**Corpus signal:** about **1,526** primary-mapped papers.
 
-**Likely tools.** Unity/Unreal, WebXR, 3D Gaussian Splatting pipelines, trace-driven network emulation.
+**Subdomains / technology tags:** **MEC**; edge intelligence; cloud-edge orchestration; fog computing; serverless; microservices; service mesh; digital twins; disaggregated resources.
 
-**Research anchors.** EdgeGaussian; L3GS; Vega; ProxLink; RadioSight; Apple Vision Pro telepresence measurement.
+**Strong design aspects:** placement/offloading/partitioning; scheduling/resource allocation; latency/deadline optimization; cost/provisioning; QoS/SLO management; energy/sustainability; security/privacy; mobility-aware placement; traffic engineering.
 
-### 9. Edge intelligence and collaborative perception
+**Typical project shape:** decide where computation/state/services should live and move when network paths, compute capacity, cold starts, SLOs, mobility, and failures interact.
 
-**Why this is broader than “edge video analytics.”** Recent work includes split multimodal inference, collaborative 3D perception, mobile agents, on-device LLMs, service placement, and semantic communication.
+### 8. Satellite & Non-Terrestrial Networks
 
-**Good project question shape.** What information should devices process locally, compress, summarize, or transmit, and where should downstream inference run when bandwidth, energy, accuracy, and latency all matter?
+**Corpus signal:** about **275** primary-mapped papers.
 
-**Likely tools.** PyTorch, edge devices or emulated resource limits, prerecorded sensor/video data, network emulation.
+**Subdomains / technology tags:** **LEO**; satellite Internet; **Starlink**; direct-to-cell; inter-satellite links; ground stations; satellite-terrestrial integration; NTN; satellite edge.
 
-**Research anchors.** S2M3; CoPe; DiVE; TASP; DeltaAR; on-device / edge MoE serving work.
+**Strong design aspects:** routing/path selection; mobility/handover; scheduling/resource allocation; latency optimization; placement/offloading; capacity/scalability; reliability; QoS; cost/provisioning.
 
-### 10. Networked robotics, UAVs, vehicles, and autonomous control
+**Typical project shape:** combine constellation dynamics with routing, handover, transport, caching/compute placement, or reservations for a concrete workload.
 
-**Why it is attractive.** Networking choices affect the physical system’s objective, not just packet metrics. The literature spans UAV mesh networks, search and rescue, autonomous-driving planning, collaborative perception, and cloud-augmented control.
+### 9. Autonomous & Cyber-Physical Networks
 
-**Good project question shape.** What data/control functions should be local, peer-to-peer, edge-assisted, or cloud-assisted under mobility, deadlines, failures, and changing wireless capacity?
+This top-level domain absorbs **Vehicular & V2X Networks**, **UAV & Aerial Networks**, and **Robotics & Cyber-Physical Networks**.
 
-**Likely tools.** CARLA, SUMO, AirSim, ROS2, ns-3/Veins, network emulation.
+**Corpus signal:** about **615** primary-mapped papers.
 
-**Research anchors.** VI-Planning; U-Mesh; TURBO; Failure-Aware Tasking for Teams of Drones; Take Me Home, Wi-Fi Drone.
+**Subdomains / technology tags:** vehicular/V2X; UAV/aerial; robotics/teleoperation; **V2X**; UAV swarms; autonomous driving; cooperative perception; ITS; digital twins; MEC; 5G/6G.
 
-### 11. Internet measurement, routing, naming, and CDN infrastructure
+**Strong design aspects:** scheduling/resource allocation; placement/offloading; latency/deadline optimization; mobility/handover; routing; MAC/radio-resource management; reliability/recovery; security/privacy; energy.
 
-**Why this is now a major pool area.** IMC and related SIGCOMM/NINeS work show a deep research stream around BGP, DNS, IPv6, Internet topology, submarine cables, CDN replica selection, scanning, and residential access.
+**Typical project shape:** decide which sensing/control functions remain local, peer-to-peer, edge-assisted, or cloud-assisted under mobility, deadlines, failures, and changing wireless capacity.
 
-**Good project question shape.** Can students make a falsifiable claim about how a real Internet mechanism behaves, then design a measurement methodology robust to missing data, bias, and confounding?
+### 10. Real-Time Media & Immersive Networking
 
-**Likely tools.** RIPE Atlas, RouteViews/RIS, CAIDA data, Censys/Shadowserver-style datasets where licensed, public DNS/BGP datasets, active probing with strict ethical controls.
+This top-level domain absorbs **Real-Time Media & Streaming** and **XR & Immersive Networking**.
 
-**Research anchors.** MetAS Critic; BGP Communities study; Threading the Ocean; Monitoring Latency on Submarine Cables; CDN Replica Selection; IPv6 discovery work.
+**Corpus signal:** about **295** primary-mapped papers.
 
-### 12. Network security and censorship-resilient infrastructure
+**Subdomains / technology tags:** conferencing; interactive/live streaming; cloud gaming; XR/AR/VR; volumetric media; **WebRTC**; **ABR**; **FEC**; **QUIC**; volumetric video; 3D Gaussian splatting.
 
-**Why it belongs in an advanced networking course.** The most useful subset of security papers treats the network protocol or Internet infrastructure itself as the object of study: BGP, DNSSEC, QUIC censorship, scanning, DDoS, encrypted traffic, and P2P privacy.
+**Strong design aspects:** latency/deadline optimization; QoS/QoE management; application adaptation & cross-layer control; transport/congestion control; coding/compression/redundancy; placement/offloading; architecture/system design; synchronization.
 
-**Good project question shape.** How does an attacker exploit a network protocol’s assumptions, and what deployable defense changes the attacker/defender trade-off without unacceptable performance or compatibility cost?
+**Typical project shape:** jointly choose transport, adaptation, redundancy, forwarding topology, representation, and edge placement to optimize interactive QoE under changing capacity and delay.
 
-**Likely tools.** Mininet, protocol implementations, safe local testbeds, public measurement datasets. No uncontrolled Internet attacks.
+### 11. Distributed AI & LLM Systems
 
-**Research anchors.** forged-origin BGP hijack detection; QUIC censorship; UPGen; DNSSEC cache DoS; SAV measurement; encrypted-traffic anomaly detection.
+This remains a top-level domain because the same AI workload spans datacenter, edge, and wireless environments; making it only a datacenter tag would hide important cross-environment design choices.
 
-### 13. Cloud, serverless, and disaggregated networked systems
+**Corpus signal:** about **290** primary-mapped papers.
 
-**Why it is useful but should stay network-centered.** The corpus is large, but many systems papers become ordinary resource-management projects. A suitable course project must put communication, placement, network contention, or failure propagation in the critical path.
+**Subdomains / technology tags:** distributed/federated training; inference/serving; split inference; **federated learning**; distributed training; **LLM inference**; model serving; **MoE**; **KV cache**; collectives; differential privacy.
 
-**Good project question shape.** How should a service partition and place state/functionality across hosts when cold starts, network paths, memory tiers, multi-tenancy, and SLOs interact?
+**Strong design aspects:** scheduling/resource allocation; model/state placement & movement; placement/offloading/partitioning; coding/compression; latency optimization; energy efficiency; security/privacy; cost/provisioning; reliability.
 
-**Research anchors.** Palladium; Autothrottle; Microns; PipeCo; serverless workflow scheduling.
+**Typical project shape:** determine where model computation/state should reside and how communication should be scheduled or compressed while meeting throughput, tail-latency, cost, and failure objectives.
 
-### 14. Deterministic and industrial networking
+### 12. Programmable Network Infrastructure
 
-**Why it is narrower but valuable.** TSN and predictable networking create explicit hard constraints around deadline guarantees, queue scheduling, interference, and fault recovery.
+This is the broader parent for the former **Programmable Networks & NFV** domain.
 
-**Good project question shape.** Which scheduling/admission architecture gives bounded latency to critical flows while retaining acceptable utilization for best-effort traffic?
+**Corpus signal:** about **256** primary-mapped papers.
 
-**Likely tools.** ns-3 TSN models, OMNeT++/INET, Linux TSN support, P4.
+**Subdomains / technology tags:** programmable data planes; NFV; service chaining; in-network computing; middleboxes; **P4**; **eBPF**; **SmartNIC/DPU**; **NFV**; service-function chaining; **SDN**.
 
-**Research anchors.** T(SN)-Ray; Elastic Scheduling for Mix-Flow in TSN; industrial monitoring work from MobiCom.
+**Strong design aspects:** programmability/hardware offload; service chaining/virtualization; packet processing/data structures; control-plane design; placement/offloading; scheduling; latency; verification/correctness; security.
 
-### 15. Quantum networking and distributed quantum systems
+**Typical project shape:** decide what functionality belongs in the switch/NIC/DPU/host/controller and evaluate the resulting performance, correctness, deployability, and failure trade-offs.
 
-**Why it is exploratory.** The cluster is now visible across SIGMETRICS, ICDCS, INFOCOM-style work, and NINeS, but student feasibility depends strongly on simulation and on how much quantum background the course wants to assume.
+### 13. Network Security, Privacy & Censorship
 
-**Good project question shape.** How should entanglement, routing, scheduling, or remote-gate resources be allocated under fidelity, latency, and fairness constraints?
+**Corpus signal:** about **321** primary-mapped papers.
 
-**Likely tools.** NetSquid, SeQUeNCe, SimulaQron-style simulators.
+**Subdomains / technology tags:** routing/DNS security; traffic security; censorship resistance; anonymity; **DDoS**; intrusion detection; encrypted traffic; **DNSSEC**; TLS; QUIC; Tor/onion services.
 
-**Research anchors.** Optimal Scheduling in a Quantum Switch; Quantum Network Optimization; CloudQC; distributed graph-state delivery.
+**Strong design aspects:** security/privacy/trust; traffic analysis/classification; verification/correctness; telemetry/monitoring; control-plane management; packet processing; reliability; protocol design/interoperability.
 
-### 16. Sustainable networking and computing
+**Typical project shape:** identify a network/protocol assumption an attacker can exploit, then compare deployable defenses under measurable compatibility, performance, and operational costs.
 
-**Why it is exploratory rather than standalone by default.** Energy/carbon is increasingly present, but it is strongest when used as a cross-cutting constraint on another networked system rather than as an isolated optimization exercise.
+### 14. P2P & Decentralized Networks
 
-**Good project question shape.** How much energy/carbon can be saved by changing network scheduling, placement, or traffic shaping without violating latency/reliability SLOs?
+**Corpus signal:** about **120** primary-mapped papers.
 
-**Research anchors.** EcoCell; GreenFL; sustainable large-scale computing work in SIGMETRICS.
+**Subdomains / technology tags:** peer-to-peer overlays; blockchain networks; decentralized services; **Blockchain/P2P**; payment channels; anonymous communication.
+
+**Strong design aspects:** distributed coordination/consensus; security/privacy/trust; throughput/scalability; reliability/fault recovery; routing; protocol design/interoperability; latency; topology/architecture.
+
+**Typical project shape:** analyze how overlay topology, routing, coordination, incentives, or failure assumptions affect scalability, privacy, or consistency.
+
+### 15. Quantum Networks
+
+**Corpus signal:** about **46** primary-mapped papers; exploratory.
+
+**Subdomains / technology tags:** quantum Internet; entanglement distribution; quantum switches; distributed quantum systems; **quantum entanglement**.
+
+**Strong design aspects:** routing/path selection; scheduling/resource allocation; topology/architecture; capacity/scalability; fairness; placement; reliability; cost/provisioning.
+
+**Typical project shape:** allocate entanglement/routing/scheduling resources under fidelity, latency, capacity, and fairness constraints, normally in simulation.
+
+### 16. Harsh-Environment & Delay-Tolerant Networks
+
+This is the broader parent for the former **Underwater & Harsh-Environment Networks** domain.
+
+**Corpus signal:** about **28** primary-mapped papers; targeted/exploratory.
+
+**Subdomains / technology tags:** underwater acoustic networks; disconnected/intermittent networks; **underwater acoustic**; **DTN**.
+
+**Strong design aspects:** routing; energy efficiency; scheduling/resource allocation; MAC/channel access; reliability; protocol design/interoperability; security; latency under long/intermittent paths.
+
+**Typical project shape:** design routing, access, buffering, or reliability mechanisms where conventional always-connected low-delay assumptions do not hold.
+
+### Cross-cutting aspects, not standalone domains
+
+Several recurring themes should **not** become separate project domains because they are stronger as a design axis applied to another domain:
+
+- **Energy / carbon / sustainability**
+- **Reliability / fault tolerance / recovery**
+- **Latency / deadline optimization**
+- **QoS / QoE / SLO management**
+- **Security / privacy / trust**
+- **Cost / economics / provisioning**
+- **Fairness / isolation / multi-tenancy**
+- **Coding / compression / redundancy**
+- **Measurement / characterization**
+- **Verification / correctness**
+
+For example, a strong project is **Satellite & NTN × Reliability** or **Datacenter & AI Cluster Networks × Energy**, not a generic “reliability project” or “green networking project.”
+
+### How teams should use the pool
+
+A team's matrix should therefore be built from:
+
+**Domain × Design aspect × optional subdomain/technology tag(s)**
+
+Examples:
+
+- **Datacenter & AI Cluster Networks × Transport & Congestion Control × RDMA/RoCE**
+- **Cellular & Wireless Access Networks × Admission Control & Network Slicing × O-RAN/5G**
+- **Satellite & NTN × Routing & Path Selection × LEO/inter-satellite links**
+- **Autonomous & Cyber-Physical Networks × Placement & Offloading × V2X/cooperative perception**
+- **Real-Time Media & Immersive Networking × Application Adaptation × WebRTC/ABR**
+- **Distributed AI & LLM Systems × Model/State Placement × KV cache/MoE**
+- **IoT, Sensor & Industrial Networks × Latency & Deadline Optimization × TSN**
+
+Tags narrow a project; they do not replace the need to articulate a design question. A team may use more than one tag and more than one aspect when the interaction itself is the research question, but the scope should remain small enough to evaluate rigorously in the available project time.
 
 ## Areas de-emphasized from the previous pool
 
@@ -445,29 +508,31 @@ The broader corpus changes several earlier conclusions:
 - **Cloud gaming** is best treated as a subcase of **interactive real-time media**, unless a team has a question specifically about rendering placement or game-streaming FEC.
 - **Satellite remote sensing** and **direct-to-device satellite communication** should be merged into the larger **LEO / non-terrestrial networking** family, then specialized by workload.
 - **Live interactive broadcasting** belongs under real-time media/CDN design rather than as a separate family.
-- **Collaborative AR** belongs under XR / immersive systems.
-- **Teleoperation** belongs under networked robotics / autonomous control.
+- **Collaborative AR** is a tag/subdomain under **Real-Time Media & Immersive Networking**, not a standalone domain.
+- **Teleoperation** is a tag/subdomain under **Autonomous & Cyber-Physical Networks**, not a standalone domain.
 - **Content delivery in poor-connectivity regions** remains a useful application scenario but does not appear as a dense standalone research cluster in this corpus.
 - **Multiplayer online games** remains weaker than cloud gaming/RTC/XR in the recent requested venues.
 
 ## Recommended shortlist for Fall 2026
 
-If the course wants roughly **6–10 broad project areas**, the strongest set is:
+If the course wants to expose students to a smaller menu rather than all sixteen domains, the strongest starting set is:
 
-1. AI cluster networks and distributed training
-2. Distributed / disaggregated LLM inference
-3. Datacenter transport and programmable networking
-4. Network telemetry, diagnosis, reliability, and automated operations
-5. LEO satellite / non-terrestrial networking
-6. 5G/6G RAN and mobile networking
-7. Real-time communication and interactive media
-8. XR / immersive / volumetric media
-9. Edge intelligence + networked autonomous systems
-10. Internet measurement, routing, naming, CDN, and network security
+1. Datacenter & AI Cluster Networks
+2. Packet Networks & End-to-End Protocols
+3. Cellular & Wireless Access Networks
+4. Edge, Cloud & Networked Services
+5. Satellite & Non-Terrestrial Networks
+6. Autonomous & Cyber-Physical Networks
+7. Real-Time Media & Immersive Networking
+8. Distributed AI & LLM Systems
+9. Internet Routing, WAN & CDN
+10. Network Measurement & Operations
+11. Programmable Network Infrastructure
+12. Network Security, Privacy & Censorship
 
-The last item can be split into **Internet infrastructure measurement** and **network security** if the teaching team wants more than ten areas.
+The remaining domains—IoT/industrial, P2P/decentralized, quantum, and harsh-environment/DTN—are still valid project spaces, but are more useful as targeted options when a team or TA has a concrete question and suitable evaluation environment.
 
-This shortlist is more robust to rapid AI progress than the previous application-only list because difficulty comes from **architecture choice, experimentation, measurement validity, failure behavior, and trade-offs**, not from implementation difficulty alone.
+The hierarchy is intended to remain robust to AI capability improvements: difficulty should come from selecting and defending the **domain × aspect × tags** combination, designing experiments, validating system behavior, and reasoning about trade-offs rather than from implementation effort alone.
 
 ## Project-release gate
 
