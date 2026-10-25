@@ -3,7 +3,7 @@ name: Assemble reduced paper corpus
 on:
   workflow_dispatch:
   push:
-    branches: [research/refresh-project-idea-pool-2023-2026]
+    branches: [main]
     paths:
       - tools/research/assemble_validated_corpus.py
       - materials/assessments/data/CONTROLLED_KEYWORDS.csv
