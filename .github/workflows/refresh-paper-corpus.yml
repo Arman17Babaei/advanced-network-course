@@ -1,0 +1,45 @@
+name: Assemble reduced paper corpus
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - tools/research/assemble_validated_corpus.py
+      - materials/assessments/data/CONTROLLED_KEYWORDS.csv
+      - materials/assessments/data/venues/**
+      - materials/assessments/data/transactions/**
+      - .github/workflows/refresh-paper-corpus.yml
+
+permissions:
+  contents: write
+
+jobs:
+  assemble:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Assemble reduced corpus
+        run: python tools/research/assemble_validated_corpus.py
+      - name: Commit generated corpus
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add materials/assessments/data/all_conference_papers.csv
+          git add materials/assessments/data/ieee_transactions_network.csv
+          git add materials/assessments/data/master_paper_corpus.csv
+          git add materials/assessments/data/PAPER_CORPUS_COVERAGE.csv
+          git add materials/assessments/data/PAPER_CORPUS_SUMMARY.md
+          if git diff --cached --quiet; then
+            echo "No generated corpus changes"
+          else
+            git commit -m "Refresh reduced networking paper corpus"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi

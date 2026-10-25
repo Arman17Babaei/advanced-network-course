@@ -1,0 +1,676 @@
+{
+  "years": [
+    2023,
+    2024,
+    2025,
+    2026,
+    2027
+  ],
+  "conferences": [
+    {
+      "name": "SIGCOMM",
+      "hard_min": 40,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "official_urls": {
+        "2023": "https://conferences.sigcomm.org/sigcomm/2023/list-accepted.html",
+        "2024": "https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/",
+        "2025": "https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/",
+        "2026": "https://conferences.sigcomm.org/sigcomm/2026/accepted/"
+      },
+      "enabled": true,
+      "live_provider": "sigcomm_official",
+      "snapshot": "materials/assessments/data/venues/sigcomm.csv"
+    },
+    {
+      "name": "CoNEXT",
+      "core": true,
+      "provider": "static_csv",
+      "hard_min": 25,
+      "validate_through": 2026,
+      "official_sources": {
+        "2023": {
+          "url": "https://conferences2.sigcomm.org/co-next/2023/partials/accepted-papers.html",
+          "kind": "accepted"
+        },
+        "2024": {
+          "url": "https://conferences2.sigcomm.org/co-next/2024/partials/accepted-papers.html",
+          "kind": "accepted"
+        },
+        "2025": {
+          "url": "https://conferences2.sigcomm.org/co-next/2025/partials/program.html",
+          "kind": "program"
+        },
+        "2026": {
+          "url": "https://conferences2.sigcomm.org/co-next/2026/partials/accepted-papers.html",
+          "kind": "accepted"
+        }
+      },
+      "live_provider": "conext_official",
+      "snapshot": "materials/assessments/data/venues/conext.csv",
+      "enabled": true
+    },
+    {
+      "name": "NSDI",
+      "provider": "static_csv",
+      "slug": "nsdi{yy}",
+      "hard_min": 35,
+      "validate_through": 2026,
+      "core": true,
+      "enabled": true,
+      "live_provider": "usenix",
+      "snapshot": "materials/assessments/data/venues/nsdi.csv"
+    },
+    {
+      "name": "ICNP",
+      "hard_min": 35,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S4210215197"
+      ],
+      "official_urls": {
+        "2023": "https://icnp23.cs.ucr.edu/acceptedpapers.html",
+        "2024": "https://icnp24.cs.ucr.edu/acceptedpapers.html",
+        "2025": "https://ieeeicnp2025.pages.dev/acceptedpapers",
+        "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
+      },
+      "enabled": true,
+      "live_provider": "official_list",
+      "snapshot": "materials/assessments/data/venues/icnp.csv"
+    },
+    {
+      "name": "INFOCOM",
+      "hard_min": 200,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "issns": [
+        "0743-166X",
+        "2641-9874"
+      ],
+      "enabled": true,
+      "doi_stems": {
+        "2023": "10.1109/INFOCOM53939.2023",
+        "2024": "10.1109/INFOCOM52122.2024",
+        "2025": "10.1109/INFOCOM55648.2025",
+        "2026": "10.1109/INFOCOM59046.2026"
+      },
+      "toc_template": "db/conf/infocom/infocom{year}.bht",
+      "live_provider": "topcsuniv",
+      "url_template": "https://topcsuniv.org/japan/conferences/infocom/{year}/",
+      "snapshot": "materials/assessments/data/venues/infocom.csv"
+    },
+    {
+      "name": "SIGMETRICS",
+      "hard_min": 12,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S7407088608",
+        "https://openalex.org/S7407088280",
+        "https://openalex.org/S4210193547"
+      ],
+      "enabled": true,
+      "live_provider": "openalex",
+      "snapshot": "materials/assessments/data/venues/sigmetrics.csv"
+    },
+    {
+      "name": "IMC",
+      "hard_min": 25,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "official_urls": {
+        "2023": "https://conferences.sigcomm.org/imc/2023/program/",
+        "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
+        "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
+        "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
+      },
+      "enabled": true,
+      "live_provider": "imc_mixed",
+      "snapshot": "materials/assessments/data/venues/imc.csv"
+    },
+    {
+      "name": "ACM Multimedia",
+      "hard_min": 300,
+      "validate_through": 2025,
+      "core": false,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S4363608757"
+      ],
+      "enabled": true,
+      "live_provider": "openalex",
+      "snapshot": "materials/assessments/data/venues/acm_multimedia.csv"
+    },
+    {
+      "name": "NINeS",
+      "provider": "static_csv",
+      "hard_min": 20,
+      "validate_through": 2026,
+      "core": true,
+      "years": [
+        2026,
+        2027
+      ],
+      "official_2026": "https://2026.nines-conference.org/accepted",
+      "enabled": true,
+      "live_provider": "nines",
+      "snapshot": "materials/assessments/data/venues/nines.csv"
+    },
+    {
+      "name": "MobiCom",
+      "hard_min": 50,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "official_urls": {
+        "2023": "https://www.sigmobile.org/mobicom/2023/accepted.html",
+        "2024": "https://www.sigmobile.org/mobicom/2024/program.html",
+        "2025": "https://www.sigmobile.org/mobicom/2025/accepted.html",
+        "2026": "https://www.sigmobile.org/mobicom/2026/accepted.html"
+      },
+      "program_years": [
+        2024
+      ],
+      "enabled": true,
+      "live_provider": "mobicom_official",
+      "snapshot": "materials/assessments/data/venues/mobicom.csv"
+    },
+    {
+      "name": "MMSys",
+      "hard_min": 20,
+      "validate_through": 2026,
+      "core": true,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S7407085912"
+      ],
+      "prefix": "10.1145",
+      "query": "ACM Multimedia Systems Conference MMSys",
+      "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
+      "max_crossref_pages": 5,
+      "enabled": true,
+      "live_provider": "openalex_crossref",
+      "snapshot": "materials/assessments/data/venues/mmsys.csv"
+    },
+    {
+      "name": "IPDPS",
+      "hard_min": 80,
+      "validate_through": 2026,
+      "core": false,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S4210174069"
+      ],
+      "enabled": true,
+      "live_provider": "ipdps_official",
+      "doi_stems": {
+        "2023": "10.1109/IPDPS54959.2023",
+        "2024": "10.1109/IPDPS57955.2024",
+        "2025": "10.1109/IPDPS64566.2025",
+        "2026": "10.1109/IPDPS65963.2026"
+      },
+      "expected_counts": {
+        "2023": 95,
+        "2024": 88,
+        "2025": 106,
+        "2026": 101
+      },
+      "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
+      "collection_status": "validating complete published main-proceedings inventory; 2025 includes one published open-source contribution in addition to 105 contributed papers",
+      "expected_count_notes": {
+        "2023": "95 contributed main-conference papers per official report",
+        "2024": "88 contributed main-conference papers per official report",
+        "2025": "105 contributed papers plus 1 separately awarded open-source contribution published in the main IPDPS proceedings"
+      },
+      "snapshot": "materials/assessments/data/venues/ipdps.csv"
+    },
+    {
+      "name": "ICDCS",
+      "hard_min": 80,
+      "validate_through": 2026,
+      "core": false,
+      "provider": "static_csv",
+      "source_ids": [
+        "https://openalex.org/S4363608224",
+        "https://openalex.org/S4306419352",
+        "https://openalex.org/S4393916864"
+      ],
+      "enabled": true,
+      "collection_status": "validated and frozen",
+      "live_provider": "icdcs_official",
+      "drop_authorless_front_matter": true,
+      "snapshot": "materials/assessments/data/venues/icdcs.csv",
+      "expected_counts": {
+        "2023": 83,
+        "2024": 121,
+        "2025": 103,
+        "2026": 138
+      },
+      "doi_stems": {
+        "2023": "10.1109/ICDCS57875.2023"
+      },
+      "doi_max_suffix": {
+        "2023": 130
+      },
+      "official_urls": {
+        "2024": "https://icdcs2024.icdcs.org/accepted-papers/",
+        "2025": "https://icdcs2025.icdcs.org/accepted-papers/",
+        "2026": "https://icdcs2026.icdcs.org/program/main-technical-sessions/"
+      }
+    },
+    {
+      "name": "OSDI",
+      "provider": "static_csv",
+      "slug": "osdi{yy}",
+      "hard_min": 30,
+      "validate_through": 2026,
+      "core": false,
+      "enabled": true,
+      "live_provider": "usenix",
+      "snapshot": "materials/assessments/data/venues/osdi.csv"
+    },
+    {
+      "name": "USENIX Security",
+      "provider": "static_csv",
+      "slug": "usenixsecurity{yy}",
+      "hard_min": 100,
+      "validate_through": 2026,
+      "core": false,
+      "enabled": true,
+      "live_provider": "usenix",
+      "snapshot": "materials/assessments/data/venues/usenix_security.csv"
+    }
+  ],
+  "ieee_transactions": {
+    "provider": "crossref",
+    "journals": [
+      "IEEE/ACM Transactions on Networking",
+      "IEEE Transactions on Network and Service Management",
+      "IEEE Transactions on Mobile Computing",
+      "IEEE Transactions on Wireless Communications",
+      "IEEE Transactions on Communications",
+      "IEEE Transactions on Vehicular Technology",
+      "IEEE Transactions on Green Communications and Networking"
+    ],
+    "crossref_prefix": "10.1109",
+    "include_2027": true,
+    "keep_only_network_relevant": true,
+    "enabled": false,
+    "network_only": true,
+    "journal_specs": [
+      {
+        "name": "IEEE/ACM Transactions on Networking",
+        "issn_l": "1063-6692",
+        "relevance_mode": "all",
+        "hard_min": 80,
+        "validate_through": 2026,
+        "enabled": true,
+        "canonical_name": "IEEE Transactions on Networking",
+        "source_ids_by_year": {
+          "2023": [
+            "https://openalex.org/S62238642"
+          ],
+          "2024": [
+            "https://openalex.org/S62238642"
+          ],
+          "2025": [
+            "https://openalex.org/S5407042750"
+          ],
+          "2026": [
+            "https://openalex.org/S5407042750"
+          ],
+          "2027": [
+            "https://openalex.org/S5407042750"
+          ]
+        },
+        "title_history": [
+          "IEEE/ACM Transactions on Networking",
+          "IEEE Transactions on Networking"
+        ],
+        "hard_min_by_year": {
+          "2023": 80,
+          "2024": 80,
+          "2025": 80,
+          "2026": 80
+        }
+      },
+      {
+        "name": "IEEE Transactions on Network and Service Management",
+        "canonical_name": "IEEE Transactions on Network and Service Management",
+        "source_id": "https://openalex.org/S173527311",
+        "issn_l": "1932-4537",
+        "relevance_mode": "all",
+        "hard_min": 80,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Mobile Computing",
+        "canonical_name": "IEEE Transactions on Mobile Computing",
+        "source_id": "https://openalex.org/S69141925",
+        "issn_l": "1536-1233",
+        "relevance_mode": "filter",
+        "hard_min": 20,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Wireless Communications",
+        "canonical_name": "IEEE Transactions on Wireless Communications",
+        "source_id": "https://openalex.org/S63459445",
+        "issn_l": "1536-1276",
+        "relevance_mode": "filter",
+        "hard_min": 40,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Parallel and Distributed Systems",
+        "canonical_name": "IEEE Transactions on Parallel and Distributed Systems",
+        "source_id": "https://openalex.org/S97130795",
+        "issn_l": "1045-9219",
+        "relevance_mode": "filter",
+        "hard_min": 10,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Cloud Computing",
+        "canonical_name": "IEEE Transactions on Cloud Computing",
+        "source_id": "https://openalex.org/S2492498579",
+        "issn_l": "2168-7161",
+        "relevance_mode": "filter",
+        "hard_min": 10,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Multimedia",
+        "canonical_name": "IEEE Transactions on Multimedia",
+        "source_id": "https://openalex.org/S137030581",
+        "issn_l": "1520-9210",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Communications",
+        "canonical_name": "IEEE Transactions on Communications",
+        "source_id": "https://openalex.org/S196647941",
+        "issn_l": "0090-6778",
+        "relevance_mode": "filter",
+        "hard_min": 20,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Vehicular Technology",
+        "canonical_name": "IEEE Transactions on Vehicular Technology",
+        "source_id": "https://openalex.org/S10936095",
+        "issn_l": "0018-9545",
+        "relevance_mode": "filter",
+        "hard_min": 30,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Green Communications and Networking",
+        "canonical_name": "IEEE Transactions on Green Communications and Networking",
+        "source_id": "https://openalex.org/S4210192662",
+        "issn_l": "2473-2400",
+        "relevance_mode": "filter",
+        "hard_min": 15,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Dependable and Secure Computing",
+        "canonical_name": "IEEE Transactions on Dependable and Secure Computing",
+        "source_id": "https://openalex.org/S133795288",
+        "issn_l": "1545-5971",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
+      },
+      {
+        "name": "IEEE Transactions on Network Science and Engineering",
+        "canonical_name": "IEEE Transactions on Network Science and Engineering",
+        "source_id": "https://openalex.org/S2484352698",
+        "issn_l": "2327-4697",
+        "relevance_mode": "filter",
+        "hard_min": 5,
+        "validate_through": 2026,
+        "enabled": true
+      }
+    ]
+  },
+  "categories": {
+    "AI cluster networks and distributed training": [
+      "distributed training",
+      "collective communication",
+      "all-reduce",
+      "allreduce",
+      "all-to-all",
+      "mixture of experts",
+      "moe",
+      "gradient aggregation",
+      "gpu cluster",
+      "coflow",
+      "nccl",
+      "expert parallel",
+      "in-network aggregation",
+      "distributed deep learning",
+      "parameter server"
+    ],
+    "Distributed and disaggregated AI inference": [
+      "llm inference",
+      "model serving",
+      "inference serving",
+      "kv cache",
+      "disaggregated inference",
+      "prefill",
+      "expert serving",
+      "split inference",
+      "edge inference",
+      "large language model serving",
+      "mixture of experts serving"
+    ],
+    "Datacenter transport and programmable networking": [
+      "datacenter",
+      "data center",
+      "rdma",
+      "roce",
+      "congestion control",
+      "ecn",
+      "pfc",
+      "load balancing",
+      "smartnic",
+      "dpu",
+      "programmable switch",
+      "programmable data plane",
+      "p4",
+      "microburst",
+      "packet scheduling",
+      "network fabric"
+    ],
+    "Network telemetry, diagnosis, reliability, and automated operations": [
+      "telemetry",
+      "network diagnosis",
+      "fault localization",
+      "root cause",
+      "network verification",
+      "network operations",
+      "network management",
+      "digital twin",
+      "failure diagnosis",
+      "fault repair",
+      "network monitoring",
+      "intent-based networking"
+    ],
+    "LEO satellite and non-terrestrial networks": [
+      "satellite",
+      "leo",
+      "non-terrestrial",
+      "ntn",
+      "direct-to-cell",
+      "direct to cell",
+      "constellation",
+      "inter-satellite",
+      "ground station",
+      "starlink",
+      "satellite edge",
+      "space-air-ground"
+    ],
+    "5G/6G RAN and mobile network control": [
+      "5g",
+      "6g",
+      "radio access network",
+      "ran",
+      "o-ran",
+      "network slicing",
+      "handover",
+      "fronthaul",
+      "cellular network",
+      "base station",
+      "mmwave",
+      "mobile network"
+    ],
+    "Real-time communication and interactive media": [
+      "real-time video",
+      "video conferencing",
+      "webrtc",
+      "rtc",
+      "cloud gaming",
+      "live streaming",
+      "low-latency video",
+      "adaptive bitrate",
+      "video qoe",
+      "fec",
+      "interactive video",
+      "video streaming"
+    ],
+    "XR, immersive telepresence, and volumetric media": [
+      "virtual reality",
+      "augmented reality",
+      "extended reality",
+      "mixed reality",
+      "xr",
+      "telepresence",
+      "volumetric video",
+      "gaussian splatting",
+      "3d streaming",
+      "smart glasses",
+      "free-viewpoint"
+    ],
+    "Edge intelligence and collaborative perception": [
+      "edge intelligence",
+      "edge computing",
+      "mobile ai",
+      "collaborative perception",
+      "video analytics",
+      "offloading",
+      "semantic communication",
+      "split computing",
+      "edge-assisted",
+      "on-device",
+      "edge inference",
+      "mobile computing"
+    ],
+    "Networked robotics, UAVs, vehicles, and autonomous control": [
+      "uav",
+      "drone",
+      "robotics",
+      "autonomous driving",
+      "vehicular",
+      "v2x",
+      "autonomous control",
+      "platooning",
+      "search and rescue",
+      "cyber-physical",
+      "robot"
+    ],
+    "Internet measurement, routing, naming, and CDN infrastructure": [
+      "internet measurement",
+      "bgp",
+      "dns",
+      "ipv6",
+      "cdn",
+      "content delivery",
+      "submarine cable",
+      "internet topology",
+      "autonomous system",
+      "routing",
+      "internet scanning",
+      "anycast",
+      "peering",
+      "internet path",
+      "route"
+    ],
+    "Network security, privacy, and censorship": [
+      "ddos",
+      "denial of service",
+      "censorship",
+      "routing security",
+      "bgp hijack",
+      "dnssec",
+      "encrypted traffic",
+      "traffic analysis",
+      "privacy",
+      "spoofing",
+      "source address validation",
+      "intrusion detection",
+      "network attack"
+    ],
+    "Cloud, serverless, and disaggregated networked systems": [
+      "serverless",
+      "microservice",
+      "cloud network",
+      "disaggregated memory",
+      "cxl",
+      "multi-tenant",
+      "resource disaggregation",
+      "service mesh",
+      "slo",
+      "cloud computing",
+      "rpc",
+      "distributed storage"
+    ],
+    "Deterministic and industrial networking": [
+      "time-sensitive networking",
+      "tsn",
+      "deterministic networking",
+      "industrial network",
+      "deadline traffic",
+      "bounded latency",
+      "industrial iot"
+    ],
+    "Quantum networking and distributed quantum systems": [
+      "quantum network",
+      "quantum networking",
+      "quantum switch",
+      "entanglement routing",
+      "distributed quantum",
+      "quantum communication",
+      "quantum internet"
+    ],
+    "Sustainable networking and computing": [
+      "energy efficient",
+      "energy-efficient",
+      "energy conservation",
+      "carbon aware",
+      "carbon-aware",
+      "green network",
+      "sustainable",
+      "energy-aware",
+      "renewable energy"
+    ]
+  }
+}
