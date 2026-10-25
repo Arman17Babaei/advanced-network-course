@@ -221,7 +221,8 @@
         "2025": 105,
         "2026": 101
       },
-      "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html"
+      "url_template": "https://dblp.org/db/conf/ipps/ipdps{year}.html",
+      "collection_status": "validating official program parser"
     },
     {
       "name": "ICDCS",
