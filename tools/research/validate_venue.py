@@ -38,6 +38,9 @@ def main():
             rows = corpus.usenix_conference(spec, year)
         elif provider == "nines":
             rows = corpus.nines_2026(spec) if year == 2026 else []
+        elif provider == "official_list":
+            url = spec.get("official_urls", {}).get(str(year))
+            rows = corpus.official_list_conference(spec, year, url) if url else []
         else:
             raise SystemExit(f"Unsupported provider: {provider}")
 
