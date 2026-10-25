@@ -1,4 +1,4 @@
-name: Validate remaining Transactions journals
+name: Freeze remaining Transactions snapshots
 
 on:
   workflow_dispatch:
@@ -6,28 +6,30 @@ on:
     branches: [research/refresh-project-idea-pool-2023-2026]
     paths:
       - tools/research/build_paper_corpus.py
+      - tools/research/export_transaction_journal.py
       - tools/research/validate_transaction_journal.py
       - tools/research/paper_corpus_config.json
       - .github/workflows/refresh-paper-corpus.yml
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  validate:
+  export:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate remaining journals sequentially
+      - name: Export validated journals sequentially
         shell: bash
         run: |
-          set +e
-          failed=0
+          set -e
           journals=(
             "IEEE Transactions on Cloud Computing"
             "IEEE Transactions on Communications"
@@ -38,14 +40,19 @@ jobs:
             "IEEE Transactions on Wireless Communications"
           )
           for journal in "${journals[@]}"; do
-            echo "===== VALIDATING: $journal ====="
-            python tools/research/validate_transaction_journal.py --journal "$journal"
-            rc=$?
-            if [ $rc -ne 0 ]; then
-              echo "===== FAILED: $journal ====="
-              failed=1
-            else
-              echo "===== PASSED: $journal ====="
-            fi
+            echo "===== EXPORTING: $journal ====="
+            python tools/research/export_transaction_journal.py --journal "$journal"
+            sleep 5
           done
-          exit $failed
+      - name: Commit validated snapshots
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add materials/assessments/data/transactions/*.csv
+          if git diff --cached --quiet; then
+            echo "No Transactions snapshot changes"
+          else
+            git commit -m "Refresh validated networking Transactions snapshots"
+            git pull --rebase origin "$GITHUB_REF_NAME"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi
