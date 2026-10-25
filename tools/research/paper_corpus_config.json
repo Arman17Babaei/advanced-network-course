@@ -285,7 +285,18 @@
     "include_2027": true,
     "keep_only_network_relevant": true,
     "enabled": false,
-    "network_only": true
+    "network_only": true,
+    "journal_specs": [
+      {
+        "name": "IEEE/ACM Transactions on Networking",
+        "source_id": "https://openalex.org/S62238642",
+        "issn_l": "1063-6692",
+        "relevance_mode": "all",
+        "hard_min": 80,
+        "validate_through": 2026,
+        "enabled": true
+      }
+    ]
   },
   "categories": {
     "AI cluster networks and distributed training": [
