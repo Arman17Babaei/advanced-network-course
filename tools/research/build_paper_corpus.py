@@ -886,6 +886,38 @@ def mobicom_official(spec, year, url, program=False):
             "_abstract": "",
         })
 
+    # Other editions render a paper as one leaf paragraph/div with title and
+    # author spans but no explicit "Authors:" label.
+    if len(rows) < int(spec.get("hard_min", 1)):
+        for tag in soup.find_all(["p","div"]):
+            if tag.find(["p","div"], recursive=False):
+                continue
+            parts = [norm(x) for x in tag.stripped_strings if norm(x)]
+            if len(parts) < 2:
+                continue
+            title = parts[0]
+            authors = " ".join(parts[1:])
+            low = title.lower().strip()
+            if len(title) < 10 or low.startswith(skip):
+                continue
+            if not ("(" in authors or "," in authors or ";" in authors):
+                continue
+            key = slug(title)
+            if key in seen:
+                continue
+            seen.add(key)
+            kw, provenance = _usenix_keywords(title, "")
+            rows.append({
+                "title": title.rstrip("."), "authors": authors, "venue": spec["name"],
+                "raw_venue": spec["name"], "year": year, "venue_kind":"conference",
+                "source_id":"", "doi":"", "url":url, "openalex_id":"",
+                "metadata_source":"official program page" if program else "official accepted-paper page",
+                "paper_type":"conference paper", "keywords":kw, "keyword_provenance":provenance,
+                "topics":"", "primary_topic":"", "categories":"",
+                "network_relevance_score":0, "network_relevant":False,
+                "_core":bool(spec.get("core",False)), "_abstract":"",
+            })
+
     # Some accepted pages render title/author pairs as headings plus paragraphs.
     if len(rows) < int(spec.get("hard_min", 1)):
         for h in soup.find_all(["h3","h4","h5"]):
@@ -919,6 +951,70 @@ def mobicom_official(spec, year, url, program=False):
 
     rows = dedupe(rows)
     print(f"MOBICOM-OFFICIAL {year}: kept {len(rows)}", flush=True)
+    return rows
+
+
+def openalex_issn_conference(spec, year):
+    source_ids = []
+    for issn in spec.get("issns", []):
+        try:
+            s = get_json(f"{OPENALEX}/sources/issn:{issn}")
+        except Exception as e:
+            print(f"WARNING OpenAlex ISSN {issn}: {e}", file=sys.stderr)
+            continue
+        sid = norm(s.get("id"))
+        if sid and sid not in source_ids:
+            source_ids.append(sid)
+            print(f"ISSN {issn} -> {s.get('display_name')} ({sid})", flush=True)
+    rows = collect_works(
+        source_ids, year,
+        venue_override=spec["name"], kind="conference", core=spec.get("core", False)
+    )
+    rows = dedupe(rows)
+    print(f"OPENALEX-ISSN {spec['name']} {year}: kept {len(rows)}", flush=True)
+    return rows
+
+
+def imc_2023_program(spec, year, url):
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+    seen = set()
+    # IMC 2023 program entries label the paper title with Long/Short and place
+    # the author line in the same compact schedule block.
+    for tag in soup.find_all(["li","p","div"]):
+        if tag.find(["li","p","div"], recursive=False):
+            continue
+        parts = [norm(x) for x in tag.stripped_strings if norm(x)]
+        if len(parts) < 2:
+            continue
+        title = parts[0]
+        m = re.match(r"^(.*?)(?:\s+)(Long|Short)$", title, flags=re.I)
+        if m:
+            title = norm(m.group(1))
+            authors = parts[1]
+        elif len(parts) >= 3 and parts[1].lower() in {"long","short"}:
+            title = parts[0]
+            authors = parts[2]
+        else:
+            continue
+        if len(title) < 10 or len(authors) < 5:
+            continue
+        key = slug(title)
+        if key in seen:
+            continue
+        seen.add(key)
+        kw, provenance = _usenix_keywords(title, "")
+        rows.append({
+            "title": title.rstrip("."), "authors": authors, "venue": spec["name"],
+            "raw_venue": spec["name"], "year": year, "venue_kind":"conference",
+            "source_id":"", "doi":"", "url":url, "openalex_id":"",
+            "metadata_source":"official program page", "paper_type":"conference paper",
+            "keywords":kw, "keyword_provenance":provenance, "topics":"", "primary_topic":"",
+            "categories":"", "network_relevance_score":0, "network_relevant":False,
+            "_core":bool(spec.get("core",False)), "_abstract":"",
+        })
+    rows = dedupe(rows)
+    print(f"IMC-PROGRAM {year}: kept {len(rows)}", flush=True)
     return rows
 
 def nines_2026(spec):
