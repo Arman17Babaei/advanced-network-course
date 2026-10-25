@@ -999,20 +999,23 @@ def ipdps_official(spec, year):
                     make_row(paper["title"], paper["authors"], url)
 
     elif year == 2025:
-        url = "https://ssl.linklings.net/conferences/ipdps/ipdps2025_program/views/at_a_glance.html"
+        url = "https://ssl.linklings.net/conferences/ipdps/ipdps2025_program/views/by_sub_type.html"
         soup = BeautifulSoup(get_html(url), "html.parser")
-        for slot in soup.select(".slot-wrapper"):
-            # Linklings mixes keynotes, panels, tutorials and papers in the
-            # same slot markup.  The calendar identifier is the stable subtype
-            # discriminator: main papers use --papNNN.ics.
-            cal = slot.select_one("a.calendar-link[href*='--pap']")
-            title_tag = slot.select_one("span.ttip_object_info")
-            authors_tag = slot.select_one(".author-names")
-            if cal is None or title_tag is None or authors_tag is None:
+        papers_container = None
+        for section in soup.select(".section-title"):
+            if norm(section.get_text(" ", strip=True)).lower() == "papers":
+                papers_container = section.parent.find_next_sibling("div", class_="section-entry")
+                break
+        if papers_container is None:
+            raise RuntimeError("IPDPS 2025: explicit Papers section not found")
+        for slot in papers_container.select(".slot-entry"):
+            title_tag = slot.select_one(".slot-title")
+            authors_tag = slot.select_one(".slot-authors")
+            if title_tag is None or authors_tag is None:
                 continue
             title = norm(title_tag.get_text(" ", strip=True))
             authors = norm(authors_tag.get_text(" ", strip=True))
-            abstract_tag = slot.select_one("blockquote")
+            abstract_tag = slot.select_one(".slot-abstract")
             abstract = norm(abstract_tag.get_text(" ", strip=True)) if abstract_tag else ""
             make_row(title, authors, url, abstract)
 
