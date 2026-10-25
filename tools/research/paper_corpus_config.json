@@ -64,7 +64,7 @@
     },
     {
       "name": "ICNP",
-      "hard_min": 40,
+      "hard_min": 35,
       "validate_through": 2026,
       "core": true,
       "provider": "official_list",
