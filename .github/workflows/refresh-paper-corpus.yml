@@ -1,4 +1,4 @@
-name: Validate MobiCom source
+name: Validate MMSys source
 
 concurrency:
   group: paper-source-validation-${{ github.sha }}
@@ -32,19 +32,19 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate MobiCom source
-        run: python tools/research/validate_venue.py --venue MobiCom
-      - name: Export MobiCom snapshot
-        run: python tools/research/export_validated_venue.py --venue MobiCom
-      - name: Commit MobiCom snapshot
+      - name: Validate MMSys source
+        run: python tools/research/validate_venue.py --venue MMSys
+      - name: Export MMSys snapshot
+        run: python tools/research/export_validated_venue.py --venue MMSys
+      - name: Commit MMSys snapshot
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add materials/assessments/data/venues/mobicom.csv
+          git add materials/assessments/data/venues/mmsys.csv
           if git diff --cached --quiet; then
-            echo "No MobiCom snapshot changes"
+            echo "No MMSys snapshot changes"
           else
-            git commit -m "Refresh validated MobiCom snapshot"
+            git commit -m "Refresh validated MMSys snapshot"
             git pull --rebase origin "$GITHUB_REF_NAME"
             git push origin "HEAD:$GITHUB_REF_NAME"
           fi
