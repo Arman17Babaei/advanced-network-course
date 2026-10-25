@@ -204,7 +204,8 @@
       "source_ids": [
         "https://openalex.org/S4210174069"
       ],
-      "enabled": false
+      "enabled": false,
+      "collection_status": "inventory validated; author metadata incomplete in current bibliographic sources"
     },
     {
       "name": "ICDCS",
