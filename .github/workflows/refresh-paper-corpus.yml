@@ -1,5 +1,9 @@
 name: Validate ICDCS source
 
+concurrency:
+  group: paper-source-validation-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   workflow_dispatch:
   push:
