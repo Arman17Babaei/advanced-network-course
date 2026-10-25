@@ -6,6 +6,7 @@ on:
       - research/refresh-project-idea-pool-2023-2026
     paths:
       - tools/research/inspect_icdcs_missing.py
+      - tools/research/inspect_icdcs_dois.py
       - .github/workflows/inspect-icdcs.yml
 
 permissions:
@@ -14,7 +15,7 @@ permissions:
 jobs:
   inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
+    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -22,5 +23,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Inspect official ICDCS pages
+      - name: Inspect current ICDCS official pages
         run: python tools/research/inspect_icdcs_missing.py
+      - name: Inspect ICDCS 2023 DOI family
+        run: python tools/research/inspect_icdcs_dois.py
