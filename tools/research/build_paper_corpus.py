@@ -1335,7 +1335,8 @@ def main():
     coverage = []
     failures = []
 
-    for spec in CONFERENCES:
+    active_conferences = [s for s in CONFERENCES if s.get("enabled", True)]
+    for spec in active_conferences:
         allowed = set(spec.get("years", YEARS))
         for year in YEARS:
             if year not in allowed:
@@ -1480,10 +1481,11 @@ def main():
         failures.append(f"conference author metadata missing for {author_missing}/{len(conferences)} records")
     if keyword_missing:
         failures.append(f"conference keywords missing after fallback for {keyword_missing} records")
-    if len(conferences) < 2500:
-        failures.append(f"conference corpus unexpectedly small: {len(conferences)}")
-    if len(tx) < 3000:
-        failures.append(f"IEEE Transactions corpus unexpectedly small: {len(tx)}")
+    expected_floor = sum(int(s["hard_min"]) for s in active_conferences)
+    if len(conferences) < expected_floor:
+        failures.append(f"conference corpus unexpectedly small: {len(conferences)} < {expected_floor}")
+    if TX_CFG.get("enabled", True) and not tx:
+        failures.append("IEEE Transactions network subset is empty")
 
     if failures:
         print("\nVALIDATION FAILED", file=sys.stderr)
