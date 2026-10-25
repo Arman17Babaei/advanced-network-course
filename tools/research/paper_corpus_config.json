@@ -218,7 +218,8 @@
         "https://openalex.org/S4306419352",
         "https://openalex.org/S4393916864"
       ],
-      "enabled": false
+      "enabled": false,
+      "collection_status": "inventory validated; author metadata incomplete in current bibliographic sources"
     },
     {
       "name": "OSDI",
