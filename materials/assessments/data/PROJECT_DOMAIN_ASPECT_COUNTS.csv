@@ -1,125 +1,4 @@
 domain,domain_total,design_aspect,paper_count,share_of_domain
-Datacenter & AI Cluster Networks,401,Transport & Congestion Control,75,0.1870
-Datacenter & AI Cluster Networks,401,Scheduling & Resource Allocation,49,0.1222
-Datacenter & AI Cluster Networks,401,Programmability & Hardware Offload,35,0.0873
-Datacenter & AI Cluster Networks,401,"Placement, Offloading & Partitioning",33,0.0823
-Datacenter & AI Cluster Networks,401,Traffic Engineering & Load Balancing,22,0.0549
-Datacenter & AI Cluster Networks,401,Routing & Path Selection,22,0.0549
-Datacenter & AI Cluster Networks,401,Latency & Deadline Optimization,17,0.0424
-Datacenter & AI Cluster Networks,401,Architecture & System Design,16,0.0399
-Datacenter & AI Cluster Networks,401,"Topology, Fabric & Architecture",14,0.0349
-Datacenter & AI Cluster Networks,401,"Coding, Compression & Redundancy",14,0.0349
-Datacenter & AI Cluster Networks,401,"Throughput, Capacity & Scalability",12,0.0299
-Datacenter & AI Cluster Networks,401,"Security, Privacy & Trust",12,0.0299
-Datacenter & AI Cluster Networks,401,"Reliability, Fault Tolerance & Recovery",10,0.0249
-Datacenter & AI Cluster Networks,401,Diagnosis & Root Cause Analysis,8,0.0200
-Datacenter & AI Cluster Networks,401,"Fairness, Isolation & Multi-Tenancy",8,0.0200
-Datacenter & AI Cluster Networks,401,Measurement & Characterization,7,0.0175
-Datacenter & AI Cluster Networks,401,Telemetry & Monitoring,7,0.0175
-Datacenter & AI Cluster Networks,401,Distributed Coordination & Consensus,7,0.0175
-Datacenter & AI Cluster Networks,401,Control-Plane Design & Management,6,0.0150
-Datacenter & AI Cluster Networks,401,Synchronization & Consistency,5,0.0125
-Datacenter & AI Cluster Networks,401,"Energy, Carbon & Sustainability",4,0.0100
-Datacenter & AI Cluster Networks,401,Queueing & Stability,3,0.0075
-Datacenter & AI Cluster Networks,401,Protocol Design & Interoperability,3,0.0075
-Datacenter & AI Cluster Networks,401,"Cost, Economics & Provisioning",3,0.0075
-Datacenter & AI Cluster Networks,401,Service Chaining & Virtualization,2,0.0050
-Datacenter & AI Cluster Networks,401,Localization & Positioning,2,0.0050
-Datacenter & AI Cluster Networks,401,"MAC, Spectrum & Radio Resource Management",1,0.0025
-Datacenter & AI Cluster Networks,401,Caching & Content Placement,1,0.0025
-Datacenter & AI Cluster Networks,401,Admission Control & Network Slicing,1,0.0025
-Datacenter & AI Cluster Networks,401,Data/Traffic Prediction & Forecasting,1,0.0025
-Datacenter & AI Cluster Networks,401,Verification & Correctness,1,0.0025
-Packet Networks & End-to-End Protocols,833,Transport & Congestion Control,111,0.1333
-Packet Networks & End-to-End Protocols,833,Routing & Path Selection,93,0.1116
-Packet Networks & End-to-End Protocols,833,"Security, Privacy & Trust",78,0.0936
-Packet Networks & End-to-End Protocols,833,Scheduling & Resource Allocation,64,0.0768
-Packet Networks & End-to-End Protocols,833,"Reliability, Fault Tolerance & Recovery",39,0.0468
-Packet Networks & End-to-End Protocols,833,Protocol Design & Interoperability,32,0.0384
-Packet Networks & End-to-End Protocols,833,Traffic Engineering & Load Balancing,30,0.0360
-Packet Networks & End-to-End Protocols,833,Latency & Deadline Optimization,28,0.0336
-Packet Networks & End-to-End Protocols,833,"Cost, Economics & Provisioning",26,0.0312
-Packet Networks & End-to-End Protocols,833,"Coding, Compression & Redundancy",24,0.0288
-Packet Networks & End-to-End Protocols,833,"Topology, Fabric & Architecture",24,0.0288
-Packet Networks & End-to-End Protocols,833,Control-Plane Design & Management,23,0.0276
-Packet Networks & End-to-End Protocols,833,"Throughput, Capacity & Scalability",22,0.0264
-Packet Networks & End-to-End Protocols,833,Caching & Content Placement,22,0.0264
-Packet Networks & End-to-End Protocols,833,"Placement, Offloading & Partitioning",21,0.0252
-Packet Networks & End-to-End Protocols,833,Measurement & Characterization,19,0.0228
-Packet Networks & End-to-End Protocols,833,"QoS, QoE & SLO Management",18,0.0216
-Packet Networks & End-to-End Protocols,833,Traffic Analysis & Classification,16,0.0192
-Packet Networks & End-to-End Protocols,833,Programmability & Hardware Offload,15,0.0180
-Packet Networks & End-to-End Protocols,833,Application Adaptation & Cross-Layer Control,13,0.0156
-Packet Networks & End-to-End Protocols,833,Queueing & Stability,13,0.0156
-Packet Networks & End-to-End Protocols,833,Data/Traffic Prediction & Forecasting,12,0.0144
-Packet Networks & End-to-End Protocols,833,Verification & Correctness,11,0.0132
-Packet Networks & End-to-End Protocols,833,Localization & Positioning,10,0.0120
-Packet Networks & End-to-End Protocols,833,Distributed Coordination & Consensus,10,0.0120
-Packet Networks & End-to-End Protocols,833,Service Chaining & Virtualization,9,0.0108
-Packet Networks & End-to-End Protocols,833,"Fairness, Isolation & Multi-Tenancy",9,0.0108
-Packet Networks & End-to-End Protocols,833,"Energy, Carbon & Sustainability",8,0.0096
-Packet Networks & End-to-End Protocols,833,Freshness & Age of Information,7,0.0084
-Packet Networks & End-to-End Protocols,833,Diagnosis & Root Cause Analysis,7,0.0084
-Packet Networks & End-to-End Protocols,833,Packet Processing & Data Structures,6,0.0072
-Packet Networks & End-to-End Protocols,833,"MAC, Spectrum & Radio Resource Management",4,0.0048
-Packet Networks & End-to-End Protocols,833,Mobility & Handover,4,0.0048
-Packet Networks & End-to-End Protocols,833,Architecture & System Design,2,0.0024
-Packet Networks & End-to-End Protocols,833,Synchronization & Consistency,2,0.0024
-Packet Networks & End-to-End Protocols,833,Admission Control & Network Slicing,1,0.0012
-"Internet Routing, WAN & CDN",184,Routing & Path Selection,30,0.1630
-"Internet Routing, WAN & CDN",184,Measurement & Characterization,29,0.1576
-"Internet Routing, WAN & CDN",184,"Security, Privacy & Trust",29,0.1576
-"Internet Routing, WAN & CDN",184,Architecture & System Design,15,0.0815
-"Internet Routing, WAN & CDN",184,Traffic Engineering & Load Balancing,9,0.0489
-"Internet Routing, WAN & CDN",184,Control-Plane Design & Management,7,0.0380
-"Internet Routing, WAN & CDN",184,Caching & Content Placement,7,0.0380
-"Internet Routing, WAN & CDN",184,Transport & Congestion Control,6,0.0326
-"Internet Routing, WAN & CDN",184,Traffic Analysis & Classification,6,0.0326
-"Internet Routing, WAN & CDN",184,"Coding, Compression & Redundancy",6,0.0326
-"Internet Routing, WAN & CDN",184,Localization & Positioning,4,0.0217
-"Internet Routing, WAN & CDN",184,"Topology, Fabric & Architecture",4,0.0217
-"Internet Routing, WAN & CDN",184,Latency & Deadline Optimization,4,0.0217
-"Internet Routing, WAN & CDN",184,Data/Traffic Prediction & Forecasting,4,0.0217
-"Internet Routing, WAN & CDN",184,"Reliability, Fault Tolerance & Recovery",3,0.0163
-"Internet Routing, WAN & CDN",184,Programmability & Hardware Offload,3,0.0163
-"Internet Routing, WAN & CDN",184,Verification & Correctness,3,0.0163
-"Internet Routing, WAN & CDN",184,Application Adaptation & Cross-Layer Control,2,0.0109
-"Internet Routing, WAN & CDN",184,Synchronization & Consistency,2,0.0109
-"Internet Routing, WAN & CDN",184,"QoS, QoE & SLO Management",2,0.0109
-"Internet Routing, WAN & CDN",184,Scheduling & Resource Allocation,2,0.0109
-"Internet Routing, WAN & CDN",184,"Throughput, Capacity & Scalability",2,0.0109
-"Internet Routing, WAN & CDN",184,Telemetry & Monitoring,1,0.0054
-"Internet Routing, WAN & CDN",184,"Cost, Economics & Provisioning",1,0.0054
-"Internet Routing, WAN & CDN",184,Packet Processing & Data Structures,1,0.0054
-"Internet Routing, WAN & CDN",184,Diagnosis & Root Cause Analysis,1,0.0054
-"Internet Routing, WAN & CDN",184,Queueing & Stability,1,0.0054
-Network Measurement & Operations,267,Telemetry & Monitoring,132,0.4944
-Network Measurement & Operations,267,Measurement & Characterization,21,0.0787
-Network Measurement & Operations,267,"Security, Privacy & Trust",19,0.0712
-Network Measurement & Operations,267,Diagnosis & Root Cause Analysis,17,0.0637
-Network Measurement & Operations,267,Packet Processing & Data Structures,16,0.0599
-Network Measurement & Operations,267,Routing & Path Selection,11,0.0412
-Network Measurement & Operations,267,Programmability & Hardware Offload,6,0.0225
-Network Measurement & Operations,267,Control-Plane Design & Management,5,0.0187
-Network Measurement & Operations,267,"Topology, Fabric & Architecture",5,0.0187
-Network Measurement & Operations,267,Traffic Engineering & Load Balancing,4,0.0150
-Network Measurement & Operations,267,"Coding, Compression & Redundancy",3,0.0112
-Network Measurement & Operations,267,Data/Traffic Prediction & Forecasting,3,0.0112
-Network Measurement & Operations,267,Architecture & System Design,3,0.0112
-Network Measurement & Operations,267,Scheduling & Resource Allocation,2,0.0075
-Network Measurement & Operations,267,"Energy, Carbon & Sustainability",2,0.0075
-Network Measurement & Operations,267,Freshness & Age of Information,2,0.0075
-Network Measurement & Operations,267,Latency & Deadline Optimization,2,0.0075
-Network Measurement & Operations,267,"Cost, Economics & Provisioning",2,0.0075
-Network Measurement & Operations,267,Protocol Design & Interoperability,2,0.0075
-Network Measurement & Operations,267,Transport & Congestion Control,2,0.0075
-Network Measurement & Operations,267,"Placement, Offloading & Partitioning",2,0.0075
-Network Measurement & Operations,267,Localization & Positioning,1,0.0037
-Network Measurement & Operations,267,Verification & Correctness,1,0.0037
-Network Measurement & Operations,267,"QoS, QoE & SLO Management",1,0.0037
-Network Measurement & Operations,267,"Throughput, Capacity & Scalability",1,0.0037
-Network Measurement & Operations,267,Traffic Analysis & Classification,1,0.0037
-Network Measurement & Operations,267,Queueing & Stability,1,0.0037
 Cellular & Wireless Access Networks,1570,Scheduling & Resource Allocation,249,0.1586
 Cellular & Wireless Access Networks,1570,"MAC, Spectrum & Radio Resource Management",234,0.1490
 Cellular & Wireless Access Networks,1570,"Security, Privacy & Trust",150,0.0955
@@ -132,8 +11,8 @@ Cellular & Wireless Access Networks,1570,"Energy, Carbon & Sustainability",48,0.
 Cellular & Wireless Access Networks,1570,Architecture & System Design,46,0.0293
 Cellular & Wireless Access Networks,1570,Transport & Congestion Control,33,0.0210
 Cellular & Wireless Access Networks,1570,Application Adaptation & Cross-Layer Control,27,0.0172
-Cellular & Wireless Access Networks,1570,Service Chaining & Virtualization,26,0.0166
 Cellular & Wireless Access Networks,1570,Caching & Content Placement,26,0.0166
+Cellular & Wireless Access Networks,1570,Service Chaining & Virtualization,26,0.0166
 Cellular & Wireless Access Networks,1570,"Coding, Compression & Redundancy",25,0.0159
 Cellular & Wireless Access Networks,1570,"Reliability, Fault Tolerance & Recovery",25,0.0159
 Cellular & Wireless Access Networks,1570,"Throughput, Capacity & Scalability",24,0.0153
@@ -148,51 +27,15 @@ Cellular & Wireless Access Networks,1570,"Fairness, Isolation & Multi-Tenancy",1
 Cellular & Wireless Access Networks,1570,Freshness & Age of Information,14,0.0089
 Cellular & Wireless Access Networks,1570,"Cost, Economics & Provisioning",12,0.0076
 Cellular & Wireless Access Networks,1570,Distributed Coordination & Consensus,10,0.0064
-Cellular & Wireless Access Networks,1570,Telemetry & Monitoring,9,0.0057
 Cellular & Wireless Access Networks,1570,Programmability & Hardware Offload,9,0.0057
+Cellular & Wireless Access Networks,1570,Telemetry & Monitoring,9,0.0057
 Cellular & Wireless Access Networks,1570,Queueing & Stability,7,0.0045
 Cellular & Wireless Access Networks,1570,Traffic Engineering & Load Balancing,7,0.0045
 Cellular & Wireless Access Networks,1570,Diagnosis & Root Cause Analysis,6,0.0038
-Cellular & Wireless Access Networks,1570,Traffic Analysis & Classification,3,0.0019
 Cellular & Wireless Access Networks,1570,Synchronization & Consistency,3,0.0019
+Cellular & Wireless Access Networks,1570,Traffic Analysis & Classification,3,0.0019
 Cellular & Wireless Access Networks,1570,Verification & Correctness,2,0.0013
 Cellular & Wireless Access Networks,1570,Packet Processing & Data Structures,1,0.0006
-"IoT, Sensor & Industrial Networks",568,Scheduling & Resource Allocation,114,0.2007
-"IoT, Sensor & Industrial Networks",568,"Security, Privacy & Trust",105,0.1849
-"IoT, Sensor & Industrial Networks",568,Routing & Path Selection,29,0.0511
-"IoT, Sensor & Industrial Networks",568,"Placement, Offloading & Partitioning",26,0.0458
-"IoT, Sensor & Industrial Networks",568,Latency & Deadline Optimization,22,0.0387
-"IoT, Sensor & Industrial Networks",568,"MAC, Spectrum & Radio Resource Management",21,0.0370
-"IoT, Sensor & Industrial Networks",568,Localization & Positioning,20,0.0352
-"IoT, Sensor & Industrial Networks",568,"Throughput, Capacity & Scalability",19,0.0335
-"IoT, Sensor & Industrial Networks",568,"Topology, Fabric & Architecture",18,0.0317
-"IoT, Sensor & Industrial Networks",568,"Energy, Carbon & Sustainability",18,0.0317
-"IoT, Sensor & Industrial Networks",568,"Coding, Compression & Redundancy",16,0.0282
-"IoT, Sensor & Industrial Networks",568,Architecture & System Design,14,0.0246
-"IoT, Sensor & Industrial Networks",568,"Reliability, Fault Tolerance & Recovery",13,0.0229
-"IoT, Sensor & Industrial Networks",568,"Cost, Economics & Provisioning",11,0.0194
-"IoT, Sensor & Industrial Networks",568,Mobility & Handover,11,0.0194
-"IoT, Sensor & Industrial Networks",568,Control-Plane Design & Management,10,0.0176
-"IoT, Sensor & Industrial Networks",568,"QoS, QoE & SLO Management",8,0.0141
-"IoT, Sensor & Industrial Networks",568,Protocol Design & Interoperability,8,0.0141
-"IoT, Sensor & Industrial Networks",568,Queueing & Stability,8,0.0141
-"IoT, Sensor & Industrial Networks",568,Traffic Analysis & Classification,7,0.0123
-"IoT, Sensor & Industrial Networks",568,Service Chaining & Virtualization,7,0.0123
-"IoT, Sensor & Industrial Networks",568,Measurement & Characterization,7,0.0123
-"IoT, Sensor & Industrial Networks",568,Telemetry & Monitoring,7,0.0123
-"IoT, Sensor & Industrial Networks",568,Synchronization & Consistency,6,0.0106
-"IoT, Sensor & Industrial Networks",568,Caching & Content Placement,6,0.0106
-"IoT, Sensor & Industrial Networks",568,Freshness & Age of Information,6,0.0106
-"IoT, Sensor & Industrial Networks",568,Programmability & Hardware Offload,6,0.0106
-"IoT, Sensor & Industrial Networks",568,Transport & Congestion Control,5,0.0088
-"IoT, Sensor & Industrial Networks",568,Distributed Coordination & Consensus,4,0.0070
-"IoT, Sensor & Industrial Networks",568,Application Adaptation & Cross-Layer Control,4,0.0070
-"IoT, Sensor & Industrial Networks",568,Admission Control & Network Slicing,3,0.0053
-"IoT, Sensor & Industrial Networks",568,Data/Traffic Prediction & Forecasting,3,0.0053
-"IoT, Sensor & Industrial Networks",568,Traffic Engineering & Load Balancing,3,0.0053
-"IoT, Sensor & Industrial Networks",568,Verification & Correctness,1,0.0018
-"IoT, Sensor & Industrial Networks",568,Diagnosis & Root Cause Analysis,1,0.0018
-"IoT, Sensor & Industrial Networks",568,Packet Processing & Data Structures,1,0.0018
 "Edge, Cloud & Networked Services",1526,"Placement, Offloading & Partitioning",631,0.4135
 "Edge, Cloud & Networked Services",1526,Scheduling & Resource Allocation,264,0.1730
 "Edge, Cloud & Networked Services",1526,"Security, Privacy & Trust",97,0.0636
@@ -216,8 +59,8 @@ Cellular & Wireless Access Networks,1570,Packet Processing & Data Structures,1,0
 "Edge, Cloud & Networked Services",1526,Protocol Design & Interoperability,8,0.0052
 "Edge, Cloud & Networked Services",1526,Traffic Engineering & Load Balancing,7,0.0046
 "Edge, Cloud & Networked Services",1526,Queueing & Stability,6,0.0039
-"Edge, Cloud & Networked Services",1526,Verification & Correctness,6,0.0039
 "Edge, Cloud & Networked Services",1526,"Throughput, Capacity & Scalability",6,0.0039
+"Edge, Cloud & Networked Services",1526,Verification & Correctness,6,0.0039
 "Edge, Cloud & Networked Services",1526,Admission Control & Network Slicing,5,0.0033
 "Edge, Cloud & Networked Services",1526,Data/Traffic Prediction & Forecasting,5,0.0033
 "Edge, Cloud & Networked Services",1526,Control-Plane Design & Management,4,0.0026
@@ -227,35 +70,45 @@ Cellular & Wireless Access Networks,1570,Packet Processing & Data Structures,1,0
 "Edge, Cloud & Networked Services",1526,Diagnosis & Root Cause Analysis,3,0.0020
 "Edge, Cloud & Networked Services",1526,Measurement & Characterization,3,0.0020
 "Edge, Cloud & Networked Services",1526,Traffic Analysis & Classification,3,0.0020
-"Edge, Cloud & Networked Services",1526,Packet Processing & Data Structures,1,0.0007
 "Edge, Cloud & Networked Services",1526,Model/State Placement & Movement,1,0.0007
+"Edge, Cloud & Networked Services",1526,Packet Processing & Data Structures,1,0.0007
 "Edge, Cloud & Networked Services",1526,Synchronization & Consistency,1,0.0007
-Satellite & Non-Terrestrial Networks,275,Routing & Path Selection,61,0.2218
-Satellite & Non-Terrestrial Networks,275,Scheduling & Resource Allocation,31,0.1127
-Satellite & Non-Terrestrial Networks,275,Mobility & Handover,24,0.0873
-Satellite & Non-Terrestrial Networks,275,"Placement, Offloading & Partitioning",22,0.0800
-Satellite & Non-Terrestrial Networks,275,Latency & Deadline Optimization,15,0.0545
-Satellite & Non-Terrestrial Networks,275,Architecture & System Design,13,0.0473
-Satellite & Non-Terrestrial Networks,275,Transport & Congestion Control,12,0.0436
-Satellite & Non-Terrestrial Networks,275,Control-Plane Design & Management,12,0.0436
-Satellite & Non-Terrestrial Networks,275,Service Chaining & Virtualization,11,0.0400
-Satellite & Non-Terrestrial Networks,275,Measurement & Characterization,10,0.0364
-Satellite & Non-Terrestrial Networks,275,"Security, Privacy & Trust",10,0.0364
-Satellite & Non-Terrestrial Networks,275,"MAC, Spectrum & Radio Resource Management",9,0.0327
-Satellite & Non-Terrestrial Networks,275,"Reliability, Fault Tolerance & Recovery",8,0.0291
-Satellite & Non-Terrestrial Networks,275,"Coding, Compression & Redundancy",6,0.0218
-Satellite & Non-Terrestrial Networks,275,"Cost, Economics & Provisioning",5,0.0182
-Satellite & Non-Terrestrial Networks,275,Application Adaptation & Cross-Layer Control,3,0.0109
-Satellite & Non-Terrestrial Networks,275,"QoS, QoE & SLO Management",3,0.0109
-Satellite & Non-Terrestrial Networks,275,Traffic Engineering & Load Balancing,3,0.0109
-Satellite & Non-Terrestrial Networks,275,Caching & Content Placement,3,0.0109
-Satellite & Non-Terrestrial Networks,275,"Topology, Fabric & Architecture",3,0.0109
-Satellite & Non-Terrestrial Networks,275,Queueing & Stability,3,0.0109
-Satellite & Non-Terrestrial Networks,275,Protocol Design & Interoperability,2,0.0073
-Satellite & Non-Terrestrial Networks,275,Data/Traffic Prediction & Forecasting,2,0.0073
-Satellite & Non-Terrestrial Networks,275,Programmability & Hardware Offload,2,0.0073
-Satellite & Non-Terrestrial Networks,275,Packet Processing & Data Structures,1,0.0036
-Satellite & Non-Terrestrial Networks,275,"Throughput, Capacity & Scalability",1,0.0036
+Packet Networks & End-to-End Protocols,833,Transport & Congestion Control,111,0.1333
+Packet Networks & End-to-End Protocols,833,Routing & Path Selection,93,0.1116
+Packet Networks & End-to-End Protocols,833,"Security, Privacy & Trust",78,0.0936
+Packet Networks & End-to-End Protocols,833,Scheduling & Resource Allocation,64,0.0768
+Packet Networks & End-to-End Protocols,833,"Reliability, Fault Tolerance & Recovery",39,0.0468
+Packet Networks & End-to-End Protocols,833,Protocol Design & Interoperability,32,0.0384
+Packet Networks & End-to-End Protocols,833,Traffic Engineering & Load Balancing,30,0.0360
+Packet Networks & End-to-End Protocols,833,Latency & Deadline Optimization,28,0.0336
+Packet Networks & End-to-End Protocols,833,"Cost, Economics & Provisioning",26,0.0312
+Packet Networks & End-to-End Protocols,833,"Coding, Compression & Redundancy",24,0.0288
+Packet Networks & End-to-End Protocols,833,"Topology, Fabric & Architecture",24,0.0288
+Packet Networks & End-to-End Protocols,833,Control-Plane Design & Management,23,0.0276
+Packet Networks & End-to-End Protocols,833,Caching & Content Placement,22,0.0264
+Packet Networks & End-to-End Protocols,833,"Throughput, Capacity & Scalability",22,0.0264
+Packet Networks & End-to-End Protocols,833,"Placement, Offloading & Partitioning",21,0.0252
+Packet Networks & End-to-End Protocols,833,Measurement & Characterization,19,0.0228
+Packet Networks & End-to-End Protocols,833,"QoS, QoE & SLO Management",18,0.0216
+Packet Networks & End-to-End Protocols,833,Traffic Analysis & Classification,16,0.0192
+Packet Networks & End-to-End Protocols,833,Programmability & Hardware Offload,15,0.0180
+Packet Networks & End-to-End Protocols,833,Application Adaptation & Cross-Layer Control,13,0.0156
+Packet Networks & End-to-End Protocols,833,Queueing & Stability,13,0.0156
+Packet Networks & End-to-End Protocols,833,Data/Traffic Prediction & Forecasting,12,0.0144
+Packet Networks & End-to-End Protocols,833,Verification & Correctness,11,0.0132
+Packet Networks & End-to-End Protocols,833,Distributed Coordination & Consensus,10,0.0120
+Packet Networks & End-to-End Protocols,833,Localization & Positioning,10,0.0120
+Packet Networks & End-to-End Protocols,833,"Fairness, Isolation & Multi-Tenancy",9,0.0108
+Packet Networks & End-to-End Protocols,833,Service Chaining & Virtualization,9,0.0108
+Packet Networks & End-to-End Protocols,833,"Energy, Carbon & Sustainability",8,0.0096
+Packet Networks & End-to-End Protocols,833,Diagnosis & Root Cause Analysis,7,0.0084
+Packet Networks & End-to-End Protocols,833,Freshness & Age of Information,7,0.0084
+Packet Networks & End-to-End Protocols,833,Packet Processing & Data Structures,6,0.0072
+Packet Networks & End-to-End Protocols,833,"MAC, Spectrum & Radio Resource Management",4,0.0048
+Packet Networks & End-to-End Protocols,833,Mobility & Handover,4,0.0048
+Packet Networks & End-to-End Protocols,833,Architecture & System Design,2,0.0024
+Packet Networks & End-to-End Protocols,833,Synchronization & Consistency,2,0.0024
+Packet Networks & End-to-End Protocols,833,Admission Control & Network Slicing,1,0.0012
 Autonomous & Cyber-Physical Networks,615,Scheduling & Resource Allocation,115,0.1870
 Autonomous & Cyber-Physical Networks,615,"Placement, Offloading & Partitioning",112,0.1821
 Autonomous & Cyber-Physical Networks,615,"Security, Privacy & Trust",67,0.1089
@@ -280,16 +133,109 @@ Autonomous & Cyber-Physical Networks,615,"Topology, Fabric & Architecture",4,0.0
 Autonomous & Cyber-Physical Networks,615,Telemetry & Monitoring,3,0.0049
 Autonomous & Cyber-Physical Networks,615,Transport & Congestion Control,3,0.0049
 Autonomous & Cyber-Physical Networks,615,Control-Plane Design & Management,2,0.0033
-Autonomous & Cyber-Physical Networks,615,Packet Processing & Data Structures,2,0.0033
-Autonomous & Cyber-Physical Networks,615,"QoS, QoE & SLO Management",2,0.0033
 Autonomous & Cyber-Physical Networks,615,"Cost, Economics & Provisioning",2,0.0033
 Autonomous & Cyber-Physical Networks,615,"Fairness, Isolation & Multi-Tenancy",2,0.0033
-Autonomous & Cyber-Physical Networks,615,Model/State Placement & Movement,1,0.0016
-Autonomous & Cyber-Physical Networks,615,Verification & Correctness,1,0.0016
+Autonomous & Cyber-Physical Networks,615,Packet Processing & Data Structures,2,0.0033
+Autonomous & Cyber-Physical Networks,615,"QoS, QoE & SLO Management",2,0.0033
 Autonomous & Cyber-Physical Networks,615,Data/Traffic Prediction & Forecasting,1,0.0016
 Autonomous & Cyber-Physical Networks,615,Diagnosis & Root Cause Analysis,1,0.0016
+Autonomous & Cyber-Physical Networks,615,Model/State Placement & Movement,1,0.0016
 Autonomous & Cyber-Physical Networks,615,Programmability & Hardware Offload,1,0.0016
 Autonomous & Cyber-Physical Networks,615,Queueing & Stability,1,0.0016
+Autonomous & Cyber-Physical Networks,615,Verification & Correctness,1,0.0016
+"IoT, Sensor & Industrial Networks",568,Scheduling & Resource Allocation,114,0.2007
+"IoT, Sensor & Industrial Networks",568,"Security, Privacy & Trust",105,0.1849
+"IoT, Sensor & Industrial Networks",568,Routing & Path Selection,29,0.0511
+"IoT, Sensor & Industrial Networks",568,"Placement, Offloading & Partitioning",26,0.0458
+"IoT, Sensor & Industrial Networks",568,Latency & Deadline Optimization,22,0.0387
+"IoT, Sensor & Industrial Networks",568,"MAC, Spectrum & Radio Resource Management",21,0.0370
+"IoT, Sensor & Industrial Networks",568,Localization & Positioning,20,0.0352
+"IoT, Sensor & Industrial Networks",568,"Throughput, Capacity & Scalability",19,0.0335
+"IoT, Sensor & Industrial Networks",568,"Energy, Carbon & Sustainability",18,0.0317
+"IoT, Sensor & Industrial Networks",568,"Topology, Fabric & Architecture",18,0.0317
+"IoT, Sensor & Industrial Networks",568,"Coding, Compression & Redundancy",16,0.0282
+"IoT, Sensor & Industrial Networks",568,Architecture & System Design,14,0.0246
+"IoT, Sensor & Industrial Networks",568,"Reliability, Fault Tolerance & Recovery",13,0.0229
+"IoT, Sensor & Industrial Networks",568,"Cost, Economics & Provisioning",11,0.0194
+"IoT, Sensor & Industrial Networks",568,Mobility & Handover,11,0.0194
+"IoT, Sensor & Industrial Networks",568,Control-Plane Design & Management,10,0.0176
+"IoT, Sensor & Industrial Networks",568,Protocol Design & Interoperability,8,0.0141
+"IoT, Sensor & Industrial Networks",568,"QoS, QoE & SLO Management",8,0.0141
+"IoT, Sensor & Industrial Networks",568,Queueing & Stability,8,0.0141
+"IoT, Sensor & Industrial Networks",568,Measurement & Characterization,7,0.0123
+"IoT, Sensor & Industrial Networks",568,Service Chaining & Virtualization,7,0.0123
+"IoT, Sensor & Industrial Networks",568,Telemetry & Monitoring,7,0.0123
+"IoT, Sensor & Industrial Networks",568,Traffic Analysis & Classification,7,0.0123
+"IoT, Sensor & Industrial Networks",568,Caching & Content Placement,6,0.0106
+"IoT, Sensor & Industrial Networks",568,Freshness & Age of Information,6,0.0106
+"IoT, Sensor & Industrial Networks",568,Programmability & Hardware Offload,6,0.0106
+"IoT, Sensor & Industrial Networks",568,Synchronization & Consistency,6,0.0106
+"IoT, Sensor & Industrial Networks",568,Transport & Congestion Control,5,0.0088
+"IoT, Sensor & Industrial Networks",568,Application Adaptation & Cross-Layer Control,4,0.0070
+"IoT, Sensor & Industrial Networks",568,Distributed Coordination & Consensus,4,0.0070
+"IoT, Sensor & Industrial Networks",568,Admission Control & Network Slicing,3,0.0053
+"IoT, Sensor & Industrial Networks",568,Data/Traffic Prediction & Forecasting,3,0.0053
+"IoT, Sensor & Industrial Networks",568,Traffic Engineering & Load Balancing,3,0.0053
+"IoT, Sensor & Industrial Networks",568,Diagnosis & Root Cause Analysis,1,0.0018
+"IoT, Sensor & Industrial Networks",568,Packet Processing & Data Structures,1,0.0018
+"IoT, Sensor & Industrial Networks",568,Verification & Correctness,1,0.0018
+Datacenter & AI Cluster Networks,401,Transport & Congestion Control,75,0.1870
+Datacenter & AI Cluster Networks,401,Scheduling & Resource Allocation,49,0.1222
+Datacenter & AI Cluster Networks,401,Programmability & Hardware Offload,35,0.0873
+Datacenter & AI Cluster Networks,401,"Placement, Offloading & Partitioning",33,0.0823
+Datacenter & AI Cluster Networks,401,Routing & Path Selection,22,0.0549
+Datacenter & AI Cluster Networks,401,Traffic Engineering & Load Balancing,22,0.0549
+Datacenter & AI Cluster Networks,401,Latency & Deadline Optimization,17,0.0424
+Datacenter & AI Cluster Networks,401,Architecture & System Design,16,0.0399
+Datacenter & AI Cluster Networks,401,"Coding, Compression & Redundancy",14,0.0349
+Datacenter & AI Cluster Networks,401,"Topology, Fabric & Architecture",14,0.0349
+Datacenter & AI Cluster Networks,401,"Security, Privacy & Trust",12,0.0299
+Datacenter & AI Cluster Networks,401,"Throughput, Capacity & Scalability",12,0.0299
+Datacenter & AI Cluster Networks,401,"Reliability, Fault Tolerance & Recovery",10,0.0249
+Datacenter & AI Cluster Networks,401,Diagnosis & Root Cause Analysis,8,0.0200
+Datacenter & AI Cluster Networks,401,"Fairness, Isolation & Multi-Tenancy",8,0.0200
+Datacenter & AI Cluster Networks,401,Distributed Coordination & Consensus,7,0.0175
+Datacenter & AI Cluster Networks,401,Measurement & Characterization,7,0.0175
+Datacenter & AI Cluster Networks,401,Telemetry & Monitoring,7,0.0175
+Datacenter & AI Cluster Networks,401,Control-Plane Design & Management,6,0.0150
+Datacenter & AI Cluster Networks,401,Synchronization & Consistency,5,0.0125
+Datacenter & AI Cluster Networks,401,"Energy, Carbon & Sustainability",4,0.0100
+Datacenter & AI Cluster Networks,401,"Cost, Economics & Provisioning",3,0.0075
+Datacenter & AI Cluster Networks,401,Protocol Design & Interoperability,3,0.0075
+Datacenter & AI Cluster Networks,401,Queueing & Stability,3,0.0075
+Datacenter & AI Cluster Networks,401,Localization & Positioning,2,0.0050
+Datacenter & AI Cluster Networks,401,Service Chaining & Virtualization,2,0.0050
+Datacenter & AI Cluster Networks,401,Admission Control & Network Slicing,1,0.0025
+Datacenter & AI Cluster Networks,401,Caching & Content Placement,1,0.0025
+Datacenter & AI Cluster Networks,401,Data/Traffic Prediction & Forecasting,1,0.0025
+Datacenter & AI Cluster Networks,401,"MAC, Spectrum & Radio Resource Management",1,0.0025
+Datacenter & AI Cluster Networks,401,Verification & Correctness,1,0.0025
+"Network Security, Privacy & Censorship",321,"Security, Privacy & Trust",183,0.5701
+"Network Security, Privacy & Censorship",321,Traffic Analysis & Classification,77,0.2399
+"Network Security, Privacy & Censorship",321,Control-Plane Design & Management,8,0.0249
+"Network Security, Privacy & Censorship",321,Programmability & Hardware Offload,4,0.0125
+"Network Security, Privacy & Censorship",321,Scheduling & Resource Allocation,4,0.0125
+"Network Security, Privacy & Censorship",321,Telemetry & Monitoring,4,0.0125
+"Network Security, Privacy & Censorship",321,Architecture & System Design,3,0.0093
+"Network Security, Privacy & Censorship",321,"Coding, Compression & Redundancy",3,0.0093
+"Network Security, Privacy & Censorship",321,Measurement & Characterization,3,0.0093
+"Network Security, Privacy & Censorship",321,Packet Processing & Data Structures,3,0.0093
+"Network Security, Privacy & Censorship",321,"Placement, Offloading & Partitioning",3,0.0093
+"Network Security, Privacy & Censorship",321,Routing & Path Selection,3,0.0093
+"Network Security, Privacy & Censorship",321,Transport & Congestion Control,3,0.0093
+"Network Security, Privacy & Censorship",321,Application Adaptation & Cross-Layer Control,2,0.0062
+"Network Security, Privacy & Censorship",321,"Cost, Economics & Provisioning",2,0.0062
+"Network Security, Privacy & Censorship",321,Distributed Coordination & Consensus,2,0.0062
+"Network Security, Privacy & Censorship",321,Protocol Design & Interoperability,2,0.0062
+"Network Security, Privacy & Censorship",321,Service Chaining & Virtualization,2,0.0062
+"Network Security, Privacy & Censorship",321,"Topology, Fabric & Architecture",2,0.0062
+"Network Security, Privacy & Censorship",321,Traffic Engineering & Load Balancing,2,0.0062
+"Network Security, Privacy & Censorship",321,Admission Control & Network Slicing,1,0.0031
+"Network Security, Privacy & Censorship",321,Diagnosis & Root Cause Analysis,1,0.0031
+"Network Security, Privacy & Censorship",321,"Fairness, Isolation & Multi-Tenancy",1,0.0031
+"Network Security, Privacy & Censorship",321,Mobility & Handover,1,0.0031
+"Network Security, Privacy & Censorship",321,"Reliability, Fault Tolerance & Recovery",1,0.0031
+"Network Security, Privacy & Censorship",321,Synchronization & Consistency,1,0.0031
 Real-Time Media & Immersive Networking,295,Latency & Deadline Optimization,53,0.1797
 Real-Time Media & Immersive Networking,295,Architecture & System Design,39,0.1322
 Real-Time Media & Immersive Networking,295,Application Adaptation & Cross-Layer Control,35,0.1186
@@ -307,18 +253,18 @@ Real-Time Media & Immersive Networking,295,"Reliability, Fault Tolerance & Recov
 Real-Time Media & Immersive Networking,295,Data/Traffic Prediction & Forecasting,3,0.0102
 Real-Time Media & Immersive Networking,295,"Energy, Carbon & Sustainability",3,0.0102
 Real-Time Media & Immersive Networking,295,Telemetry & Monitoring,3,0.0102
-Real-Time Media & Immersive Networking,295,"MAC, Spectrum & Radio Resource Management",2,0.0068
+Real-Time Media & Immersive Networking,295,Admission Control & Network Slicing,2,0.0068
 Real-Time Media & Immersive Networking,295,Diagnosis & Root Cause Analysis,2,0.0068
 Real-Time Media & Immersive Networking,295,Distributed Coordination & Consensus,2,0.0068
+Real-Time Media & Immersive Networking,295,"MAC, Spectrum & Radio Resource Management",2,0.0068
 Real-Time Media & Immersive Networking,295,Routing & Path Selection,2,0.0068
-Real-Time Media & Immersive Networking,295,Admission Control & Network Slicing,2,0.0068
 Real-Time Media & Immersive Networking,295,"Fairness, Isolation & Multi-Tenancy",1,0.0034
-Real-Time Media & Immersive Networking,295,"Topology, Fabric & Architecture",1,0.0034
-Real-Time Media & Immersive Networking,295,"Throughput, Capacity & Scalability",1,0.0034
 Real-Time Media & Immersive Networking,295,Mobility & Handover,1,0.0034
-Real-Time Media & Immersive Networking,295,Queueing & Stability,1,0.0034
-Real-Time Media & Immersive Networking,295,Protocol Design & Interoperability,1,0.0034
 Real-Time Media & Immersive Networking,295,Programmability & Hardware Offload,1,0.0034
+Real-Time Media & Immersive Networking,295,Protocol Design & Interoperability,1,0.0034
+Real-Time Media & Immersive Networking,295,Queueing & Stability,1,0.0034
+Real-Time Media & Immersive Networking,295,"Throughput, Capacity & Scalability",1,0.0034
+Real-Time Media & Immersive Networking,295,"Topology, Fabric & Architecture",1,0.0034
 Distributed AI & LLM Systems,290,"Security, Privacy & Trust",67,0.2310
 Distributed AI & LLM Systems,290,Scheduling & Resource Allocation,54,0.1862
 Distributed AI & LLM Systems,290,"Coding, Compression & Redundancy",30,0.1034
@@ -330,116 +276,170 @@ Distributed AI & LLM Systems,290,"Energy, Carbon & Sustainability",10,0.0345
 Distributed AI & LLM Systems,290,Caching & Content Placement,6,0.0207
 Distributed AI & LLM Systems,290,"Throughput, Capacity & Scalability",6,0.0207
 Distributed AI & LLM Systems,290,Architecture & System Design,5,0.0172
-Distributed AI & LLM Systems,290,"Topology, Fabric & Architecture",4,0.0138
 Distributed AI & LLM Systems,290,"MAC, Spectrum & Radio Resource Management",4,0.0138
-Distributed AI & LLM Systems,290,Routing & Path Selection,4,0.0138
 Distributed AI & LLM Systems,290,Measurement & Characterization,4,0.0138
+Distributed AI & LLM Systems,290,Routing & Path Selection,4,0.0138
+Distributed AI & LLM Systems,290,"Topology, Fabric & Architecture",4,0.0138
 Distributed AI & LLM Systems,290,Traffic Engineering & Load Balancing,4,0.0138
-Distributed AI & LLM Systems,290,Synchronization & Consistency,3,0.0103
-Distributed AI & LLM Systems,290,Traffic Analysis & Classification,3,0.0103
+Distributed AI & LLM Systems,290,Application Adaptation & Cross-Layer Control,3,0.0103
 Distributed AI & LLM Systems,290,Mobility & Handover,3,0.0103
 Distributed AI & LLM Systems,290,Programmability & Hardware Offload,3,0.0103
 Distributed AI & LLM Systems,290,"QoS, QoE & SLO Management",3,0.0103
-Distributed AI & LLM Systems,290,Application Adaptation & Cross-Layer Control,3,0.0103
+Distributed AI & LLM Systems,290,Synchronization & Consistency,3,0.0103
+Distributed AI & LLM Systems,290,Traffic Analysis & Classification,3,0.0103
 Distributed AI & LLM Systems,290,Data/Traffic Prediction & Forecasting,2,0.0069
 Distributed AI & LLM Systems,290,Distributed Coordination & Consensus,2,0.0069
 Distributed AI & LLM Systems,290,Admission Control & Network Slicing,1,0.0034
-Distributed AI & LLM Systems,290,"Reliability, Fault Tolerance & Recovery",1,0.0034
-Distributed AI & LLM Systems,290,"Fairness, Isolation & Multi-Tenancy",1,0.0034
-Distributed AI & LLM Systems,290,Protocol Design & Interoperability,1,0.0034
-Distributed AI & LLM Systems,290,Telemetry & Monitoring,1,0.0034
-Distributed AI & LLM Systems,290,Freshness & Age of Information,1,0.0034
-Distributed AI & LLM Systems,290,Verification & Correctness,1,0.0034
 Distributed AI & LLM Systems,290,Diagnosis & Root Cause Analysis,1,0.0034
+Distributed AI & LLM Systems,290,"Fairness, Isolation & Multi-Tenancy",1,0.0034
+Distributed AI & LLM Systems,290,Freshness & Age of Information,1,0.0034
+Distributed AI & LLM Systems,290,Protocol Design & Interoperability,1,0.0034
+Distributed AI & LLM Systems,290,"Reliability, Fault Tolerance & Recovery",1,0.0034
+Distributed AI & LLM Systems,290,Telemetry & Monitoring,1,0.0034
+Distributed AI & LLM Systems,290,Verification & Correctness,1,0.0034
+Satellite & Non-Terrestrial Networks,275,Routing & Path Selection,61,0.2218
+Satellite & Non-Terrestrial Networks,275,Scheduling & Resource Allocation,31,0.1127
+Satellite & Non-Terrestrial Networks,275,Mobility & Handover,24,0.0873
+Satellite & Non-Terrestrial Networks,275,"Placement, Offloading & Partitioning",22,0.0800
+Satellite & Non-Terrestrial Networks,275,Latency & Deadline Optimization,15,0.0545
+Satellite & Non-Terrestrial Networks,275,Architecture & System Design,13,0.0473
+Satellite & Non-Terrestrial Networks,275,Control-Plane Design & Management,12,0.0436
+Satellite & Non-Terrestrial Networks,275,Transport & Congestion Control,12,0.0436
+Satellite & Non-Terrestrial Networks,275,Service Chaining & Virtualization,11,0.0400
+Satellite & Non-Terrestrial Networks,275,Measurement & Characterization,10,0.0364
+Satellite & Non-Terrestrial Networks,275,"Security, Privacy & Trust",10,0.0364
+Satellite & Non-Terrestrial Networks,275,"MAC, Spectrum & Radio Resource Management",9,0.0327
+Satellite & Non-Terrestrial Networks,275,"Reliability, Fault Tolerance & Recovery",8,0.0291
+Satellite & Non-Terrestrial Networks,275,"Coding, Compression & Redundancy",6,0.0218
+Satellite & Non-Terrestrial Networks,275,"Cost, Economics & Provisioning",5,0.0182
+Satellite & Non-Terrestrial Networks,275,Application Adaptation & Cross-Layer Control,3,0.0109
+Satellite & Non-Terrestrial Networks,275,Caching & Content Placement,3,0.0109
+Satellite & Non-Terrestrial Networks,275,"QoS, QoE & SLO Management",3,0.0109
+Satellite & Non-Terrestrial Networks,275,Queueing & Stability,3,0.0109
+Satellite & Non-Terrestrial Networks,275,"Topology, Fabric & Architecture",3,0.0109
+Satellite & Non-Terrestrial Networks,275,Traffic Engineering & Load Balancing,3,0.0109
+Satellite & Non-Terrestrial Networks,275,Data/Traffic Prediction & Forecasting,2,0.0073
+Satellite & Non-Terrestrial Networks,275,Programmability & Hardware Offload,2,0.0073
+Satellite & Non-Terrestrial Networks,275,Protocol Design & Interoperability,2,0.0073
+Satellite & Non-Terrestrial Networks,275,Packet Processing & Data Structures,1,0.0036
+Satellite & Non-Terrestrial Networks,275,"Throughput, Capacity & Scalability",1,0.0036
+Network Measurement & Operations,267,Telemetry & Monitoring,132,0.4944
+Network Measurement & Operations,267,Measurement & Characterization,21,0.0787
+Network Measurement & Operations,267,"Security, Privacy & Trust",19,0.0712
+Network Measurement & Operations,267,Diagnosis & Root Cause Analysis,17,0.0637
+Network Measurement & Operations,267,Packet Processing & Data Structures,16,0.0599
+Network Measurement & Operations,267,Routing & Path Selection,11,0.0412
+Network Measurement & Operations,267,Programmability & Hardware Offload,6,0.0225
+Network Measurement & Operations,267,Control-Plane Design & Management,5,0.0187
+Network Measurement & Operations,267,"Topology, Fabric & Architecture",5,0.0187
+Network Measurement & Operations,267,Traffic Engineering & Load Balancing,4,0.0150
+Network Measurement & Operations,267,Architecture & System Design,3,0.0112
+Network Measurement & Operations,267,"Coding, Compression & Redundancy",3,0.0112
+Network Measurement & Operations,267,Data/Traffic Prediction & Forecasting,3,0.0112
+Network Measurement & Operations,267,"Cost, Economics & Provisioning",2,0.0075
+Network Measurement & Operations,267,"Energy, Carbon & Sustainability",2,0.0075
+Network Measurement & Operations,267,Freshness & Age of Information,2,0.0075
+Network Measurement & Operations,267,Latency & Deadline Optimization,2,0.0075
+Network Measurement & Operations,267,"Placement, Offloading & Partitioning",2,0.0075
+Network Measurement & Operations,267,Protocol Design & Interoperability,2,0.0075
+Network Measurement & Operations,267,Scheduling & Resource Allocation,2,0.0075
+Network Measurement & Operations,267,Transport & Congestion Control,2,0.0075
+Network Measurement & Operations,267,Localization & Positioning,1,0.0037
+Network Measurement & Operations,267,"QoS, QoE & SLO Management",1,0.0037
+Network Measurement & Operations,267,Queueing & Stability,1,0.0037
+Network Measurement & Operations,267,"Throughput, Capacity & Scalability",1,0.0037
+Network Measurement & Operations,267,Traffic Analysis & Classification,1,0.0037
+Network Measurement & Operations,267,Verification & Correctness,1,0.0037
 Programmable Network Infrastructure,256,Programmability & Hardware Offload,93,0.3633
 Programmable Network Infrastructure,256,Service Chaining & Virtualization,60,0.2344
 Programmable Network Infrastructure,256,Packet Processing & Data Structures,19,0.0742
 Programmable Network Infrastructure,256,"Security, Privacy & Trust",10,0.0391
 Programmable Network Infrastructure,256,Scheduling & Resource Allocation,9,0.0352
-Programmable Network Infrastructure,256,"Placement, Offloading & Partitioning",8,0.0312
 Programmable Network Infrastructure,256,Control-Plane Design & Management,8,0.0312
-Programmable Network Infrastructure,256,"Reliability, Fault Tolerance & Recovery",6,0.0234
+Programmable Network Infrastructure,256,"Placement, Offloading & Partitioning",8,0.0312
 Programmable Network Infrastructure,256,Measurement & Characterization,6,0.0234
+Programmable Network Infrastructure,256,"Reliability, Fault Tolerance & Recovery",6,0.0234
 Programmable Network Infrastructure,256,Verification & Correctness,5,0.0195
 Programmable Network Infrastructure,256,Routing & Path Selection,4,0.0156
 Programmable Network Infrastructure,256,"Throughput, Capacity & Scalability",3,0.0117
 Programmable Network Infrastructure,256,Transport & Congestion Control,3,0.0117
-Programmable Network Infrastructure,256,Localization & Positioning,2,0.0078
-Programmable Network Infrastructure,256,"Coding, Compression & Redundancy",2,0.0078
-Programmable Network Infrastructure,256,Queueing & Stability,2,0.0078
-Programmable Network Infrastructure,256,Traffic Engineering & Load Balancing,2,0.0078
-Programmable Network Infrastructure,256,"Topology, Fabric & Architecture",2,0.0078
-Programmable Network Infrastructure,256,Distributed Coordination & Consensus,2,0.0078
 Programmable Network Infrastructure,256,Architecture & System Design,2,0.0078
-Programmable Network Infrastructure,256,Telemetry & Monitoring,1,0.0039
+Programmable Network Infrastructure,256,"Coding, Compression & Redundancy",2,0.0078
+Programmable Network Infrastructure,256,Distributed Coordination & Consensus,2,0.0078
+Programmable Network Infrastructure,256,Localization & Positioning,2,0.0078
+Programmable Network Infrastructure,256,Queueing & Stability,2,0.0078
+Programmable Network Infrastructure,256,"Topology, Fabric & Architecture",2,0.0078
+Programmable Network Infrastructure,256,Traffic Engineering & Load Balancing,2,0.0078
+Programmable Network Infrastructure,256,Caching & Content Placement,1,0.0039
 Programmable Network Infrastructure,256,"Cost, Economics & Provisioning",1,0.0039
 Programmable Network Infrastructure,256,Data/Traffic Prediction & Forecasting,1,0.0039
-Programmable Network Infrastructure,256,"QoS, QoE & SLO Management",1,0.0039
-Programmable Network Infrastructure,256,Protocol Design & Interoperability,1,0.0039
-Programmable Network Infrastructure,256,Caching & Content Placement,1,0.0039
 Programmable Network Infrastructure,256,"Fairness, Isolation & Multi-Tenancy",1,0.0039
 Programmable Network Infrastructure,256,Latency & Deadline Optimization,1,0.0039
-"Network Security, Privacy & Censorship",321,"Security, Privacy & Trust",183,0.5701
-"Network Security, Privacy & Censorship",321,Traffic Analysis & Classification,77,0.2399
-"Network Security, Privacy & Censorship",321,Control-Plane Design & Management,8,0.0249
-"Network Security, Privacy & Censorship",321,Scheduling & Resource Allocation,4,0.0125
-"Network Security, Privacy & Censorship",321,Programmability & Hardware Offload,4,0.0125
-"Network Security, Privacy & Censorship",321,Telemetry & Monitoring,4,0.0125
-"Network Security, Privacy & Censorship",321,Routing & Path Selection,3,0.0093
-"Network Security, Privacy & Censorship",321,"Placement, Offloading & Partitioning",3,0.0093
-"Network Security, Privacy & Censorship",321,Measurement & Characterization,3,0.0093
-"Network Security, Privacy & Censorship",321,Transport & Congestion Control,3,0.0093
-"Network Security, Privacy & Censorship",321,Packet Processing & Data Structures,3,0.0093
-"Network Security, Privacy & Censorship",321,"Coding, Compression & Redundancy",3,0.0093
-"Network Security, Privacy & Censorship",321,Architecture & System Design,3,0.0093
-"Network Security, Privacy & Censorship",321,Service Chaining & Virtualization,2,0.0062
-"Network Security, Privacy & Censorship",321,Protocol Design & Interoperability,2,0.0062
-"Network Security, Privacy & Censorship",321,"Cost, Economics & Provisioning",2,0.0062
-"Network Security, Privacy & Censorship",321,"Topology, Fabric & Architecture",2,0.0062
-"Network Security, Privacy & Censorship",321,Distributed Coordination & Consensus,2,0.0062
-"Network Security, Privacy & Censorship",321,Traffic Engineering & Load Balancing,2,0.0062
-"Network Security, Privacy & Censorship",321,Application Adaptation & Cross-Layer Control,2,0.0062
-"Network Security, Privacy & Censorship",321,Mobility & Handover,1,0.0031
-"Network Security, Privacy & Censorship",321,Synchronization & Consistency,1,0.0031
-"Network Security, Privacy & Censorship",321,"Reliability, Fault Tolerance & Recovery",1,0.0031
-"Network Security, Privacy & Censorship",321,Admission Control & Network Slicing,1,0.0031
-"Network Security, Privacy & Censorship",321,"Fairness, Isolation & Multi-Tenancy",1,0.0031
-"Network Security, Privacy & Censorship",321,Diagnosis & Root Cause Analysis,1,0.0031
+Programmable Network Infrastructure,256,Protocol Design & Interoperability,1,0.0039
+Programmable Network Infrastructure,256,"QoS, QoE & SLO Management",1,0.0039
+Programmable Network Infrastructure,256,Telemetry & Monitoring,1,0.0039
+"Internet Routing, WAN & CDN",184,Routing & Path Selection,30,0.1630
+"Internet Routing, WAN & CDN",184,Measurement & Characterization,29,0.1576
+"Internet Routing, WAN & CDN",184,"Security, Privacy & Trust",29,0.1576
+"Internet Routing, WAN & CDN",184,Architecture & System Design,15,0.0815
+"Internet Routing, WAN & CDN",184,Traffic Engineering & Load Balancing,9,0.0489
+"Internet Routing, WAN & CDN",184,Caching & Content Placement,7,0.0380
+"Internet Routing, WAN & CDN",184,Control-Plane Design & Management,7,0.0380
+"Internet Routing, WAN & CDN",184,"Coding, Compression & Redundancy",6,0.0326
+"Internet Routing, WAN & CDN",184,Traffic Analysis & Classification,6,0.0326
+"Internet Routing, WAN & CDN",184,Transport & Congestion Control,6,0.0326
+"Internet Routing, WAN & CDN",184,Data/Traffic Prediction & Forecasting,4,0.0217
+"Internet Routing, WAN & CDN",184,Latency & Deadline Optimization,4,0.0217
+"Internet Routing, WAN & CDN",184,Localization & Positioning,4,0.0217
+"Internet Routing, WAN & CDN",184,"Topology, Fabric & Architecture",4,0.0217
+"Internet Routing, WAN & CDN",184,Programmability & Hardware Offload,3,0.0163
+"Internet Routing, WAN & CDN",184,"Reliability, Fault Tolerance & Recovery",3,0.0163
+"Internet Routing, WAN & CDN",184,Verification & Correctness,3,0.0163
+"Internet Routing, WAN & CDN",184,Application Adaptation & Cross-Layer Control,2,0.0109
+"Internet Routing, WAN & CDN",184,"QoS, QoE & SLO Management",2,0.0109
+"Internet Routing, WAN & CDN",184,Scheduling & Resource Allocation,2,0.0109
+"Internet Routing, WAN & CDN",184,Synchronization & Consistency,2,0.0109
+"Internet Routing, WAN & CDN",184,"Throughput, Capacity & Scalability",2,0.0109
+"Internet Routing, WAN & CDN",184,"Cost, Economics & Provisioning",1,0.0054
+"Internet Routing, WAN & CDN",184,Diagnosis & Root Cause Analysis,1,0.0054
+"Internet Routing, WAN & CDN",184,Packet Processing & Data Structures,1,0.0054
+"Internet Routing, WAN & CDN",184,Queueing & Stability,1,0.0054
+"Internet Routing, WAN & CDN",184,Telemetry & Monitoring,1,0.0054
 P2P & Decentralized Networks,120,"Security, Privacy & Trust",36,0.3000
 P2P & Decentralized Networks,120,Distributed Coordination & Consensus,35,0.2917
 P2P & Decentralized Networks,120,"Throughput, Capacity & Scalability",9,0.0750
 P2P & Decentralized Networks,120,Routing & Path Selection,7,0.0583
 P2P & Decentralized Networks,120,Scheduling & Resource Allocation,5,0.0417
-P2P & Decentralized Networks,120,"Topology, Fabric & Architecture",4,0.0333
 P2P & Decentralized Networks,120,Protocol Design & Interoperability,4,0.0333
 P2P & Decentralized Networks,120,"Reliability, Fault Tolerance & Recovery",4,0.0333
+P2P & Decentralized Networks,120,"Topology, Fabric & Architecture",4,0.0333
 P2P & Decentralized Networks,120,"Coding, Compression & Redundancy",3,0.0250
-P2P & Decentralized Networks,120,Mobility & Handover,2,0.0167
 P2P & Decentralized Networks,120,Latency & Deadline Optimization,2,0.0167
-P2P & Decentralized Networks,120,Verification & Correctness,2,0.0167
 P2P & Decentralized Networks,120,Measurement & Characterization,2,0.0167
+P2P & Decentralized Networks,120,Mobility & Handover,2,0.0167
+P2P & Decentralized Networks,120,Verification & Correctness,2,0.0167
 P2P & Decentralized Networks,120,Architecture & System Design,1,0.0083
-P2P & Decentralized Networks,120,"Energy, Carbon & Sustainability",1,0.0083
-P2P & Decentralized Networks,120,"Cost, Economics & Provisioning",1,0.0083
-P2P & Decentralized Networks,120,"Placement, Offloading & Partitioning",1,0.0083
 P2P & Decentralized Networks,120,Caching & Content Placement,1,0.0083
+P2P & Decentralized Networks,120,"Cost, Economics & Provisioning",1,0.0083
+P2P & Decentralized Networks,120,"Energy, Carbon & Sustainability",1,0.0083
+P2P & Decentralized Networks,120,"Placement, Offloading & Partitioning",1,0.0083
 Quantum Networks,46,Routing & Path Selection,28,0.6087
 Quantum Networks,46,Scheduling & Resource Allocation,6,0.1304
 Quantum Networks,46,"Topology, Fabric & Architecture",3,0.0652
-Quantum Networks,46,"Throughput, Capacity & Scalability",2,0.0435
 Quantum Networks,46,"Cost, Economics & Provisioning",2,0.0435
-Quantum Networks,46,"Fairness, Isolation & Multi-Tenancy",1,0.0217
+Quantum Networks,46,"Throughput, Capacity & Scalability",2,0.0435
 Quantum Networks,46,Control-Plane Design & Management,1,0.0217
-Quantum Networks,46,Verification & Correctness,1,0.0217
-Quantum Networks,46,Protocol Design & Interoperability,1,0.0217
+Quantum Networks,46,"Fairness, Isolation & Multi-Tenancy",1,0.0217
 Quantum Networks,46,Measurement & Characterization,1,0.0217
+Quantum Networks,46,Protocol Design & Interoperability,1,0.0217
+Quantum Networks,46,Verification & Correctness,1,0.0217
 Harsh-Environment & Delay-Tolerant Networks,28,Routing & Path Selection,8,0.2857
 Harsh-Environment & Delay-Tolerant Networks,28,Scheduling & Resource Allocation,6,0.2143
 Harsh-Environment & Delay-Tolerant Networks,28,"Security, Privacy & Trust",4,0.1429
 Harsh-Environment & Delay-Tolerant Networks,28,Control-Plane Design & Management,3,0.1071
 Harsh-Environment & Delay-Tolerant Networks,28,"MAC, Spectrum & Radio Resource Management",2,0.0714
 Harsh-Environment & Delay-Tolerant Networks,28,Latency & Deadline Optimization,1,0.0357
-Harsh-Environment & Delay-Tolerant Networks,28,"Topology, Fabric & Architecture",1,0.0357
-Harsh-Environment & Delay-Tolerant Networks,28,Telemetry & Monitoring,1,0.0357
 Harsh-Environment & Delay-Tolerant Networks,28,Localization & Positioning,1,0.0357
 Harsh-Environment & Delay-Tolerant Networks,28,"Placement, Offloading & Partitioning",1,0.0357
+Harsh-Environment & Delay-Tolerant Networks,28,Telemetry & Monitoring,1,0.0357
+Harsh-Environment & Delay-Tolerant Networks,28,"Topology, Fabric & Architecture",1,0.0357
