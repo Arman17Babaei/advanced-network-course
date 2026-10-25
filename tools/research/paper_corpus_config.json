@@ -86,7 +86,7 @@
       "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "dblp_toc_api",
+      "provider": "dblp_html",
       "issns": [
         "0743-166X",
         "2641-9874"
@@ -99,7 +99,8 @@
         "2026": "10.1109/INFOCOM59046.2026"
       },
       "toc_template": "db/conf/infocom/infocom{year}.bht",
-      "live_provider": "dblp_toc_api"
+      "live_provider": "dblp_html",
+      "url_template": "https://dblp.org/db/conf/infocom/infocom{year}.html"
     },
     {
       "name": "SIGMETRICS",
