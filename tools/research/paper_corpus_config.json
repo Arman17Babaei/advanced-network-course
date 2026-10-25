@@ -18,7 +18,8 @@
         "2024": "https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/sigcomm/2026/accepted/"
-      }
+      },
+      "enabled": true
     },
     {
       "name": "CoNEXT",
@@ -29,7 +30,8 @@
       "prefix": "10.1145",
       "query": "CoNEXT emerging Networking EXperiments and Technologies",
       "container_regex": "(?i)(CoNEXT|emerging Networking EXperiments and Technologies)",
-      "max_crossref_pages": 3
+      "max_crossref_pages": 3,
+      "enabled": false
     },
     {
       "name": "NSDI",
@@ -37,7 +39,8 @@
       "slug": "nsdi{yy}",
       "hard_min": 35,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "enabled": false
     },
     {
       "name": "ICNP",
@@ -50,7 +53,8 @@
       ],
       "official_urls": {
         "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
-      }
+      },
+      "enabled": false
     },
     {
       "name": "INFOCOM",
@@ -61,7 +65,8 @@
       "issns": [
         "0743-166X",
         "2641-9874"
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "SIGMETRICS",
@@ -73,7 +78,8 @@
         "https://openalex.org/S7407088608",
         "https://openalex.org/S7407088280",
         "https://openalex.org/S4210193547"
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "IMC",
@@ -86,7 +92,8 @@
         "2024": "https://conferences.sigcomm.org/imc/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/imc/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/imc/2026/accepted-papers/"
-      }
+      },
+      "enabled": false
     },
     {
       "name": "ACM Multimedia",
@@ -96,7 +103,8 @@
       "provider": "openalex",
       "source_ids": [
         "https://openalex.org/S4363608757"
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "NINeS",
@@ -108,7 +116,8 @@
         2026,
         2027
       ],
-      "official_2026": "https://2026.nines-conference.org/accepted"
+      "official_2026": "https://2026.nines-conference.org/accepted",
+      "enabled": false
     },
     {
       "name": "MobiCom",
@@ -124,7 +133,8 @@
       },
       "program_years": [
         2024
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "MMSys",
@@ -138,7 +148,8 @@
       "prefix": "10.1145",
       "query": "ACM Multimedia Systems Conference MMSys",
       "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
-      "max_crossref_pages": 5
+      "max_crossref_pages": 5,
+      "enabled": false
     },
     {
       "name": "IPDPS",
@@ -148,7 +159,8 @@
       "provider": "openalex",
       "source_ids": [
         "https://openalex.org/S4210174069"
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "ICDCS",
@@ -160,7 +172,8 @@
         "https://openalex.org/S4363608224",
         "https://openalex.org/S4306419352",
         "https://openalex.org/S4393916864"
-      ]
+      ],
+      "enabled": false
     },
     {
       "name": "OSDI",
@@ -168,7 +181,8 @@
       "slug": "osdi{yy}",
       "hard_min": 30,
       "validate_through": 2026,
-      "core": false
+      "core": false,
+      "enabled": false
     },
     {
       "name": "USENIX Security",
@@ -176,7 +190,8 @@
       "slug": "usenixsecurity{yy}",
       "hard_min": 100,
       "validate_through": 2026,
-      "core": false
+      "core": false,
+      "enabled": false
     }
   ],
   "ieee_transactions": {
@@ -192,7 +207,9 @@
     ],
     "crossref_prefix": "10.1109",
     "include_2027": true,
-    "keep_only_network_relevant": true
+    "keep_only_network_relevant": true,
+    "enabled": false,
+    "network_only": true
   },
   "categories": {
     "AI cluster networks and distributed training": [
