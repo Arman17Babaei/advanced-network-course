@@ -1468,6 +1468,82 @@ The build is fail-closed: if an established venue-year is implausibly small, or 
     return conferences, tx, network
 
 
+
+def conference_rows_for(spec, year, force_live=False):
+    provider = spec.get("live_provider") if force_live and spec.get("live_provider") else spec["provider"]
+
+    if provider == "static_csv":
+        return static_csv_conference(spec, year), spec["snapshot"]
+    if provider == "sigcomm_official":
+        return sigcomm_official(spec, year), "SIGCOMM official accepted-paper page"
+    if provider == "conext_official":
+        return conext_official(spec, year), "CoNEXT official accepted/program page"
+    if provider == "nines":
+        rows = nines_2026(spec) if year == 2026 else []
+        return rows, "NINeS official accepted-paper page"
+    if provider == "usenix":
+        rows = [] if year == 2027 else usenix_conference(spec, year)
+        return rows, "USENIX technical sessions"
+    if provider == "crossref":
+        return crossref_conference(spec, year), "Crossref"
+    if provider == "openalex":
+        rows = openalex_conference(spec, year)
+        source = "OpenAlex pinned venue series"
+        if not rows and str(year) in spec.get("doi_stems", {}):
+            rows = crossref_doi_stem(spec, year, spec["doi_stems"][str(year)])
+            source = "Crossref DOI family"
+        if not rows and str(year) in spec.get("official_urls", {}):
+            rows = official_list_conference(spec, year, spec["official_urls"][str(year)])
+            source = "official accepted-paper page"
+        return rows, source
+    if provider == "openalex_crossref":
+        rows = openalex_conference(spec, year)
+        source = "OpenAlex pinned venue series"
+        if not rows:
+            rows = crossref_conference(spec, year)
+            source = "Crossref fallback"
+        return rows, source
+    if provider == "official_list":
+        url = spec.get("official_urls", {}).get(str(year))
+        return (official_list_conference(spec, year, url) if url else []), "official accepted/program page"
+    if provider == "dblp_html":
+        url = spec["url_template"].format(year=year)
+        return ([] if year == 2027 else dblp_html_conference(spec, year, url)), "DBLP static proceedings page"
+    if provider == "mixed_static":
+        durl = spec.get("dblp_urls", {}).get(str(year))
+        ourl = spec.get("official_urls", {}).get(str(year))
+        if durl:
+            return dblp_html_conference(spec, year, durl), "DBLP static proceedings page"
+        if ourl:
+            return official_list_conference(spec, year, ourl), "official accepted/program page"
+        return [], "not yet available"
+    if provider == "doi_family":
+        stem = spec.get("doi_stems", {}).get(str(year))
+        return (crossref_doi_stem(spec, year, stem) if stem else []), ("Crossref exact DOI family" if stem else "not yet available")
+    if provider == "mixed_openalex_official":
+        if year in set(spec.get("openalex_years", [])):
+            return openalex_conference(spec, year), "OpenAlex pinned venue series"
+        url = spec.get("official_urls", {}).get(str(year))
+        return (official_list_conference(spec, year, url) if url else []), ("official accepted/program page" if url else "not yet available")
+    if provider == "mobicom_official":
+        url = spec.get("official_urls", {}).get(str(year))
+        rows = mobicom_official(
+            spec, year, url,
+            program=year in set(spec.get("program_years", []))
+        ) if url else []
+        return rows, ("MobiCom official program/accepted page" if url else "not yet available")
+    if provider == "openalex_issn":
+        return (openalex_issn_conference(spec, year) if year != 2027 else []), "OpenAlex exact proceedings ISSN"
+    if provider == "imc_mixed":
+        url = spec.get("official_urls", {}).get(str(year))
+        if year == 2023 and url:
+            rows = imc_2023_program(spec, year, url)
+        else:
+            rows = official_list_conference(spec, year, url) if url else []
+        return rows, ("IMC official program/accepted page" if url else "not yet available")
+    raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
+
+
 def main():
     conference_rows = []
     coverage = []
