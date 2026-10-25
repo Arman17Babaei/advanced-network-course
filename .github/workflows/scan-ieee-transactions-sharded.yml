@@ -2,14 +2,6 @@ name: Scan IEEE Transactions in shards
 
 on:
   workflow_dispatch:
-  push:
-    branches: [research/refresh-project-idea-pool-2023-2026]
-    paths:
-      - tools/research/scan_ieee_transactions_shard.py
-      - tools/research/merge_ieee_transactions_shards.py
-      - tools/research/validate_transaction_journal.py
-      - tools/research/build_paper_corpus.py
-      - .github/workflows/scan-ieee-transactions-sharded.yml
 
 permissions:
   contents: write
