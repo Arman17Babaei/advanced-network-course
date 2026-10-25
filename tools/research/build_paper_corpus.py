@@ -762,17 +762,21 @@ def dblp_html_conference(spec, year, url):
             continue
 
         authors = []
-        for a in entry.select(".authors a"):
+        # DBLP's stable semantic markup is Schema.org itemprop=author/name.
+        for a in entry.select('[itemprop="author"] [itemprop="name"]'):
             name = norm(a.get_text(" ", strip=True))
-            if name:
+            if name and name not in authors:
                 authors.append(name)
         if not authors:
-            author_box = entry.select_one(".authors")
-            if author_box:
-                # DBLP separates names with commas; hyperlinks above are the
-                # preferred path because affiliations may also appear in text.
-                raw = norm(author_box.get_text(" ", strip=True))
-                authors = [norm(x) for x in raw.split(",") if norm(x)]
+            for a in entry.select('[itemprop="author"]'):
+                name = norm(a.get_text(" ", strip=True))
+                if name and name not in authors:
+                    authors.append(name)
+        if not authors:
+            for a in entry.select(".authors a"):
+                name = norm(a.get_text(" ", strip=True))
+                if name and name not in authors:
+                    authors.append(name)
 
         doi = ""
         link = ""
