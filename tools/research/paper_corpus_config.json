@@ -12,19 +12,21 @@
       "hard_min": 40,
       "validate_through": 2026,
       "core": true,
-      "provider": "sigcomm_official",
+      "provider": "static_csv",
       "official_urls": {
         "2023": "https://conferences.sigcomm.org/sigcomm/2023/list-accepted.html",
         "2024": "https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/",
         "2025": "https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/",
         "2026": "https://conferences.sigcomm.org/sigcomm/2026/accepted/"
       },
-      "enabled": true
+      "enabled": true,
+      "live_provider": "sigcomm_official",
+      "snapshot": "materials/assessments/data/venues/sigcomm.csv"
     },
     {
       "name": "CoNEXT",
       "core": true,
-      "provider": "conext_official",
+      "provider": "static_csv",
       "hard_min": 25,
       "validate_through": 2026,
       "official_sources": {
@@ -44,7 +46,10 @@
           "url": "https://conferences2.sigcomm.org/co-next/2026/partials/accepted-papers.html",
           "kind": "accepted"
         }
-      }
+      },
+      "live_provider": "conext_official",
+      "snapshot": "materials/assessments/data/venues/conext.csv",
+      "enabled": true
     },
     {
       "name": "NSDI",
