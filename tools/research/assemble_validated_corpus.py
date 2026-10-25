@@ -24,6 +24,7 @@ MASTER_FIELDS = [
     "keywords","keyword_provenance","topics","primary_topic",
     "categories","network_relevance_score","network_relevant",
     "metadata_source","paper_type","source_id","openalex_id","raw_venue",
+    "source_keywords_or_index_terms","derived_keywords",
     "corpus_source"
 ]
 
@@ -37,12 +38,27 @@ def read_csv(path: Path):
         raise RuntimeError(f"{path}: missing columns {missing}")
     return rows
 
+def keyword_columns(r):
+    keywords=(r.get("keywords") or "").strip()
+    provenance=(r.get("keyword_provenance") or "").lower()
+    source_markers=(
+        "author keyword","publisher keyword","publisher metadata",
+        "index term","crossref subject",
+    )
+    if any(marker in provenance for marker in source_markers):
+        return keywords,""
+    return "",keywords
+
 def write_csv(path: Path, rows):
     with path.open("w", encoding="utf-8", newline="") as f:
         w=csv.DictWriter(f, fieldnames=MASTER_FIELDS)
         w.writeheader()
         for r in rows:
-            w.writerow({k:r.get(k,"") for k in MASTER_FIELDS})
+            out={k:r.get(k,"") for k in MASTER_FIELDS}
+            source_terms,derived=keyword_columns(r)
+            out["source_keywords_or_index_terms"]=source_terms
+            out["derived_keywords"]=derived
+            w.writerow(out)
 
 def norm_key(r):
     doi=(r.get("doi") or "").lower().strip()
@@ -148,6 +164,7 @@ def main():
 
     write_csv(DATA/"all_conference_papers.csv",conference_rows)
     write_csv(DATA/"ieee_transactions_network.csv",tx_rows)
+    write_csv(DATA/"master_paper_corpus.csv",combined)
     write_csv(DATA/"recent_networking_papers.csv",combined)
 
     # Coverage table.
@@ -202,7 +219,7 @@ def main():
               "- Every conference row has title, authors, venue, year, keyword metadata, and a DOI or canonical URL.",
               "- Conference snapshots satisfy their configured per-year minimums; exact expected counts are enforced where known.",
               "- IEEE Transactions inputs are networking-only subsets; the assembler prefers the Transactions-wide filtered sweep when available and otherwise falls back to individually validated journal snapshots.",
-              "- Keyword provenance is explicit; inferred keywords are not represented as publisher/author keywords.",
+              "- Keyword provenance is explicit. The assembled files separate source_keywords_or_index_terms from derived_keywords, so inferred labels are not represented as publisher/author keywords.",
               "- 2027 is populated only when records already exist in the source metadata.",
               ""]
     (DATA/"PAPER_CORPUS_SUMMARY.md").write_text("\n".join(lines),encoding="utf-8")
