@@ -11,23 +11,33 @@ CFG=json.loads((ROOT/"tools/research/paper_corpus_config.json").read_text(encodi
 TX=CFG["ieee_transactions"]
 
 NETWORK_TERMS = [
-    "network", "networking", "routing", "router", "internet", "packet", "switch",
-    "transport", "congestion", "tcp", "quic", "rdma", "roce", "bgp", "dns",
-    "ipv6", "cdn", "wireless", "wi-fi", "wifi", "wlan", "cellular", "5g", "6g",
-    "radio access", "ran", "handover", "network slicing", "satellite", "leo",
-    "non-terrestrial", "ntn", "vehicular network", "v2x", "device-to-device",
-    "d2d", "mesh network", "ad hoc network", "sensor network", "lpwan", "lora",
-    "communication network", "network traffic", "traffic engineering", "sdn",
-    "software-defined network", "network function", "nfv", "service function",
-    "content delivery", "peer-to-peer", "p2p", "network telemetry",
-    "network measurement", "interconnect", "collective communication",
+    "networking", "computer network", "communication network", "mobile network",
+    "edge network", "data center network", "datacenter network", "cluster network",
+    "network traffic", "network resource", "network slicing", "network telemetry",
+    "network measurement", "network management", "network function", "network security",
+    "network protocol", "network topology", "network planning", "network coding",
+    "routing", "router", "internet", "packet", "packet scheduling", "switch",
+    "transport layer", "transport protocol", "congestion control", "tcp", "quic",
+    "rdma", "roce", "bgp", "dns", "ipv6", "cdn", "traffic engineering", "sdn",
+    "software-defined network", "nfv", "service function", "content delivery",
+    "peer-to-peer", "p2p", "interconnect", "collective communication",
     "all-reduce", "all-to-all", "coflow", "bandwidth allocation",
-    "task offloading", "computation offloading", "mobile edge computing",
-    "multi-access edge computing", "edge network", "edge-cloud",
-    "communication-efficient", "communication overhead", "communication scheduling",
-    "semantic communication", "wireless communication", "network resource",
+    "wireless network", "wireless communication", "wireless link", "wi-fi", "wifi",
+    "wlan", "cellular network", "5g", "6g", "radio access network", "ran",
+    "handover", "satellite network", "leo satellite", "non-terrestrial network",
+    "ntn", "vehicular network", "v2x", "device-to-device communication", "d2d",
+    "mesh network", "ad hoc network", "sensor network", "lpwan", "lora",
     "spectrum allocation", "channel access", "medium access", "mac protocol",
+    "task offloading", "computation offloading", "edge-cloud", "cloud-edge",
+    "communication-efficient", "communication overhead", "communication scheduling",
+    "semantic communication",
 ]
+
+def _has_term(blob, term):
+    # Require lexical boundaries so short acronyms such as RAN do not match
+    # unrelated words such as "transfer".
+    return re.search(r"(?<![a-z0-9])" + re.escape(term) + r"(?![a-z0-9])", blob) is not None
+
 
 def is_network_paper(r):
     # Adjacent Transactions journals contain substantial non-network work.
