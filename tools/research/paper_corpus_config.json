@@ -15,7 +15,8 @@
       "container_regex": "(?i)(SIGCOMM|Special Interest Group on Data Communication)",
       "hard_min": 40,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "CoNEXT",
@@ -25,7 +26,8 @@
       "container_regex": "(?i)(CoNEXT|emerging Networking EXperiments and Technologies)",
       "hard_min": 12,
       "validate_through": 2025,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "NSDI",
@@ -43,7 +45,8 @@
       "container_regex": "(?i)(International Conference on Network Protocols|ICNP)",
       "hard_min": 40,
       "validate_through": 2025,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "INFOCOM",
@@ -53,7 +56,8 @@
       "container_regex": "(?i)(INFOCOM|Conference on Computer Communications)",
       "hard_min": 150,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "SIGMETRICS",
@@ -63,7 +67,8 @@
       "container_regex": "(?i)(SIGMETRICS|Measurement and Analysis of Computing Systems)",
       "hard_min": 12,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "IMC",
@@ -73,7 +78,8 @@
       "container_regex": "(?i)Internet Measurement Conference",
       "hard_min": 25,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "ACM Multimedia",
@@ -83,7 +89,8 @@
       "container_regex": "(?i)(ACM.*Multimedia|International Conference on Multimedia|Multimedia Conference)",
       "hard_min": 300,
       "validate_through": 2025,
-      "core": false
+      "core": false,
+      "max_crossref_pages": 5
     },
     {
       "name": "NINeS",
@@ -105,7 +112,8 @@
       "container_regex": "(?i)(MobiCom|Mobile Computing and Networking)",
       "hard_min": 50,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "MMSys",
@@ -115,7 +123,8 @@
       "container_regex": "(?i)(MMSys|Multimedia Systems Conference)",
       "hard_min": 20,
       "validate_through": 2026,
-      "core": true
+      "core": true,
+      "max_crossref_pages": 3
     },
     {
       "name": "IPDPS",
@@ -125,7 +134,8 @@
       "container_regex": "(?i)(Parallel and Distributed Processing Symposium|IPDPS)",
       "hard_min": 60,
       "validate_through": 2026,
-      "core": false
+      "core": false,
+      "max_crossref_pages": 3
     },
     {
       "name": "ICDCS",
@@ -135,7 +145,8 @@
       "container_regex": "(?i)(International Conference on Distributed Computing Systems|ICDCS)",
       "hard_min": 60,
       "validate_through": 2026,
-      "core": false
+      "core": false,
+      "max_crossref_pages": 3
     },
     {
       "name": "OSDI",
