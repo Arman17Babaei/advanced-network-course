@@ -12,11 +12,13 @@
       "hard_min": 40,
       "validate_through": 2026,
       "core": true,
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "ACM SIGCOMM Conference",
-      "container_regex": "(?i)(SIGCOMM|Special Interest Group on Data Communication)",
-      "max_crossref_pages": 5
+      "provider": "sigcomm_official",
+      "official_urls": {
+        "2023": "https://conferences.sigcomm.org/sigcomm/2023/list-accepted.html",
+        "2024": "https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/",
+        "2025": "https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/",
+        "2026": "https://conferences.sigcomm.org/sigcomm/2026/accepted/"
+      }
     },
     {
       "name": "CoNEXT",
