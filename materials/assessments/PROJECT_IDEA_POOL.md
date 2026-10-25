@@ -8,62 +8,66 @@ The previous version inferred project areas mainly from SIGCOMM, NSDI, and MobiC
 
 ### Time window
 
-The intended window is **2023–2027**. As of **24 October 2026**, essentially all usable accepted-paper evidence is from 2023–2026. Most 2027 venues have not yet published accepted-paper lists. In particular, NINeS 2027 notifications are scheduled for 27 November 2026, so no 2027 NINeS papers are counted yet.
+The intended window is **2023–2027**. As of **25 October 2026**, essentially all usable accepted-paper evidence is from 2023–2026. Most 2027 venues have not yet published accepted-paper lists. In particular, NINeS 2027 notifications are scheduled for 27 November 2026, so no 2027 NINeS papers are counted yet.
 
 ### Corpus and venue scope
 
-The machine-readable evidence base is checked into:
+The machine-readable evidence base is now a validated, checked-in corpus rather than a representative sample:
 
-- [`data/all_conference_papers.csv`](data/all_conference_papers.csv) — complete collected conference inventory for the requested venue series;
-- [`data/ieee_transactions_papers.csv.gz`](data/ieee_transactions_papers.csv.gz) — complete collected 2023–2027 inventory for matched IEEE Transactions journal sources;
-- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — network-relevant subset used for project-area mining;
-- [`data/PAPER_CORPUS_SUMMARY.md`](data/PAPER_CORPUS_SUMMARY.md) — generated coverage and category/keyword statistics;
-- [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable conference venue/year coverage;
-- [`data/IEEE_TRANSACTIONS_SOURCES.csv`](data/IEEE_TRANSACTIONS_SOURCES.csv) — matched Transactions journal sources.
+- [`data/all_conference_papers.csv`](data/all_conference_papers.csv) — **9,991** papers from the requested conference series;
+- [`data/ieee_transactions_network.csv`](data/ieee_transactions_network.csv) — **6,968** networking-relevant papers from selected IEEE Transactions journals;
+- [`data/recent_networking_papers.csv`](data/recent_networking_papers.csv) — the combined **16,959-record** corpus used for topic/category analysis;
+- [`data/PAPER_CORPUS_SUMMARY.md`](data/PAPER_CORPUS_SUMMARY.md) — generated venue/year coverage, keyword provenance, and category counts;
+- [`data/PAPER_CORPUS_COVERAGE.csv`](data/PAPER_CORPUS_COVERAGE.csv) — auditable per-venue/per-year counts;
+- [`data/venues/`](data/venues/) — frozen, independently validated conference snapshots;
+- [`data/transactions/`](data/transactions/) — networking-only IEEE Transactions snapshots.
 
 The conference corpus covers **SIGCOMM, CoNEXT, NSDI, ICNP, INFOCOM, SIGMETRICS/POMACS, IMC, ACM Multimedia, NINeS, MobiCom, MMSys, IPDPS, ICDCS, OSDI, and USENIX Security**.
 
-The journal inventory separately collects every OpenAlex journal source whose name matches the configured **IEEE Transactions** naming rule. Project-area mining then filters that much broader journal corpus for network relevance rather than silently narrowing the journal list beforehand.
+IEEE Transactions are handled differently because the family is much broader than networking. The checked-in journal snapshots retain only papers with explicit networking or networked-systems relevance. Core networking journals such as IEEE Transactions on Networking and IEEE Transactions on Network and Service Management are retained broadly; adjacent Transactions journals are filtered using paper title/keyword signals and then validated separately.
 
-Every machine-readable row records the paper title, authors, venue, year, DOI/publication URL where available, keyword labels, keyword provenance, topic labels, normalized project categories, and the source metadata identifiers used to reproduce the row.
+Every row records paper title, authors, venue, year, DOI/publication URL, keyword labels, keyword provenance, topic labels where available, normalized project categories, and source metadata identifiers when available.
 
 ### Keyword extraction and provenance
 
 The corpus distinguishes **source metadata** from **derived research labels**:
 
-- bibliographic metadata for the main corpus comes from OpenAlex source/work records, with official venue pages used where a recent venue is not yet reliably indexed;
-- OpenAlex supplies paper-level keyword and topic labels where available;
-- OpenAlex keywords are model-generated aboutness labels from paper metadata, **not author-supplied keywords**;
-- when enrichment is unavailable, the builder uses a deterministic title-derived keyword fallback;
-- `keyword_provenance` records which path produced the keywords for each paper;
-- normalized project categories are generated separately from a version-controlled vocabulary in `tools/research/paper_corpus_config.json`.
+- conference inventory comes from official venue/program/proceedings pages or a pinned bibliographic endpoint that was validated against plausible/exact yearly counts;
+- IEEE Transactions metadata comes primarily from OpenAlex journal/work records, with journal identity pinned explicitly;
+- OpenAlex paper keywords are model-generated aboutness labels, **not author-supplied keywords**;
+- publisher/Crossref keywords are retained when exposed;
+- when a source exposes no usable keywords, the builder uses a deterministic title- or title/abstract-derived fallback;
+- `keyword_provenance` records which path produced each row's keywords;
+- project categories are generated separately from a version-controlled vocabulary in `tools/research/paper_corpus_config.json`.
 
-The readable paper tables below are representative anchors. The **full corpus, not just these examples**, is the evidence base used to assess research density and update the project pool.
+The generated corpus currently contains **11,155 records with OpenAlex model-generated keywords**, **3,773 with deterministic title-derived keywords**, and **2,031 with deterministic title/abstract-derived category terms**. These labels are sufficient for research-cluster discovery, but they should not be interpreted as a bibliometric dataset of author-supplied keywords.
 
 ## Research-cluster summary
 
-| Cluster | Normalized keywords | Evidence signal across requested venues | Project-pool recommendation |
-| --- | --- | --- | --- |
-| **AI cluster networks and distributed training** | collectives, all-reduce, all-to-all, RDMA, MoE, coflow, placement, topology, optical fabric | Very strong in SIGCOMM, NSDI, OSDI, ICNP, ICDCS, IPDPS, TPDS | **Top-tier** |
-| **Distributed / disaggregated AI inference** | KV cache, expert parallelism, request routing, serving, disaggregation, edge inference | Very strong in SIGCOMM, NSDI, MobiCom, ICDCS, TPDS | **Top-tier** |
-| **Datacenter transport and programmable networking** | congestion control, ECN, PFC, RDMA, load balancing, P4, programmable switches, SmartNIC/DPU | Very strong in SIGCOMM, NSDI, ICNP, SIGMETRICS, OSDI | **Top-tier** |
-| **Network operations, telemetry, diagnosis, and verification** | telemetry, root cause analysis, fault localization, config safety, verification, digital twins | Very strong in SIGCOMM, NSDI, IMC, ICNP, SIGMETRICS | **Top-tier** |
-| **Satellite / non-terrestrial networking** | LEO, direct-to-cell, handover, ISL, NTN, satellite edge, constellation scheduling | Very strong in SIGCOMM, NSDI, IMC, MobiCom, NINeS, ICDCS, TMC | **Top-tier** |
-| **Cellular / 5G / 6G / RAN systems** | RAN, slicing, control plane, handover, fronthaul, O-RAN, mobile congestion control | Strong in SIGCOMM, IMC, MobiCom, NINeS, INFOCOM | **Strong** |
-| **Real-time media and interactive video** | RTC, video conferencing, low-latency video, ABR, FEC, QoE, SFU | Strong in SIGCOMM, NSDI, IMC, MMSys, ACM MM, NINeS | **Top-tier** |
-| **Immersive / XR / volumetric media** | XR, VR, AR, volumetric video, 3D Gaussian splatting, telepresence | Strong in MobiCom, IMC, ACM MM, MMSys | **Strong** |
-| **Edge intelligence and mobile AI** | offloading, split inference, edge serving, on-device LLM, collaborative perception | Strong in MobiCom, ICDCS, INFOCOM, TMC, TPDS | **Strong** |
-| **Robotics, UAVs, vehicles, and cyber-physical networking** | UAV mesh, autonomous driving, collaborative sensing, control loops, deadline traffic | Strong in MobiCom, ICDCS, INFOCOM, NINeS | **Strong** |
-| **Internet measurement and infrastructure** | BGP, DNS, IPv6, CDN, submarine cables, topology, latency, scanning | Very strong in IMC, SIGCOMM, NINeS, SIGMETRICS | **Top-tier** |
-| **Network security, privacy, and censorship resistance** | DDoS, routing security, encrypted traffic, censorship, Internet scanning, DNSSEC | Very strong in USENIX Security, IMC, SIGCOMM, ICNP | **Strong** |
-| **Cloud, serverless, and disaggregated systems** | serverless, microservices, multi-tenancy, CXL, disaggregated memory, SLOs | Strong in NSDI, OSDI, SIGMETRICS, ICDCS | **Strong** |
-| **Deterministic / industrial networking** | TSN, bounded latency, scheduling, reliability, industrial monitoring | Moderate in CoNEXT/POMACS, ICDCS, MobiCom | **Targeted** |
-| **Quantum networking** | entanglement routing, quantum switch, distributed quantum computing, quantum communication | Growing in SIGMETRICS, ICDCS, INFOCOM, NINeS | **Exploratory** |
-| **Sustainable networking and computing** | energy-aware RAN, carbon-aware scheduling, energy proportionality | Growing in NINeS, SIGMETRICS, ICDCS, INFOCOM | **Exploratory** |
+Counts below come from the full 16,959-record corpus. Categories are **not mutually exclusive**: one paper may contribute to several clusters. Raw counts also reflect venue mix—for example, wireless/networking Transactions produce many more papers than systems conferences—so the recommendation column combines research density with course fit rather than ranking by count alone.
 
-## Curated paper-and-keyword corpus
+| Cluster | Corpus records | Evidence signal | Project-pool recommendation |
+| --- | ---: | --- | --- |
+| **AI cluster networks and distributed training** | 278 | Repeated across SIGCOMM, NSDI, OSDI, ICNP, ICDCS, IPDPS, TPDS; rapidly growing | **Top-tier** |
+| **Distributed / disaggregated AI inference** | 94 | Smaller but very recent, concentrated in SIGCOMM/NSDI/MobiCom/ICDCS/TPDS | **Top-tier** |
+| **Datacenter transport and programmable networking** | 2,311 | Extremely broad and mature across networking/systems venues | **Top-tier** |
+| **Network operations, telemetry, diagnosis, and verification** | 411 | Strong systems/measurement cluster with excellent experimental fit | **Top-tier** |
+| **Satellite / non-terrestrial networking** | 815 | Large cross-venue cluster spanning transport, routing, edge, and measurement | **Top-tier** |
+| **Cellular / 5G / 6G / RAN systems** | 4,002 | Largest category, amplified by wireless Transactions coverage | **Strong** |
+| **Real-time media and interactive video** | 587 | Strong across SIGCOMM/NSDI/IMC/MMSys/ACM MM | **Top-tier** |
+| **Immersive / XR / volumetric media** | 307 | Focused cluster with strong MobiCom/MM/MMSys presence | **Strong** |
+| **Edge intelligence and mobile AI** | 2,359 | Very broad across mobile, distributed, and Transactions venues | **Strong** |
+| **Robotics, UAVs, vehicles, and cyber-physical networking** | 1,874 | Strong but often application-heavy; project must keep networking central | **Strong** |
+| **Internet measurement and infrastructure** | 1,357 | Deep, methodologically mature cluster with public datasets | **Top-tier** |
+| **Network security, privacy, and censorship resistance** | 1,748 | Strong across USENIX Security, IMC, SIGCOMM, ICNP, Transactions | **Strong** |
+| **Cloud, serverless, and disaggregated systems** | 983 | Strong systems cluster; must be scoped around communication/network behavior | **Strong** |
+| **Deterministic / industrial networking** | 133 | Smaller, technically coherent TSN/deadline-oriented cluster | **Targeted** |
+| **Quantum networking** | 64 | Small but visible and growing; simulation-heavy | **Exploratory** |
+| **Sustainable networking and computing** | 468 | Cross-cutting constraint rather than a standalone networking stack | **Exploratory** |
 
-This is a **representative seed corpus**, not an exhaustive bibliography of every paper published by every listed venue. It is deliberately biased toward papers that can generate network-design projects for this course.
+## Representative paper anchors
+
+The tables below are **human-readable anchors selected from the full machine-readable corpus**. They are deliberately biased toward papers that can generate network-design projects for this course; the exhaustive paper inventory is in `data/recent_networking_papers.csv`.
 
 ### AI cluster networks and distributed training
 
@@ -479,42 +483,28 @@ An area should become a released project only when it has:
 9. a research question that students can answer with evidence rather than merely reproduce a paper;
 10. an evaluation plan that makes AI-assisted implementation auditable and requires the team to defend its design and validation decisions.
 
-## Source indexes used for this revision
+## Corpus provenance and reproducibility
 
-Official or publisher-maintained sources are preferred:
+The corpus is intentionally stored as frozen per-venue/per-journal snapshots so future course revisions do not depend on a live endpoint continuing to behave the same way.
 
-- ACM SIGCOMM accepted papers:  
-  https://conferences.sigcomm.org/sigcomm/2024/accepted-papers/  
-  https://conferences.sigcomm.org/sigcomm/2025/accepted-papers/
-- USENIX NSDI technical sessions:  
-  https://www.usenix.org/conference/nsdi24/technical-sessions  
-  https://www.usenix.org/conference/nsdi25/technical-sessions  
-  https://www.usenix.org/conference/nsdi26/technical-sessions
-- ACM IMC accepted papers:  
-  https://conferences.sigcomm.org/imc/2024/accepted-papers/  
-  https://conferences.sigcomm.org/imc/2025/accepted-papers/
-- ACM SIGMETRICS 2025 accepted papers:  
-  https://www.sigmetrics.org/sigmetrics2025/accepted_papers.html
-- NINeS 2026 accepted papers:  
-  https://2026.nines-conference.org/accepted
-- IEEE ICNP 2026 program:  
-  https://icnp26.cs.ucr.edu/program.html
-- IEEE ICDCS 2025 accepted papers:  
-  https://icdcs2025.icdcs.org/accepted-papers/
-- ACM MobiCom 2026 accepted papers:  
-  https://www.sigmobile.org/mobicom/2026/accepted.html
-- USENIX OSDI 2024 technical sessions:  
-  https://www.usenix.org/conference/osdi24/technical-sessions
-- USENIX Security 2025 technical sessions:  
-  https://www.usenix.org/conference/usenixsecurity25/technical-sessions
-- ACM CoNEXT / PACMNET 2025 examples were cross-checked through DBLP and author publication pages; representative papers include Taurus, L4Span, VCCAnalyzer, QUIC deployment measurement, and IPv6 scanning.
-- IEEE INFOCOM 2025 papers were cross-checked through DBLP:  
-  https://dblp.org/db/conf/infocom/infocom2025.html
-- ACM MMSys 2025 papers were cross-checked through the ACM Digital Library proceedings, including:  
-  https://doi.org/10.1145/3712676.3714443
-- IEEE IPDPS 2025 papers were cross-checked through the IPDPS proceedings / DBLP, including HiCCL:  
-  https://doi.org/10.1109/IPDPS64566.2025.00089
-- ACM Multimedia 2025 networking-relevant papers were cross-checked through ACM/DBLP records, including GenStream and Watch, Skip, Repeat.
-- IEEE Xplore was used for relevant IEEE Transactions papers, including recent TMC and TPDS work.
+Conference adapters were validated venue by venue against official accepted-paper/program/proceedings pages or exact proceedings inventories before being frozen. The current conference coverage is:
 
-Additional venue years and papers should be appended when their official accepted-paper lists become available. In particular, the 2027 portion of the requested 2023–2027 window should be updated after 2027 acceptance decisions rather than populated with submissions or speculative entries.
+- SIGCOMM: 71 / 62 / 88 / 109 papers for 2023–2026;
+- CoNEXT: 30 / 40 / 50 / 60;
+- NSDI: 96 / 112 / 83 / 151;
+- ICNP: 35 / 49 / 61 / 68;
+- INFOCOM: 251 / 256 / 272 / 327;
+- SIGMETRICS: 54 / 48 / 66 / 54;
+- IMC: 52 / 55 / 72 / 77;
+- ACM Multimedia: 1,013 / 1,237 / 1,575 for 2023–2025;
+- NINeS: 28 papers in 2026;
+- MobiCom: 91 / 103 / 76 / 87;
+- MMSys: 57 / 69 / 41 / 60;
+- IPDPS: 95 / 88 / 106 / 101;
+- ICDCS: 83 / 121 / 103 / 138;
+- OSDI: 55 / 53 / 53 / 137;
+- USENIX Security: 422 / 418 / 455 / 377.
+
+The exact source configuration and collection code are versioned under `tools/research/`. `tools/research/assemble_validated_corpus.py` fails closed if a frozen conference snapshot falls below its configured yearly minimum, violates an exact count where one is known, lacks required paper metadata, or if a Transactions snapshot contains a row not marked network-relevant.
+
+The 2027 portion should be refreshed only after actual 2027 publication/acceptance metadata becomes available; the current corpus does not manufacture future records.
