@@ -28,6 +28,9 @@ def rows_for(spec, year):
         return corpus.usenix_conference(spec, year)
     if provider == "nines":
         return corpus.nines_2026(spec) if year == 2026 else []
+    if provider == "official_list":
+        url = spec.get("official_urls", {}).get(str(year))
+        return corpus.official_list_conference(spec, year, url) if url else []
     if provider == "imc_mixed":
         url = spec.get("official_urls", {}).get(str(year))
         if year == 2023 and url:
