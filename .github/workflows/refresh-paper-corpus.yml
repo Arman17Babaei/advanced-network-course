@@ -34,7 +34,6 @@ jobs:
           git add materials/assessments/data/all_conference_papers.csv
           git add materials/assessments/data/ieee_transactions_network.csv
           git add materials/assessments/data/master_paper_corpus.csv
-          git add materials/assessments/data/recent_networking_papers.csv
           git add materials/assessments/data/PAPER_CORPUS_COVERAGE.csv
           git add materials/assessments/data/PAPER_CORPUS_SUMMARY.md
           if git diff --cached --quiet; then
