@@ -26,42 +26,42 @@ Project taxonomy and domain/tag hierarchy: [`../PROJECT_IDEA_POOL.md`](../PROJEC
 
 ### Conferences
 
-| Venue | 2023 | 2024 | 2025 | 2026 | 2027 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| SIGCOMM | 71 | 62 | 88 | 109 | 0 |
-| CoNEXT | 30 | 40 | 50 | 60 | 0 |
-| NSDI | 96 | 112 | 83 | 151 | 0 |
-| ICNP | 35 | 49 | 61 | 68 | 0 |
-| INFOCOM | 251 | 256 | 272 | 327 | 0 |
-| SIGMETRICS | 54 | 48 | 66 | 54 | 0 |
-| IMC | 52 | 55 | 72 | 77 | 0 |
-| ACM Multimedia | 1013 | 1237 | 1575 | 0 | 0 |
-| NINeS | 0 | 0 | 0 | 28 | 0 |
-| MobiCom | 91 | 103 | 76 | 87 | 0 |
-| MMSys | 57 | 69 | 41 | 60 | 0 |
-| IPDPS | 95 | 88 | 106 | 101 | 0 |
-| ICDCS | 83 | 121 | 103 | 138 | 0 |
-| OSDI | 55 | 53 | 53 | 137 | 0 |
-| USENIX Security | 422 | 418 | 455 | 377 | 0 |
+| Venue | Total | 2023 | 2024 | 2025 | 2026 | 2027 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| SIGCOMM | 330 | 71 | 62 | 88 | 109 | 0 |
+| CoNEXT | 180 | 30 | 40 | 50 | 60 | 0 |
+| NSDI | 442 | 96 | 112 | 83 | 151 | 0 |
+| ICNP | 213 | 35 | 49 | 61 | 68 | 0 |
+| INFOCOM | 1,106 | 251 | 256 | 272 | 327 | 0 |
+| SIGMETRICS | 222 | 54 | 48 | 66 | 54 | 0 |
+| IMC | 256 | 52 | 55 | 72 | 77 | 0 |
+| ACM Multimedia | 3,825 | 1013 | 1237 | 1575 | 0 | 0 |
+| NINeS | 28 | 0 | 0 | 0 | 28 | 0 |
+| MobiCom | 357 | 91 | 103 | 76 | 87 | 0 |
+| MMSys | 227 | 57 | 69 | 41 | 60 | 0 |
+| IPDPS | 390 | 95 | 88 | 106 | 101 | 0 |
+| ICDCS | 445 | 83 | 121 | 103 | 138 | 0 |
+| OSDI | 298 | 55 | 53 | 53 | 137 | 0 |
+| USENIX Security | 1,672 | 422 | 418 | 455 | 377 | 0 |
 
 ### IEEE Transactions journals
 
 Only networking-relevant papers are retained from these journals.
 
-| Journal | 2023 | 2024 | 2025 | 2026 | 2027 |
-| --- | ---: | ---: | ---: | ---: | ---: |
-| IEEE Transactions on Cloud Computing | 25 | 38 | 36 | 50 | 0 |
-| IEEE Transactions on Communications | 72 | 87 | 98 | 80 | 0 |
-| IEEE Transactions on Dependable and Secure Computing | 31 | 32 | 54 | 63 | 0 |
-| IEEE Transactions on Green Communications and Networking | 42 | 64 | 53 | 52 | 0 |
-| IEEE Transactions on Mobile Computing | 156 | 234 | 349 | 362 | 0 |
-| IEEE Transactions on Multimedia | 9 | 6 | 9 | 13 | 0 |
-| IEEE Transactions on Network Science and Engineering | 80 | 84 | 164 | 89 | 0 |
-| IEEE Transactions on Network and Service Management | 366 | 429 | 421 | 456 | 0 |
-| IEEE Transactions on Networking | 239 | 219 | 335 | 338 | 0 |
-| IEEE Transactions on Parallel and Distributed Systems | 47 | 25 | 30 | 24 | 0 |
-| IEEE Transactions on Vehicular Technology | 274 | 281 | 323 | 282 | 0 |
-| IEEE Transactions on Wireless Communications | 139 | 116 | 100 | 92 | 0 |
+| Journal | Total | 2023 | 2024 | 2025 | 2026 | 2027 |
+| --- | ---: | ---: | ---: | ---: | ---: | ---: |
+| IEEE Transactions on Cloud Computing | 149 | 25 | 38 | 36 | 50 | 0 |
+| IEEE Transactions on Communications | 337 | 72 | 87 | 98 | 80 | 0 |
+| IEEE Transactions on Dependable and Secure Computing | 180 | 31 | 32 | 54 | 63 | 0 |
+| IEEE Transactions on Green Communications and Networking | 211 | 42 | 64 | 53 | 52 | 0 |
+| IEEE Transactions on Mobile Computing | 1,101 | 156 | 234 | 349 | 362 | 0 |
+| IEEE Transactions on Multimedia | 37 | 9 | 6 | 9 | 13 | 0 |
+| IEEE Transactions on Network Science and Engineering | 417 | 80 | 84 | 164 | 89 | 0 |
+| IEEE Transactions on Network and Service Management | 1,672 | 366 | 429 | 421 | 456 | 0 |
+| IEEE Transactions on Networking | 1,131 | 239 | 219 | 335 | 338 | 0 |
+| IEEE Transactions on Parallel and Distributed Systems | 126 | 47 | 25 | 30 | 24 | 0 |
+| IEEE Transactions on Vehicular Technology | 1,160 | 274 | 281 | 323 | 282 | 0 |
+| IEEE Transactions on Wireless Communications | 447 | 139 | 116 | 100 | 92 | 0 |
 
 ## Domain totals
 
