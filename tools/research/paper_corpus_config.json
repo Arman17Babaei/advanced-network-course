@@ -146,7 +146,7 @@
     },
     {
       "name": "NINeS",
-      "provider": "nines",
+      "provider": "static_csv",
       "hard_min": 20,
       "validate_through": 2026,
       "core": true,
@@ -155,7 +155,9 @@
         2027
       ],
       "official_2026": "https://2026.nines-conference.org/accepted",
-      "enabled": false
+      "enabled": true,
+      "live_provider": "nines",
+      "snapshot": "materials/assessments/data/venues/nines.csv"
     },
     {
       "name": "MobiCom",
