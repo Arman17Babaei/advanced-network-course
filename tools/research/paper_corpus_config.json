@@ -59,15 +59,15 @@
       "validate_through": 2026,
       "core": true,
       "enabled": true,
-      "live_provider": "static_csv",
+      "live_provider": "usenix",
       "snapshot": "materials/assessments/data/venues/nsdi.csv"
     },
     {
       "name": "ICNP",
-      "hard_min": 30,
+      "hard_min": 35,
       "validate_through": 2026,
       "core": true,
-      "provider": "official_list",
+      "provider": "static_csv",
       "source_ids": [
         "https://openalex.org/S4210215197"
       ],
@@ -77,19 +77,22 @@
         "2025": "https://ieeeicnp2025.pages.dev/acceptedpapers",
         "2026": "https://icnp26.cs.ucr.edu/acceptedpapers.html"
       },
-      "enabled": false
+      "enabled": true,
+      "live_provider": "official_list",
+      "snapshot": "materials/assessments/data/venues/icnp.csv"
     },
     {
       "name": "INFOCOM",
-      "hard_min": 150,
+      "hard_min": 200,
       "validate_through": 2026,
       "core": true,
-      "provider": "openalex_issn",
+      "provider": "dblp_html",
       "issns": [
         "0743-166X",
         "2641-9874"
       ],
-      "enabled": false
+      "enabled": false,
+      "url_template": "https://dblp.org/db/conf/infocom/infocom{year}.html"
     },
     {
       "name": "SIGMETRICS",
