@@ -32,6 +32,8 @@ def main():
             rows = corpus.crossref_conference(spec, year)
         elif provider == "sigcomm_official":
             rows = corpus.sigcomm_official(spec, year)
+        elif provider == "conext_official":
+            rows = corpus.conext_official(spec, year)
         elif provider == "usenix":
             rows = corpus.usenix_conference(spec, year)
         elif provider == "nines":
