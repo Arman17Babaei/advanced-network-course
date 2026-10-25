@@ -64,30 +64,17 @@
 \input{LaTeX_Common/mahdiq}
 
 \usepackage{xepersian}
-% Prefer the exact fonts bundled with the supplied course template.
-% CI falls back only when those local template assets are unavailable.
-\IfFileExists{LaTeX_Common/fonts/BNazanin/BNAZANIN.TTF}{
-    \settextfont[
-        Scale=1.2,
-        Path={LaTeX_Common/fonts/BNazanin/},
-        Extension=.ttf,
-        BoldFont = BNAZANB
-    ]{BNAZANIN}
-}{
-    \settextfont[Scale=1.2]{Noto Naskh Arabic}
-    % Match the supplied template's Persian numeral shapes more closely
-    % when the bundled B Nazanin font is unavailable in CI.
-    \setdigitfont[Scale=1.2]{FreeSerif}
-}
-\IfFileExists{LaTeX_Common/fonts/LatinModernRoman/LMR_Regular.otf}{
-    \setlatintextfont[
-        Scale=1.1,
-        Path={LaTeX_Common/fonts/LatinModernRoman/},
-        Extension=.otf
-    ]{LMR_Regular}
-}{
-    \setlatintextfont[Scale=1.1]{Latin Modern Roman}
-}
+\settextfont[
+    Scale=1.2,
+    Path={LaTeX_Common/fonts/BNazanin/},
+    Extension=.ttf,
+    BoldFont = BNAZANB
+]{BNAZANIN}
+\setlatintextfont[
+    Scale=1.1,
+    Path={LaTeX_Common/fonts/LatinModernRoman/},
+    Extension=.otf
+]{LMR_Regular}
 
 \newcommand{\courseName}{شبکه‌های کامپیوتری پیشرفته}
 \newcommand{\courseSemester}{پاییز ۱۴۰۵}
