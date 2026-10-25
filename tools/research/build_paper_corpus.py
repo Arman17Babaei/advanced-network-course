@@ -1110,6 +1110,126 @@ def sigcomm_official(spec, year):
         categorize(r)
     return rows
 
+
+def conext_official(spec, year):
+    source = spec["official_sources"].get(str(year))
+    if not source:
+        return []
+    url = source["url"]
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+
+    def make_row(title, authors, paper_url=None, abstract="", paper_type="conference paper"):
+        title = norm(title).rstrip(".")
+        authors = norm(authors)
+        if not title or not authors:
+            return
+        row = {
+            "title": title,
+            "authors": authors,
+            "venue": "CoNEXT",
+            "raw_venue": "ACM CoNEXT",
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": paper_url or url,
+            "openalex_id": "",
+            "metadata_source": "official CoNEXT accepted-paper/program page",
+            "paper_type": paper_type,
+            "keywords": "",
+            "keyword_provenance": "",
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": True,
+            "_abstract": norm(abstract),
+        }
+        if paper_url and "dl.acm.org/doi/" in paper_url:
+            row["doi"] = paper_url.split("dl.acm.org/doi/", 1)[1].split("?",1)[0].strip("/")
+        rows.append(row)
+
+    if year in {2023, 2024}:
+        for li in soup.find_all("li"):
+            b = li.find("b")
+            if not b:
+                continue
+            title = b.get_text(" ", strip=True)
+            # Extract author text from the entry after the title node.
+            clone = BeautifulSoup(str(li), "html.parser")
+            bb = clone.find("b")
+            if bb:
+                bb.decompose()
+            authors = clone.get_text(" ", strip=True)
+            make_row(title, authors)
+
+    elif year == 2025:
+        for li in soup.find_all("li"):
+            strong = li.find("strong")
+            text = norm(li.get_text(" ", strip=True))
+            if not strong or "ACM DL" not in text or "PDF" not in text:
+                continue
+
+            # The Long/Short and award labels are nested inside <strong>;
+            # remove them before reading the paper title.
+            sc = BeautifulSoup(str(strong), "html.parser")
+            for span in sc.find_all("span"):
+                span.decompose()
+            title = norm(sc.get_text(" ", strip=True))
+
+            title_box = strong.parent
+            authors_box = title_box.find_next_sibling("div") if title_box else None
+            authors = norm(authors_box.get_text(" ", strip=True) if authors_box else "")
+
+            dl = None
+            for a in li.find_all("a", href=True):
+                href = norm(a.get("href"))
+                if "dl.acm.org/doi/" in href and "/pdf/" not in href:
+                    dl = href
+                    break
+
+            abstracts = []
+            for p in li.find_all("p"):
+                t = norm(p.get_text(" ", strip=True))
+                if t:
+                    abstracts.append(t)
+
+            label = strong.find("span")
+            ptype = norm(label.get_text(" ", strip=True)) if label else "conference paper"
+            make_row(title, authors, dl, " ".join(abstracts), ptype)
+
+    elif year == 2026:
+        for li in soup.find_all("li"):
+            u = li.find("u")
+            if not u:
+                continue
+            title = u.get_text(" ", strip=True)
+            clone = BeautifulSoup(str(li), "html.parser")
+            uu = clone.find("u")
+            if uu:
+                uu.decompose()
+            authors = clone.get_text(" ", strip=True)
+            make_row(title, authors)
+
+    rows = dedupe(rows)
+    for r in rows:
+        # Use abstract-aware deterministic terms when the official program
+        # provides an abstract; otherwise categorization falls back to title.
+        if not r["keywords"] and r.get("_abstract"):
+            blob = (r["title"] + " " + r["_abstract"]).lower()
+            terms = []
+            for phrases in CATEGORIES.values():
+                for phrase in phrases:
+                    if phrase in blob and phrase not in terms:
+                        terms.append(phrase)
+            if terms:
+                r["keywords"] = "; ".join(sorted(terms, key=len, reverse=True)[:12])
+                r["keyword_provenance"] = "deterministic title/abstract category terms"
+        categorize(r)
+    return rows
+
 def nines_2026(spec):
     url = spec["official_2026"]
     soup = BeautifulSoup(get_html(url), "html.parser")
