@@ -1,34 +1,23 @@
-name: Validate IPDPS source
-
-concurrency:
-  group: paper-source-validation-${{ github.sha }}
-  cancel-in-progress: false
+name: Inspect DBLP TOC API
 
 on:
   workflow_dispatch:
   push:
-    branches:
-      - research/refresh-project-idea-pool-2023-2026
+    branches: [research/refresh-project-idea-pool-2023-2026]
     paths:
-      - tools/research/build_paper_corpus.py
-      - tools/research/validate_venue.py
-      - tools/research/export_validated_venue.py
-      - tools/research/paper_corpus_config.json
+      - tools/research/inspect_dblp_toc.py
       - .github/workflows/refresh-paper-corpus.yml
 
 permissions:
   contents: read
 
 jobs:
-  validate:
+  inspect:
     runs-on: ubuntu-latest
-    timeout-minutes: 15
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
-      - name: Install dependencies
-        run: python -m pip install --disable-pip-version-check requests beautifulsoup4
-      - name: Validate IPDPS source
-        run: python tools/research/validate_venue.py --venue IPDPS --live
+      - run: python -m pip install --disable-pip-version-check requests
+      - run: python tools/research/inspect_dblp_toc.py
