@@ -30,6 +30,8 @@ def main():
         provider = spec["provider"]
         if provider == "crossref":
             rows = corpus.crossref_conference(spec, year)
+        elif provider == "sigcomm_official":
+            rows = corpus.sigcomm_official(spec, year)
         elif provider == "usenix":
             rows = corpus.usenix_conference(spec, year)
         elif provider == "nines":
