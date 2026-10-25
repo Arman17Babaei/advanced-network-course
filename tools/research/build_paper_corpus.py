@@ -1017,6 +1017,99 @@ def imc_2023_program(spec, year, url):
     print(f"IMC-PROGRAM {year}: kept {len(rows)}", flush=True)
     return rows
 
+
+def sigcomm_official(spec, year):
+    url = spec["official_urls"].get(str(year))
+    if not url:
+        return []
+    soup = BeautifulSoup(get_html(url), "html.parser")
+    rows = []
+
+    def add_row(title, authors, note=""):
+        title = norm(title).rstrip(".")
+        authors = norm(authors)
+        if not title or not authors:
+            return
+        rows.append({
+            "title": title,
+            "authors": authors,
+            "venue": "SIGCOMM",
+            "raw_venue": "ACM SIGCOMM",
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": url,
+            "openalex_id": "",
+            "metadata_source": "official SIGCOMM accepted-paper page" + (f" ({note})" if note else ""),
+            "paper_type": "conference paper",
+            "keywords": "",
+            "keyword_provenance": "",
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": True,
+        })
+
+    if year == 2023:
+        for h in soup.find_all("h2"):
+            parent = h.find_parent("tr") or h.find_parent("li") or h.parent
+            p = parent.find("p") if parent else None
+            if p:
+                add_row(h.get_text(" ", strip=True), p.get_text(" ", strip=True))
+
+    elif year == 2024:
+        ps = [p for p in soup.find_all("p") if norm(p.get_text(" ", strip=True))]
+        if len(ps) % 2 != 0:
+            raise RuntimeError(f"SIGCOMM 2024 unexpected paragraph count: {len(ps)}")
+        for i in range(0, len(ps), 2):
+            title = norm(ps[i].get_text(" ", strip=True))
+            title = re.sub(r"\s+(Research|Experience)\s+Track$", "", title, flags=re.I)
+            add_row(title, ps[i+1].get_text(" ", strip=True))
+
+    elif year == 2025:
+        ps = [p for p in soup.find_all("p") if norm(p.get_text(" ", strip=True))]
+        # First paragraph is descriptive prose; the remainder is title/author pairs.
+        if ps and "program will cover" in norm(ps[0].get_text(" ", strip=True)).lower():
+            ps = ps[1:]
+        if len(ps) % 2 != 0:
+            raise RuntimeError(f"SIGCOMM 2025 unexpected paragraph count after intro: {len(ps)}")
+        for i in range(0, len(ps), 2):
+            add_row(ps[i].get_text(" ", strip=True), ps[i+1].get_text(" ", strip=True))
+
+    elif year == 2026:
+        declared = None
+        for p in soup.find_all("p"):
+            m = re.search(r"The following\s+(\d+)\s+papers have been accepted", norm(p.get_text(" ", strip=True)), re.I)
+            if m:
+                declared = int(m.group(1))
+                break
+        for tr in soup.find_all("tr"):
+            b = tr.find("b")
+            span = tr.find("span", class_="table-description")
+            if b and span:
+                add_row(
+                    b.get_text(" ", strip=True),
+                    span.get_text(" ", strip=True),
+                    note=f"page declares {declared} papers; DOM contains paper rows parsed here" if declared else "",
+                )
+        if declared is not None and declared != len(rows):
+            print(
+                f"WARNING SIGCOMM 2026 official page declares {declared} papers "
+                f"but exposes {len(rows)} parseable paper rows",
+                file=sys.stderr,
+            )
+
+    else:
+        return []
+
+    rows = dedupe(rows)
+    for r in rows:
+        categorize(r)
+    return rows
+
 def nines_2026(spec):
     url = spec["official_2026"]
     soup = BeautifulSoup(get_html(url), "html.parser")
