@@ -1,27 +1,25 @@
 #!/usr/bin/env python3
-import re
 import requests
+from bs4 import BeautifulSoup
 
 H={"User-Agent":"advanced-network-course-source-inspector/1.0"}
 for year in [2023,2024,2025,2026]:
-    base=f"https://conferences2.sigcomm.org/co-next/{year}/"
-    print(f"YEAR={year}",flush=True)
-    for path in ["js/app.js","js/variables.js"]:
-        url=base+path
-        r=requests.get(url,timeout=15,headers=H)
-        print(f"  FILE={path} STATUS={r.status_code} BYTES={len(r.content)}",flush=True)
-        if r.status_code!=200:
-            continue
-        raw=r.text
-        low=raw.lower()
-        templates=sorted(set(re.findall(r'''templateUrl\s*:\s*["']([^"']+)["']''',raw,re.I)))
-        for t in templates:
-            if any(k in t.lower() for k in ["accept","program","paper"]):
-                print(f"    TEMPLATE={t}",flush=True)
-        for term in ["accepted","program","papers"]:
-            positions=[m.start() for m in re.finditer(term,low)]
-            print(f"    TERM={term} N={len(positions)}",flush=True)
-            for pos in positions[:8]:
-                snippet=re.sub(r"\s+"," ",raw[max(0,pos-260):min(len(raw),pos+520)])
-                print("      "+snippet[:780],flush=True)
+    url=f"https://conferences2.sigcomm.org/co-next/{year}/partials/accepted-papers.html"
+    r=requests.get(url,timeout=15,headers=H)
+    print(f"YEAR={year} STATUS={r.status_code} BYTES={len(r.content)} URL={r.url}",flush=True)
+    if r.status_code!=200:
+        print("----",flush=True); continue
+    soup=BeautifulSoup(r.text,"html.parser")
+    for tag in ["h1","h2","h3","h4","li","tr","p","strong","b"]:
+        els=soup.find_all(tag)
+        vals=[]
+        for el in els:
+            t=" ".join(el.stripped_strings)
+            if len(t)>=8:
+                vals.append(t[:260])
+            if len(vals)>=10:
+                break
+        print(f"  TAG={tag} COUNT={len(els)}",flush=True)
+        for v in vals:
+            print("    "+v,flush=True)
     print("----",flush=True)
