@@ -23,15 +23,28 @@
     },
     {
       "name": "CoNEXT",
-      "hard_min": 12,
-      "validate_through": 2025,
       "core": true,
-      "provider": "crossref",
-      "prefix": "10.1145",
-      "query": "CoNEXT emerging Networking EXperiments and Technologies",
-      "container_regex": "(?i)(CoNEXT|emerging Networking EXperiments and Technologies)",
-      "max_crossref_pages": 3,
-      "enabled": false
+      "provider": "conext_official",
+      "hard_min": 25,
+      "validate_through": 2026,
+      "official_sources": {
+        "2023": {
+          "url": "https://conferences2.sigcomm.org/co-next/2023/partials/accepted-papers.html",
+          "kind": "accepted"
+        },
+        "2024": {
+          "url": "https://conferences2.sigcomm.org/co-next/2024/partials/accepted-papers.html",
+          "kind": "accepted"
+        },
+        "2025": {
+          "url": "https://conferences2.sigcomm.org/co-next/2025/partials/program.html",
+          "kind": "program"
+        },
+        "2026": {
+          "url": "https://conferences2.sigcomm.org/co-next/2026/partials/accepted-papers.html",
+          "kind": "accepted"
+        }
+      }
     },
     {
       "name": "NSDI",
