@@ -76,5 +76,5 @@ Combined unique records: **16,959**.
 - Every conference row has title, authors, venue, year, keyword metadata, and a DOI or canonical URL.
 - Conference snapshots satisfy their configured per-year minimums; exact expected counts are enforced where known.
 - IEEE Transactions inputs are networking-only subsets; the assembler prefers the Transactions-wide filtered sweep when available and otherwise falls back to individually validated journal snapshots.
-- Keyword provenance is explicit; inferred keywords are not represented as publisher/author keywords.
+- Keyword provenance is explicit. The assembled files separate source_keywords_or_index_terms from derived_keywords, so inferred labels are not represented as publisher/author keywords.
 - 2027 is populated only when records already exist in the source metadata.
