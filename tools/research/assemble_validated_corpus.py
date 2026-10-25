@@ -100,18 +100,28 @@ def main():
                 failures.append(f"{name} {y}: {n} != expected {expected}")
 
     tx_rows=[]
-    tx_files=sorted(p for p in TX.glob("ieee_transactions_*.csv") if p.name != "ieee_transactions_network.csv")
+    broad_tx=TX/"ieee_transactions_network.csv"
+    if broad_tx.exists() and broad_tx.stat().st_size>100:
+        # Prefer the Transactions-wide discovery sweep when available. It
+        # scans every matching IEEE(/ACM) Transactions journal title and
+        # retains only papers that pass the same high-precision network filter.
+        tx_files=[broad_tx]
+        tx_source="ieee_transactions_wide_network_subset"
+    else:
+        # Safe fallback while a broad sweep is unavailable/rate-limited:
+        # combine the individually validated networking journal snapshots.
+        tx_files=sorted(p for p in TX.glob("ieee_transactions_*.csv") if p.name != "ieee_transactions_network.csv")
+        tx_source="ieee_transactions_validated_journal_subset"
+
     if not tx_files:
         failures.append("no Transactions snapshots found")
     for path in tx_files:
         rows=read_csv(path)
         failures.extend(validate_rows(str(path.relative_to(ROOT)),rows))
         for r in rows:
-            # Per user requirement, the checked-in Transactions files are
-            # already networking-only subsets. Enforce that invariant here.
             if str(r.get("network_relevant","")).lower() not in {"true","1","yes"}:
                 failures.append(f"{path.name}: non-network row retained: {r.get('title')}")
-            r["corpus_source"]="ieee_transactions_network_subset"
+            r["corpus_source"]=tx_source
             tx_rows.append(r)
 
     # Keep one record per publication identity within the combined corpus.
@@ -191,7 +201,7 @@ def main():
     lines += ["","## Invariants","",
               "- Every conference row has title, authors, venue, year, keyword metadata, and a DOI or canonical URL.",
               "- Conference snapshots satisfy their configured per-year minimums; exact expected counts are enforced where known.",
-              "- IEEE Transactions inputs are networking-only subsets; the assembler rejects rows not marked network-relevant.",
+              "- IEEE Transactions inputs are networking-only subsets; the assembler prefers the Transactions-wide filtered sweep when available and otherwise falls back to individually validated journal snapshots.",
               "- Keyword provenance is explicit; inferred keywords are not represented as publisher/author keywords.",
               "- 2027 is populated only when records already exist in the source metadata.",
               ""]
