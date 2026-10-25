@@ -897,6 +897,126 @@ def dblp_html_conference(spec, year, url):
 
 
 
+def ipdps_official(spec, year):
+    """Collect IPDPS main-conference contributed papers from official programs.
+
+    2023-2024: the IPDPS advance-program HTML embeds full title/author data
+    inside rows labelled Parallel Technical Sessions.
+    2025: Linklings' at-a-glance page provides all main-conference presentation
+    slots; best-paper presentations duplicate papers and are removed by title.
+    2026: Linklings' By Event Type page exposes an explicit Papers section,
+    separate from workshops, tutorials, keynotes, and social events.
+    """
+    rows = []
+
+    def make_row(title, authors, url, abstract=""):
+        title = norm(title).rstrip(".")
+        authors = norm(authors)
+        if not title or not authors:
+            return
+        kw, provenance = _usenix_keywords(title, abstract)
+        rows.append({
+            "title": title,
+            "authors": authors,
+            "venue": spec["name"],
+            "raw_venue": spec["name"],
+            "year": year,
+            "venue_kind": "conference",
+            "source_id": "",
+            "doi": "",
+            "url": url,
+            "openalex_id": "",
+            "metadata_source": "official IPDPS program",
+            "paper_type": "main conference paper",
+            "keywords": kw,
+            "keyword_provenance": provenance,
+            "topics": "",
+            "primary_topic": "",
+            "categories": "",
+            "network_relevance_score": 0,
+            "network_relevant": False,
+            "_core": bool(spec.get("core", False)),
+            "_abstract": norm(abstract),
+        })
+
+    if year in {2023, 2024}:
+        url = f"https://www.ipdps.org/ipdps{year}/{year}-advance-program.html"
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        for tr in soup.find_all("tr"):
+            cells = tr.find_all("td", recursive=False)
+            if len(cells) < 2:
+                continue
+            left = norm(cells[0].get_text(" ", strip=True))
+            if "parallel technical" not in left.lower():
+                continue
+            right = cells[1]
+            for li in right.find_all("li"):
+                em = li.find("em")
+                if em is None:
+                    continue
+                title = norm(em.get_text(" ", strip=True))
+                clone = BeautifulSoup(str(li), "html.parser")
+                em2 = clone.find("em")
+                if em2:
+                    em2.decompose()
+                authors = norm(clone.get_text(" ", strip=True))
+                make_row(title, authors, url)
+
+    elif year == 2025:
+        url = "https://ssl.linklings.net/conferences/ipdps/ipdps2025_program/views/at_a_glance.html"
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        for slot in soup.select(".slot-wrapper"):
+            title_tag = slot.select_one(".slot-title")
+            authors_tag = slot.select_one(".author-names")
+            if title_tag is None or authors_tag is None:
+                continue
+            title = norm(title_tag.get_text(" ", strip=True))
+            authors = norm(authors_tag.get_text(" ", strip=True))
+            abstract_tag = slot.select_one(".slot-abstract")
+            abstract = norm(abstract_tag.get_text(" ", strip=True)) if abstract_tag else ""
+            make_row(title, authors, url, abstract)
+
+    elif year == 2026:
+        url = "https://ssl.linklings.net/conferences/ipdps/ipdps2026_program/views/by_sub_type.html"
+        soup = BeautifulSoup(get_html(url), "html.parser")
+        papers_container = None
+        for section in soup.select(".section-title"):
+            if norm(section.get_text(" ", strip=True)).lower() == "papers":
+                papers_container = section.parent.find_next_sibling("div", class_="section-entry")
+                break
+        if papers_container is None:
+            raise RuntimeError("IPDPS 2026: explicit Papers section not found")
+        for slot in papers_container.select(".slot-entry"):
+            title_tag = slot.select_one(".slot-title")
+            authors_tag = slot.select_one(".slot-authors")
+            if title_tag is None or authors_tag is None:
+                continue
+            title = norm(title_tag.get_text(" ", strip=True))
+            authors = norm(authors_tag.get_text(" ", strip=True))
+            abstract_tag = slot.select_one(".slot-abstract")
+            abstract = norm(abstract_tag.get_text(" ", strip=True)) if abstract_tag else ""
+            make_row(title, authors, url, abstract)
+    else:
+        return []
+
+    # Best-paper plenaries can repeat papers already mapped to a technical
+    # session. For this venue the paper title is the stable identity.
+    by_title = {}
+    for r in rows:
+        key = slug(r["title"])
+        if key not in by_title:
+            by_title[key] = r
+    rows = sorted(by_title.values(), key=lambda r: r["title"].lower())
+
+    expected = {int(k): int(v) for k, v in spec.get("expected_counts", {}).items()}
+    if year in expected and len(rows) != expected[year]:
+        raise RuntimeError(
+            f"IPDPS {year}: parsed {len(rows)} unique main papers; expected {expected[year]}"
+        )
+    print(f"IPDPS-OFFICIAL {year}: kept {len(rows)} unique main papers", flush=True)
+    return rows
+
+
 def topcsuniv_conference(spec, year):
     """Collect the published INFOCOM main-track papers from TopCsUniv.
 
@@ -1809,6 +1929,8 @@ def conference_rows_for(spec, year, force_live=False):
         return dblp_toc_api_conference(spec, year), "DBLP exact TOC JSON API"
     if provider == "topcsuniv":
         return topcsuniv_conference(spec, year), "TopCsUniv published main-track inventory"
+    if provider == "ipdps_official":
+        return ipdps_official(spec, year), "official IPDPS main-conference program"
     if provider == "mixed_static":
         durl = spec.get("dblp_urls", {}).get(str(year))
         ourl = spec.get("official_urls", {}).get(str(year))
