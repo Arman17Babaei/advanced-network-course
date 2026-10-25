@@ -982,6 +982,25 @@ def main():
             elif provider == "crossref":
                 rows = crossref_conference(spec, year)
                 source_name = "Crossref"
+            elif provider == "openalex":
+                rows = openalex_conference(spec, year)
+                source_name = "OpenAlex pinned venue series"
+                if not rows and str(year) in spec.get("doi_stems", {}):
+                    rows = crossref_doi_stem(spec, year, spec["doi_stems"][str(year)])
+                    source_name = "Crossref DOI family"
+                if not rows and str(year) in spec.get("official_urls", {}):
+                    rows = official_list_conference(spec, year, spec["official_urls"][str(year)])
+                    source_name = "official accepted-paper page"
+            elif provider == "openalex_crossref":
+                rows = openalex_conference(spec, year)
+                source_name = "OpenAlex pinned venue series"
+                if not rows:
+                    rows = crossref_conference(spec, year)
+                    source_name = "Crossref fallback"
+            elif provider == "official_list":
+                url = spec.get("official_urls", {}).get(str(year))
+                rows = official_list_conference(spec, year, url) if url else []
+                source_name = "official accepted/program page"
             else:
                 raise RuntimeError(f"unknown provider {provider} for {spec['name']}")
 
