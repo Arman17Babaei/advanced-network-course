@@ -894,6 +894,91 @@ def dblp_html_conference(spec, year, url):
 
 
 
+def topcsuniv_conference(spec, year):
+    """Collect the published INFOCOM main-track papers from TopCsUniv.
+
+    The source exposes DOI, title, and authors and paginates at 100 records.
+    We require the parsed row count to equal the edition's declared count.
+    """
+    if year == 2027:
+        return []
+    base = spec["url_template"].format(year=year)
+    rows = []
+    declared = None
+    total_pages = 1
+
+    for page in range(1, 20):
+        url = base if page == 1 else base.rstrip("/") + f"/page/{page}/"
+        soup = BeautifulSoup(get_html(url), "html.parser")
+
+        if page == 1:
+            h2 = soup.find("h2")
+            h2_text = norm(h2.get_text(" ", strip=True) if h2 else "")
+            m = re.search(rf"\b{year}\b.*?(\d+)\s+papers", h2_text, re.I)
+            if not m:
+                raise RuntimeError(f"{spec['name']} {year}: cannot parse declared paper count from {h2_text!r}")
+            declared = int(m.group(1))
+            pager = soup.select_one("nav.explorer-pagination span")
+            if pager:
+                pm = re.search(r"(\d+)\s*/\s*(\d+)", norm(pager.get_text(" ", strip=True)))
+                if pm:
+                    total_pages = int(pm.group(2))
+
+        paper_nodes = soup.select("ol.explorer-papers > li")
+        for li in paper_nodes:
+            title_tag = li.select_one("a.paper-title")
+            authors_tag = li.select_one("p.explorer-authors")
+            if title_tag is None or authors_tag is None:
+                continue
+            title = norm(title_tag.get_text(" ", strip=True)).rstrip(".")
+            authors = norm(authors_tag.get_text(" ", strip=True))
+            href = norm(title_tag.get("href"))
+            doi = ""
+            if "doi.org/" in href.lower():
+                doi = href.lower().split("doi.org/", 1)[1].strip("/")
+            kw, provenance = _usenix_keywords(title, "")
+            rows.append({
+                "title": title,
+                "authors": authors,
+                "venue": spec["name"],
+                "raw_venue": spec["name"],
+                "year": year,
+                "venue_kind": "conference",
+                "source_id": "",
+                "doi": doi,
+                "url": href or url,
+                "openalex_id": "",
+                "metadata_source": "TopCsUniv published main-track inventory",
+                "paper_type": "conference paper",
+                "keywords": kw,
+                "keyword_provenance": provenance,
+                "topics": "",
+                "primary_topic": "",
+                "categories": "",
+                "network_relevance_score": 0,
+                "network_relevant": False,
+                "_core": bool(spec.get("core", False)),
+                "_abstract": "",
+            })
+
+        print(
+            f"TOPCSUNIV {spec['name']} {year}: page {page}/{total_pages}, "
+            f"page_records={len(paper_nodes)}, cumulative={len(rows)}",
+            flush=True,
+        )
+        if page >= total_pages:
+            break
+        time.sleep(0.05)
+
+    rows = dedupe(rows)
+    if declared is None or len(rows) != declared:
+        raise RuntimeError(
+            f"{spec['name']} {year}: parsed {len(rows)} papers but source declares {declared}"
+        )
+    print(f"TOPCSUNIV {spec['name']} {year}: validated {len(rows)} published papers", flush=True)
+    return rows
+
+
 def dblp_toc_api_conference(spec, year):
     """Collect one proceedings volume from DBLP's exact TOC JSON API.
 
@@ -1719,6 +1804,8 @@ def conference_rows_for(spec, year, force_live=False):
         return ([] if year == 2027 else dblp_html_conference(spec, year, url)), "DBLP static proceedings page"
     if provider == "dblp_toc_api":
         return dblp_toc_api_conference(spec, year), "DBLP exact TOC JSON API"
+    if provider == "topcsuniv":
+        return topcsuniv_conference(spec, year), "TopCsUniv published main-track inventory"
     if provider == "mixed_static":
         durl = spec.get("dblp_urls", {}).get(str(year))
         ourl = spec.get("official_urls", {}).get(str(year))
