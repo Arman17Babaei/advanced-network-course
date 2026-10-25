@@ -1,39 +1,39 @@
 # Recent paper corpus
 
-This directory contains the machine-readable literature corpus used to ground the Advanced Networks project idea pool.
+This directory will contain the machine-readable literature corpus used to ground the Advanced Networks project idea pool.
 
-## Generated files
+## Current status
 
-- `recent_networking_papers.csv` — one row per paper with title, authors, venue, year, DOI/URL, keywords, keyword provenance, topics, category assignments, and a reproducible network-relevance score.
-- `recent_networking_papers.jsonl` — the same data in JSON Lines format.
-- `PAPER_CORPUS_SUMMARY.md` — venue/year coverage, keyword provenance, category counts, and the most common keywords.
-- `PAPER_CORPUS_COVERAGE.csv` — audit trail showing which venue/year queries returned metadata and which remain unavailable.
+Corpus generation is being rebuilt **venue by venue**. Generated paper files are intentionally not checked in until each source adapter has passed validation for plausible paper counts and metadata completeness.
 
-The source configuration is in `tools/research/paper_corpus_config.json`, and the builder is `tools/research/build_paper_corpus.py`.
+For each venue, the validator checks:
 
-## Provenance
+- paper count against a conservative minimum for each established year;
+- author metadata coverage;
+- DOI or canonical URL coverage;
+- keyword coverage, with provenance recorded explicitly;
+- sample records so the resolved proceedings can be manually sanity-checked.
 
-**Bibliographic metadata.** The builder uses DBLP for paper title, authors, venue, year, DOI, and publication URL. The corpus records the DBLP key and URL when present.
-
-**Keywords.** DOI-bearing records are enriched using OpenAlex work keywords. OpenAlex documents these as model-generated aboutness labels produced from a work's title, abstract, and venue; they are not author-supplied keywords. Rows without usable OpenAlex enrichment receive a deterministic title-derived fallback. The exact source is stored in `keyword_provenance`.
-
-This distinction is intentional: the course material should never silently present inferred labels as author keywords.
-
-**Categories.** Categories and `network_relevant` are deterministic heuristic labels generated from the configured topic vocabulary. They are for project-area discovery and reproducibility, not a claim of bibliometric ground truth.
-
-## Scope
-
-The conference corpus covers the requested venue families for 2023–2027 where published metadata exists. Future-year submissions are not counted as papers.
-
-The IEEE Transactions portion is scoped to Transactions journals directly relevant to networking, distributed/mobile/cloud systems, multimedia delivery, communications, and dependability. Pulling every journal whose title begins with “IEEE Transactions” would add large bodies of unrelated work and would not be a meaningful advanced-networking corpus.
-
-## Refreshing
-
-Run:
+The per-venue validator is:
 
 ```bash
-python -m pip install requests beautifulsoup4
-python tools/research/build_paper_corpus.py
+python tools/research/validate_venue.py --venue SIGCOMM
 ```
 
-The GitHub workflow `.github/workflows/refresh-paper-corpus.yml` can also regenerate the checked-in snapshot. Review `PAPER_CORPUS_COVERAGE.csv` after each refresh because newly released proceedings may appear in DBLP after the conference itself.
+The shared source configuration is in `tools/research/paper_corpus_config.json`.
+
+## Target generated files
+
+Once all requested venues have validated:
+
+- `all_conference_papers.csv` — one row per collected conference paper;
+- `recent_networking_papers.csv` — network-relevant papers used for project-area mining;
+- `PAPER_CORPUS_COVERAGE.csv` — venue/year coverage and source provenance;
+- `PAPER_CORPUS_SUMMARY.md` — compact audit summary;
+- an IEEE Transactions dataset restricted to selected networking Transactions journals and then filtered to network-relevant papers.
+
+## Keyword provenance
+
+Publisher-provided keywords or index terms are kept when a source exposes them. Crossref subjects are kept when available. If neither is available, deterministic title/abstract-derived terms may be used, but those rows are labeled as inferred rather than presented as author keywords.
+
+No unvalidated generated snapshot should be committed to this directory.
