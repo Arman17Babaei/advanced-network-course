@@ -24,6 +24,7 @@
 \usepackage{listings}
 \usepackage{tcolorbox}
 \tcbuselibrary{breakable}
+\usepackage{needspace}
 \usepackage{booktabs}
 \usepackage{tabularx}
 \usepackage{longtable}
@@ -91,6 +92,7 @@
 \newcommand{\en}[1]{\lr{#1}}
 \newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
 \newcommand{\projectarea}[4]{%
+\Needspace{8\baselineskip}%
 \begin{tcolorbox}[
     breakable,
     colback=black!2,
@@ -107,12 +109,10 @@
 \textbf{جنبه‌های پرتکرار طراحی}\par
 \vspace{1mm}
 \begin{latin}
-\small
-\begin{multicols}{2}
+\small\raggedright
 \begin{enumerate}[leftmargin=*,nosep,label=\arabic*.]
 #2
 \end{enumerate}
-\end{multicols}
 \end{latin}
 \smallskip
 \textbf{فناوری‌ها و بافت‌های مرتبط}\par
