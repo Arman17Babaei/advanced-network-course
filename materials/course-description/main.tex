@@ -25,6 +25,7 @@
 \usepackage{tcolorbox}
 \usepackage{booktabs}
 \usepackage{tabularx}
+\usepackage{longtable}
 \usepackage{multicol}
 
 \makeatletter
@@ -88,7 +89,7 @@
 
 \newcommand{\en}[1]{\lr{#1}}
 \newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
-\newcommand{\projectarea}[3]{%
+\newcommand{\projectarea}[4]{%
 \begin{tcolorbox}[
     colback=black!2,
     colframe=black!45,
@@ -106,6 +107,14 @@
 \end{multicols}
 \smallskip
 \textbf{برچسب‌های فناوری و بافت:} \lr{#3}
+\par\smallskip
+\textbf{مقاله‌های کلیدی برای شروع:}\par
+\begin{latin}
+\small
+\begin{itemize}[leftmargin=*,nosep]
+#4
+\end{itemize}
+\end{latin}
 \end{tcolorbox}
 \vspace{0.5em}
 }
@@ -122,18 +131,53 @@
 
 ارزیابی درس از چهار جزء اصلی تشکیل می‌شود:
 \begin{itemize}[label=$\bullet$]
-    \item مجموعه‌ای از مقاله‌های پژوهشی مشترک کلاس؛ در حال حاضر \textbf{پنج مقاله} برای مطالعه در طول ترم برنامه‌ریزی شده است؛
+    \item مجموعه‌ای از مقاله‌های پژوهشی مشترک کلاس؛ \textbf{چهار مقاله‌ی پژوهشی مشترک کلاس (شماره‌های \lr{\#2} تا \lr{\#5})}؛
     \item یک \textbf{پروژه‌ی گروهی} با ساختاری نزدیک به یک پروژه‌ی پژوهشی؛
     \item یک \textbf{آزمون میان‌ترم}؛
     \item یک \textbf{آزمون پایان‌ترم}.
 \end{itemize}
 
-نسبت نمره‌ی این اجزا در نسخه‌ی فعلی این راهنما نهایی نشده و \pending. تقویم دقیق جلسات، مقاله‌ها، آزمون‌ها و نقاط تحویل نیز حداکثر تا \textbf{یک هفته پس از آغاز درس} در اختیار دانشجویان قرار می‌گیرد.
+نسبت نمره‌ی این اجزا در نسخه‌ی فعلی این راهنما نهایی نشده و \pending. زمان‌بندی مقاله‌های مشترک، جلسه‌های پروژه، میان‌ترم و پایان‌ترم در جدول زیر آمده است. بازه‌ی دقیق جلسه‌ی هر گروه با دستیار آموزشی هماهنگ خواهد شد.
+
+\section{تقویم درس و موعدهای اصلی}
+این تقویم بر اساس برنامه‌ی دستیاران آموزشی درس تنظیم شده است. چهار مقاله‌ی مشترک کلاس به‌ترتیب با شماره‌های \lr{\#2}، \lr{\#3}، \lr{\#4} و \lr{\#5} مشخص می‌شوند؛ \textbf{مقاله‌ی \lr{\#1} در برنامه‌ی فعلی وجود ندارد.} زمان‌های جلسه‌های پروژه بازه هستند و زمان دقیق هر گروه را دستیار آموزشی هماهنگ می‌کند.
+
+\begingroup
+\small
+\renewcommand{\arraystretch}{1.18}
+\begin{longtable}{>{\raggedleft\arraybackslash}p{0.52\textwidth} >{\raggedleft\arraybackslash}p{0.19\textwidth} >{\raggedleft\arraybackslash}p{0.20\textwidth}}
+\toprule
+\textbf{رویداد} & \textbf{تاریخ شمسی ۱۴۰۵} & \textbf{تاریخ میلادی}\\
+\midrule
+\endfirsthead
+\toprule
+\textbf{رویداد} & \textbf{تاریخ شمسی ۱۴۰۵} & \textbf{تاریخ میلادی}\\
+\midrule
+\endhead
+اعلام و انتخاب پروژه‌ها & ۹ آبان & \lr{31 Oct 2026}\\
+اعلام مقاله‌ی \lr{\#2} & ۱۱ آبان & \lr{2 Nov 2026}\\
+بازه‌ی جلسه‌ی اول پروژه و آغاز فاز اول & ۱۸ تا ۲۲ آبان & \lr{9--13 Nov 2026}\\
+موعد مقاله‌ی \lr{\#2} & ۲۵ آبان & \lr{16 Nov 2026}\\
+اعلام مقاله‌ی \lr{\#3} & ۳ آذر & \lr{24 Nov 2026}\\
+بازه‌ی جلسه‌ی دوم پروژه و آغاز فاز دوم & ۷ تا ۹ آذر & \lr{28--30 Nov 2026}\\
+\textbf{آزمون میان‌ترم} & \textbf{۱۴ آذر} & \lr{\textbf{5 Dec 2026}}\\
+اعلام مقاله‌ی \lr{\#4} & ۱۶ آذر & \lr{7 Dec 2026}\\
+موعد مقاله‌ی \lr{\#3} & ۱۷ آذر & \lr{8 Dec 2026}\\
+بازه‌ی جلسه‌ی سوم پروژه و آغاز فاز سوم & ۲۸ تا ۳۰ آذر & \lr{19--21 Dec 2026}\\
+بازه‌ی جلسه‌ی چهارم و جمع‌بندی پروژه & ۱۴ تا ۱۸ دی & \lr{4--8 Jan 2027}\\
+موعد مقاله‌ی \lr{\#4} و اعلام مقاله‌ی \lr{\#5} & ۲۱ دی & \lr{11 Jan 2027}\\
+\textbf{آزمون پایان‌ترم} & \textbf{۲۶ دی} & \lr{\textbf{16 Jan 2027}}\\
+موعد مقاله‌ی \lr{\#5} & ۱۲ بهمن & \lr{1 Feb 2027}\\
+\bottomrule
+\end{longtable}
+\endgroup
+
+\noindent\textbf{توجه:} موعد مقاله‌ی \lr{\#5} بعد از آزمون پایان‌ترم است. اگر زمان یکی از بازه‌های جلسه‌ی پروژه یا تحویل‌ها تغییر کند، اطلاع‌رسانی رسمی درس ملاک خواهد بود.
 
 \section{مطالعه‌ی مقاله‌های مشترک کلاس}
-پنج مقاله‌ی پژوهشی برای کل کلاس در طول ترم تعیین می‌شود. هدف از مطالعه، صرفاً خلاصه‌کردن متن مقاله نیست. انتظار می‌رود بتوانید مسئله‌ی مقاله، انتخاب‌های طراحی، روش ارزیابی، شواهد اصلی، محدودیت‌ها و رابطه‌ی آن با مفاهیم درس را توضیح دهید.
+در طول ترم \textbf{چهار مقاله‌ی مشترک با شماره‌های \lr{\#2} تا \lr{\#5}} تعیین می‌شود. هدف از مطالعه صرفاً خلاصه‌کردن متن مقاله نیست. انتظار می‌رود بتوانید مسئله، انتخاب‌های طراحی، روش ارزیابی، شواهد اصلی، محدودیت‌ها و رابطه‌ی آن با مفاهیم درس را توضیح دهید.
 
-این مقاله‌های مشترک از مقاله‌هایی که برای پروژه‌ی گروهی انتخاب می‌کنید جدا هستند. جزئیات زمان‌بندی و شیوه‌ی ارزیابی مقاله‌های مشترک در تقویم درس اعلام می‌شود.
+این چهار مقاله از مقاله‌های پژوهشی‌ای که برای پروژه‌ی گروهی انتخاب می‌کنید جدا هستند. زمان اعلام و موعد هر مقاله در جدول بالا مشخص است؛ عنوان و دستورالعمل ارزیابی هر مقاله جداگانه ارائه خواهد شد.
 
 \section{پروژه‌ی گروهی}
 \subsection{ساختار تیم}
@@ -258,7 +302,7 @@
 
 \appendix
 \section{حوزه‌های پیشنهادی پروژه، جنبه‌های طراحی و برچسب‌های فناوری}
-اطلاعات لازم برای انتخاب اولیه‌ی حوزه‌ی پروژه در همین پیوست آمده است. هر گروه ابتدا یک حوزه‌ی کلی را انتخاب می‌کند، سپس با استفاده از جنبه‌های طراحی و برچسب‌های فناوری، محدوده‌ی دقیق‌تری برای ماتریس و پرسش پژوهشی خود می‌سازد.
+اطلاعات لازم برای انتخاب اولیه‌ی حوزه‌ی پروژه در همین پیوست آمده است. هر گروه ابتدا یکی از \textbf{سیزده حوزه‌ی مجاز} را انتخاب می‌کند، سپس با استفاده از جنبه‌های طراحی و برچسب‌های فناوری، محدوده‌ی دقیق‌تری برای ماتریس و پرسش پژوهشی خود می‌سازد. حوزه‌های \lr{Cellular \& Wireless Access}، \lr{Satellite \& Non-Terrestrial Networks} و \lr{Harsh-Environment \& Delay-Tolerant Networks} در درس فعلی \textbf{خارج از دامنه} هستند. مقاله‌های ذکرشده در هر حوزه، منابع اولیه‌ی منتخب برای شروع مطالعه‌اند و به‌خودی‌خود موضوع یا محدوده‌ی نهایی پروژه را تعیین نمی‌کنند.
 
 فهرست «ده جنبه‌ی پرتکرار طراحی» برای کمک به شناخت سریع فضای پژوهش هر حوزه مرتب شده است. ترتیب آن‌ها فقط نشان‌دهنده‌ی فراوانی نسبی موضوع در مرور پژوهش‌های اخیر است و به معنی بهتر بودن، آسان‌تر بودن یا الزامی بودن آن جنبه نیست. برچسب‌های فناوری نیز برای محدودکردن دامنه یا ساختن یک بافت مشخص برای پروژه پیشنهاد شده‌اند.
 
@@ -273,18 +317,7 @@
 یک یا چند خانه‌ی معنادار از ترکیب \textbf{حوزه $\times$ جنبه‌ی طراحی} را انتخاب کنید و در صورت نیاز با یک یا چند برچسب فناوری محدودترشان کنید. لازم نیست همه‌ی جنبه‌ها را پوشش دهید. اگر چند جنبه را هم‌زمان انتخاب می‌کنید، باید تعامل میان آن‌ها بخشی واقعی از پرسش پروژه باشد و کل محدوده همچنان در سه فاز پروژه قابل بررسی بماند.
 \end{tcolorbox}
 
-\projectarea{Cellular \& Wireless Access Networks}{
-    \item \lr{Scheduling \& Resource Allocation}
-    \item \lr{MAC, Spectrum \& Radio Resource Management}
-    \item \lr{Security, Privacy \& Trust}
-    \item \lr{Mobility \& Handover}
-    \item \lr{Admission Control \& Network Slicing}
-    \item \lr{Latency \& Deadline Optimization}
-    \item \lr{Placement, Offloading \& Partitioning}
-    \item \lr{Routing \& Path Selection}
-    \item \lr{Energy, Carbon \& Sustainability}
-    \item \lr{Architecture \& System Design}
-}{cellular RAN, Wi-Fi/WLAN, ad hoc/mesh, spectrum/radio access, 5G, 6G, O-RAN, network slicing, Wi-Fi, RIS, NOMA, beamforming, URLLC, ISAC, D2D, massive/cell-free MIMO}
+
 
 \projectarea{Edge, Cloud \& Networked Services}{
     \item \lr{Placement, Offloading \& Partitioning}
@@ -297,7 +330,10 @@
     \item \lr{Cost, Economics \& Provisioning}
     \item \lr{Coding, Compression \& Redundancy}
     \item \lr{Energy, Carbon \& Sustainability}
-}{MEC, edge intelligence, cloud-edge orchestration, fog computing, serverless, microservices, service mesh, digital twins, disaggregated resources}
+}{MEC, edge intelligence, cloud-edge orchestration, fog computing, serverless, microservices, service mesh, digital twins, disaggregated resources}{
+\item Autothrottle: A Practical Bi-Level Approach to Resource Management for SLO-Targeted Microservices (\textit{NSDI 2024})
+\item Microns: Connection Subsetting for Microservices in Shared Clusters (\textit{SIGMETRICS 2025})
+}
 
 \projectarea{Packet Networks \& End-to-End Protocols}{
     \item \lr{Transport \& Congestion Control}
@@ -310,7 +346,10 @@
     \item \lr{Latency \& Deadline Optimization}
     \item \lr{Cost, Economics \& Provisioning}
     \item \lr{Coding, Compression \& Redundancy}
-}{transport protocols, packet routing, queueing, multipath, TCP, QUIC, FEC, SDN-assisted control}
+}{transport protocols, packet routing, queueing, multipath, TCP, QUIC, FEC, SDN-assisted control}{
+\item No Signal to Rule Them All: A Systematic Analysis of In-Network Congestion Signals (\textit{NINeS 2026})
+\item Making Congestion Control Algorithms Insensitive to Underlying Propagation Delays (\textit{NINeS 2026})
+}
 
 \projectarea{Autonomous \& Cyber-Physical Networks}{
     \item \lr{Scheduling \& Resource Allocation}
@@ -323,7 +362,12 @@
     \item \lr{Caching \& Content Placement}
     \item \lr{Energy, Carbon \& Sustainability}
     \item \lr{Architecture \& System Design}
-}{vehicular/V2X, UAV/aerial, robotics/teleoperation, V2X, UAV swarms, autonomous driving, cooperative perception, ITS, digital twins, MEC, 5G/6G}
+}{vehicular/V2X, UAV/aerial, robotics/teleoperation, V2X, UAV swarms, autonomous driving, cooperative perception, ITS, digital twins, MEC, 5G/6G}{
+\item CoPe: Taming Collaborative 3D Perception via Lite Network Attention across Mobile Agents (\textit{ICDCS 2025})
+\item TURBO: Utility-Aware Bandwidth Allocation for Cloud-Augmented Autonomous Control (\textit{NINeS 2026})
+}
+\noindent{\footnotesize\textbf{شرط انتخاب:} این حوزه فقط زمانی پذیرفته است که مسئله‌ی اصلی و معیارهای ارزیابی بر \textbf{شبکه و تصمیم‌های طراحی شبکه} متمرکز باشند؛ پروژه‌های صرفاً مربوط به رباتیک، ادراک یا کنترل خودران خارج از دامنه‌اند.}\par
+
 
 \projectarea{IoT, Sensor \& Industrial Networks}{
     \item \lr{Scheduling \& Resource Allocation}
@@ -336,7 +380,10 @@
     \item \lr{Throughput, Capacity \& Scalability}
     \item \lr{Energy, Carbon \& Sustainability}
     \item \lr{Topology, Fabric \& Architecture}
-}{sensor networks, LPWAN, industrial/factory networks, deterministic networking, TSN, LoRa/LPWAN, RFID, backscatter, energy harvesting, industrial IoT, URLLC}
+}{sensor networks, LPWAN, industrial/factory networks, deterministic networking, TSN, LoRa/LPWAN, RFID, backscatter, energy harvesting, industrial IoT, URLLC}{
+\item T(SN)-Ray: Gauging TAS and PSFP Delays of TSN Switches for Predictable Deterministic Networking (\textit{CoNEXT 2025})
+\item Elastic Scheduling for Mix-Flow in Time-Sensitive Networking (\textit{ICDCS 2025})
+}
 
 \projectarea{Datacenter \& AI Cluster Networks}{
     \item \lr{Transport \& Congestion Control}
@@ -349,7 +396,10 @@
     \item \lr{Architecture \& System Design}
     \item \lr{Coding, Compression \& Redundancy}
     \item \lr{Topology, Fabric \& Architecture}
-}{datacenter transport, AI/GPU clusters, RDMA, RoCE, ECN, PFC, SmartNIC/DPU, collectives, coflows, in-network aggregation, optical interconnects, P4}
+}{datacenter transport, AI/GPU clusters, RDMA, RoCE, ECN, PFC, SmartNIC/DPU, collectives, coflows, in-network aggregation, optical interconnects, P4}{
+\item Hawkeye: Diagnosing RDMA Network Performance Anomalies with PFC Provenance (\textit{SIGCOMM 2025})
+\item SyCCL: Exploiting Symmetry for Efficient Collective Communication Scheduling (\textit{SIGCOMM 2025})
+}
 
 \projectarea{Network Security, Privacy \& Censorship}{
     \item \lr{Security, Privacy \& Trust}
@@ -362,7 +412,10 @@
     \item \lr{Coding, Compression \& Redundancy}
     \item \lr{Measurement \& Characterization}
     \item \lr{Packet Processing \& Data Structures}
-}{routing/DNS security, traffic security, censorship resistance, anonymity, DDoS, intrusion detection, encrypted traffic, DNSSEC, TLS, QUIC, Tor/onion services}
+}{routing/DNS security, traffic security, censorship resistance, anonymity, DDoS, intrusion detection, encrypted traffic, DNSSEC, TLS, QUIC, Tor/onion services}{
+\item A System to Detect Forged-Origin BGP Hijacks (\textit{NSDI 2024})
+\item Exposing and Circumventing SNI-based QUIC Censorship of the Great Firewall of China (\textit{USENIX Security 2025})
+}
 
 \projectarea{Real-Time Media \& Immersive Networking}{
     \item \lr{Latency \& Deadline Optimization}
@@ -375,7 +428,10 @@
     \item \lr{Placement, Offloading \& Partitioning}
     \item \lr{Measurement \& Characterization}
     \item \lr{Caching \& Content Placement}
-}{conferencing, interactive/live streaming, cloud gaming, XR/AR/VR, volumetric media, WebRTC, ABR, FEC, QUIC, volumetric video, 3D Gaussian splatting}
+}{conferencing, interactive/live streaming, cloud gaming, XR/AR/VR, volumetric media, WebRTC, ABR, FEC, QUIC, volumetric video, 3D Gaussian splatting}{
+\item Syntra: Synthesizing Cross-Layer Controllers for Low-Latency Video Streaming (\textit{NSDI 2026})
+\item EdgeGaussian: Real-time Free-Viewpoint Video for Mobile VR via Edge-Client Collaborative Neural Rendering (\textit{MobiCom 2025})
+}
 
 \projectarea{Distributed AI \& LLM Systems}{
     \item \lr{Security, Privacy \& Trust}
@@ -388,20 +444,12 @@
     \item \lr{Energy, Carbon \& Sustainability}
     \item \lr{Caching \& Content Placement}
     \item \lr{Throughput, Capacity \& Scalability}
-}{distributed/federated training, inference/serving, split inference, federated learning, distributed training, LLM inference, model serving, MoE, KV cache, collectives, differential privacy}
+}{distributed/federated training, inference/serving, split inference, federated learning, distributed training, LLM inference, model serving, MoE, KV cache, collectives, differential privacy}{
+\item MegaScale-Infer: Efficient Mixture-of-Experts Model Serving with Disaggregated Expert Parallelism (\textit{SIGCOMM 2025})
+\item KVServe: Service-Aware KV Cache Compression for Communication-Efficient Disaggregated LLM Serving (\textit{SIGCOMM 2026})
+}
 
-\projectarea{Satellite \& Non-Terrestrial Networks}{
-    \item \lr{Routing \& Path Selection}
-    \item \lr{Scheduling \& Resource Allocation}
-    \item \lr{Mobility \& Handover}
-    \item \lr{Placement, Offloading \& Partitioning}
-    \item \lr{Latency \& Deadline Optimization}
-    \item \lr{Architecture \& System Design}
-    \item \lr{Control-Plane Design \& Management}
-    \item \lr{Transport \& Congestion Control}
-    \item \lr{Service Chaining \& Virtualization}
-    \item \lr{Measurement \& Characterization}
-}{LEO, satellite Internet, Starlink, direct-to-cell, inter-satellite links, ground stations, satellite-terrestrial integration, NTN, satellite edge}
+
 
 \projectarea{Network Measurement \& Operations}{
     \item \lr{Telemetry \& Monitoring}
@@ -414,7 +462,10 @@
     \item \lr{Control-Plane Design \& Management}
     \item \lr{Topology, Fabric \& Architecture}
     \item \lr{Traffic Engineering \& Load Balancing}
-}{observability, telemetry, troubleshooting, configuration/state management, network digital twins, P4, SDN, SRv6}
+}{observability, telemetry, troubleshooting, configuration/state management, network digital twins, P4, SDN, SRv6}{
+\item Raha: A General Tool to Analyze WAN Degradation (\textit{SIGCOMM 2025})
+\item Raising the Level of Abstraction for Sketch-Based Network Telemetry with SketchPlan (\textit{IMC 2024})
+}
 
 \projectarea{Programmable Network Infrastructure}{
     \item \lr{Programmability \& Hardware Offload}
@@ -427,7 +478,10 @@
     \item \lr{Measurement \& Characterization}
     \item \lr{Reliability, Fault Tolerance \& Recovery}
     \item \lr{Verification \& Correctness}
-}{programmable data planes, NFV, service chaining, in-network computing, middleboxes, P4, eBPF, SmartNIC/DPU, NFV, service-function chaining, SDN}
+}{programmable data planes, NFV, service chaining, in-network computing, middleboxes, P4, eBPF, SmartNIC/DPU, NFV, service-function chaining, SDN}{
+\item OptimusPrime: Unleash Dataplane Programmability through a Transformable Architecture (\textit{SIGCOMM 2024})
+\item VeriNC: Finding Design Risks of In-Network Computing Systems (\textit{ICNP 2026})
+}
 
 \projectarea{Internet Routing, WAN \& CDN}{
     \item \lr{Routing \& Path Selection}
@@ -440,7 +494,10 @@
     \item \lr{Coding, Compression \& Redundancy}
     \item \lr{Traffic Analysis \& Classification}
     \item \lr{Transport \& Congestion Control}
-}{interdomain routing, WANs, naming/addressing, CDNs, BGP, DNS, IPv6, Anycast, submarine cables, Internet scanning, Tor/onion services}
+}{interdomain routing, WANs, naming/addressing, CDNs, BGP, DNS, IPv6, Anycast, submarine cables, Internet scanning, Tor/onion services}{
+\item Threading the Ocean: Mapping Digital Routes Across Submarine Cables using Calypso (\textit{SIGCOMM 2025})
+\item Who Holds the Steering Wheel? Opacity and Consolidation in CDN Replica Selection (\textit{NINeS 2026})
+}
 
 \projectarea{P2P \& Decentralized Networks}{
     \item \lr{Security, Privacy \& Trust}
@@ -453,7 +510,10 @@
     \item \lr{Topology, Fabric \& Architecture}
     \item \lr{Coding, Compression \& Redundancy}
     \item \lr{Latency \& Deadline Optimization}
-}{peer-to-peer overlays, blockchain networks, decentralized services, Blockchain/P2P, payment channels, anonymous communication}
+}{peer-to-peer overlays, blockchain networks, decentralized services, Blockchain/P2P, payment channels, anonymous communication}{
+\item Deanonymizing Ethereum Validators: The P2P Network Has a Privacy Issue (\textit{USENIX Security 2025})
+\item Reliable and Decentralized Certificate Revocation via DNS: The Case for RevDNS (\textit{SIGCOMM 2025})
+}
 
 \projectarea{Quantum Networks}{
     \item \lr{Routing \& Path Selection}
@@ -466,19 +526,13 @@
     \item \lr{Measurement \& Characterization}
     \item \lr{Protocol Design \& Interoperability}
     \item \lr{Verification \& Correctness}
-}{quantum Internet, entanglement distribution, quantum switches, distributed quantum systems, quantum entanglement}
+}{quantum Internet, entanglement distribution, quantum switches, distributed quantum systems, quantum entanglement}{
+\item Optimal Scheduling in a Quantum Switch (\textit{SIGMETRICS 2025})
+\item Quantum Network Optimization: From Optimal Routing to Fair Resource Allocation (\textit{SIGMETRICS 2025})
+}
+\noindent{\footnotesize\textbf{شرط انتخاب:} تنها پروژه‌های \textbf{شبکه‌محور}، مانند مسیریابی، زمان‌بندی، تخصیص منابع یا ارزیابی پروتکل‌های شبکه‌ی کوانتومی پذیرفته‌اند؛ پروژه‌های صرفاً محاسبات کوانتومی خارج از دامنه‌اند.}\par
 
-\projectarea{Harsh-Environment \& Delay-Tolerant Networks}{
-    \item \lr{Routing \& Path Selection}
-    \item \lr{Scheduling \& Resource Allocation}
-    \item \lr{Security, Privacy \& Trust}
-    \item \lr{Control-Plane Design \& Management}
-    \item \lr{MAC, Spectrum \& Radio Resource Management}
-    \item \lr{Latency \& Deadline Optimization}
-    \item \lr{Localization \& Positioning}
-    \item \lr{Placement, Offloading \& Partitioning}
-    \item \lr{Telemetry \& Monitoring}
-    \item \lr{Topology, Fabric \& Architecture}
-}{underwater acoustic networks, disconnected/intermittent networks, underwater acoustic, DTN}
+
+
 
 \end{document}
