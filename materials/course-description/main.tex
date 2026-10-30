@@ -92,9 +92,9 @@
 \newcommand{\en}[1]{\lr{#1}}
 \newcommand{\pending}{\textbf{بعداً اعلام می‌شود}}
 \newcommand{\projectarea}[4]{%
-\Needspace{8\baselineskip}%
+% Each project area is a self-contained page.
+\clearpage
 \begin{tcolorbox}[
-    breakable,
     colback=black!2,
     colframe=black!40,
     boxrule=0.5pt,
@@ -102,6 +102,8 @@
     left=3mm,right=3mm,top=2mm,bottom=2mm,
     before skip=8pt,after skip=8pt
 ]
+% Keep long bilingual lists comfortably on a single page.
+\linespread{1.08}\selectfont
 \begin{latin}
 \noindent{\large\bfseries #1}\par
 \end{latin}
@@ -155,32 +157,35 @@
 
 \begingroup
 \small
-\renewcommand{\arraystretch}{1.25}
-\begin{longtable}{>{\raggedleft\arraybackslash}p{0.64\textwidth} >{\raggedleft\arraybackslash}p{0.29\textwidth}}
+\renewcommand{\arraystretch}{1.23}
+% Explicit LTR table grid with Persian RTL cells: visually the event is the
+% rightmost (primary) column and the Shamsi date is on the left.
+\begin{LTR}
+\begin{longtable}{>{\raggedleft\arraybackslash}p{0.27\textwidth} >{\raggedleft\arraybackslash}p{0.65\textwidth}}
 \toprule
-\textbf{رویداد} & \textbf{تاریخ شمسی ۱۴۰۵}\\
+\rl{\textbf{تاریخ شمسی ۱۴۰۵}} & \rl{\textbf{رویداد}}\\
 \midrule
 \endfirsthead
 \toprule
-\textbf{رویداد} & \textbf{تاریخ شمسی ۱۴۰۵}\\
+\rl{\textbf{تاریخ شمسی ۱۴۰۵}} & \rl{\textbf{رویداد}}\\
 \midrule
 \endhead
-اعلام و انتخاب پروژه‌ها & ۹ آبان\\
-اعلام مقاله‌ی ۱ & ۱۱ آبان\\
-بازه‌ی جلسه‌ی اول پروژه و آغاز فاز اول & ۱۸ تا ۲۲ آبان\\
-موعد مقاله‌ی ۱ & ۲۵ آبان\\
-اعلام مقاله‌ی ۲ & ۳ آذر\\
-بازه‌ی جلسه‌ی دوم پروژه و آغاز فاز دوم & ۷ تا ۹ آذر\\
-\textbf{آزمون میان‌ترم} & \textbf{۱۴ آذر}\\
-اعلام مقاله‌ی ۳ & ۱۶ آذر\\
-موعد مقاله‌ی ۲ & ۱۷ آذر\\
-بازه‌ی جلسه‌ی سوم پروژه و آغاز فاز سوم & ۲۸ تا ۳۰ آذر\\
-بازه‌ی جلسه‌ی چهارم و جمع‌بندی پروژه & ۱۴ تا ۱۸ دی\\
-موعد مقاله‌ی ۳ و اعلام مقاله‌ی ۴ & ۲۱ دی\\
-\textbf{آزمون پایان‌ترم} & \textbf{۲۶ دی}\\
-موعد مقاله‌ی ۴ & ۱۲ بهمن\\
+\rl{۹ آبان} & \rl{اعلام و انتخاب پروژه‌ها} \\
+\rl{۱۱ آبان} & \rl{اعلام مقاله‌ی ۱} \\
+\rl{۱۸ تا ۲۲ آبان} & \rl{بازه‌ی جلسه‌ی اول پروژه و آغاز فاز اول} \\
+\rl{۲۵ آبان} & \rl{موعد مقاله‌ی ۱} \\
+\rl{۲ آذر} & \rl{اعلام مقاله‌ی ۲} \\
+\rl{۷ تا ۹ آذر} & \rl{بازه‌ی جلسه‌ی دوم پروژه و آغاز فاز دوم} \\
+\rl{۱۴ آذر} & \rl{\textbf{آزمون میان‌ترم}} \\
+\rl{۱۶ آذر} & \rl{موعد مقاله‌ی ۲ و اعلام مقاله‌ی ۳} \\
+\rl{۲۸ تا ۳۰ آذر} & \rl{بازه‌ی جلسه‌ی سوم پروژه و آغاز فاز سوم} \\
+\rl{۱۴ تا ۱۸ دی} & \rl{بازه‌ی جلسه‌ی چهارم و جمع‌بندی پروژه} \\
+\rl{۲۱ دی} & \rl{موعد مقاله‌ی ۳ و اعلام مقاله‌ی ۴} \\
+\rl{۲۶ دی} & \rl{\textbf{آزمون پایان‌ترم}} \\
+\rl{۱۲ بهمن} & \rl{موعد مقاله‌ی ۴} \\
 \bottomrule
 \end{longtable}
+\end{LTR}
 \endgroup
 
 \noindent\textbf{توجه:} موعد مقاله‌ی ۴ بعد از آزمون پایان‌ترم است. اگر زمان یکی از بازه‌های جلسه‌ی پروژه یا تحویل‌ها تغییر کند، اطلاع‌رسانی رسمی درس ملاک خواهد بود.
