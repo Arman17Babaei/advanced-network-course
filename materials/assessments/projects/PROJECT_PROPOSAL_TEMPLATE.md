@@ -5,7 +5,9 @@
 **Selected project area:** [An area announced by the course]  
 **Working title:** [Title]  
 **Date / version:** [Date]  
-**Submission deadline / method:** [To be announced by the course/TA; complete before distribution]
+**Proposal submission:** [Use the course-announced submission method and deadline.]
+
+**Team announcement and TA meeting arrangement:** **By the end of this week**, announce your team (all 3–4 members) through the course-announced channel. **After submitting this proposal**, contact your assigned TA and agree on a time for the first project meeting, also **by the end of this week**. Every team member must attend the meeting. The assigned TA and the meeting time are coordinated separately; do not assume a time is automatically reserved by submitting the proposal.
 
 > **Purpose:** Present an initial research direction that the team can discuss and revise with its TA. Focus on the **matrix, research question(s), and relation to research**. This is not an implementation contract or a final task breakdown. Keep the Markdown document concise and focused; use only the detail needed to justify your choices and support the first TA discussion. Replace the bracketed instructions.
 >
