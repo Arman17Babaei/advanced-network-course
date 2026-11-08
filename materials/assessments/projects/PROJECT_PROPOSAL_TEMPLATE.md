@@ -87,23 +87,23 @@
 
 ## 6. How the first TA meeting is scored
 
-The meeting assesses **preparation, research judgment, and the ability to defend choices**, not completed implementation. Every team member attends and can be questioned. Your team gets a common score for the shared proposal; each student also gets individual scores based on their own preparation and explanations.
+The meeting assesses **preparation, research judgment, and the ability to defend choices**, not completed implementation. Every team member attends and may be questioned about the complete proposal, particularly the domain **and** design aspect they own.
 
-**Meeting score (out of 100 per student):** 70 team points + 15 individual contribution/preparation points + 15 individual understanding/defense points. This follows the course project's configured **70% team / 15% contribution / 15% understanding** distinction. **The weight of Meeting 1 within the overall project/course grade is not specified here and must be announced separately**; these points explain how performance *at this meeting* is evaluated.
+**Meeting score (out of 100 per student): 30 team points + 70 individual points.** All members receive the same score for the shared proposal; each student's remaining points depend on their *own* understanding and explanations. The meeting's weight within the overall project/course grade must be announced separately; the 30/70 split below governs this meeting only.
 
 | Criterion | Points | Evidence the TA looks for |
 | --- | ---: | --- |
-| **Team — research question and networking motivation** | 25 | Clear and meaningful networking problem; questions are justified, answerable, and connected to trade-offs or alternatives |
-| **Team — matrix and scope decisions** | 25 | Coherent domains/aspects; justified primary cells and exclusions; questions align with matrix; feasible project boundary |
-| **Team — preliminary research grounding** | 10 | Credible, relevant references and accurate explanation of how their ideas influence the proposed direction |
-| **Team — initial validation approach** | 10 | Plausible comparison/baseline, measurements or analysis, and awareness of feasibility risks |
-| **Individual — contribution and preparation** | 15 | The student demonstrates substantive preparation for **both** owned responsibilities and contributes useful reasoning to the proposal and meeting |
-| **Individual — understanding and defense** | 15 | The student can explain and defend the research question, chosen domain and aspect, relevant mechanisms, assumptions, alternatives, and connections to the integrated design |
-| **Total per student** | **100** | 70 shared + up to 30 individual points |
+| **Team — networking problem and research question** | 10 | Clear motivation; meaningful, answerable question linked to networking design choices and trade-offs |
+| **Team — matrix, priorities, and scope** | 10 | Coherent domains and aspects, justified investigated cells/exclusions, feasible boundaries, and alignment with the question |
+| **Team — research grounding and evaluation direction** | 10 | Credible preliminary sources and a plausible baseline, measurement, comparison, or analytical approach |
+| **Individual — grasp of owned domain and aspect** | 25 | Student explains **both** responsibilities, relevant mechanisms, and how they interact with each other and the end-to-end project |
+| **Individual — defense of research questions and choices** | 30 | Student justifies why the questions and selected cells matter, discusses assumptions and credible alternatives, and answers technical follow-ups |
+| **Individual — research and experimental reasoning** | 15 | Student explains relevant prior work, potential evidence and limitations, and what results would support or challenge the proposal |
+| **Total per student** | **100** | **30 shared + up to 70 individually earned points** |
 
-**How points are awarded:** For each criterion the TA awards up to the stated maximum based on observable evidence. **Full credit** requires clear, technically credible, specific reasoning that holds up under questions; **partial credit** reflects sound but incomplete reasoning or important unexplained assumptions; **little or no credit** reflects missing work, unsupported assertions, or inability to explain the choices. The TA records brief evidence/feedback for each category. A polished document alone cannot earn the individual defense points, and code completion is **not** required at this meeting.
+**How points are awarded:** For each criterion, the TA awards up to its maximum based on observed evidence. **Full credit** requires specific, technically sound reasoning that survives follow-up questions; **partial credit** reflects sound but incomplete reasoning or unexplained assumptions; **little or no credit** reflects unsupported claims, missing preparation, or an inability to explain key decisions. The TA records brief evidence and feedback for each criterion **for each student** where applicable. Other students' explanations cannot substitute for an individual's defense. A polished document alone cannot earn the individual points, and completed code is **not** required.
 
-The three required project-specific paper analyses **per student** occur across the later phases: only relevant **preliminary** research grounding is assessed here. The **Phase 1 tasks and definitions of done are agreed with the TA during/after this meeting**, not expected to be final before it. Revisions prompted by well-reasoned TA feedback are normal and are not penalized simply for changing the initial proposal.
+The three project-specific paper analyses **per student** are required during the later three phases, not all before the first meeting. Only **preliminary** literature understanding is expected here. **Phase 1 tasks and definitions of done are agreed with the TA during/after this meeting**, not finalized beforehand. Evidence-based changes after TA feedback are normal and are not penalized simply because the proposal evolves.
 
 ---
 
