@@ -6,7 +6,7 @@
 **Working title:** [Title]  
 **Date / version:** [Date]
 
-> **Purpose:** Present an initial research direction that the team can discuss and revise with its TA. Focus on the **matrix, research question(s), and relation to research**. This is not an implementation contract or a final task breakdown. Aim for about **1–2 pages plus references**. Replace the bracketed instructions.
+> **Purpose:** Present an initial research direction that the team can discuss and revise with its TA. Focus on the **matrix, research question(s), and relation to research**. This is not an implementation contract or a final task breakdown. Keep the Markdown document concise and focused; use only the detail needed to justify your choices and support the first TA discussion. Replace the bracketed instructions.
 >
 > **Required preparation:** Before the first TA meeting, **every student must be sufficiently familiar with the selected project topic to explain and defend the team's research questions and its choice of domains, design aspects, and investigated matrix cells**. Be ready to discuss relevant networking mechanisms and prior work, alternative choices, assumptions, expected trade-offs, and how the questions might be investigated. A list of buzzwords or AI-generated justifications without understanding is not sufficient. The TA may challenge any member on these decisions.
 
