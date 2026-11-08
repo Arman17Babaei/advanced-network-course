@@ -1,90 +1,85 @@
-# Student Project Proposal — Template
+# Student Project Proposal — First TA Meeting
 
 **Course:** Advanced Networks, Fall 2026  
-**Team:** [Names; 3–4 students]  
-**Project area:** [One of the announced areas]  
-**Working title:** [Specific and descriptive]  
-**Version/date:** [Date]
+**Team (3–4 students):** [Names]  
+**Selected project area:** [An area announced by the course]  
+**Working title:** [Title]  
+**Date / version:** [Date]
 
-> **Purpose:** Agree with the TA on *what the team will investigate, why it matters, and how it could be tested*. This is a starting hypothesis, not a fixed implementation contract. Keep the proposal concise (approximately 2–3 pages, excluding references). Replace all bracketed instructions.
+> **Purpose:** Present an initial research direction that the team can discuss and revise with its TA. Focus on the **matrix, research question(s), and relation to research**. This is not an implementation contract or a final task breakdown. Aim for about **1–2 pages plus references**. Replace the bracketed instructions.
 
-## 1. Problem and scope
+## 1. Problem and motivation
 
-**Problem.** [In one paragraph, describe the networked application/system, the workload and operating conditions, and the performance, scalability, or reliability problem.]
+[In 3–6 sentences: Which *networking* problem will you study, in what system/workload, and why do network design choices matter? Mention the intended outcome and any key constraints. The project must investigate a genuine networking design issue—not merely use a network to run an application.]
 
-**Design decision.** [What choices might the team compare? Do not assume a particular technology is required. Explain which network/system layers could matter.]
+**Initial boundary:** [What will you deliberately not investigate? What existing systems, data, or infrastructure may you reuse?]
 
-**Boundaries.** [State what is deliberately excluded, what existing software or datasets you will reuse, and the target scale. Show that the investigation is feasible during the project period.]
+## 2. Project matrix
 
-## 2. Domain × design-aspect matrix
+[Define **your own** subdomains (columns) and design aspects (rows) for the selected project area. Add optional technology/context tags to narrow the question; technologies are possibilities, not mandatory implementation choices. Mark intersections **P** (primary investigation), **C** (comparison, baseline, or supporting characterization), or **—** (currently out of scope). Change the dimensions and labels to match the project. Do **not** fill every cell.]
 
-[Choose project-specific domains (columns) and cross-cutting design aspects (rows). For a four-person team, each student owns one domain and one aspect; adapt the structure with the TA for a three-person team. Mark each intersection **P** (primary investigation), **S** (supporting/characterization), or **—** (out of scope). An empty cell is acceptable; the matrix is not a feature checklist.]
+**Optional technology/context tags:** [e.g., QUIC, P4, edge offloading, wireless mobility—or none yet]
 
-| Design aspect ↓ / Domain → | [Domain A] | [Domain B] | [Domain C] | [Domain D, if applicable] |
-| --- | --- | --- | --- | --- |
-| [Aspect 1] | P | S | — | — |
-| [Aspect 2] | S | P | S | — |
-| [Aspect 3] | — | S | P | S |
-| [Aspect 4, if applicable] | — | — | S | P |
-
-**Priorities and coupling.** [In 3–5 sentences, justify the primary cells and explain which interactions between domains/aspects are likely to drive architectural trade-offs. Revise the number of rows/columns to fit the team and problem.]
-
-**Ownership.**
-
-| Student | Domain responsibility | Design-aspect responsibility |
-| --- | --- | --- |
-| [Student 1] | [Domain] | [Aspect] |
-| [Student 2] | [Domain] | [Aspect] |
-| [Student 3] | [Domain] | [Aspect] |
-| [Student 4, if applicable] | [Domain] | [Aspect] |
-
-[Ownership means integration, understanding, and defense, not exclusive coding responsibility. All members remain responsible for the integrated system.]
-
-## 3. Research questions and evidence
-
-[Choose 1–3 focused, falsifiable or empirically answerable questions. Each must be tied to the matrix and an observable comparison; avoid questions that simply ask whether you can implement a tool.]
-
-| ID | Research question / hypothesis | Matrix cells | Baseline vs. alternative(s) | Evidence / metrics |
-| --- | --- | --- | --- | --- |
-| RQ1 | [Under which conditions does X constrain Y?] | [A×1, B×1] | [Baseline and variations] | [Metric, workload, experimental comparison] |
-| RQ2 | [When does design choice A outperform B, and at what cost?] | [B×2, C×2] | [A vs. B] | [Benefit, overhead, failure cases] |
-| RQ3 (optional) | [Where does the design stop working?] | [Relevant cells] | [Stress/failure scenarios] | [Limits, resource use, variability] |
-
-**Validation approach.** [Briefly identify the experimental platform or emulator, controllable network conditions, workloads/traces, repetitions, and how you will check measurements. Include at least one stress, scale, or failure condition relevant to your questions. Distinguish observations from assumptions.]
-
-## 4. Related research
-
-[Discuss **at least three** relevant research papers as a team; each student should take responsibility for studying and explaining the project-related papers assigned to them under the course requirements. Cite direct links/DOIs. Papers should meaningfully inform the problem, architecture, methodology, or baseline—not merely share keywords.]
-
-| Paper (title, venue/year, DOI/link) | Relevant finding, mechanism, or method | How it informs *our* question/design | Difference or limitation for our setting |
+| Design aspect ↓ / Subdomain → | [Domain A] | [Domain B] | [Domain C] |
 | --- | --- | --- | --- |
-| [Paper 1] | [...] | [...] | [...] |
-| [Paper 2] | [...] | [...] | [...] |
-| [Paper 3] | [...] | [...] | [...] |
+| [Aspect 1] | P | C | — |
+| [Aspect 2] | — | P | C |
+| [Aspect 3] | C | — | P |
 
-**Positioning.** [In 2–4 sentences, explain what your project will reproduce, adapt, compare, or investigate beyond the selected papers. A novel algorithm is not required; a well-defended architectural comparison is sufficient.]
+**Why these cells?** [Explain which one or few intersections you will investigate and how they relate. If multiple aspects are selected, explain the meaningful interaction between them. A narrow, well-supported scope is preferable to covering the matrix.]
 
-## 5. Initial execution and review plan
+**Initial individual responsibilities:** [Assign each student a clear *domain or design-aspect* responsibility. Multiple responsibilities and cross-area collaboration are possible; every member must be able to explain how their work contributes to the integrated research question.]
 
-**First milestone.** [A runnable baseline and an end-to-end measurement path; list the minimum concrete deliverables needed to begin answering RQ1.]
+| Member | Area of responsibility (domain or aspect) | Connection to selected matrix cells |
+| --- | --- | --- |
+| [Student 1] | [...] | [...] |
+| [Student 2] | [...] | [...] |
+| [Student 3] | [...] | [...] |
+| [Student 4, if applicable] | [...] | [...] |
 
-**Initial tasks.** [Specify 3–6 near-term tasks, owners, and checkable outputs. Detailed phase tasks will be negotiated with the TA at subsequent meetings; do not lock the entire project schedule now.]
+## 3. Initial research questions
 
-**Biggest uncertainties.** [Top 2–3 technical or experimental risks, how you will test them early, and a fallback scope if they fail.]
+[State **one primary question**, plus optional subquestions. Questions should allow a defensible result from comparison, measurement, or analysis—not simply ask whether a technology can be implemented.]
 
-**AI-agent use and verification.** [What substantial work will the shared coding agent support? How will the team inspect code, reproduce results, review agent decisions, and retain evidence for discussions? A shared agent log alone does not establish individual understanding.]
+**RQ1:** [Under which conditions / with which trade-offs does design A affect outcome B?]  
+**Optional RQ2:** [Which architectural alternative or interaction needs investigation?]
+
+| Question | Matrix cell(s) | Initial baseline / comparison | What evidence could answer it? |
+| --- | --- | --- | --- |
+| RQ1 | [...] | [...] | [Workload, metrics, network conditions, observations] |
+| RQ2 (optional) | [...] | [...] | [...] |
+
+**Initial method and feasibility:** [What tools, testbed/emulator, traces/data, measurement or analytical approach could you use? What are the largest uncertainties? Briefly say how the investigation fits the three phases. This plan may change after TA feedback and early evidence.]
+
+## 4. Connection to research
+
+[Identify **relevant research to start from**. For each paper already explored, summarize the useful idea and say how it affects your proposed question, comparison, matrix, or method. Include concrete title, venue/year, and DOI or direct link. A small number of well-chosen preliminary references is sufficient for the first meeting; do not invent findings.]
+
+| Reference | What it contributes | How it may influence our investigation |
+| --- | --- | --- |
+| [Paper / link] | [...] | [...] |
+| [Paper / link] | [...] | [...] |
+| [Optional additional paper / link] | [...] | [...] |
+
+**Literature requirement during the project:** In **each of the three phases**, **each student** must study at least one relevant project-specific research paper and explain its implications at the next TA meeting (at least three papers per student across the project). These are separate from the four shared class papers. **They are not all due with this initial proposal.**
+
+## 5. For the first TA discussion
+
+**Proposed first investigation:** [What should be learned or tested first to reduce uncertainty? Keep it at the level of intent or a candidate experiment.]
+
+**Questions for the TA:** [Which scope, assumptions, comparison, or measurement choices need feedback?]
+
+**To complete together after the meeting:**
+
+| Decision | Agreed outcome |
+| --- | --- |
+| Approved/revised matrix and research question(s) | [Record after meeting] |
+| Scope changes / exclusions | [Record after meeting] |
+| Phase 1 tasks, individual owners, and checkable definitions of done | [Record after meeting] |
+| Required evidence / next meeting preparation | [Record after meeting] |
 
 ---
 
-### Proposal review checklist
+**Proposal check:** The networking problem is explicit; the matrix is selective; the research question maps to chosen cells and possible evidence; the literature directly informs decisions; responsibilities are identified; and the proposal leaves room for TA feedback and evidence-driven revisions.
 
-- [ ] The problem is a network/system design question, not just a build specification.
-- [ ] Matrix rows/columns reflect the actual project; primary intersections have a reason to exist.
-- [ ] Research questions map to matrix cells, comparisons, and measurable evidence.
-- [ ] At least three concrete papers inform decisions or experiments.
-- [ ] The scope fits the team and time available, with a baseline-first plan and fallbacks.
-- [ ] Each student has a domain and design-aspect responsibility; joint integration is explicit.
-
-**TA discussion outcome:** [Approved / revise / scope changed; record key decisions after the meeting.]
-
-*Design basis: [Course assessment design](../../../design/03_ASSESSMENTS.md), especially the responsibility matrix, individual/team evidence, and project discussions; [project candidate example](AR_VR_IMMERSIVE.md). The matrix combines cooperative interdependence and individual accountability, consistent with Johnson & Johnson (2009), “An Educational Psychology Success Story: Social Interdependence Theory and Cooperative Learning,” Educational Researcher. Research questions linked to experimental evidence follow established systems-evaluation practice.*
+*Basis: [published student course guide](../../course-description/main.tex), particularly “first project meeting,” “project papers,” and “individual responsibility”; [course assessment design](../../../design/03_ASSESSMENTS.md). The shared research and individual-accountability approach is consistent with Johnson & Johnson (2009), “An Educational Psychology Success Story: Social Interdependence Theory and Cooperative Learning,” Educational Researcher.*
