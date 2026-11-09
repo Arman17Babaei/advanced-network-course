@@ -54,7 +54,7 @@ The project is organized as a **domain × design-aspect matrix**:
 | **Design aspect 3** | intersection | intersection | intersection | intersection |
 | **Design aspect 4** | intersection | intersection | intersection | intersection |
 
-For a four-person team, each student owns **one domain (one column)** and **one design aspect (one row)**. Ownership is accountability for understanding, integration, and defense; it is not an exclusive code boundary.
+For a three- or four-person team, **each student owns one domain (one column) AND one design aspect (one row)**. A 3×3 matrix is a natural starting point for three students, and a 4×4 matrix for four students; teams may adapt matrix dimensions with TA guidance without dropping dual ownership. Ownership is accountability for understanding, integration, and defense; it is not an exclusive code boundary. **Before the first TA meeting, every student must understand the project topic well enough to defend the team's research questions and why the selected domains, design aspects, and matrix cells are relevant**, including the underlying networking mechanisms, assumptions, and plausible alternatives.
 
 - Through **domain ownership**, the student must collaborate with the owners of the different design aspects and understand how those concerns affect that domain.
 - Through **design-aspect ownership**, the student must collaborate with the owners of the different domains and understand that design concern across the end-to-end system.

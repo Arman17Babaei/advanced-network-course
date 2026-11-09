@@ -15,6 +15,8 @@ Create one subdirectory or Markdown file per concrete assessment. Each assessmen
 
 Supporting planning material:
 
+- [Student Project Proposal Template](projects/PROJECT_PROPOSAL_TEMPLATE.md) — concise student-facing proposal covering problem and scope, responsibility matrix, research questions, experimental evidence, supporting literature, and initial tasks.
+
 - [Project Idea Pool](PROJECT_IDEA_POOL.md) — application-oriented project areas, recent-paper activity, and references for developing concrete project briefs.
 - [AR/VR & Immersive Scene Delivery Project](projects/AR_VR_IMMERSIVE.md) — draft seven-week project description, responsibility matrix, and research questions.
 
