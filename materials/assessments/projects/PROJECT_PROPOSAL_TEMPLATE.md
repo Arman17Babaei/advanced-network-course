@@ -6,18 +6,18 @@
 - [Full name] — [Student number]
 - [Full name] — [Student number]
 - [Full name] — [Student number]
-- [Full name] — [Student number] *(remove this line for a three-person team)*
+- [Full name] — [Student number]
 
 **Selected project area:** [An area announced by the course]  
 **Working title:** [Title]  
 **Date / version:** [Date]  
-**Proposal submission deadline:** **Thursday, November 12, 2026**. Submit this Markdown proposal to the **Advanced Networks course on Quera** using the designated project-proposal assignment (follow the deadline displayed there; no specific cutoff time is specified in this template).
+**Proposal submission deadline:** **Thursday, November 12, 2026**. Submit this Markdown proposal to the **Advanced Networks course on Quera** using the designated project-proposal assignment. Follow the cutoff time displayed on Quera.
 
-**Team announcement and TA meeting arrangement:** **By Friday, November 13, 2026**, announce your team (all 3–4 members) through the course-announced channel. **After submitting the proposal on Quera**, contact your assigned TA and agree on a time for the first project meeting **by Friday, November 13**. The planned first-meeting window is **November 9–13**, so coordinate promptly. Every member must attend. Submission does **not** automatically reserve a meeting slot.
+**Team announcement and TA meeting arrangement:** **By Friday, November 13, 2026**, announce your team (all 3–4 members) through the course-announced channel. **After submitting the proposal on Quera**, contact your assigned TA and agree on a time for the first project meeting **by Friday, November 13**. The planned first-meeting window is **November 9–13**, so coordinate promptly. Every member must attend.
 
 > **Purpose:** Present an initial research direction that the team can discuss and revise with its TA. Focus on the **matrix, research question(s), and relation to research**. This is not an implementation contract or a final task breakdown. Keep the Markdown document concise and focused; use only the detail needed to justify your choices and support the first TA discussion. Replace the bracketed instructions.
 >
-> **Required preparation:** Before the first TA meeting, **every student must be sufficiently familiar with the selected project topic to explain and defend the team's research questions and its choice of domains, design aspects, and investigated matrix cells**. Be ready to discuss relevant networking mechanisms, alternative choices, assumptions, expected trade-offs, and how the questions might be investigated. Each student should be able to identify at least one relevant alternative and explain why the team's initial direction is worth testing. A list of buzzwords or AI-generated justifications without understanding is not sufficient. The TA may question any member about the whole proposal, with particular emphasis on their owned domain and design aspect. **TAs are not necessarily specialists in your topic; explain specialized concepts and support important technical claims with verifiable reasoning or references when asked.**
+> **Required preparation:** Before the first TA meeting, **every student must be sufficiently familiar with the selected project topic to explain and defend the team's research questions and its choice of domains, design aspects, and investigated matrix cells**. Be ready to discuss relevant networking mechanisms, alternative choices, assumptions, expected trade-offs, and how the questions might be investigated. Each student should be able to identify at least one relevant alternative and explain why the team's initial direction is worth testing. A list of buzzwords or AI-generated justifications without understanding is not sufficient. The TA may question any member about the whole proposal, with particular emphasis on their owned domain and design aspect. Explain specialized concepts clearly and support technical claims with evidence or reasoning that a TA unfamiliar with the topic can verify.
 
 ## 1. Problem and motivation
 
@@ -68,14 +68,14 @@
 
 ## 4. Research directions and potential references
 
-[Identify relevant research topics and, where available, **candidate papers or technical references** the team could investigate during the project. For each candidate reference, give its title and direct link, and explain the question or design decision it might inform. **Detailed reading or analysis of any project paper is not required before Meeting 1 and is not separately scored at that meeting.** If you have already read relevant work, you may briefly explain what you learned; do not claim unverified results. Your ability to defend the chosen project topic, questions, and design choices is still required.]
+[Identify relevant research topics and, where available, **candidate papers or technical references** the team could investigate during the project. For each candidate reference, give its title and direct link, and explain the question or design decision it might inform. Candidate references do not have to be read in full before the meeting. If you have already examined relevant work, you may briefly explain what you learned; do not claim unverified results.]
 
 | Candidate paper or technical reference (if identified) | Question or decision it may help us investigate |
 | --- | --- |
 | [Reference / link] | [...] |
 | [Optional reference / link] | [...] |
 
-**Literature requirement during the project:** In **each of the three phases**, **each student** must study at least one relevant project-specific research paper and explain its implications at the next TA meeting (at least three papers per student across the project). These are separate from the four shared class papers. **They are not all due with this initial proposal.**
+**Later project phases:** Each student will study at least one project-specific research paper in each of the three phases.
 
 ## 5. For the first TA discussion
 
@@ -96,23 +96,20 @@
 
 The meeting assesses **preparation, research judgment, and the ability to defend choices**, not completed implementation. Every team member attends and may be questioned about the complete proposal, particularly the domain **and** design aspect they own.
 
-**Meeting score (out of 100 per student): 30 team points + 70 individual points.** All members receive the same score for the shared proposal; each student's remaining points depend on their *own* understanding and explanations. The meeting's weight within the overall project/course grade must be announced separately; the 30/70 split below governs this meeting only.
+**Meeting score (out of 100 per student): 30 team points + 70 individual points.** All members receive the same score for the shared proposal; each student's remaining points depend on their *own* understanding and explanations.
 
 | Criterion | Points | Evidence the TA looks for |
 | --- | ---: | --- |
 | **Team — networking problem and research question** | 10 | Clear motivation; meaningful, answerable question linked to networking design choices and trade-offs |
 | **Team — matrix, priorities, and scope** | 10 | Coherent domains and aspects, justified investigated cells/exclusions, feasible boundaries, and alignment with the question |
-| **Team — evaluation approach and feasibility** | 10 | Plausible baseline or comparison, relevant metrics/analysis, and awareness of constraints and risks; no completed paper reading required |
+| **Team — evaluation approach and feasibility** | 10 | Plausible baseline or comparison, relevant metrics/analysis, and awareness of constraints and risks |
 | **Individual — grasp of owned domain and aspect** | 25 | Student explains **both** responsibilities, relevant mechanisms, and how they interact with each other and the end-to-end project |
 | **Individual — defense of research questions and choices** | 30 | Student justifies why the questions and selected cells matter, discusses assumptions and credible alternatives, and answers technical follow-ups |
 | **Individual — experimental reasoning and limitations** | 15 | Student explains what could be measured or compared, relevant uncertainties and limitations, and what results would support or challenge the proposed question |
 | **Total per student** | **100** | **30 shared + up to 70 individually earned points** |
 
-**How points are awarded:** For each criterion, the TA awards up to its maximum based on observed evidence. **Full credit** requires clear, specific, technically defensible reasoning; **partial credit** reflects meaningful but incomplete explanations or important unexamined assumptions; **little or no credit** reflects unsupported claims, missing preparation, or an inability to explain key decisions. A TA **need not already know the technical answer** to assess the clarity of the argument, assumptions, proposed validation, and how students respond to challenges. If a specialized claim cannot be verified during the meeting, the TA should **record it for follow-up or consult the teaching team rather than guess or penalize students for the TA's uncertainty**. Students remain responsible for substantiating their claims. The TA records brief evidence and feedback for each criterion, separately for each student where applicable. Other students' explanations cannot substitute for an individual's defense. A polished document alone cannot earn the individual points, and completed code is **not** required.
+**How points are awarded:** For each criterion, the TA awards up to its maximum based on observed evidence. **Full credit** requires clear, specific, technically defensible reasoning; **partial credit** reflects meaningful but incomplete explanations or important unexamined assumptions; **little or no credit** reflects unsupported claims, missing preparation, or an inability to explain key decisions. Students remain responsible for substantiating their technical claims. Claims requiring specialist verification may be recorded for follow-up. The TA records brief evidence and feedback for each criterion, separately for each student where applicable. Other students' explanations cannot substitute for an individual's defense. A polished document alone cannot earn the individual points, and completed code is **not** required.
 
-**No points at Meeting 1 are allocated to completing, summarizing, or presenting research papers.** Each student must instead study at least one project-specific research paper in **each of the three subsequent project phases** (three in total), when the paper analysis is assessed. Students can identify prospective references now without having read them in detail. **Phase 1 tasks and definitions of done are agreed with the TA during/after this meeting**, not finalized beforehand. Evidence-based changes after TA feedback are normal and are not penalized simply because the proposal evolves.
+Phase 1 tasks and definitions of done are agreed with the TA during or after the meeting. Evidence-based revisions to the initial proposal are expected.
 
----
-
-**Proposal check:** The networking problem is explicit; the matrix is selective; the research question maps to chosen cells and possible evidence; research directions or potential references are identified; every student owns **a domain and an aspect**; all team members have enough subject familiarity to **defend the research question, selected domains and aspects, assumptions, and alternatives**; and the proposal leaves room for TA feedback and evidence-driven revisions.
 
