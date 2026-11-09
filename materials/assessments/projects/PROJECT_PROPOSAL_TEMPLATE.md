@@ -1,7 +1,12 @@
 # Student Project Proposal — First TA Meeting
 
 **Course:** Advanced Networks, Fall 2026  
-**Team (3–4 students):** [Names]  
+**Team members (3–4 students; one per line):**
+
+- [Full name] — [Student number]
+- [Full name] — [Student number]
+- [Full name] — [Student number]
+- [Full name] — [Student number] *(remove this line for a three-person team)*  
 **Selected project area:** [An area announced by the course]  
 **Working title:** [Title]  
 **Date / version:** [Date]  
