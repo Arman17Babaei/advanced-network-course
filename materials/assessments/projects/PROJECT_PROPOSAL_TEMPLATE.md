@@ -60,15 +60,14 @@
 
 **Initial method and feasibility:** [What tools, testbed/emulator, traces/data, measurement or analytical approach could you use? What are the largest uncertainties? Briefly say how the investigation fits the three phases. This plan may change after TA feedback and early evidence.]
 
-## 4. Connection to research
+## 4. Research directions and potential references
 
-[Identify **relevant research and technical background** supporting the proposal. For each paper already explored, summarize the useful idea and say how it affects your question, choice of domains/aspects, comparison, or method. Include concrete title, venue/year, and DOI or direct link. A small number of well-chosen preliminary references is sufficient for the first meeting; do not invent findings. **Being able to defend the proposal is required even though all later phase papers are not yet due.**]
+[Identify relevant research topics and, where available, **candidate papers or technical references** the team could investigate during the project. For each candidate reference, give its title and direct link, and explain the question or design decision it might inform. **Detailed reading or analysis of any project paper is not required before Meeting 1 and is not separately scored at that meeting.** If you have already read relevant work, you may briefly explain what you learned; do not claim unverified results. Your ability to defend the chosen project topic, questions, and design choices is still required.]
 
-| Reference | What it contributes | How it may influence our investigation |
-| --- | --- | --- |
-| [Paper / link] | [...] | [...] |
-| [Paper / link] | [...] | [...] |
-| [Optional additional paper / link] | [...] | [...] |
+| Candidate paper or technical reference (if identified) | Question or decision it may help us investigate |
+| --- | --- |
+| [Reference / link] | [...] |
+| [Optional reference / link] | [...] |
 
 **Literature requirement during the project:** In **each of the three phases**, **each student** must study at least one relevant project-specific research paper and explain its implications at the next TA meeting (at least three papers per student across the project). These are separate from the four shared class papers. **They are not all due with this initial proposal.**
 
@@ -97,18 +96,18 @@ The meeting assesses **preparation, research judgment, and the ability to defend
 | --- | ---: | --- |
 | **Team — networking problem and research question** | 10 | Clear motivation; meaningful, answerable question linked to networking design choices and trade-offs |
 | **Team — matrix, priorities, and scope** | 10 | Coherent domains and aspects, justified investigated cells/exclusions, feasible boundaries, and alignment with the question |
-| **Team — research grounding and evaluation direction** | 10 | Credible preliminary sources and a plausible baseline, measurement, comparison, or analytical approach |
+| **Team — evaluation approach and feasibility** | 10 | Plausible baseline or comparison, relevant metrics/analysis, and awareness of constraints and risks; no completed paper reading required |
 | **Individual — grasp of owned domain and aspect** | 25 | Student explains **both** responsibilities, relevant mechanisms, and how they interact with each other and the end-to-end project |
 | **Individual — defense of research questions and choices** | 30 | Student justifies why the questions and selected cells matter, discusses assumptions and credible alternatives, and answers technical follow-ups |
-| **Individual — research and experimental reasoning** | 15 | Student explains relevant prior work, potential evidence and limitations, and what results would support or challenge the proposal |
+| **Individual — experimental reasoning and limitations** | 15 | Student explains what could be measured or compared, relevant uncertainties and limitations, and what results would support or challenge the proposed question |
 | **Total per student** | **100** | **30 shared + up to 70 individually earned points** |
 
 **How points are awarded:** For each criterion, the TA awards up to its maximum based on observed evidence. **Full credit** requires specific, technically sound reasoning that survives follow-up questions; **partial credit** reflects sound but incomplete reasoning or unexplained assumptions; **little or no credit** reflects unsupported claims, missing preparation, or an inability to explain key decisions. The TA records brief evidence and feedback for each criterion **for each student** where applicable. Other students' explanations cannot substitute for an individual's defense. A polished document alone cannot earn the individual points, and completed code is **not** required.
 
-The three project-specific paper analyses **per student** are required during the later three phases, not all before the first meeting. Only **preliminary** literature understanding is expected here. **Phase 1 tasks and definitions of done are agreed with the TA during/after this meeting**, not finalized beforehand. Evidence-based changes after TA feedback are normal and are not penalized simply because the proposal evolves.
+**No points at Meeting 1 are allocated to completing, summarizing, or presenting research papers.** Each student must instead study at least one project-specific research paper in **each of the three subsequent project phases** (three in total), when the paper analysis is assessed. Students can identify prospective references now without having read them in detail. **Phase 1 tasks and definitions of done are agreed with the TA during/after this meeting**, not finalized beforehand. Evidence-based changes after TA feedback are normal and are not penalized simply because the proposal evolves.
 
 ---
 
-**Proposal check:** The networking problem is explicit; the matrix is selective; the research question maps to chosen cells and possible evidence; preliminary research informs decisions; every student owns **a domain and an aspect**; all team members have enough subject familiarity to **defend the research question, selected domains and aspects, assumptions, and alternatives**; and the proposal leaves room for TA feedback and evidence-driven revisions.
+**Proposal check:** The networking problem is explicit; the matrix is selective; the research question maps to chosen cells and possible evidence; research directions or potential references are identified; every student owns **a domain and an aspect**; all team members have enough subject familiarity to **defend the research question, selected domains and aspects, assumptions, and alternatives**; and the proposal leaves room for TA feedback and evidence-driven revisions.
 
 *Background (optional reading): Johnson & Johnson (2009), “An Educational Psychology Success Story: Social Interdependence Theory and Cooperative Learning,” Educational Researcher (individual accountability in cooperative work); Biggs (1996), “Enhancing Teaching through Constructive Alignment,” Higher Education (aligning assessment with intended learning). All instructions needed to prepare the proposal and understand Meeting 1 assessment appear above; no repository access is required.*
