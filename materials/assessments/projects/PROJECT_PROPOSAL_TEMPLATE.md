@@ -6,7 +6,8 @@
 - [Full name] — [Student number]
 - [Full name] — [Student number]
 - [Full name] — [Student number]
-- [Full name] — [Student number] *(remove this line for a three-person team)*  
+- [Full name] — [Student number] *(remove this line for a three-person team)*
+
 **Selected project area:** [An area announced by the course]  
 **Working title:** [Title]  
 **Date / version:** [Date]  
